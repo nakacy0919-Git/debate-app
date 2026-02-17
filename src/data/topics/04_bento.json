@@ -1,0 +1,17 @@
+{
+  "id": "bento",
+  "title": "Bento is better than school lunch.",
+  "titleJP": "給食より弁当の方が良い",
+  "image_url": "https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?auto=format&fit=crop&w=1000&q=80",
+  "deck": [
+    {"id": "ben_aff_A", "stance": "affirmative", "group": "taste", "type": "assertion", "text": "Bento allows students to eat what they like.", "textJP": "弁当なら好きなものを食べられます。"},
+    {"id": "ben_aff_R", "stance": "affirmative", "group": "taste", "type": "reason", "text": "Parents can pack favorite foods for their children.", "textJP": "親は子供のために好きな食べ物を詰められます。"},
+    {"id": "ben_aff_E", "stance": "affirmative", "group": "taste", "type": "evidence", "text": "Students leave less food when they like the menu.", "textJP": "メニューが好きなものなら残飯が減ります。"},
+    {"id": "ben_aff_S", "stance": "affirmative", "group": "taste", "type": "mini_conclusion", "text": "Therefore, Bento is more enjoyable.", "textJP": "よって、弁当の方が楽しいです。"},
+    {"id": "ben_neg_A", "stance": "negative", "group": "nutrition", "type": "assertion", "text": "School lunch provides better nutritional balance.", "textJP": "給食の方が栄養バランスが良いです。"},
+    {"id": "ben_neg_R", "stance": "negative", "group": "nutrition", "type": "reason", "text": "Nutritionists calculate the menu carefully.", "textJP": "栄養士がメニューを慎重に計算しています。"},
+    {"id": "ben_neg_E", "stance": "negative", "group": "nutrition", "type": "evidence", "text": "Bento often lacks vegetables.", "textJP": "弁当は野菜が不足しがちです。"},
+    {"id": "ben_neg_S", "stance": "negative", "group": "nutrition", "type": "mini_conclusion", "text": "Therefore, school lunch is healthier.", "textJP": "よって、給食の方が健康的です。"}
+  ],
+  "vocabulary": [{"word": "nutrition", "meaning": "栄養"}]
+}

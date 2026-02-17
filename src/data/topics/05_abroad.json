@@ -1,0 +1,17 @@
+{
+  "id": "abroad",
+  "title": "Going abroad is better for school trips.",
+  "titleJP": "修学旅行は海外の方が良い",
+  "image_url": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80",
+  "deck": [
+    {"id": "abr_aff_A", "stance": "affirmative", "group": "exp", "type": "assertion", "text": "Going abroad gives students cross-cultural experiences.", "textJP": "海外に行くことは異文化体験を与えます。"},
+    {"id": "abr_aff_R", "stance": "affirmative", "group": "exp", "type": "reason", "text": "Students can see different lifestyles directly.", "textJP": "生徒は異なる生活様式を直接見ることができます。"},
+    {"id": "abr_aff_E", "stance": "affirmative", "group": "exp", "type": "evidence", "text": "Using English in real situations is valuable.", "textJP": "実際の場面で英語を使うことは貴重です。"},
+    {"id": "abr_aff_S", "stance": "affirmative", "group": "exp", "type": "mini_conclusion", "text": "Therefore, it broadens their horizons.", "textJP": "よって、視野が広がります。"},
+    {"id": "abr_neg_A", "stance": "negative", "group": "cost", "type": "assertion", "text": "Domestic trips are safer and cheaper.", "textJP": "国内旅行の方が安全で安価です。"},
+    {"id": "abr_neg_R", "stance": "negative", "group": "cost", "type": "reason", "text": "Going abroad costs too much for some families.", "textJP": "海外は一部の家庭には費用が高すぎます。"},
+    {"id": "abr_neg_E", "stance": "negative", "group": "cost", "type": "evidence", "text": "Passports and flight tickets are expensive.", "textJP": "パスポートや航空券は高価です。"},
+    {"id": "abr_neg_S", "stance": "negative", "group": "cost", "type": "mini_conclusion", "text": "Therefore, domestic trips are accessible to all.", "textJP": "よって、国内旅行は全員が参加しやすいです。"}
+  ],
+  "vocabulary": [{"word": "broaden", "meaning": "広げる"}]
+}

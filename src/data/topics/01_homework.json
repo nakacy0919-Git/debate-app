@@ -1,0 +1,52 @@
+{
+  "id": "homework",
+  "title": "Homework should be abolished.",
+  "titleJP": "宿題は廃止すべきである",
+  "image_url": "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1000&q=80",
+  "deck": [
+    {"id": "hw_aff_A1", "stance": "affirmative", "group": "time", "type": "assertion", "text": "Abolishing homework gives students more free time.", "textJP": "宿題をなくすことで、生徒にもっと自由な時間ができます。"},
+    {"id": "hw_aff_R1", "stance": "affirmative", "group": "time", "type": "reason", "text": "It is because they can spend more time on their hobbies instead of homework.", "textJP": "なぜなら、宿題の代わりに趣味に時間を使えるからです。"},
+    {"id": "hw_aff_E1", "stance": "affirmative", "group": "time", "type": "evidence", "text": "For example, they can read books and play soccer.", "textJP": "例えば、本を読んだりサッカーをしたりできます。"},
+    {"id": "hw_aff_S1", "stance": "affirmative", "group": "time", "type": "mini_conclusion", "text": "Therefore, abolishing homework gives students more free time.", "textJP": "よって、宿題をなくすことで自由な時間ができます。"},
+    
+    {"id": "hw_aff_A2", "stance": "affirmative", "group": "stress", "type": "assertion", "text": "Abolishing homework can reduce students stress.", "textJP": "宿題をなくすことで、生徒のストレスを減らせます。"},
+    {"id": "hw_aff_R2", "stance": "affirmative", "group": "stress", "type": "reason", "text": "It is because many students feel tired after school because of homework.", "textJP": "なぜなら、多くの生徒は宿題のせいで放課後疲れているからです。"},
+    {"id": "hw_aff_E2", "stance": "affirmative", "group": "stress", "type": "evidence", "text": "Some students stay up late to finish homework and can't sleep well.", "textJP": "宿題を終わらせるために夜遅くまで起きていて、よく眠れない生徒もいます。"},
+    {"id": "hw_aff_S2", "stance": "affirmative", "group": "stress", "type": "mini_conclusion", "text": "Therefore, abolishing homework can reduce students stress.", "textJP": "よって、宿題をなくすことでストレスを減らせます。"},
+
+    {"id": "hw_neg_A1", "stance": "negative", "group": "learning", "type": "assertion", "text": "Abolishing homework damages students learning.", "textJP": "宿題をなくすことは、生徒の学びを損ないます。"},
+    {"id": "hw_neg_R1", "stance": "negative", "group": "learning", "type": "reason", "text": "It is because students will not review what they learned at school.", "textJP": "なぜなら、生徒が学校で習ったことを復習しなくなるからです。"},
+    {"id": "hw_neg_E1", "stance": "negative", "group": "learning", "type": "evidence", "text": "If they do not have homework, they may forget what they studied.", "textJP": "宿題がなければ、授業で学んだことを忘れてしまうかもしれません。"},
+    {"id": "hw_neg_S1", "stance": "negative", "group": "learning", "type": "mini_conclusion", "text": "Therefore, abolishing homework damages students learning.", "textJP": "よって、宿題をなくすことは学びを損ないます。"},
+
+    {"id": "hw_neg_A2", "stance": "negative", "group": "resp", "type": "assertion", "text": "Abolishing homework harms students sense of responsibility.", "textJP": "宿題をなくすことは、生徒の責任感を弱めます。"},
+    {"id": "hw_neg_R2", "stance": "negative", "group": "resp", "type": "reason", "text": "It is because homework teaches them to finish tasks by themselves.", "textJP": "なぜなら、宿題は自分で課題をやり遂げることを教えるからです。"},
+    {"id": "hw_neg_E2", "stance": "negative", "group": "resp", "type": "evidence", "text": "By doing homework, students learn to manage their time.", "textJP": "宿題をすることで、生徒は時間の使い方を学びます。"},
+    {"id": "hw_neg_S2", "stance": "negative", "group": "resp", "type": "mini_conclusion", "text": "Therefore, abolishing homework harms students sense of responsibility.", "textJP": "よって、宿題をなくすことは責任感を弱めます。"}
+  ],
+  "vocabulary": [{"word": "abolish", "meaning": "廃止する"}, {"word": "responsibility", "meaning": "責任"}],
+  
+  "crossExam": {
+    "question": { "text": "If they have free time, won't they just play games?", "textJP": "自由時間があっても、ゲームをするだけではありませんか？" },
+    "options": [
+      { "id": "q1", "text": "Students can learn self-management.", "textJP": "生徒は自己管理を学べます。", "type": "answer", "judgment": "correct" },
+      { "id": "q2", "text": "Games are fun.", "textJP": "ゲームは楽しいです。", "type": "answer", "judgment": "weak" }
+    ]
+  },
+  "rebuttal": {
+    "attack": { 
+      "text": "But many students will just go to cram school!", 
+      "textJP": "でも多くの生徒は塾に行くだけで、自由時間は増えません！", 
+      "damage": 15 
+    },
+    "options": [
+      { "id": "r1", "text": "Not all students go to cram school.", "textJP": "全員が塾に行くわけではありません。", "type": "defense", "judgment": "perfect" },
+      { "id": "r2", "text": "Cram schools are useful.", "textJP": "塾は役に立ちます。", "type": "reason", "judgment": "weak" }
+    ]
+  },
+  "closing": {
+    "options": [
+      { "id": "c1", "text": "Abolish homework for a balanced life.", "textJP": "バランスの取れた生活のために宿題を廃止しよう。", "type": "closing", "judgment": "perfect" }
+    ]
+  }
+}

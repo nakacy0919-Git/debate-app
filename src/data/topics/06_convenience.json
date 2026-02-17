@@ -1,0 +1,17 @@
+{
+  "id": "convenience",
+  "title": "Convenience stores should be closed late at night.",
+  "titleJP": "コンビニは深夜営業をやめるべきだ",
+  "image_url": "https://images.unsplash.com/photo-1574786324209-673b06362247?auto=format&fit=crop&w=1000&q=80",
+  "deck": [
+      {"id": "con_aff_A", "stance": "affirmative", "group": "health", "type": "assertion", "text": "Closing late helps workers stay healthy.", "textJP": "深夜閉店は労働者の健康を守ります。"},
+      {"id": "con_aff_R", "stance": "affirmative", "group": "health", "type": "reason", "text": "Working at night disrupts sleep cycles.", "textJP": "夜間の労働は睡眠サイクルを乱します。"},
+      {"id": "con_aff_E", "stance": "affirmative", "group": "health", "type": "evidence", "text": "Many workers suffer from fatigue.", "textJP": "多くの労働者が疲労に苦しんでいます。"},
+      {"id": "con_aff_S", "stance": "affirmative", "group": "health", "type": "mini_conclusion", "text": "Therefore, human health is priority.", "textJP": "よって、人の健康が優先です。"},
+      {"id": "con_neg_A", "stance": "negative", "group": "conv", "type": "assertion", "text": "24-hour stores are essential for modern life.", "textJP": "24時間営業は現代生活に不可欠です。"},
+      {"id": "con_neg_R", "stance": "negative", "group": "conv", "type": "reason", "text": "People working late need places to buy food.", "textJP": "遅くまで働く人は食べ物を買う場所が必要です。"},
+      {"id": "con_neg_E", "stance": "negative", "group": "conv", "type": "evidence", "text": "Hospitals and police need night services.", "textJP": "病院や警察は夜間サービスを必要としています。"},
+      {"id": "con_neg_S", "stance": "negative", "group": "conv", "type": "mini_conclusion", "text": "Therefore, convenience is important.", "textJP": "よって、利便性は重要です。"}
+  ],
+  "vocabulary": [{"word": "essential", "meaning": "不可欠な"}]
+}

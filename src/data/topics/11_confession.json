@@ -1,0 +1,17 @@
+{
+  "id": "confessing",
+  "title": "Confessing online is better than face to face.",
+  "titleJP": "告白は対面よりオンラインの方が良い",
+  "image_url": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1000&q=80",
+  "deck": [
+      {"id": "conf_aff_A", "stance": "affirmative", "group": "calm", "type": "assertion", "text": "Online confession allows you to stay calm.", "textJP": "オンライン告白なら落ち着いていられます。"},
+      {"id": "conf_aff_R", "stance": "affirmative", "group": "calm", "type": "reason", "text": "You can check your message before sending.", "textJP": "送る前にメッセージを確認できます。"},
+      {"id": "conf_aff_E", "stance": "affirmative", "group": "calm", "type": "evidence", "text": "Face to face, you might get too nervous to speak.", "textJP": "対面だと、緊張して話せなくなるかもしれません。"},
+      {"id": "conf_aff_S", "stance": "affirmative", "group": "calm", "type": "mini_conclusion", "text": "Therefore, it prevents mistakes.", "textJP": "よって、失敗を防げます。"},
+      {"id": "conf_neg_A", "stance": "negative", "group": "sincerity", "type": "assertion", "text": "Face to face shows your sincerity better.", "textJP": "対面の方が誠実さが伝わります。"},
+      {"id": "conf_neg_R", "stance": "negative", "group": "sincerity", "type": "reason", "text": "Expressions and voice tone are important.", "textJP": "表情や声のトーンが重要です。"},
+      {"id": "conf_neg_E", "stance": "negative", "group": "sincerity", "type": "evidence", "text": "Text messages can be misunderstood.", "textJP": "テキストメッセージは誤解されることがあります。"},
+      {"id": "conf_neg_S", "stance": "negative", "group": "sincerity", "type": "mini_conclusion", "text": "Therefore, direct feeling is key.", "textJP": "よって、直接的な感情が鍵です。"}
+  ],
+  "vocabulary": [{"word": "sincerity", "meaning": "誠実さ"}]
+}

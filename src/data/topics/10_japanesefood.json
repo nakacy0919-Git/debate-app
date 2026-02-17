@@ -1,0 +1,17 @@
+{
+  "id": "japanesefood",
+  "title": "Japanese food is better than Western food.",
+  "titleJP": "和食は洋食より良い",
+  "image_url": "https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?auto=format&fit=crop&w=1000&q=80",
+  "deck": [
+      {"id": "jap_aff_A", "stance": "affirmative", "group": "healthy", "type": "assertion", "text": "Japanese food is healthier and balanced.", "textJP": "和食は健康的でバランスが良いです。"},
+      {"id": "jap_aff_R", "stance": "affirmative", "group": "healthy", "type": "reason", "text": "It uses less oil and more vegetables.", "textJP": "油が少なく、野菜が多いです。"},
+      {"id": "jap_aff_E", "stance": "affirmative", "group": "healthy", "type": "evidence", "text": "Life expectancy in Japan is very high.", "textJP": "日本の平均寿命はとても高いです。"},
+      {"id": "jap_aff_S", "stance": "affirmative", "group": "healthy", "type": "mini_conclusion", "text": "Therefore, it is good for long life.", "textJP": "よって、長生きに良いです。"},
+      {"id": "jap_neg_A", "stance": "negative", "group": "variety", "type": "assertion", "text": "Western food offers variety and volume.", "textJP": "洋食は多様性とボリュームがあります。"},
+      {"id": "jap_neg_R", "stance": "negative", "group": "variety", "type": "reason", "text": "Meat dishes give us strong energy.", "textJP": "肉料理は強いエネルギーを与えてくれます。"},
+      {"id": "jap_neg_E", "stance": "negative", "group": "variety", "type": "evidence", "text": "Hamburgers and steaks are popular worldwide.", "textJP": "ハンバーガーやステーキは世界中で人気です。"},
+      {"id": "jap_neg_S", "stance": "negative", "group": "variety", "type": "mini_conclusion", "text": "Therefore, it is more satisfying.", "textJP": "よって、より満足感があります。"}
+  ],
+  "vocabulary": [{"word": "expectancy", "meaning": "（平均）寿命"}]
+}

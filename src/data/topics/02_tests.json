@@ -1,0 +1,52 @@
+{
+  "id": "tests",
+  "title": "Regular tests should be abolished.",
+  "titleJP": "定期テストは廃止すべきである",
+  "image_url": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1000&q=80",
+  "deck": [
+    {"id": "test_aff_A1", "stance": "affirmative", "group": "stress", "type": "assertion", "text": "Abolishing regular tests decreases students stress.", "textJP": "定期テストをなくすことで、生徒のストレスが減ります。"},
+    {"id": "test_aff_R1", "stance": "affirmative", "group": "stress", "type": "reason", "text": "It is because many students feel pressure from tests and cannot relax.", "textJP": "なぜなら、多くの生徒がプレッシャーを感じ、リラックスできないからです。"},
+    {"id": "test_aff_E1", "stance": "affirmative", "group": "stress", "type": "evidence", "text": "Some students get nervous or cannot sleep before tests.", "textJP": "テストの前に緊張したり、眠れなくなる生徒もいます。"},
+    {"id": "test_aff_S1", "stance": "affirmative", "group": "stress", "type": "mini_conclusion", "text": "Therefore, abolishing regular tests decreases students stress.", "textJP": "よって、テスト廃止はストレスを減らします。"},
+
+    {"id": "test_aff_A2", "stance": "affirmative", "group": "creative", "type": "assertion", "text": "Without regular tests, students can learn more creatively.", "textJP": "定期テストがなければ、生徒はもっと創造的に学べます。"},
+    {"id": "test_aff_R2", "stance": "affirmative", "group": "creative", "type": "reason", "text": "It is because they can focus on projects, not just memorizing.", "textJP": "なぜなら、暗記だけでなく、プロジェクトに集中できるからです。"},
+    {"id": "test_aff_E2", "stance": "affirmative", "group": "creative", "type": "evidence", "text": "Students can make presentations or work in groups to share ideas.", "textJP": "生徒は発表やグループ活動で意見を共有することができます。"},
+    {"id": "test_aff_S2", "stance": "affirmative", "group": "creative", "type": "mini_conclusion", "text": "Therefore, without regular tests, students can learn more creatively.", "textJP": "よって、テストなしで創造的に学べます。"},
+
+    {"id": "test_neg_A1", "stance": "negative", "group": "motiv", "type": "assertion", "text": "Abolishing regular tests reduces students motivation to study.", "textJP": "定期テストをなくすと、生徒の勉強するやる気が下がります。"},
+    {"id": "test_neg_R1", "stance": "negative", "group": "motiv", "type": "reason", "text": "It is because tests give students clear goals and a reason to study.", "textJP": "なぜなら、テストは明確な目標と勉強する理由を与えるからです。"},
+    {"id": "test_neg_E1", "stance": "negative", "group": "motiv", "type": "evidence", "text": "Without tests, some students may stop reviewing lessons.", "textJP": "テストがないと復習をしなくなる生徒もいます。"},
+    {"id": "test_neg_S1", "stance": "negative", "group": "motiv", "type": "mini_conclusion", "text": "Therefore, abolishing regular tests reduces students motivation.", "textJP": "よって、テスト廃止はやる気を下げます。"},
+
+    {"id": "test_neg_A2", "stance": "negative", "group": "unfair", "type": "assertion", "text": "Abolishing regular tests makes evaluation unfair.", "textJP": "定期テストをなくすと、評価が不公平になります。"},
+    {"id": "test_neg_R2", "stance": "negative", "group": "unfair", "type": "reason", "text": "It is because without tests, teachers cannot compare students fairly.", "textJP": "なぜなら、テストがなければ、先生は生徒を公平に比べられないからです。"},
+    {"id": "test_neg_E2", "stance": "negative", "group": "unfair", "type": "evidence", "text": "Grades might depend too much on attitude or homework.", "textJP": "成績が態度や宿題によりすぎてしまうかもしれません。"},
+    {"id": "test_neg_S2", "stance": "negative", "group": "unfair", "type": "mini_conclusion", "text": "Therefore, abolishing regular tests makes evaluation unfair.", "textJP": "よって、テスト廃止は評価を不公平にします。"}
+  ],
+  "vocabulary": [{"word": "evaluation", "meaning": "評価"}],
+
+  "crossExam": {
+    "question": { "text": "Don't tests cause too much stress?", "textJP": "テストはストレスになりすぎませんか？" },
+    "options": [
+      { "id": "q1", "text": "It's good practice for the future.", "textJP": "将来のための良い練習です。", "type": "answer", "judgment": "correct" },
+      { "id": "q2", "text": "Stress is bad.", "textJP": "ストレスは悪いです。", "type": "answer", "judgment": "weak" }
+    ]
+  },
+  "rebuttal": {
+    "attack": { 
+      "text": "But students can get motivation from projects!", 
+      "textJP": "でも生徒はプロジェクトでやる気を出せます！", 
+      "damage": 15 
+    },
+    "options": [
+      { "id": "r1", "text": "Tests provide fair and objective goals.", "textJP": "テストは公平で客観的な目標を提供します。", "type": "defense", "judgment": "perfect" },
+      { "id": "r2", "text": "Projects are fun.", "textJP": "プロジェクトは楽しいです。", "type": "reason", "judgment": "weak" }
+    ]
+  },
+  "closing": {
+    "options": [
+      { "id": "c1", "text": "Tests provide fair goals and motivation.", "textJP": "テストは公平な目標とやる気を与えてくれます。", "type": "closing", "judgment": "perfect" }
+    ]
+  }
+}

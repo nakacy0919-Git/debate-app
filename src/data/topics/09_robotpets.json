@@ -1,0 +1,17 @@
+{
+  "id": "robotpets",
+  "title": "Robot pets are better than real pets.",
+  "titleJP": "本物のペットよりロボットペットが良い",
+  "image_url": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=1000&q=80",
+  "deck": [
+      {"id": "rob_aff_A", "stance": "affirmative", "group": "care", "type": "assertion", "text": "Robot pets are easier to take care of.", "textJP": "ロボットペットは世話が簡単です。"},
+      {"id": "rob_aff_R", "stance": "affirmative", "group": "care", "type": "reason", "text": "You do not need to feed or walk them.", "textJP": "餌やりや散歩の必要がありません。"},
+      {"id": "rob_aff_E", "stance": "affirmative", "group": "care", "type": "evidence", "text": "They act cute without making a mess.", "textJP": "汚すことなく可愛く振る舞います。"},
+      {"id": "rob_aff_S", "stance": "affirmative", "group": "care", "type": "mini_conclusion", "text": "Therefore, busy people can keep them.", "textJP": "よって、忙しい人も飼えます。"},
+      {"id": "rob_neg_A", "stance": "negative", "group": "bond", "type": "assertion", "text": "Real pets create a true emotional bond.", "textJP": "本物のペットは真の感情的な絆を作ります。"},
+      {"id": "rob_neg_R", "stance": "negative", "group": "bond", "type": "reason", "text": "Animals have real feelings and warmth.", "textJP": "動物には本当の感情と温かみがあります。"},
+      {"id": "rob_neg_E", "stance": "negative", "group": "bond", "type": "evidence", "text": "A dog welcomes you with real joy.", "textJP": "犬は本当の喜びであなたを迎えます。"},
+      {"id": "rob_neg_S", "stance": "negative", "group": "bond", "type": "mini_conclusion", "text": "Therefore, robots cannot replace life.", "textJP": "よって、ロボットは命の代わりにはなりません。"}
+  ],
+  "vocabulary": [{"word": "bond", "meaning": "絆"}]
+}

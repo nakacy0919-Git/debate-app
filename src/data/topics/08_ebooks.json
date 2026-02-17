@@ -1,0 +1,17 @@
+{
+  "id": "ebooks",
+  "title": "E-books are better than paper books.",
+  "titleJP": "紙の本より電子書籍の方が良い",
+  "image_url": "https://images.unsplash.com/photo-1544982503-9f984c14501a?auto=format&fit=crop&w=1000&q=80",
+  "deck": [
+      {"id": "eb_aff_A", "stance": "affirmative", "group": "portability", "type": "assertion", "text": "E-books are very portable.", "textJP": "電子書籍はとても持ち運びやすいです。"},
+      {"id": "eb_aff_R", "stance": "affirmative", "group": "portability", "type": "reason", "text": "You can carry thousands of books in one device.", "textJP": "1つの端末で何千冊もの本を持ち運べます。"},
+      {"id": "eb_aff_E", "stance": "affirmative", "group": "portability", "type": "evidence", "text": "It is lighter than a single dictionary.", "textJP": "辞書1冊よりも軽いです。"},
+      {"id": "eb_aff_S", "stance": "affirmative", "group": "portability", "type": "mini_conclusion", "text": "Therefore, it is convenient for travel.", "textJP": "よって、旅行に便利です。"},
+      {"id": "eb_neg_A", "stance": "negative", "group": "feel", "type": "assertion", "text": "Paper books offer a better reading experience.", "textJP": "紙の本の方が読書体験が良いです。"},
+      {"id": "eb_neg_R", "stance": "negative", "group": "feel", "type": "reason", "text": "Turning pages helps you focus.", "textJP": "ページをめくることで集中できます。"},
+      {"id": "eb_neg_E", "stance": "negative", "group": "feel", "type": "evidence", "text": "Blue light from screens hurts eyes.", "textJP": "画面からのブルーライトは目を痛めます。"},
+      {"id": "eb_neg_S", "stance": "negative", "group": "feel", "type": "mini_conclusion", "text": "Therefore, paper is kinder to humans.", "textJP": "よって、紙の方が人間に優しいです。"}
+  ],
+  "vocabulary": [{"word": "portable", "meaning": "携帯できる"}]
+}

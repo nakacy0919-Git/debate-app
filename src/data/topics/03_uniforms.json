@@ -1,0 +1,17 @@
+{
+  "id": "uniforms",
+  "title": "School uniforms should be abolished.",
+  "titleJP": "学校の制服は廃止すべきである",
+  "image_url": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=1000&q=80",
+  "deck": [
+    {"id": "uni_aff_A", "stance": "affirmative", "group": "expression", "type": "assertion", "text": "Uniforms limit students' self-expression.", "textJP": "制服は生徒の自己表現を制限します。"},
+    {"id": "uni_aff_R", "stance": "affirmative", "group": "expression", "type": "reason", "text": "Clothing is a way to show one's personality.", "textJP": "服装は個性をアピールする手段です。"},
+    {"id": "uni_aff_E", "stance": "affirmative", "group": "expression", "type": "evidence", "text": "In the US, students wear their own clothes freely.", "textJP": "アメリカでは生徒は自由に服を着ています。"},
+    {"id": "uni_aff_S", "stance": "affirmative", "group": "expression", "type": "mini_conclusion", "text": "Therefore, students should have freedom of choice.", "textJP": "よって、生徒は選択の自由を持つべきです。"},
+    {"id": "uni_neg_A", "stance": "negative", "group": "equality", "type": "assertion", "text": "Uniforms promote equality among students.", "textJP": "制服は生徒間の平等を促進します。"},
+    {"id": "uni_neg_R", "stance": "negative", "group": "equality", "type": "reason", "text": "Students do not have to worry about expensive fashion.", "textJP": "生徒は高価なファッションを気にする必要がありません。"},
+    {"id": "uni_neg_E", "stance": "negative", "group": "equality", "type": "evidence", "text": "Rich or poor, everyone looks the same.", "textJP": "貧富に関わらず、全員が同じに見えます。"},
+    {"id": "uni_neg_S", "stance": "negative", "group": "equality", "type": "mini_conclusion", "text": "Therefore, uniforms prevent bullying based on money.", "textJP": "よって、制服はお金に基づくイジメを防ぎます。"}
+  ],
+  "vocabulary": [{"word": "equality", "meaning": "平等"}]
+}

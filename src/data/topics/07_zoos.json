@@ -1,0 +1,17 @@
+{
+  "id": "zoos",
+  "title": "Zoos should be abolished.",
+  "titleJP": "動物園は廃止すべきである",
+  "image_url": "https://images.unsplash.com/photo-1534567176735-8427ddbf928a?auto=format&fit=crop&w=1000&q=80",
+  "deck": [
+      {"id": "zoo_aff_A", "stance": "affirmative", "group": "freedom", "type": "assertion", "text": "Animals should live freely in nature.", "textJP": "動物は自然の中で自由に生きるべきです。"},
+      {"id": "zoo_aff_R", "stance": "affirmative", "group": "freedom", "type": "reason", "text": "Cages are too small for wild animals.", "textJP": "檻は野生動物には狭すぎます。"},
+      {"id": "zoo_aff_E", "stance": "affirmative", "group": "freedom", "type": "evidence", "text": "Lions walk miles in the wild.", "textJP": "ライオンは野生では何マイルも歩きます。"},
+      {"id": "zoo_aff_S", "stance": "affirmative", "group": "freedom", "type": "mini_conclusion", "text": "Therefore, keeping them is cruel.", "textJP": "よって、飼育するのは残酷です。"},
+      {"id": "zoo_neg_A", "stance": "negative", "group": "edu", "type": "assertion", "text": "Zoos play a role in education and protection.", "textJP": "動物園は教育と保護の役割を果たします。"},
+      {"id": "zoo_neg_R", "stance": "negative", "group": "edu", "type": "reason", "text": "Children learn about biodiversity there.", "textJP": "子供たちはそこで生物多様性を学びます。"},
+      {"id": "zoo_neg_E", "stance": "negative", "group": "edu", "type": "evidence", "text": "Some endangered species are saved by zoos.", "textJP": "絶滅危惧種の中には動物園に救われるものもいます。"},
+      {"id": "zoo_neg_S", "stance": "negative", "group": "edu", "type": "mini_conclusion", "text": "Therefore, zoos are necessary.", "textJP": "よって、動物園は必要です。"}
+  ],
+  "vocabulary": [{"word": "endangered", "meaning": "絶滅の危機にある"}]
+}
