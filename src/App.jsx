@@ -22,7 +22,6 @@ const DIFFICULTIES = {
   hard:   { label: 'Hard',   fakeCount: 8, battleOptions: 6, showHint: false }, 
 };
 
-// モードごとの必要構成
 const FLOWS = {
   area: ['assertion', 'reason', 'evidence', 'mini_conclusion'],
   logic_link: ['reason', 'evidence']
@@ -85,7 +84,7 @@ export default function App() {
   const [fontSize, setFontSize] = useState('normal'); 
   const [difficulty, setDifficulty] = useState('easy');
 
-  // ★ UI用 State (Step 1~3 の段階的選択画面用)
+  // UI用 State
   const [setupStep, setSetupStep] = useState(1);
   const [setupHelpStep, setSetupHelpStep] = useState(null);
 
@@ -371,17 +370,17 @@ export default function App() {
       
       {/* --- Start Screen (ステップ選択UI & アニメーション背景) --- */}
       {gameState === 'start' && !isDrillMode && (
-          <div className="absolute inset-0 z-50 flex flex-col items-center justify-center p-4 md:p-6 bg-gradient-to-br from-[#0f172a] via-[#1e1b4b] to-[#0f172a] animate-gradient-xy overflow-y-auto">
-             <div className="text-center w-full max-w-4xl py-10 flex flex-col items-center min-h-[600px]">
-                 {/* ① タイトル変更 */}
-                 <h1 className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 tracking-tighter drop-shadow-2xl mb-10">
+          <div className="absolute inset-0 z-50 flex flex-col items-center justify-center p-4 md:p-6 bg-gradient-to-br from-[#0f172a] via-[#1e1b4b] to-[#0f172a] animate-gradient-xy overflow-hidden">
+             <div className="text-center w-full max-w-5xl flex flex-col items-center h-full max-h-[850px]">
+                 
+                 <h1 className="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 tracking-tighter drop-shadow-2xl mb-6 shrink-0 mt-4">
                     DEBATE BATTLE
                  </h1>
 
-                 {/* ③ 段階的選択画面 (ウィザード形式) */}
-                 <div className="bg-slate-900/80 backdrop-blur-xl p-6 md:p-10 rounded-3xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative w-full flex-1 flex flex-col">
+                 {/* 段階的選択画面 (ウィザード形式) */}
+                 <div className="bg-slate-900/80 backdrop-blur-xl p-6 md:p-8 rounded-3xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative w-full flex-1 flex flex-col min-h-0 overflow-hidden">
                      
-                     <div className="flex justify-between items-center mb-8 pb-4 border-b border-white/10">
+                     <div className="flex justify-between items-center mb-6 pb-4 border-b border-white/10 shrink-0">
                          {setupStep > 1 ? (
                              <button onClick={() => setSetupStep(prev => prev - 1)} className="flex items-center gap-1 text-slate-400 hover:text-white transition-colors font-bold">
                                  <ChevronLeft className="w-6 h-6"/> Back
@@ -401,14 +400,14 @@ export default function App() {
                          </button>
                      </div>
 
-                     <div className="flex-1 flex flex-col justify-center w-full">
+                     <div className="flex-1 flex flex-col justify-center w-full min-h-0">
                          {/* Step 1: Language */}
                          {setupStep === 1 && (
                              <div className="animate-in fade-in slide-in-from-right-8 duration-500 w-full max-w-2xl mx-auto">
-                                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-10 text-center tracking-widest uppercase">1. Language</h2>
+                                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 text-center tracking-widest uppercase">1. Language</h2>
                                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                     <button onClick={() => { setLangMode('en'); setSetupStep(2); }} className={`p-10 rounded-2xl border-4 text-3xl font-black transition-all hover:scale-105 ${langMode === 'en' ? 'bg-pink-600 border-pink-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}>English</button>
-                                     <button onClick={() => { setLangMode('ja'); setSetupStep(2); }} className={`p-10 rounded-2xl border-4 text-3xl font-black transition-all hover:scale-105 ${langMode === 'ja' ? 'bg-pink-600 border-pink-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}>日本語</button>
+                                     <button onClick={() => { setLangMode('en'); setSetupStep(2); }} className={`p-8 md:p-10 rounded-2xl border-4 text-2xl md:text-3xl font-black transition-all hover:scale-105 ${langMode === 'en' ? 'bg-pink-600 border-pink-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}>English</button>
+                                     <button onClick={() => { setLangMode('ja'); setSetupStep(2); }} className={`p-8 md:p-10 rounded-2xl border-4 text-2xl md:text-3xl font-black transition-all hover:scale-105 ${langMode === 'ja' ? 'bg-pink-600 border-pink-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}>日本語</button>
                                  </div>
                              </div>
                          )}
@@ -416,47 +415,49 @@ export default function App() {
                          {/* Step 2: Game Mode */}
                          {setupStep === 2 && (
                              <div className="animate-in fade-in slide-in-from-right-8 duration-500 w-full max-w-2xl mx-auto">
-                                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-10 text-center tracking-widest uppercase">2. Game Mode</h2>
+                                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 text-center tracking-widest uppercase">2. Game Mode</h2>
                                  <div className="flex flex-col gap-5">
-                                     <button onClick={() => { setGameMode('area'); setSetupStep(3); }} className={`p-6 rounded-2xl border-4 text-2xl font-bold transition-all hover:scale-105 ${gameMode === 'area' ? 'bg-purple-600 border-purple-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}>AREA Battle (Standard)</button>
-                                     <button onClick={() => { setGameMode('logic_link'); setSetupStep(3); }} className={`p-6 rounded-2xl border-4 text-2xl font-bold transition-all hover:scale-105 ${gameMode === 'logic_link' ? 'bg-purple-600 border-purple-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}>Logic Link (Reason → Evidence)</button>
-                                     <button onClick={() => { setGameMode('review'); setSetupStep(3); }} className={`p-6 rounded-2xl border-4 text-2xl font-bold flex items-center justify-center gap-3 transition-all hover:scale-105 ${gameMode === 'review' ? 'bg-teal-600 border-teal-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}><BookOpen className="w-6 h-6"/> Review Mode</button>
+                                     <button onClick={() => { setGameMode('area'); setSetupStep(3); }} className={`p-5 md:p-6 rounded-2xl border-4 text-xl md:text-2xl font-bold transition-all hover:scale-105 ${gameMode === 'area' ? 'bg-purple-600 border-purple-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}>AREA Battle (Standard)</button>
+                                     <button onClick={() => { setGameMode('logic_link'); setSetupStep(3); }} className={`p-5 md:p-6 rounded-2xl border-4 text-xl md:text-2xl font-bold transition-all hover:scale-105 ${gameMode === 'logic_link' ? 'bg-purple-600 border-purple-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}>Logic Link (Reason → Evidence)</button>
+                                     <button onClick={() => { setGameMode('review'); setSetupStep(3); }} className={`p-5 md:p-6 rounded-2xl border-4 text-xl md:text-2xl font-bold flex items-center justify-center gap-3 transition-all hover:scale-105 ${gameMode === 'review' ? 'bg-teal-600 border-teal-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}><BookOpen className="w-6 h-6"/> Review Mode</button>
                                  </div>
                              </div>
                          )}
 
-                         {/* Step 3: Topic, Stance, Difficulty */}
+                         {/* Step 3: Topic, Stance, Difficulty (スクロール調整済み) */}
                          {setupStep === 3 && (
-                             <div className="animate-in fade-in slide-in-from-right-8 duration-500 w-full flex flex-col h-full">
-                                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 text-center tracking-widest uppercase">3. Final Settings</h2>
+                             <div className="animate-in fade-in slide-in-from-right-8 duration-500 w-full flex flex-col h-full min-h-0">
+                                 <h2 className="text-xl md:text-2xl font-bold text-white mb-6 text-center tracking-widest uppercase shrink-0">3. Final Settings</h2>
                                  
-                                 <div className="grid md:grid-cols-2 gap-8 text-left flex-1 min-h-0">
-                                     <div className="bg-slate-950/50 p-5 rounded-2xl border border-white/5 flex flex-col h-full min-h-[300px]">
-                                         <h3 className="text-sm font-bold text-blue-400 mb-4 uppercase tracking-widest border-b border-white/10 pb-2">Topic</h3>
-                                         <div className="space-y-2 overflow-y-auto pr-2 custom-scrollbar flex-1">
+                                 <div className="grid md:grid-cols-2 gap-6 text-left flex-1 min-h-0">
+                                     {/* Topic List (ここだけスクロール) */}
+                                     <div className="bg-slate-950/50 p-4 md:p-5 rounded-2xl border border-white/5 flex flex-col h-full min-h-0">
+                                         <h3 className="text-sm font-bold text-blue-400 mb-3 uppercase tracking-widest border-b border-white/10 pb-2 shrink-0">Topic</h3>
+                                         <div className="space-y-3 overflow-y-auto pr-2 custom-scrollbar flex-1">
                                              {topics.map(t => (
                                                  <button key={t.id} onClick={() => setSelectedTopicId(t.id)} className={`w-full text-left p-4 rounded-xl border transition-all ${selectedTopicId === t.id ? 'bg-blue-600 border-blue-400 text-white shadow-lg' : 'bg-slate-800 border-slate-700 text-slate-400 hover:bg-slate-700'}`}>
-                                                     <div className="font-bold text-sm md:text-base leading-tight">{langMode === 'ja' ? t.titleJP : t.title}</div>
-                                                     {langMode === 'en' && <div className="text-[10px] opacity-60 mt-1">{t.titleJP}</div>}
+                                                     <div className="font-bold text-lg md:text-xl leading-tight">{langMode === 'ja' ? t.titleJP : t.title}</div>
+                                                     {langMode === 'en' && <div className="text-sm md:text-base opacity-60 mt-1">{t.titleJP}</div>}
                                                  </button>
                                              ))}
                                          </div>
                                      </div>
 
-                                     <div className="space-y-6 flex flex-col justify-center">
-                                         <div className="bg-slate-950/50 p-5 rounded-2xl border border-white/5">
-                                             <h3 className="text-sm font-bold text-green-400 mb-4 uppercase tracking-widest border-b border-white/10 pb-2">Your Stance</h3>
+                                     {/* Stance & Difficulty */}
+                                     <div className="flex flex-col gap-6 shrink-0 overflow-y-auto custom-scrollbar pr-2">
+                                         <div className="bg-slate-950/50 p-4 md:p-5 rounded-2xl border border-white/5">
+                                             <h3 className="text-sm font-bold text-green-400 mb-3 uppercase tracking-widest border-b border-white/10 pb-2">Your Stance</h3>
                                              <div className="flex gap-3">
-                                                 <button onClick={() => setUserStance('affirmative')} className={`flex-1 py-5 rounded-xl font-black text-lg border-2 transition-all ${userStance === 'affirmative' ? 'bg-blue-600 border-blue-400 text-white' : 'bg-slate-800 border-slate-600 text-slate-500 hover:bg-slate-700'}`}>{langMode === 'ja' ? '肯定側' : 'AFFIRMATIVE'}</button>
-                                                 <button onClick={() => setUserStance('negative')} className={`flex-1 py-5 rounded-xl font-black text-lg border-2 transition-all ${userStance === 'negative' ? 'bg-red-600 border-red-400 text-white' : 'bg-slate-800 border-slate-600 text-slate-500 hover:bg-slate-700'}`}>{langMode === 'ja' ? '否定側' : 'NEGATIVE'}</button>
+                                                 <button onClick={() => setUserStance('affirmative')} className={`flex-1 py-4 md:py-5 rounded-xl font-black text-lg border-2 transition-all ${userStance === 'affirmative' ? 'bg-blue-600 border-blue-400 text-white' : 'bg-slate-800 border-slate-600 text-slate-500 hover:bg-slate-700'}`}>{langMode === 'ja' ? '肯定側' : 'AFFIRMATIVE'}</button>
+                                                 <button onClick={() => setUserStance('negative')} className={`flex-1 py-4 md:py-5 rounded-xl font-black text-lg border-2 transition-all ${userStance === 'negative' ? 'bg-red-600 border-red-400 text-white' : 'bg-slate-800 border-slate-600 text-slate-500 hover:bg-slate-700'}`}>{langMode === 'ja' ? '否定側' : 'NEGATIVE'}</button>
                                              </div>
                                          </div>
                                          {gameMode !== 'review' && (
-                                             <div className="bg-slate-950/50 p-5 rounded-2xl border border-white/5">
-                                                 <h3 className="text-sm font-bold text-yellow-400 mb-4 uppercase tracking-widest border-b border-white/10 pb-2">Difficulty</h3>
-                                                 <div className="flex gap-3">
+                                             <div className="bg-slate-950/50 p-4 md:p-5 rounded-2xl border border-white/5">
+                                                 <h3 className="text-sm font-bold text-yellow-400 mb-3 uppercase tracking-widest border-b border-white/10 pb-2">Difficulty</h3>
+                                                 <div className="flex flex-wrap gap-2 md:gap-3">
                                                      {Object.keys(DIFFICULTIES).map(d => (
-                                                         <button key={d} onClick={() => setDifficulty(d)} className={`flex-1 py-3 rounded-lg border-2 font-bold transition-all ${difficulty === d ? 'bg-yellow-600 border-yellow-400 text-white' : 'bg-slate-800 border-slate-600 text-slate-500 hover:bg-slate-700'}`}>{DIFFICULTIES[d].label}</button>
+                                                         <button key={d} onClick={() => setDifficulty(d)} className={`flex-1 py-3 px-2 rounded-lg border-2 font-bold transition-all ${difficulty === d ? 'bg-yellow-600 border-yellow-400 text-white' : 'bg-slate-800 border-slate-600 text-slate-500 hover:bg-slate-700'}`}>{DIFFICULTIES[d].label}</button>
                                                      ))}
                                                  </div>
                                              </div>
@@ -464,7 +465,7 @@ export default function App() {
                                      </div>
                                  </div>
 
-                                 <button onClick={initGame} className="w-full mt-10 py-5 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full font-black text-3xl hover:shadow-[0_0_40px_rgba(34,211,238,0.6)] transition-all hover:scale-[1.02] border border-white/20 text-white flex justify-center items-center gap-3">
+                                 <button onClick={initGame} className="w-full mt-6 py-4 md:py-5 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full font-black text-2xl md:text-3xl hover:shadow-[0_0_40px_rgba(34,211,238,0.6)] transition-all hover:scale-[1.02] border border-white/20 text-white flex justify-center items-center gap-3 shrink-0">
                                      {gameMode === 'review' ? <BookOpen/> : <Play className="fill-current"/>} 
                                      {gameMode === 'review' ? 'ENTER REVIEW' : 'BATTLE START'}
                                  </button>
@@ -473,7 +474,7 @@ export default function App() {
                      </div>
                  </div>
                  
-                 <div className="flex justify-center gap-8 text-base text-slate-400 font-mono mt-8">
+                 <div className="flex justify-center gap-8 text-base text-slate-400 font-mono mt-6 shrink-0">
                      <button onClick={() => setIsDrillMode(true)} className="hover:text-white flex items-center gap-2"><BrainCircuit className="w-5 h-5"/> Vocab Quiz</button>
                      <button onClick={() => setFontSize(prev => prev === 'normal' ? 'large' : prev === 'large' ? 'xlarge' : 'normal')} className="hover:text-white flex items-center gap-2"><Type className="w-5 h-5"/> Text Size</button>
                  </div>
