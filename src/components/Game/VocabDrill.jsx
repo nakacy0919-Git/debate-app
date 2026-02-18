@@ -1,18 +1,52 @@
-import React, { useState } from 'react';
-import { RefreshCcw, CheckCircle2, XCircle, ArrowRight } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Volume2, CheckCircle2, XCircle, ArrowRight, X, Trophy } from 'lucide-react';
 
 export const VocabDrill = ({ vocabList, onClose }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isFlipped, setIsFlipped] = useState(false);
+  const [options, setOptions] = useState([]);
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [score, setScore] = useState(0);
   const [finished, setFinished] = useState(false);
 
   // ランダムに出題順をシャッフル
   const [shuffledList] = useState(() => [...vocabList].sort(() => Math.random() - 0.5));
   const currentWord = shuffledList[currentIndex];
 
+  // 音声読み上げ機能 (Web Speech API)
+  const playAudio = (text) => {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US'; // 英語に設定
+    utterance.rate = 0.9; // 少しゆっくりめに
+    window.speechSynthesis.speak(utterance);
+  };
+
+  // 4択の選択肢を生成
+  useEffect(() => {
+    if (finished || !currentWord) return;
+    
+    const wrongAnswers = vocabList
+      .filter(v => v.meaning !== currentWord.meaning)
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 3)
+      .map(v => v.meaning);
+      
+    // 正解と不正解を混ぜてシャッフル
+    const choices = [currentWord.meaning, ...wrongAnswers].sort(() => Math.random() - 0.5);
+    setOptions(choices);
+    setSelectedAnswer(null);
+
+    // 問題が出た時に自動で発音（設定でオフにすることも可能ですが今回はオン）
+    playAudio(currentWord.word);
+  }, [currentIndex, currentWord, finished, vocabList]);
+
+  const handleSelect = (answer) => {
+    if (selectedAnswer) return; // すでに選んでいたら無視
+    setSelectedAnswer(answer);
+    if (answer === currentWord.meaning) setScore(prev => prev + 1);
+  };
+
   const handleNext = () => {
     if (currentIndex < shuffledList.length - 1) {
-      setIsFlipped(false);
       setCurrentIndex(prev => prev + 1);
     } else {
       setFinished(true);
@@ -21,13 +55,13 @@ export const VocabDrill = ({ vocabList, onClose }) => {
 
   if (finished) {
     return (
-      <div className="absolute inset-0 z-50 bg-slate-900/95 flex flex-col items-center justify-center p-6 text-white animate-in fade-in">
-        <div className="text-center">
-            <CheckCircle2 className="w-16 h-16 text-green-400 mx-auto mb-4" />
-            <h2 className="text-3xl font-bold mb-4">Training Complete!</h2>
-            <p className="mb-8 text-slate-300">You reviewed {vocabList.length} words.</p>
-            <button onClick={onClose} className="bg-blue-600 px-8 py-3 rounded-full font-bold hover:bg-blue-500 transition-colors shadow-lg hover:shadow-blue-500/50">
-            Back to Game
+      <div className="absolute inset-0 z-[150] bg-[#0f172a]/95 backdrop-blur-md flex items-center justify-center p-6 animate-in fade-in">
+        <div className="bg-[#1e293b] text-white p-8 rounded-3xl shadow-2xl text-center max-w-md w-full border border-white/10">
+            <Trophy className="w-20 h-20 text-yellow-400 mx-auto mb-4 animate-bounce" />
+            <h2 className="text-4xl font-black mb-2">Training Complete!</h2>
+            <p className="text-xl text-slate-300 mb-8">Score: {score} / {vocabList.length}</p>
+            <button onClick={onClose} className="w-full bg-blue-600 py-4 rounded-xl font-bold text-xl hover:bg-blue-500 transition-colors shadow-lg">
+              Back to Game
             </button>
         </div>
       </div>
@@ -35,48 +69,64 @@ export const VocabDrill = ({ vocabList, onClose }) => {
   }
 
   return (
-    <div className="absolute inset-0 z-50 bg-slate-900 flex flex-col items-center justify-center p-6">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden min-h-[450px] flex flex-col relative animate-in zoom-in-95 duration-300">
+    <div className="absolute inset-0 z-[150] bg-[#0f172a]/90 backdrop-blur-sm flex flex-col items-center justify-center p-4">
+      <div className="w-full max-w-lg bg-[#1e293b] rounded-3xl shadow-2xl overflow-hidden flex flex-col border border-white/10">
+        
         {/* Header */}
-        <div className="p-4 bg-slate-100 flex justify-between items-center text-slate-600 border-b">
-          <span className="font-bold text-xs uppercase tracking-widest">Vocabulary Drill</span>
-          <span className="text-xs font-mono bg-slate-200 px-2 py-1 rounded">{currentIndex + 1} / {shuffledList.length}</span>
-        </div>
-
-        {/* Card Content */}
-        <div 
-          className="flex-1 flex flex-col items-center justify-center p-8 cursor-pointer hover:bg-slate-50 transition-colors select-none"
-          onClick={() => setIsFlipped(!isFlipped)}
-        >
-          <div className="text-center w-full">
-            <h3 className="text-4xl md:text-5xl font-black text-slate-800 mb-6 capitalize break-words">{currentWord.word}</h3>
-            
-            <div className="h-24 flex items-center justify-center">
-                {isFlipped ? (
-                <div className="animate-in slide-in-from-bottom-2 fade-in duration-300 w-full">
-                    <div className="w-16 h-1 bg-blue-500 mx-auto mb-4 rounded-full"></div>
-                    <p className="text-2xl md:text-3xl font-bold text-blue-600 break-words">{currentWord.meaning}</p>
-                </div>
-                ) : (
-                <p className="text-slate-400 text-sm animate-pulse border border-slate-200 rounded-full px-4 py-1 inline-block">Tap to flip</p>
-                )}
-            </div>
+        <div className="p-4 flex justify-between items-center bg-slate-900/50 border-b border-white/10">
+          <span className="font-bold text-blue-400 uppercase tracking-widest text-sm">Vocabulary Quiz</span>
+          <div className="flex items-center gap-4">
+             <span className="text-sm font-mono text-slate-400">{currentIndex + 1} / {shuffledList.length}</span>
+             <button onClick={onClose} className="text-slate-400 hover:text-white"><X /></button>
           </div>
         </div>
 
-        {/* Footer Actions */}
-        <div className="p-4 border-t bg-slate-50 flex justify-between items-center gap-4">
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-600 text-sm font-bold px-4 py-2">
-            Quit
-          </button>
-          
-          <button 
-            onClick={handleNext}
-            className="flex items-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-xl font-bold hover:bg-slate-700 transition-all active:scale-95 shadow-lg ml-auto"
-          >
-            {currentIndex < shuffledList.length - 1 ? 'Next' : 'Finish'} <ArrowRight className="w-4 h-4" />
-          </button>
+        {/* Word Area */}
+        <div className="p-8 text-center bg-gradient-to-b from-slate-800 to-[#1e293b]">
+           <div className="flex justify-center items-center gap-4 mb-2">
+             <h3 className="text-5xl font-black text-white capitalize">{currentWord?.word}</h3>
+             <button onClick={() => playAudio(currentWord?.word)} className="p-3 bg-blue-600/20 text-blue-400 rounded-full hover:bg-blue-600/40 transition-colors">
+               <Volume2 className="w-6 h-6" />
+             </button>
+           </div>
         </div>
+
+        {/* Options */}
+        <div className="p-6 grid grid-cols-1 gap-3 flex-1">
+           {options.map((opt, i) => {
+             let btnClass = "bg-slate-800 border-slate-600 text-slate-200 hover:bg-slate-700 hover:border-slate-500";
+             if (selectedAnswer) {
+               if (opt === currentWord.meaning) btnClass = "bg-green-600/20 border-green-500 text-green-400"; // 正解の色
+               else if (opt === selectedAnswer) btnClass = "bg-red-600/20 border-red-500 text-red-400"; // 間違えた選択肢の色
+               else btnClass = "bg-slate-800 border-slate-700 text-slate-600 opacity-50"; // その他
+             }
+
+             return (
+               <button 
+                 key={i} 
+                 onClick={() => handleSelect(opt)}
+                 disabled={!!selectedAnswer}
+                 className={`w-full p-4 rounded-xl border-2 font-bold text-lg text-left transition-all flex justify-between items-center ${btnClass}`}
+               >
+                 {opt}
+                 {selectedAnswer && opt === currentWord.meaning && <CheckCircle2 className="w-6 h-6" />}
+                 {selectedAnswer && opt === selectedAnswer && opt !== currentWord.meaning && <XCircle className="w-6 h-6" />}
+               </button>
+             );
+           })}
+        </div>
+
+        {/* Footer (Next Button) */}
+        {selectedAnswer && (
+          <div className="p-4 bg-slate-900/50 border-t border-white/10 animate-in slide-in-from-bottom-2">
+            <button 
+              onClick={handleNext}
+              className="w-full py-4 bg-blue-600 text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-blue-500 transition-colors"
+            >
+              {currentIndex < shuffledList.length - 1 ? 'Next Word' : 'See Results'} <ArrowRight className="w-5 h-5" />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -5,12 +5,13 @@ import {
   ChevronRight, ChevronLeft, Palette, Home, Zap, Swords,
   Shield, MessageCircleQuestion, Gavel, Plus, BrainCircuit,
   Settings, X, Type, Monitor, Target, Heart, Clock, Undo2, Skull,
-  HelpCircle, AlignJustify, MoveHorizontal
+  HelpCircle, MoveHorizontal, BookOpen, Link
 } from 'lucide-react';
 
 import { getAllTopics } from './utils/dataLoader';
 import { SmartText } from './components/UI/SmartText';
 import { VocabDrill } from './components/Game/VocabDrill';
+import { ReviewMode } from './components/Game/ReviewMode'; // 新規追加
 
 // --- 設定値 ---
 const MAX_HP = 100;
@@ -25,65 +26,79 @@ const DIFFICULTIES = {
   hard: { label: 'Hard', deckSize: 6, showHint: false },
 };
 
-const AREA_FLOW = ['assertion', 'reason', 'evidence', 'mini_conclusion'];
+// モードごとの必要構成
+const FLOWS = {
+  area: ['assertion', 'reason', 'evidence', 'mini_conclusion'],
+  logic_link: ['reason', 'evidence'] // 理由と根拠だけを繋ぐ新モード
+};
 
 const THEMES = {
-  techno: {
-    id: 'techno',
-    label: 'Cyber',
-    bg: 'bg-[#0f172a]',
-    text: 'text-slate-100',
-    headerBg: 'bg-[#1e293b]/90 border-b border-white/5 backdrop-blur-md',
-    cardBg: 'bg-[#1e293b]',
-  },
+  techno: { bg: 'bg-[#0f172a]', text: 'text-slate-100', headerBg: 'bg-[#1e293b]/90 border-b border-white/5', cardBg: 'bg-[#1e293b]' }
 };
 
 const CARD_TYPES = {
   assertion: { label: "Assertion", labelJP: "主張 (A)", icon: ShieldCheck, color: "text-blue-200", border: "border-blue-500", bg: "bg-gradient-to-br from-blue-600 to-blue-800" },
   reason:    { label: "Reason",    labelJP: "理由 (R)",    icon: ArrowUpCircle, color: "text-green-200", border: "border-green-500", bg: "bg-gradient-to-br from-green-600 to-green-800" },
-  evidence:  { label: "Example",   labelJP: "具体例 (E)",  icon: Lightbulb,     color: "text-orange-200", border: "border-orange-500", bg: "bg-gradient-to-br from-orange-600 to-orange-800" },
+  evidence:  { label: "Evidence",  labelJP: "根拠/例 (E)", icon: Lightbulb,     color: "text-orange-200", border: "border-orange-500", bg: "bg-gradient-to-br from-orange-600 to-orange-800" },
   mini_conclusion:{ label: "Summary",labelJP: "再主張 (A)", icon: ShieldCheck, color: "text-purple-200", border: "border-purple-500", bg: "bg-gradient-to-br from-purple-600 to-purple-800" },
-  // 追加カードタイプ
   answer:    { label: "Answer",    labelJP: "回答", icon: MessageCircleQuestion, color: "text-teal-200", border: "border-teal-500", bg: "bg-gradient-to-br from-teal-600 to-teal-800" },
   defense:   { label: "Rebuttal",  labelJP: "再反論", icon: Shield, color: "text-indigo-200", border: "border-indigo-500", bg: "bg-gradient-to-br from-indigo-600 to-indigo-800" },
   closing:   { label: "Closing",   labelJP: "最終弁論", icon: Gavel, color: "text-pink-200", border: "border-pink-500", bg: "bg-gradient-to-br from-pink-600 to-pink-800" },
 };
 
-// ルール説明モーダル
-const RuleBook = ({ onClose }) => (
-  <div className="fixed inset-0 z-[110] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4" onClick={onClose}>
-    <div className="bg-[#1e293b] border border-white/10 w-full max-w-2xl rounded-2xl shadow-2xl p-8 max-h-[90vh] overflow-y-auto relative" onClick={e => e.stopPropagation()}>
-      <button onClick={onClose} className="absolute top-4 right-4 p-2 bg-white/10 rounded-full hover:bg-white/20"><X/></button>
-      <h2 className="text-3xl font-black text-white mb-6 flex items-center gap-2"><HelpCircle/> How to Play</h2>
-      
-      <div className="space-y-6 text-slate-300">
-        <section>
-          <h3 className="text-xl font-bold text-blue-400 mb-2">1. Objective</h3>
-          <p>Construct your argument (AREA) and defeat your opponent before HP runs out.</p>
-        </section>
-        <section>
-          <h3 className="text-xl font-bold text-red-400 mb-2">2. Battle Phases</h3>
-          <ul className="list-disc pl-5 space-y-2 text-sm">
-            <li><strong>Construct:</strong> Build AREA (Assertion, Reason, Example, Assertion).</li>
-            <li><strong>Cross Exam:</strong> Answer the opponent's question.</li>
-            <li><strong>Rebuttal:</strong> Defend against the opponent's attack.</li>
-            <li><strong>Closing:</strong> Make a final statement.</li>
-          </ul>
-        </section>
+const FONT_SIZES = {
+  normal: 'text-base', large: 'text-xl', xlarge: 'text-2xl'
+};
+
+// ルール説明モーダル (日英切り替え対応)
+const RuleBook = ({ onClose }) => {
+  const [isJp, setIsJp] = useState(false);
+  return (
+    <div className="fixed inset-0 z-[200] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4" onClick={onClose}>
+      <div className="bg-[#1e293b] border border-white/10 w-full max-w-2xl rounded-2xl shadow-2xl p-8 max-h-[90vh] overflow-y-auto relative" onClick={e => e.stopPropagation()}>
+        <div className="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
+          <h2 className="text-3xl font-black text-white flex items-center gap-2"><HelpCircle/> {isJp ? "遊び方" : "How to Play"}</h2>
+          <div className="flex gap-4">
+            <button onClick={() => setIsJp(!isJp)} className="px-3 py-1 rounded bg-blue-600/20 text-blue-400 font-bold border border-blue-500/30">
+               {isJp ? "EN" : "日本語"}
+            </button>
+            <button onClick={onClose} className="p-2 bg-white/10 rounded-full hover:bg-white/20 text-white"><X/></button>
+          </div>
+        </div>
+        
+        {isJp ? (
+          <div className="space-y-6 text-slate-300">
+            <section><h3 className="text-xl font-bold text-blue-400 mb-2">1. 目的</h3><p>HPがなくなる前に、論理的な主張を組み立てて対戦相手を倒しましょう。</p></section>
+            <section><h3 className="text-xl font-bold text-green-400 mb-2">2. AREA構造 (AREA Battle)</h3><ul className="list-disc pl-5 space-y-2"><li><span className="text-blue-400 font-bold">A</span>ssertion: あなたの主張</li><li><span className="text-green-400 font-bold">R</span>eason: そう考える理由</li><li><span className="text-orange-400 font-bold">E</span>vidence: 具体例や証拠</li><li><span className="text-purple-400 font-bold">A</span>ssertion: 結論（まとめ）</li></ul></section>
+            <section><h3 className="text-xl font-bold text-red-400 mb-2">3. ダメージのルール</h3><ul className="space-y-2 text-sm"><li className="flex items-center gap-2"><AlertTriangle className="text-red-500 w-4 h-4"/> <strong>順番ミス:</strong> 大ダメージ (-50 HP)</li><li className="flex items-center gap-2"><Zap className="text-yellow-500 w-4 h-4"/> <strong>論理ミス:</strong> 小ダメージ (-25 HP) ※理由は合っていても別の論点を選んだ場合など</li><li className="flex items-center gap-2"><Clock className="text-slate-400 w-4 h-4"/> <strong>時間切れ:</strong> 10秒ごとに -12.5 HP</li></ul></section>
+          </div>
+        ) : (
+          <div className="space-y-6 text-slate-300">
+            <section><h3 className="text-xl font-bold text-blue-400 mb-2">1. Objective</h3><p>Build a logical argument and defeat your opponent before your HP runs out.</p></section>
+            <section><h3 className="text-xl font-bold text-green-400 mb-2">2. The AREA Structure</h3><ul className="list-disc pl-5 space-y-2"><li><span className="text-blue-400 font-bold">A</span>ssertion: Your main point.</li><li><span className="text-green-400 font-bold">R</span>eason: Why you think so.</li><li><span className="text-orange-400 font-bold">E</span>vidence: Examples or facts.</li><li><span className="text-purple-400 font-bold">A</span>ssertion: Summary.</li></ul></section>
+            <section><h3 className="text-xl font-bold text-red-400 mb-2">3. Damage Rules</h3><ul className="space-y-2 text-sm"><li className="flex items-center gap-2"><AlertTriangle className="text-red-500 w-4 h-4"/> <strong>Wrong Order:</strong> Large Damage (-50 HP).</li><li className="flex items-center gap-2"><Zap className="text-yellow-500 w-4 h-4"/> <strong>Logic Mismatch:</strong> Small Damage (-25 HP).</li><li className="flex items-center gap-2"><Clock className="text-slate-400 w-4 h-4"/> <strong>Time Penalty:</strong> -12.5 HP every 10 seconds.</li></ul></section>
+          </div>
+        )}
       </div>
-      <button onClick={onClose} className="w-full mt-8 py-3 bg-blue-600 rounded-xl font-bold text-white hover:bg-blue-500">Got it!</button>
     </div>
-  </div>
-);
+  );
+};
 
 export default function App() {
+  // --- States ---
   const [topics, setTopics] = useState([]);
   const [selectedTopicId, setSelectedTopicId] = useState(null);
   const [userStance, setUserStance] = useState('affirmative'); 
   
+  // 新機能: ゲームモードと表示言語モード
+  const [gameMode, setGameMode] = useState('area'); // 'area', 'logic_link', 'review'
+  const [langMode, setLangMode] = useState('en'); // 'en', 'ja' (完全日本語)
+  const [fontSize, setFontSize] = useState('normal'); 
+
   const [difficulty, setDifficulty] = useState('easy');
   const [playerHP, setPlayerHP] = useState(MAX_HP);
   const [opponentHP, setOpponentHP] = useState(MAX_HP);
+  
   const [showSettings, setShowSettings] = useState(false);
   const [showRules, setShowRules] = useState(false);
   
@@ -94,7 +109,7 @@ export default function App() {
   const [feedback, setFeedback] = useState(null); 
   const [showJapanese, setShowJapanese] = useState(false);
   const [isDrillMode, setIsDrillMode] = useState(false);
-  const [rivalCard, setRivalCard] = useState(null); // 敵のメッセージ用
+  const [rivalCard, setRivalCard] = useState(null); 
   const [particles, setParticles] = useState([]);
   const [shake, setShake] = useState(false);
   const [activeLogicGroup, setActiveLogicGroup] = useState(null);
@@ -103,40 +118,53 @@ export default function App() {
   const [sidePanelWidth, setSidePanelWidth] = useState(30); 
   
   const [timeProgress, setTimeProgress] = useState(0); 
+  
+  // Refs
   const timerIntervalRef = useRef(null);
+  const startTimeRef = useRef(Date.now()); // タイマーのリセット用基準時間
   const isResizing = useRef(false);
   const scrollRef = useRef(null);
 
+  // --- Effects ---
   useEffect(() => {
     const loadedTopics = getAllTopics();
     setTopics(loadedTopics);
     if(loadedTopics.length > 0) setSelectedTopicId(loadedTopics[0].id);
   }, []);
 
-  // Timer Logic
+  // ⑤ Timer Logic (完全に独立してリセットされるように修正)
   useEffect(() => {
     if (gameState !== 'construct' && gameState !== 'cross_exam' && gameState !== 'rebuttal_defense') {
-      if(timerIntervalRef.current) clearInterval(timerIntervalRef.current);
+      clearInterval(timerIntervalRef.current);
       return;
     }
 
-    let startTime = Date.now();
+    // フェーズが変わった時にリセット
+    startTimeRef.current = Date.now();
+
     timerIntervalRef.current = setInterval(() => {
-      const elapsed = Date.now() - startTime;
+      const elapsed = Date.now() - startTimeRef.current;
       const progress = Math.min((elapsed / (TIME_LIMIT_SEC * 1000)) * 100, 100);
       setTimeProgress(progress);
       
       if (progress >= 100) {
-        startTime = Date.now(); 
-        takeDamage(DAMAGE_TICK, "Time Penalty");
+        startTimeRef.current = Date.now(); // ペナルティ後にリセット
+        
+        // useEffectの依存配列に入れずにsetStateする
+        setPlayerHP(prev => {
+           const newHp = Math.max(0, prev - DAMAGE_TICK);
+           return newHp;
+        });
+        setShake(true); setTimeout(() => setShake(false), 300);
+        setFeedback({ msg: `-${DAMAGE_TICK} HP (Time Penalty)`, type: 'damage', judgment: 'weak' });
+        setTimeout(() => setFeedback(null), 1500); // 消えないバグ修正
       }
     }, 100);
 
-    return () => {
-      if(timerIntervalRef.current) clearInterval(timerIntervalRef.current);
-    };
-  }, [gameState, playerHP]); 
+    return () => clearInterval(timerIntervalRef.current);
+  }, [gameState]); // playerHPへの依存を削除
 
+  // HP Watcher
   useEffect(() => {
     if (playerHP <= 0 && gameState !== 'gameover') setGameState('gameover');
   }, [playerHP]);
@@ -174,7 +202,7 @@ export default function App() {
     setShake(true); 
     setTimeout(() => setShake(false), 300);
     setFeedback({ msg: `-${amount} HP (${reason})`, type: 'damage', judgment: 'weak' });
-    setTimeout(() => setFeedback(null), 1500);
+    setTimeout(() => setFeedback(null), 1500); // ① 消えないバグ修正
   };
 
   const damageOpponent = (amount) => {
@@ -194,6 +222,11 @@ export default function App() {
   };
 
   const initGame = () => {
+    if (gameMode === 'review') {
+       setGameState('review');
+       return;
+    }
+
     setTower([]);
     setPlayerHP(MAX_HP);
     setOpponentHP(MAX_HP);
@@ -203,12 +236,18 @@ export default function App() {
     setGameState('construct');
     setFeedback(null);
     setTimeProgress(0);
+    startTimeRef.current = Date.now(); // 確実なタイマーリセット
     
     const currentTopic = topics.find(t => t.id === selectedTopicId) || topics[0];
-    const myStanceCards = currentTopic.deck.filter(c => c.stance === userStance);
+    let myStanceCards = currentTopic.deck.filter(c => c.stance === userStance);
     
+    // Logic Link モードの場合は、Reason と Evidence だけを抽出
+    if (gameMode === 'logic_link') {
+       myStanceCards = myStanceCards.filter(c => c.type === 'reason' || c.type === 'evidence');
+    }
+
     if (myStanceCards.length === 0) {
-        alert("No cards found for this stance! Please check data.");
+        alert("No appropriate cards found for this mode/stance!");
         return;
     }
 
@@ -217,7 +256,12 @@ export default function App() {
     
     const correctCards = myStanceCards.filter(c => c.group === targetGroup);
     const otherCards = myStanceCards.filter(c => c.group !== targetGroup);
-    const noiseCount = DIFFICULTIES[difficulty].deckSize - 4;
+    
+    // 難易度に応じたノイズ
+    let noiseCount = 0;
+    if (difficulty === 'medium') noiseCount = 1;
+    if (difficulty === 'hard') noiseCount = 2;
+
     const noiseCards = otherCards.sort(() => Math.random() - 0.5).slice(0, Math.max(0, noiseCount));
     
     const deck = [...correctCards, ...noiseCards].sort(() => Math.random() - 0.5);
@@ -242,15 +286,18 @@ export default function App() {
 
   // --- Phase Logic ---
   const triggerCrossExam = () => {
+    if (gameMode === 'logic_link') {
+       setGameState('result'); // Logic Linkモードは敵なしですぐ終わる
+       return;
+    }
+
     const currentTopic = topics.find(t => t.id === selectedTopicId) || topics[0];
     const q = currentTopic.crossExam?.question;
-    
     if (q) {
       setGameState('cross_exam');
       setRivalCard({ id: 'rival_q', text: q.text, textJP: q.textJP, type: 'answer', isQuestion: true });
       setHand(currentTopic.crossExam.options || []);
     } else {
-      // データがない場合はスキップして次のフェーズへ
       triggerRebuttalPhase();
     }
   };
@@ -263,12 +310,9 @@ export default function App() {
     setTimeout(() => {
       setGameState('rebuttal_attack');
       const atk = currentTopic.rebuttal?.attack;
-      
       if (atk) {
         setRivalCard({ id: 'rival_atk', text: atk.text, textJP: atk.textJP, type: 'attack', damage: atk.damage });
-        // 反論ダメージ発生
         takeDamage(DAMAGE_TICK, "Rival Attack");
-        
         setTimeout(() => {
           setGameState('rebuttal_defense');
           setHand(currentTopic.rebuttal.options || []);
@@ -287,14 +331,17 @@ export default function App() {
   };
 
   const handleCardSelect = (card) => {
-    setTimeProgress(0); 
+    // ⑤ 選択時に確実なタイマーリセットを行う
+    startTimeRef.current = Date.now(); 
+    setTimeProgress(0);
 
     let judgment = 'weak';
     let nextPhaseTrigger = null;
 
     if (gameState === 'construct') {
       const currentStepIndex = tower.length;
-      const expectedType = AREA_FLOW[currentStepIndex];
+      const expectedFlow = FLOWS[gameMode] || FLOWS.area;
+      const expectedType = expectedFlow[currentStepIndex];
       const cardType = card.type === 'mini_conclusion' ? 'mini_conclusion' : card.type;
 
       // 1. Structure Check
@@ -324,15 +371,15 @@ export default function App() {
       setTower(newTower);
       setHand(hand.filter(c => c.id !== card.id));
       
-      if (newTower.length >= 4) {
-        setFeedback({ msg: "AREA COMPLETE!", type: 'success', judgment: 'perfect' });
+      if (newTower.length >= expectedFlow.length) {
+        setFeedback({ msg: "PERFECT COMPLETE!", type: 'success', judgment: 'perfect' });
+        setTimeout(() => setFeedback(null), 1500); // ① 消えないバグ修正
         triggerExplosion(30, 'bg-blue-400');
-        // Construct完了 → Cross Examへ
         nextPhaseTrigger = () => setTimeout(triggerCrossExam, 1500);
       }
     } else {
-        // --- 対戦フェーズ (Cross Exam / Rebuttal / Closing) ---
-        setHand([]); // 一旦手札を隠す
+        // 対戦フェーズ
+        setHand([]); 
 
         if (card.judgment === 'weak') {
             takeDamage(DAMAGE_SMALL, "Weak Argument");
@@ -342,16 +389,12 @@ export default function App() {
             damageOpponent(20);
             judgment = 'perfect';
             setFeedback({ msg: "NICE MOVE!", type: 'success', judgment: 'perfect' });
+            setTimeout(() => setFeedback(null), 1500); // ① 消えないバグ修正
         }
 
-        // 次のフェーズへの遷移
-        if (gameState === 'cross_exam') {
-            nextPhaseTrigger = () => setTimeout(triggerRebuttalPhase, 1500);
-        } else if (gameState === 'rebuttal_defense') {
-            nextPhaseTrigger = () => setTimeout(triggerClosingPhase, 1500);
-        } else if (gameState === 'closing') {
-            nextPhaseTrigger = () => setTimeout(() => setGameState('result'), 1500);
-        }
+        if (gameState === 'cross_exam') nextPhaseTrigger = () => setTimeout(triggerRebuttalPhase, 1500);
+        else if (gameState === 'rebuttal_defense') nextPhaseTrigger = () => setTimeout(triggerClosingPhase, 1500);
+        else if (gameState === 'closing') nextPhaseTrigger = () => setTimeout(() => setGameState('result'), 1500);
     }
 
     if (nextPhaseTrigger) nextPhaseTrigger();
@@ -361,23 +404,20 @@ export default function App() {
   const theme = THEMES.techno;
 
   const getNextInstruction = () => {
+      const expectedFlow = FLOWS[gameMode] || FLOWS.area;
       const step = tower.length;
-      if (step >= 4) return "AREA Completed!";
-      const nextType = AREA_FLOW[step];
+      if (step >= expectedFlow.length) return "Completed!";
+      const nextType = expectedFlow[step];
       const typeInfo = CARD_TYPES[nextType];
       
       return (
           <div className="flex flex-col items-center animate-pulse">
               <span className="text-sm text-slate-400 mb-1 font-bold tracking-widest">NEXT BLOCK</span>
-              <div className={`
-                  relative px-8 py-3 rounded-xl border-2 shadow-[0_0_30px_rgba(0,0,0,0.5)] flex items-center gap-3
-                  ${typeInfo.bg} ${typeInfo.border} text-white
-              `}>
+              <div className={`relative px-8 py-3 rounded-xl border-2 shadow-[0_0_30px_rgba(0,0,0,0.5)] flex items-center gap-3 ${typeInfo.bg} ${typeInfo.border} text-white`}>
                   {React.createElement(typeInfo.icon, { size: 24 })}
-                  <span className="text-2xl font-black">{showJapanese ? typeInfo.labelJP : typeInfo.label}</span>
+                  <span className="text-2xl font-black">{langMode === 'ja' || showJapanese ? typeInfo.labelJP : typeInfo.label}</span>
               </div>
-              
-              <div className="mt-4 w-64 h-20 border-4 border-dashed border-white/20 rounded-xl flex items-center justify-center">
+              <div className="mt-4 w-64 h-16 border-4 border-dashed border-white/20 rounded-xl flex items-center justify-center">
                   <Plus className="text-white/20 w-8 h-8"/>
               </div>
           </div>
@@ -386,8 +426,13 @@ export default function App() {
 
   if (topics.length === 0) return <div className="h-screen flex items-center justify-center bg-[#09090b] text-white">Loading...</div>;
 
+  // ⑥ Review Mode のレンダリング
+  if (gameState === 'review') {
+    return <ReviewMode topic={currentTopic} onClose={goHome} showJapanese={showJapanese} langMode={langMode} />;
+  }
+
   return (
-    <div className={`h-screen w-full ${theme.bg} ${theme.text} font-sans flex flex-col overflow-hidden`}>
+    <div className={`h-screen w-full ${theme.bg} ${theme.text} font-sans flex flex-col overflow-hidden ${FONT_SIZES[fontSize]}`}>
       
       {showRules && <RuleBook onClose={() => setShowRules(false)} />}
 
@@ -396,16 +441,28 @@ export default function App() {
         <div className="flex items-center gap-4 flex-1">
           <button onClick={goHome} className="p-2 rounded-full hover:bg-white/10 transition-colors"><Home className="w-5 h-5"/></button>
           
-          {/* Player HP */}
-          <div className="flex-1 max-w-[200px]">
+          <div className="flex-1 max-w-[150px]">
               <div className="flex justify-between text-[10px] font-bold uppercase mb-1 opacity-80">
                   <span className="text-blue-400 flex items-center gap-1"><Heart className="w-3 h-3 fill-current"/> HP</span>
                   <span className="text-slate-400">{Math.ceil(playerHP)}</span>
               </div>
-              <div className="h-3 bg-slate-800 rounded-full overflow-hidden border border-white/10 relative">
+              <div className="h-2 bg-slate-800 rounded-full overflow-hidden border border-white/10 relative">
                   <div className={`h-full transition-all duration-300 ${playerHP > 50 ? 'bg-gradient-to-r from-blue-500 to-cyan-400' : 'bg-red-500'}`} style={{ width: `${(playerHP/MAX_HP)*100}%` }}/>
               </div>
           </div>
+
+          {/* ④ 現在のテーマとスタンスを常時表示 */}
+          {gameState !== 'start' && (
+            <div className="hidden md:flex flex-col ml-4 border-l border-white/20 pl-4 max-w-sm">
+                <span className="text-sm font-bold text-white truncate flex items-center gap-2">
+                  {langMode === 'ja' ? currentTopic.titleJP : currentTopic.title}
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded-sm uppercase ${userStance === 'affirmative' ? 'bg-blue-600' : 'bg-red-600'}`}>
+                     {userStance === 'affirmative' ? (langMode === 'ja' ? '肯定' : 'AFF') : (langMode === 'ja' ? '否定' : 'NEG')}
+                  </span>
+                </span>
+                {showJapanese && langMode !== 'ja' && <span className="text-xs text-slate-400 mt-0.5 truncate">{currentTopic.titleJP}</span>}
+            </div>
+          )}
         </div>
 
         {/* Timer */}
@@ -421,8 +478,16 @@ export default function App() {
         )}
 
         <div className="flex items-center gap-2">
+          {/* ⑦ テキストサイズ変更（ゲーム中も可能に） */}
+          <button onClick={() => setFontSize(prev => prev === 'normal' ? 'large' : prev === 'large' ? 'xlarge' : 'normal')} className="p-2 hover:bg-white/10 rounded-full text-slate-400" title="Text Size">
+             <Type className="w-5 h-5"/>
+          </button>
           <button onClick={() => setShowRules(true)} className="p-2 hover:bg-white/10 rounded-full text-blue-400"><HelpCircle className="w-6 h-6"/></button>
-          <button onClick={() => setShowJapanese(!showJapanese)} className={`w-8 h-8 rounded-full border flex items-center justify-center font-bold text-xs ${showJapanese ? 'bg-blue-600 border-blue-400' : 'border-slate-600'}`}>JP</button>
+          
+          {/* 言語切り替え */}
+          {langMode !== 'ja' && (
+             <button onClick={() => setShowJapanese(!showJapanese)} className={`w-8 h-8 rounded-full border flex items-center justify-center font-bold text-xs ${showJapanese ? 'bg-blue-600 border-blue-400' : 'border-slate-600'}`}>JP</button>
+          )}
         </div>
       </header>
 
@@ -435,26 +500,30 @@ export default function App() {
                 <img src={currentTopic.image_url} className="w-full h-full object-cover" />
             </div>
 
-            {/* Instruction Area */}
             {gameState === 'construct' && (
                 <div className="shrink-0 py-6 flex justify-center z-10 bg-gradient-to-b from-[#0f172a] to-transparent">
                     {getNextInstruction()}
                 </div>
             )}
 
-            {/* Rival Message Overlay */}
             {rivalCard && (
                <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 w-full max-w-2xl px-4 animate-in slide-in-from-top-4">
-                 <div className={`p-6 rounded-2xl shadow-2xl border-4 flex gap-6 ${rivalCard.type === 'attack' ? 'bg-rose-950/90 border-rose-500 text-rose-100' : 'bg-teal-950/90 border-teal-500 text-teal-100'}`}>
+                 <div className={`p-6 rounded-2xl shadow-2xl border-4 flex gap-6 ${rivalCard.type === 'attack' ? 'bg-rose-950/90 border-rose-500' : 'bg-teal-950/90 border-teal-500'}`}>
                     <div className={`shrink-0 p-4 rounded-full h-fit border-2 border-white/20 ${rivalCard.type === 'attack' ? 'bg-rose-600' : 'bg-teal-600'}`}>
                         {rivalCard.type === 'attack' ? <Swords className="w-8 h-8 text-white"/> : <MessageCircleQuestion className="w-8 h-8 text-white"/>}
                     </div>
                     <div>
                       <div className="font-black opacity-60 text-sm uppercase tracking-widest mb-2">
-                          {rivalCard.type === 'attack' ? "Opponent's Counterattack!" : "Cross Examination"}
+                          {rivalCard.type === 'attack' ? "Opponent's Attack!" : "Question"}
                       </div>
-                      <div className="text-xl md:text-2xl font-bold leading-snug"><SmartText text={rivalCard.text} vocabList={currentTopic.vocabulary} /></div>
-                      {showJapanese && <div className="mt-3 opacity-80 text-base border-t border-white/20 pt-2 font-medium">{rivalCard.textJP}</div>}
+                      {langMode === 'ja' ? (
+                          <div className="text-xl md:text-2xl font-bold">{rivalCard.textJP}</div>
+                      ) : (
+                          <>
+                             <div className="text-xl md:text-2xl font-bold"><SmartText text={rivalCard.text} vocabList={currentTopic.vocabulary} /></div>
+                             {showJapanese && <div className="mt-3 opacity-80 text-base border-t border-white/20 pt-2">{rivalCard.textJP}</div>}
+                          </>
+                      )}
                     </div>
                  </div>
                </div>
@@ -474,12 +543,18 @@ export default function App() {
                             </div>
                             <div className="flex-1">
                                 <div className={`text-xs font-black uppercase tracking-widest mb-1 opacity-70 ${typeStyle.color}`}>
-                                {typeStyle.label}
+                                    {langMode === 'ja' ? typeStyle.labelJP : typeStyle.label}
                                 </div>
-                                <div className="font-bold leading-relaxed text-slate-100 text-lg">
-                                <SmartText text={block.text} vocabList={currentTopic.vocabulary} />
-                                </div>
-                                {showJapanese && <div className="mt-2 text-slate-400 text-sm border-t border-white/10 pt-1">{block.textJP}</div>}
+                                {langMode === 'ja' ? (
+                                    <div className="font-bold text-white text-xl leading-relaxed">{block.textJP}</div>
+                                ) : (
+                                    <>
+                                       <div className="font-bold leading-relaxed text-slate-100 text-lg">
+                                          <SmartText text={block.text} vocabList={currentTopic.vocabulary} />
+                                       </div>
+                                       {showJapanese && <div className="mt-2 text-slate-400 text-sm border-t border-white/10 pt-1">{block.textJP}</div>}
+                                    </>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -503,18 +578,14 @@ export default function App() {
         {(gameState !== 'start' && gameState !== 'gameover' && gameState !== 'result') && (
             <div className="flex flex-col bg-[#1e293b] border-l border-white/10 shadow-2xl z-20" style={{ width: `${sidePanelWidth}%`, minWidth: '250px' }}>
                 <div className="p-3 border-b border-white/10 flex justify-between items-center bg-slate-900/50">
-                    <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">
-                        {gameState === 'construct' ? 'Your Hand' : 'Select Response'}
-                    </div>
+                    <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">Your Hand</div>
                     <div className="flex gap-2">
                         <button onClick={() => setSidePanelPos(prev => prev === 'left' ? 'right' : 'left')} className="p-1 hover:bg-white/10 rounded" title="Switch Side">
                             <MoveHorizontal className="w-4 h-4 text-slate-400"/>
                         </button>
-                        {gameState === 'construct' && (
-                            <button onClick={handleUndo} className="p-1 hover:bg-white/10 rounded flex items-center gap-1 text-xs font-bold text-slate-300 disabled:opacity-30" disabled={tower.length === 0}>
-                                <Undo2 className="w-4 h-4"/> Undo
-                            </button>
-                        )}
+                        <button onClick={handleUndo} className="p-1 hover:bg-white/10 rounded flex items-center gap-1 text-xs font-bold text-slate-300 disabled:opacity-30" disabled={tower.length === 0}>
+                            <Undo2 className="w-4 h-4"/> Undo
+                        </button>
                     </div>
                 </div>
 
@@ -534,15 +605,21 @@ export default function App() {
                                 <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"/>
                                 <div className="flex justify-between items-start mb-2 relative z-10">
                                     <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded bg-black/40 border border-white/10 text-white`}>
-                                        {showJapanese ? type.labelJP : type.label}
+                                        {langMode === 'ja' || showJapanese ? type.labelJP : type.label}
                                     </span>
                                     {React.createElement(type.icon, { className: "w-4 h-4 text-white opacity-80" })}
                                 </div>
                                 <div className="relative z-10">
-                                    <div className="font-bold text-white leading-snug text-sm md:text-base drop-shadow-md">
-                                        <SmartText text={card.text} vocabList={currentTopic.vocabulary} />
-                                    </div>
-                                    {showJapanese && <div className="mt-2 pt-2 border-t border-white/20 text-white/70 text-xs">{card.textJP}</div>}
+                                    {langMode === 'ja' ? (
+                                        <div className="font-bold text-white text-lg drop-shadow-md">{card.textJP}</div>
+                                    ) : (
+                                        <>
+                                           <div className="font-bold text-white leading-snug text-base drop-shadow-md">
+                                               <SmartText text={card.text} vocabList={currentTopic.vocabulary} />
+                                           </div>
+                                           {showJapanese && <div className="mt-2 pt-2 border-t border-white/20 text-white/70 text-xs">{card.textJP}</div>}
+                                        </>
+                                    )}
                                 </div>
                             </button>
                         );
@@ -555,44 +632,72 @@ export default function App() {
       {/* Start Screen */}
       {gameState === 'start' && !isDrillMode && (
           <div className="absolute inset-0 z-50 flex flex-col items-center justify-center p-6 bg-[#0f172a]/95 backdrop-blur-md animate-in fade-in overflow-y-auto">
-             <div className="text-center space-y-6 max-w-4xl w-full py-10">
+             <div className="text-center space-y-6 max-w-5xl w-full py-10">
                  <h1 className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-br from-white to-blue-400 tracking-tighter drop-shadow-2xl">
-                    DEBATE BATTLE
+                    DEBATE LOGIC
                  </h1>
                  
-                 <div className="grid md:grid-cols-2 gap-8 w-full">
-                    <div className="bg-slate-800/50 p-6 rounded-2xl border border-white/10">
-                        <h2 className="text-xl font-bold text-blue-400 mb-4 uppercase tracking-widest">1. Select Topic</h2>
-                        <div className="space-y-2 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
+                 <div className="grid lg:grid-cols-3 gap-6 w-full text-left">
+                    {/* Left: Topic */}
+                    <div className="bg-slate-800/50 p-5 rounded-2xl border border-white/10 lg:col-span-1">
+                        <h2 className="text-sm font-bold text-blue-400 mb-3 uppercase tracking-widest border-b border-white/10 pb-2">1. Select Topic</h2>
+                        <div className="space-y-2 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
                             {topics.map(t => (
                                 <button key={t.id} onClick={() => setSelectedTopicId(t.id)}
-                                    className={`w-full text-left p-4 rounded-xl border transition-all ${selectedTopicId === t.id ? 'bg-blue-600 border-blue-400 text-white shadow-lg' : 'bg-slate-900 border-slate-700 text-slate-400 hover:bg-slate-800'}`}>
-                                    <div className="font-bold text-sm md:text-base leading-tight">{t.title}</div>
-                                    {showJapanese && <div className="text-xs opacity-60 mt-1">{t.titleJP}</div>}
+                                    className={`w-full text-left p-3 rounded-xl border transition-all ${selectedTopicId === t.id ? 'bg-blue-600 border-blue-400 text-white shadow-lg' : 'bg-slate-900 border-slate-700 text-slate-400 hover:bg-slate-800'}`}>
+                                    <div className="font-bold text-sm leading-tight">{langMode === 'ja' ? t.titleJP : t.title}</div>
+                                    {langMode === 'en' && <div className="text-[10px] opacity-60 mt-1">{t.titleJP}</div>}
                                 </button>
                             ))}
                         </div>
                     </div>
 
-                    <div className="space-y-6">
-                        <div className="bg-slate-800/50 p-6 rounded-2xl border border-white/10">
-                            <h2 className="text-xl font-bold text-green-400 mb-4 uppercase tracking-widest">2. Your Stance</h2>
-                            <div className="flex gap-4">
-                                <button onClick={() => setUserStance('affirmative')} className={`flex-1 py-4 rounded-xl font-black text-lg border-2 transition-all ${userStance === 'affirmative' ? 'bg-blue-600 border-blue-400 text-white' : 'bg-slate-900 border-slate-700 text-slate-500'}`}>
-                                    AFFIRMATIVE<br/><span className="text-xs font-normal">肯定側</span>
+                    {/* Center: Game Mode & Language (⑧ ⑨ 新機能) */}
+                    <div className="bg-slate-800/50 p-5 rounded-2xl border border-white/10 lg:col-span-1 space-y-6 flex flex-col justify-center">
+                        <div>
+                            <h2 className="text-sm font-bold text-purple-400 mb-3 uppercase tracking-widest border-b border-white/10 pb-2">2. Game Mode</h2>
+                            <div className="flex flex-col gap-2">
+                                <button onClick={() => setGameMode('area')} className={`p-3 rounded-lg border-2 font-bold transition-all ${gameMode === 'area' ? 'bg-purple-600 border-purple-400 text-white' : 'bg-slate-900 border-slate-700 text-slate-500'}`}>
+                                    AREA Battle (Standard)
                                 </button>
-                                <button onClick={() => setUserStance('negative')} className={`flex-1 py-4 rounded-xl font-black text-lg border-2 transition-all ${userStance === 'negative' ? 'bg-red-600 border-red-400 text-white' : 'bg-slate-900 border-slate-700 text-slate-500'}`}>
-                                    NEGATIVE<br/><span className="text-xs font-normal">否定側</span>
+                                <button onClick={() => setGameMode('logic_link')} className={`p-3 rounded-lg border-2 font-bold transition-all ${gameMode === 'logic_link' ? 'bg-purple-600 border-purple-400 text-white' : 'bg-slate-900 border-slate-700 text-slate-500'}`}>
+                                    Logic Link (Reason → Evidence)
+                                </button>
+                                <button onClick={() => setGameMode('review')} className={`p-3 rounded-lg border-2 font-bold transition-all ${gameMode === 'review' ? 'bg-teal-600 border-teal-400 text-white' : 'bg-slate-900 border-slate-700 text-slate-500'}`}>
+                                    <BookOpen className="w-4 h-4 inline mr-2"/> Review Mode (閲覧)
                                 </button>
                             </div>
                         </div>
 
-                        <div className="bg-slate-800/50 p-6 rounded-2xl border border-white/10">
-                            <h2 className="text-xl font-bold text-yellow-400 mb-4 uppercase tracking-widest">3. Difficulty</h2>
+                        <div>
+                            <h2 className="text-sm font-bold text-pink-400 mb-3 uppercase tracking-widest border-b border-white/10 pb-2">3. Language</h2>
+                            <div className="flex gap-2">
+                                <button onClick={() => setLangMode('en')} className={`flex-1 py-2 rounded-lg border-2 font-bold ${langMode === 'en' ? 'bg-pink-600 border-pink-400 text-white' : 'bg-slate-900 border-slate-700 text-slate-500'}`}>English</button>
+                                <button onClick={() => setLangMode('ja')} className={`flex-1 py-2 rounded-lg border-2 font-bold ${langMode === 'ja' ? 'bg-pink-600 border-pink-400 text-white' : 'bg-slate-900 border-slate-700 text-slate-500'}`}>日本語（国語）</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Right: Settings */}
+                    <div className="bg-slate-800/50 p-5 rounded-2xl border border-white/10 lg:col-span-1 space-y-6 flex flex-col justify-center">
+                        <div>
+                            <h2 className="text-sm font-bold text-green-400 mb-3 uppercase tracking-widest border-b border-white/10 pb-2">4. Your Stance</h2>
+                            <div className="flex gap-2">
+                                <button onClick={() => setUserStance('affirmative')} className={`flex-1 py-4 rounded-xl font-black border-2 transition-all ${userStance === 'affirmative' ? 'bg-blue-600 border-blue-400 text-white' : 'bg-slate-900 border-slate-700 text-slate-500'}`}>
+                                    {langMode === 'ja' ? '肯定側' : 'AFFIRMATIVE'}
+                                </button>
+                                <button onClick={() => setUserStance('negative')} className={`flex-1 py-4 rounded-xl font-black border-2 transition-all ${userStance === 'negative' ? 'bg-red-600 border-red-400 text-white' : 'bg-slate-900 border-slate-700 text-slate-500'}`}>
+                                    {langMode === 'ja' ? '否定側' : 'NEGATIVE'}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h2 className="text-sm font-bold text-yellow-400 mb-3 uppercase tracking-widest border-b border-white/10 pb-2">5. Difficulty</h2>
                             <div className="flex gap-2">
                                 {Object.keys(DIFFICULTIES).map(d => (
                                     <button key={d} onClick={() => setDifficulty(d)} 
-                                        className={`flex-1 py-3 rounded-lg border font-bold transition-all ${difficulty === d ? 'bg-yellow-600 border-yellow-400 text-white' : 'bg-slate-900 border-slate-700 text-slate-500'}`}>
+                                        className={`flex-1 py-2 rounded-lg border font-bold transition-all ${difficulty === d ? 'bg-yellow-600 border-yellow-400 text-white' : 'bg-slate-900 border-slate-700 text-slate-500'}`}>
                                         {DIFFICULTIES[d].label}
                                     </button>
                                 ))}
@@ -601,20 +706,21 @@ export default function App() {
                     </div>
                  </div>
 
-                 <button onClick={initGame} className="w-full md:w-2/3 py-6 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl font-black text-3xl hover:shadow-[0_0_40px_rgba(37,99,235,0.6)] transition-all hover:scale-[1.02] border border-white/10 text-white mt-8 mx-auto block">
-                    BATTLE START
+                 <button onClick={initGame} className="w-full md:w-1/2 py-5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full font-black text-2xl hover:shadow-[0_0_40px_rgba(37,99,235,0.6)] transition-all hover:scale-[1.02] border border-white/10 text-white mt-8 mx-auto flex justify-center items-center gap-3">
+                    {gameMode === 'review' ? <BookOpen/> : <Play className="fill-current"/>} 
+                    {gameMode === 'review' ? 'ENTER REVIEW' : 'BATTLE START'}
                  </button>
                  
-                 <div className="flex justify-center gap-4 text-sm text-slate-500 font-mono">
-                     <button onClick={() => setIsDrillMode(true)} className="hover:text-white underline">Vocabulary Practice</button>
-                     <span>|</span>
-                     <button onClick={() => setShowRules(true)} className="hover:text-white underline">How to Play</button>
+                 <div className="flex justify-center gap-6 text-sm text-slate-500 font-mono pt-4 border-t border-white/10">
+                     <button onClick={() => setIsDrillMode(true)} className="hover:text-white flex items-center gap-2"><BrainCircuit className="w-4 h-4"/> Vocab Quiz</button>
+                     <button onClick={() => setShowRules(true)} className="hover:text-white flex items-center gap-2"><HelpCircle className="w-4 h-4"/> How to Play</button>
+                     <button onClick={() => setFontSize(prev => prev === 'normal' ? 'large' : prev === 'large' ? 'xlarge' : 'normal')} className="hover:text-white flex items-center gap-2"><Type className="w-4 h-4"/> Text Size</button>
                  </div>
              </div>
           </div>
       )}
 
-      {/* Drill Mode */}
+      {/* Drill Mode (②) */}
       {isDrillMode && <VocabDrill vocabList={currentTopic.vocabulary || []} onClose={() => setIsDrillMode(false)} />}
 
       {/* Result / Game Over Screens */}
@@ -635,7 +741,7 @@ export default function App() {
           ))}
       </div>
       
-      {/* Feedback Popup */}
+      {/* Feedback Popup (① バグ修正済) */}
       {feedback && (
          <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[120] pointer-events-none w-full flex justify-center">
             <div className={`px-10 py-6 rounded-xl backdrop-blur-md text-white font-black text-3xl shadow-[0_0_50px_rgba(0,0,0,0.8)] animate-in zoom-in flex items-center gap-4 ${feedback.type === 'damage' ? 'bg-red-600/90 border-2 border-red-400' : 'bg-blue-600/90 border-2 border-blue-400'}`}>
