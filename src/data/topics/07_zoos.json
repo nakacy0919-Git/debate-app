@@ -4,14 +4,83 @@
   "titleJP": "動物園は廃止すべきである",
   "image_url": "https://images.unsplash.com/photo-1534567176735-8427ddbf928a?auto=format&fit=crop&w=1000&q=80",
   "deck": [
-      {"id": "zoo_aff_A", "stance": "affirmative", "group": "freedom", "type": "assertion", "text": "Animals should live freely in nature.", "textJP": "動物は自然の中で自由に生きるべきです。"},
-      {"id": "zoo_aff_R", "stance": "affirmative", "group": "freedom", "type": "reason", "text": "Cages are too small for wild animals.", "textJP": "檻は野生動物には狭すぎます。"},
-      {"id": "zoo_aff_E", "stance": "affirmative", "group": "freedom", "type": "evidence", "text": "Lions walk miles in the wild.", "textJP": "ライオンは野生では何マイルも歩きます。"},
-      {"id": "zoo_aff_S", "stance": "affirmative", "group": "freedom", "type": "mini_conclusion", "text": "Therefore, keeping them is cruel.", "textJP": "よって、飼育するのは残酷です。"},
-      {"id": "zoo_neg_A", "stance": "negative", "group": "edu", "type": "assertion", "text": "Zoos play a role in education and protection.", "textJP": "動物園は教育と保護の役割を果たします。"},
-      {"id": "zoo_neg_R", "stance": "negative", "group": "edu", "type": "reason", "text": "Children learn about biodiversity there.", "textJP": "子供たちはそこで生物多様性を学びます。"},
-      {"id": "zoo_neg_E", "stance": "negative", "group": "edu", "type": "evidence", "text": "Some endangered species are saved by zoos.", "textJP": "絶滅危惧種の中には動物園に救われるものもいます。"},
-      {"id": "zoo_neg_S", "stance": "negative", "group": "edu", "type": "mini_conclusion", "text": "Therefore, zoos are necessary.", "textJP": "よって、動物園は必要です。"}
+    {"id": "zoo_aff_A1", "stance": "affirmative", "group": "freedom", "type": "assertion", "text": "Animals will be happy in their natural environment after abolishing zoos.", "textJP": "動物園をなくすと、自然の中で動物たちは幸せになれます。"},
+    {"id": "zoo_aff_R1", "stance": "affirmative", "group": "freedom", "type": "reason", "text": "It is because wild animals need a big space to move and hunt.", "textJP": "なぜなら、野生の動物は動いたり、えものをとるために広い場所が必要だからです。"},
+    {"id": "zoo_aff_E1", "stance": "affirmative", "group": "freedom", "type": "evidence", "text": "For example, lions and giraffes can't run or eat freely in small cages.", "textJP": "例えば、ライオンやキリンはせまいオリの中では自由に走ったり食べたりできません。"},
+    {"id": "zoo_aff_S1", "stance": "affirmative", "group": "freedom", "type": "mini_conclusion", "text": "Therefore, animals will be happy in their natural environment after abolishing zoos.", "textJP": "よって、動物園をなくすと、自然の中で動物たちは幸せになれます。"},
+    {"id": "zoo_aff_A2", "stance": "affirmative", "group": "money", "type": "assertion", "text": "Abolishing zoos allows us to use money for better purposes.", "textJP": "動物園をなくすことで、お金をもっとよいことに使うことができます。"},
+    {"id": "zoo_aff_R2", "stance": "affirmative", "group": "money", "type": "reason", "text": "It is because keeping animals and building cages costs a lot of money.", "textJP": "なぜなら、動物を育てたり、オリを作ったりするのに多くのお金がかかるからです。"},
+    {"id": "zoo_aff_E2", "stance": "affirmative", "group": "money", "type": "evidence", "text": "For example, that money can be used to protect nature or help wild animals in the forest.", "textJP": "例えば、そのお金を自然を守る活動や、森の中の野生動物を助けることに使えます。"},
+    {"id": "zoo_aff_S2", "stance": "affirmative", "group": "money", "type": "mini_conclusion", "text": "Therefore, abolishing zoos allows us to use money for better purposes.", "textJP": "よって、動物園をなくすことで、お金をもっとよいことに使うことができます。"},
+
+    {"id": "zoo_neg_A1", "stance": "negative", "group": "education", "type": "assertion", "text": "People can learn about animals from zoos.", "textJP": "動物園から、人々は動物について学ぶことができます。"},
+    {"id": "zoo_neg_R1", "stance": "negative", "group": "education", "type": "reason", "text": "It is because people can see real animals and understand how they live.", "textJP": "なぜなら、本物の動物を見ることで、どう生きているかを理解できるからです。"},
+    {"id": "zoo_neg_E1", "stance": "negative", "group": "education", "type": "evidence", "text": "For example, children can learn about animals' food and behavior by watching them in the zoo.", "textJP": "例えば、子どもたちは動物園で動物の食べ物や行動を見て学ぶことができます。"},
+    {"id": "zoo_neg_S1", "stance": "negative", "group": "education", "type": "mini_conclusion", "text": "Therefore, people can learn about animals from zoos.", "textJP": "よって、動物園から、人々は動物について学ぶことができます。"},
+    {"id": "zoo_neg_A2", "stance": "negative", "group": "protect", "type": "assertion", "text": "Keeping zoos helps protect endangered animals.", "textJP": "動物園を残すことで、絶滅しそうな動物を守ることができます。"},
+    {"id": "zoo_neg_R2", "stance": "negative", "group": "protect", "type": "reason", "text": "It is because zoos can take care of animals that are in danger in the wild.", "textJP": "なぜなら、動物園では自然の中で危険にさらされている動物を保護できるからです。"},
+    {"id": "zoo_neg_E2", "stance": "negative", "group": "protect", "type": "evidence", "text": "For example, pandas and tigers can live safely in zoos and have babies there.", "textJP": "例えば、パンダやトラは動物園で安全に暮らし、赤ちゃんを産むことができます。"},
+    {"id": "zoo_neg_S2", "stance": "negative", "group": "protect", "type": "mini_conclusion", "text": "Therefore, keeping zoos helps protect endangered animals.", "textJP": "よって、動物園を残すことで、絶滅しそうな動物を守ることができます。"},
+
+    {"id": "fake_aff_A1", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "Animals in zoos watch TV all day.", "textJP": "動物園の動物は一日中テレビを見ています。"},
+    {"id": "fake_aff_R1", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because they have smartphones.", "textJP": "なぜなら彼らはスマートフォンを持っているからです。"},
+    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "evidence", "text": "For example, a monkey sent me an email.", "textJP": "例えば、サルが私にメールを送ってきました。"},
+    {"id": "fake_aff_S1", "stance": "affirmative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, animals like video games.", "textJP": "よって、動物はビデオゲームが好きです。"},
+    {"id": "fake_aff_A2", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "Zoos are actually spaceships.", "textJP": "動物園は実は宇宙船です。"},
+    {"id": "fake_aff_R2", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because giraffes are too tall for Earth.", "textJP": "なぜならキリンは地球には背が高すぎるからです。"},
+
+    {"id": "fake_neg_A1", "stance": "negative", "group": "fake", "type": "assertion", "text": "Animals will eat the moon if zoos are abolished.", "textJP": "動物園がなくなると、動物が月を食べてしまいます。"},
+    {"id": "fake_neg_R1", "stance": "negative", "group": "fake", "type": "reason", "text": "Because the moon looks like cheese.", "textJP": "なぜなら月はチーズのように見えるからです。"},
+    {"id": "fake_neg_E1", "stance": "negative", "group": "fake", "type": "evidence", "text": "For example, lions can fly to space.", "textJP": "例えば、ライオンは宇宙に飛べます。"},
+    {"id": "fake_neg_S1", "stance": "negative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, we must protect the moon.", "textJP": "よって、私たちは月を守らなければなりません。"},
+    {"id": "fake_neg_A2", "stance": "negative", "group": "fake", "type": "assertion", "text": "Children will become animals without zoos.", "textJP": "動物園がないと、子供たちは動物になってしまいます。"},
+    {"id": "fake_neg_R2", "stance": "negative", "group": "fake", "type": "reason", "text": "Because schools teach animal language.", "textJP": "なぜなら学校で動物の言葉を教えるからです。"}
   ],
-  "vocabulary": [{"word": "endangered", "meaning": "絶滅の危機にある"}]
+  "vocabulary": [
+    {"word": "natural environment", "meaning": "自然の環境"}, {"word": "wild", "meaning": "野生の"},
+    {"word": "hunt", "meaning": "えものをとる"}, {"word": "freely", "meaning": "自由に"},
+    {"word": "cage", "meaning": "オリ"}, {"word": "purpose", "meaning": "目的"},
+    {"word": "protect", "meaning": "守る"}, {"word": "behavior", "meaning": "行動"},
+    {"word": "endangered", "meaning": "絶滅しそうな"}, {"word": "species", "meaning": "種"},
+    {"word": "take care of", "meaning": "世話をする"}, {"word": "in danger", "meaning": "危険な状態で"}
+  ],
+  "crossExam": {
+    "question": { "text": "If we abolish zoos, how can children learn about wild animals?", "textJP": "動物園を廃止したら、子供たちはどうやって野生動物について学べばいいですか？" },
+    "options": [
+      { "id": "q1", "text": "They can learn through books, videos, or virtual reality.", "textJP": "本やビデオ、またはVR（仮想現実）を通して学ぶことができます。", "type": "answer", "judgment": "correct" },
+      { "id": "fake_q1", "text": "Children don't need to learn.", "textJP": "子供たちは学ぶ必要がありません。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q2", "text": "They can live in the jungle.", "textJP": "彼らはジャングルに住むことができます。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q3", "text": "Books are made of meat.", "textJP": "本は肉でできています。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q4", "text": "Animals will become teachers.", "textJP": "動物が先生になります。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q5", "text": "Let's abolish children.", "textJP": "子供を廃止しましょう。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q6", "text": "I can roar like a tiger.", "textJP": "私はトラのように吠えることができます。", "type": "answer", "judgment": "weak" }
+    ]
+  },
+  "rebuttal": {
+    "attack": { 
+      "text": "But zoos protect endangered species from hunters!", 
+      "textJP": "でも、動物園は絶滅危惧種をハンターから守っています！", 
+      "damage": 15 
+    },
+    "options": [
+      { "id": "r1", "text": "We should protect their natural habitats instead of keeping them in cages.", "textJP": "彼らを檻に閉じ込めるのではなく、彼らの自然な生息地を守るべきです。", "type": "defense", "judgment": "perfect" },
+      { "id": "fake_r1", "text": "Hunters are my friends.", "textJP": "ハンターは私の友達です。", "type": "reason", "judgment": "weak" },
+      { "id": "fake_r2", "text": "Endangered species are a myth.", "textJP": "絶滅危惧種は作り話です。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r3", "text": "Animals have laser guns.", "textJP": "動物はレーザー銃を持っています。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r4", "text": "Cages are very beautiful.", "textJP": "檻はとても美しいです。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r5", "text": "I want to be a hunter.", "textJP": "私はハンターになりたいです。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r6", "text": "Let's eat the cages.", "textJP": "檻を食べましょう。", "type": "defense", "judgment": "weak" }
+    ]
+  },
+  "closing": {
+    "options": [
+      { "id": "c1", "text": "Animals deserve to live freely in nature.", "textJP": "動物は自然の中で自由に生きる権利があります。", "type": "closing", "judgment": "perfect" },
+      { "id": "fake_c1", "text": "Zoos are made of chocolate.", "textJP": "動物園はチョコレートでできています。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c2", "text": "I want to be a bear.", "textJP": "私はクマになりたいです。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c3", "text": "Nature is a green screen.", "textJP": "自然はグリーンスクリーンです。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c4", "text": "Please feed me.", "textJP": "私にエサをください。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c5", "text": "The zoo is a party.", "textJP": "動物園はパーティーです。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c6", "text": "Thank you, Mr. Monkey.", "textJP": "サルさん、ありがとう。", "type": "closing", "judgment": "weak" }
+    ]
+  }
 }

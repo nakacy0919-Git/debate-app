@@ -4,14 +4,84 @@
   "titleJP": "コンビニは深夜営業をやめるべきだ",
   "image_url": "https://images.unsplash.com/photo-1574786324209-673b06362247?auto=format&fit=crop&w=1000&q=80",
   "deck": [
-      {"id": "con_aff_A", "stance": "affirmative", "group": "health", "type": "assertion", "text": "Closing late helps workers stay healthy.", "textJP": "深夜閉店は労働者の健康を守ります。"},
-      {"id": "con_aff_R", "stance": "affirmative", "group": "health", "type": "reason", "text": "Working at night disrupts sleep cycles.", "textJP": "夜間の労働は睡眠サイクルを乱します。"},
-      {"id": "con_aff_E", "stance": "affirmative", "group": "health", "type": "evidence", "text": "Many workers suffer from fatigue.", "textJP": "多くの労働者が疲労に苦しんでいます。"},
-      {"id": "con_aff_S", "stance": "affirmative", "group": "health", "type": "mini_conclusion", "text": "Therefore, human health is priority.", "textJP": "よって、人の健康が優先です。"},
-      {"id": "con_neg_A", "stance": "negative", "group": "conv", "type": "assertion", "text": "24-hour stores are essential for modern life.", "textJP": "24時間営業は現代生活に不可欠です。"},
-      {"id": "con_neg_R", "stance": "negative", "group": "conv", "type": "reason", "text": "People working late need places to buy food.", "textJP": "遅くまで働く人は食べ物を買う場所が必要です。"},
-      {"id": "con_neg_E", "stance": "negative", "group": "conv", "type": "evidence", "text": "Hospitals and police need night services.", "textJP": "病院や警察は夜間サービスを必要としています。"},
-      {"id": "con_neg_S", "stance": "negative", "group": "conv", "type": "mini_conclusion", "text": "Therefore, convenience is important.", "textJP": "よって、利便性は重要です。"}
+    {"id": "con_aff_A1", "stance": "affirmative", "group": "health", "type": "assertion", "text": "Closing convenience stores late at night can protect workers' health.", "textJP": "コンビニを深夜に閉めることで、働く人の健康を守ることができます。"},
+    {"id": "con_aff_R1", "stance": "affirmative", "group": "health", "type": "reason", "text": "It is because working late at night makes people very tired and unhealthy.", "textJP": "なぜなら、夜おそくまで働くことはとても疲れ、健康によくないからです。"},
+    {"id": "con_aff_E1", "stance": "affirmative", "group": "health", "type": "evidence", "text": "For example, convenience store workers often work overnight and can't sleep enough.", "textJP": "例えば、コンビニの店員は夜通し働くことが多く、十分に眠れません。"},
+    {"id": "con_aff_S1", "stance": "affirmative", "group": "health", "type": "mini_conclusion", "text": "Therefore, closing convenience stores late at night can protect workers' health.", "textJP": "よって、コンビニを深夜に閉めることで、働く人の健康を守ることができます。"},
+    {"id": "con_aff_A2", "stance": "affirmative", "group": "energy", "type": "assertion", "text": "Closing convenience stores late at night helps save energy.", "textJP": "コンビニを深夜に閉めることで、エネルギーを節約することができます。"},
+    {"id": "con_aff_R2", "stance": "affirmative", "group": "energy", "type": "reason", "text": "It is because convenience stores use electricity for lights and air conditioners all night.", "textJP": "なぜなら、コンビニは夜中も照明やエアコンに電気を使っているからです。"},
+    {"id": "con_aff_E2", "stance": "affirmative", "group": "energy", "type": "evidence", "text": "For example, if stores close at midnight, they can reduce electricity use a lot.", "textJP": "例えば、深夜に店を閉めれば、電気の使用量を大きく減らすことができます。"},
+    {"id": "con_aff_S2", "stance": "affirmative", "group": "energy", "type": "mini_conclusion", "text": "Therefore, closing convenience stores late at night helps save energy.", "textJP": "よって、コンビニを深夜に閉めることで、エネルギーを節約することができます。"},
+
+    {"id": "con_neg_A1", "stance": "negative", "group": "inconvenient", "type": "assertion", "text": "Closing convenience stores late at night makes people's lives inconvenient.", "textJP": "コンビニを深夜に閉めると、人々の生活が不便になります。"},
+    {"id": "con_neg_R1", "stance": "negative", "group": "inconvenient", "type": "reason", "text": "It is because some people need to buy food or medicine late at night.", "textJP": "なぜなら、夜おそくに食べ物や薬を買う必要がある人もいるからです。"},
+    {"id": "con_neg_E1", "stance": "negative", "group": "inconvenient", "type": "evidence", "text": "For example, people who work at night or feel sick can't buy what they need if convenience stores are closed.", "textJP": "例えば、夜働く人や、体調が悪くなった人は、コンビニが閉まっていると必要なものを買えません。"},
+    {"id": "con_neg_S1", "stance": "negative", "group": "inconvenient", "type": "mini_conclusion", "text": "Therefore, closing convenience stores late at night makes people's lives inconvenient.", "textJP": "よって、コンビニを深夜に閉めると、人々の生活が不便になります。"},
+    {"id": "con_neg_A2", "stance": "negative", "group": "economy", "type": "assertion", "text": "Closing convenience stores late at night damages the economy.", "textJP": "コンビニを深夜に閉めると、経済に悪い影響を与えます。"},
+    {"id": "con_neg_R2", "stance": "negative", "group": "economy", "type": "reason", "text": "It is because stores will sell fewer goods and many part-time jobs will be lost.", "textJP": "なぜなら、売れる商品が減り、多くのアルバイトの仕事がなくなるからです。"},
+    {"id": "con_neg_E2", "stance": "negative", "group": "economy", "type": "evidence", "text": "For example, students and part-time workers who work at night lose chances to earn money.", "textJP": "例えば、夜に働いていた学生やアルバイトの人が、お金をかせぐ機会を失います。"},
+    {"id": "con_neg_S2", "stance": "negative", "group": "economy", "type": "mini_conclusion", "text": "Therefore, closing convenience stores late at night damages the economy.", "textJP": "よって、コンビニを深夜に閉めると、経済に悪い影響を与えます。"},
+
+    {"id": "fake_aff_A1", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "Convenience stores are made of candy.", "textJP": "コンビニはお菓子でできています。"},
+    {"id": "fake_aff_R1", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because unicorns work there at night.", "textJP": "なぜならユニコーンが夜にそこで働いているからです。"},
+    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "evidence", "text": "For example, I bought a star yesterday.", "textJP": "例えば、私は昨日星を買いました。"},
+    {"id": "fake_aff_S1", "stance": "affirmative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, convenience stores can fly.", "textJP": "よって、コンビニは空を飛べます。"},
+    {"id": "fake_aff_A2", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "Working at night makes you a vampire.", "textJP": "夜に働くと吸血鬼になります。"},
+    {"id": "fake_aff_R2", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because the sun is too bright.", "textJP": "なぜなら太陽がまぶしすぎるからです。"},
+
+    {"id": "fake_neg_A1", "stance": "negative", "group": "fake", "type": "assertion", "text": "Convenience stores are our parents.", "textJP": "コンビニは私たちの親です。"},
+    {"id": "fake_neg_R1", "stance": "negative", "group": "fake", "type": "reason", "text": "Because they give us free toys.", "textJP": "なぜなら無料でおもちゃをくれるからです。"},
+    {"id": "fake_neg_E1", "stance": "negative", "group": "fake", "type": "evidence", "text": "For example, I live in a convenience store.", "textJP": "例えば、私はコンビニに住んでいます。"},
+    {"id": "fake_neg_S1", "stance": "negative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, we should sleep in the store.", "textJP": "よって、私たちは店の中で寝るべきです。"},
+    {"id": "fake_neg_A2", "stance": "negative", "group": "fake", "type": "assertion", "text": "Without convenience stores, people will forget how to eat.", "textJP": "コンビニがないと、人々は食べ方を忘れます。"},
+    {"id": "fake_neg_R2", "stance": "negative", "group": "fake", "type": "reason", "text": "Because cooking is magic.", "textJP": "なぜなら料理は魔法だからです。"}
   ],
-  "vocabulary": [{"word": "essential", "meaning": "不可欠な"}]
+  "vocabulary": [
+    {"word": "protect", "meaning": "守る"}, {"word": "health", "meaning": "健康"},
+    {"word": "unhealthy", "meaning": "不健康な"}, {"word": "overnight", "meaning": "夜通し"},
+    {"word": "save", "meaning": "節約する"}, {"word": "electricity", "meaning": "電気"},
+    {"word": "reduce", "meaning": "減らす"}, {"word": "inconvenient", "meaning": "不便な"},
+    {"word": "medicine", "meaning": "薬"}, {"word": "economy", "meaning": "経済"},
+    {"word": "damage", "meaning": "悪い影響を与える"}, {"word": "part-time", "meaning": "アルバイトの"},
+    {"word": "earn", "meaning": "かせぐ"}, {"word": "customer", "meaning": "客"}
+  ],
+  "crossExam": {
+    "question": { "text": "Doesn't closing stores at night reduce part-time jobs for students?", "textJP": "夜に店を閉めると、学生のアルバイトが減りませんか？" },
+    "options": [
+      { "id": "q1", "text": "Students can work during the daytime or evening instead.", "textJP": "学生は代わりに昼間や夕方に働くことができます。", "type": "answer", "judgment": "correct" },
+      { "id": "fake_q1", "text": "Students should work 24 hours.", "textJP": "学生は24時間働くべきです。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q2", "text": "Let's fire all students.", "textJP": "すべての学生をクビにしましょう。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q3", "text": "Convenience stores are robots.", "textJP": "コンビニはロボットです。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q4", "text": "I like sleeping.", "textJP": "私は寝るのが好きです。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q5", "text": "Money is not important.", "textJP": "お金は重要ではありません。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q6", "text": "Everyone should be a ninja.", "textJP": "みんな忍者になるべきです。", "type": "answer", "judgment": "weak" }
+    ]
+  },
+  "rebuttal": {
+    "attack": { 
+      "text": "But people might need to buy medicine late at night!", 
+      "textJP": "でも、夜遅くに薬を買う必要があるかもしれません！", 
+      "damage": 15 
+    },
+    "options": [
+      { "id": "r1", "text": "Most people can keep necessary medicine at home in advance.", "textJP": "ほとんどの人は、あらかじめ必要な薬を家に置いておくことができます。", "type": "defense", "judgment": "perfect" },
+      { "id": "fake_r1", "text": "Medicine is delicious.", "textJP": "薬はおいしいです。", "type": "reason", "judgment": "weak" },
+      { "id": "fake_r2", "text": "We should eat grass instead.", "textJP": "代わりに草を食べるべきです。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r3", "text": "Night time is scary.", "textJP": "夜は怖いです。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r4", "text": "Let's go to the hospital every day.", "textJP": "毎日病院に行きましょう。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r5", "text": "No one gets sick at night.", "textJP": "夜に病気になる人は誰もいません。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r6", "text": "Doctors are sleeping.", "textJP": "医者は寝ています。", "type": "defense", "judgment": "weak" }
+    ]
+  },
+  "closing": {
+    "options": [
+      { "id": "c1", "text": "Closing stores late at night is better for workers' health and the environment.", "textJP": "深夜に店を閉めることは、労働者の健康と環境にとってより良いです。", "type": "closing", "judgment": "perfect" },
+      { "id": "fake_c1", "text": "Convenience stores are aliens.", "textJP": "コンビニは宇宙人です。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c2", "text": "We love ice cream.", "textJP": "私たちはアイスクリームが大好きです。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c3", "text": "Let's live in the dark.", "textJP": "暗闇の中で生きましょう。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c4", "text": "I want to be a store manager.", "textJP": "私は店長になりたいです。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c5", "text": "Thank you for the coffee.", "textJP": "コーヒーをありがとう。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c6", "text": "Stores should run away.", "textJP": "店は逃げるべきです。", "type": "closing", "judgment": "weak" }
+    ]
+  }
 }

@@ -1,17 +1,90 @@
 {
-  "id": "confessing",
+  "id": "confession",
   "title": "Confessing online is better than face to face.",
   "titleJP": "告白は対面よりオンラインの方が良い",
   "image_url": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1000&q=80",
   "deck": [
-      {"id": "conf_aff_A", "stance": "affirmative", "group": "calm", "type": "assertion", "text": "Online confession allows you to stay calm.", "textJP": "オンライン告白なら落ち着いていられます。"},
-      {"id": "conf_aff_R", "stance": "affirmative", "group": "calm", "type": "reason", "text": "You can check your message before sending.", "textJP": "送る前にメッセージを確認できます。"},
-      {"id": "conf_aff_E", "stance": "affirmative", "group": "calm", "type": "evidence", "text": "Face to face, you might get too nervous to speak.", "textJP": "対面だと、緊張して話せなくなるかもしれません。"},
-      {"id": "conf_aff_S", "stance": "affirmative", "group": "calm", "type": "mini_conclusion", "text": "Therefore, it prevents mistakes.", "textJP": "よって、失敗を防げます。"},
-      {"id": "conf_neg_A", "stance": "negative", "group": "sincerity", "type": "assertion", "text": "Face to face shows your sincerity better.", "textJP": "対面の方が誠実さが伝わります。"},
-      {"id": "conf_neg_R", "stance": "negative", "group": "sincerity", "type": "reason", "text": "Expressions and voice tone are important.", "textJP": "表情や声のトーンが重要です。"},
-      {"id": "conf_neg_E", "stance": "negative", "group": "sincerity", "type": "evidence", "text": "Text messages can be misunderstood.", "textJP": "テキストメッセージは誤解されることがあります。"},
-      {"id": "conf_neg_S", "stance": "negative", "group": "sincerity", "type": "mini_conclusion", "text": "Therefore, direct feeling is key.", "textJP": "よって、直接的な感情が鍵です。"}
+    {"id": "conf_aff_A1", "stance": "affirmative", "group": "nervous", "type": "assertion", "text": "Confessing online makes people less nervous.", "textJP": "オンラインで告白すると、緊張しにくいです。"},
+    {"id": "conf_aff_R1", "stance": "affirmative", "group": "nervous", "type": "reason", "text": "It is because people can take their time to write messages and express their true feelings.", "textJP": "なぜなら、メッセージを書く時間があり、本当の気持ちを伝えられるからです。"},
+    {"id": "conf_aff_E1", "stance": "affirmative", "group": "nervous", "type": "evidence", "text": "For example, shy people can say \"I like you\" more easily in a text than in person.", "textJP": "例えば、はずかしがり屋でも、対面よりメッセージのほうが「好き」と言いやすいです。"},
+    {"id": "conf_aff_S1", "stance": "affirmative", "group": "nervous", "type": "mini_conclusion", "text": "Therefore, confessing online makes people less nervous.", "textJP": "よって、オンラインで告白すると、緊張しにくいです。"},
+    
+    {"id": "conf_aff_A2", "stance": "affirmative", "group": "rejection", "type": "assertion", "text": "Confessing online reduces the fear of rejection.", "textJP": "オンラインで告白すれば、ふられるこわさが少なくなります。"},
+    {"id": "conf_aff_R2", "stance": "affirmative", "group": "rejection", "type": "reason", "text": "It is because people don't have to see the other person's reaction directly.", "textJP": "なぜなら、相手の反応を直接見なくてすむからです。"},
+    {"id": "conf_aff_E2", "stance": "affirmative", "group": "rejection", "type": "evidence", "text": "For example, if someone is rejected online, they can calm down and move on more easily.", "textJP": "例えば、オンラインでふられても、落ちついて気持ちを切りかえることができます。"},
+    {"id": "conf_aff_S2", "stance": "affirmative", "group": "rejection", "type": "mini_conclusion", "text": "Therefore, confessing online reduces the fear of rejection.", "textJP": "よって、オンラインで告白すれば、ふられるこわさが少なくなります。"},
+
+    {"id": "conf_neg_A1", "stance": "negative", "group": "honest", "type": "assertion", "text": "Confessing face to face shows more honest feelings.", "textJP": "対面で告白するほうが、気持ちがより正直に伝わります。"},
+    {"id": "conf_neg_R1", "stance": "negative", "group": "honest", "type": "reason", "text": "It is because people can use eye contact, voice, and facial expressions to show their true emotions.", "textJP": "なぜなら、目を見たり、声のトーンや表情で本当の気持ちを伝えられるからです。"},
+    {"id": "conf_neg_E1", "stance": "negative", "group": "honest", "type": "evidence", "text": "For example, when someone says \"I like you\" in person, it sounds more serious and real.", "textJP": "例えば、直接「好き」と言われたほうが、本気で本物の気持ちに聞こえます。"},
+    {"id": "conf_neg_S1", "stance": "negative", "group": "honest", "type": "mini_conclusion", "text": "Therefore, confessing face to face shows more honest feelings.", "textJP": "よって、対面で告白するほうが、気持ちがより正直に伝わります。"},
+    
+    {"id": "conf_neg_A2", "stance": "negative", "group": "relation", "type": "assertion", "text": "Confessing face to face helps build a stronger relationship.", "textJP": "対面で告白するほうが、関係を深めやすいです。"},
+    {"id": "conf_neg_R2", "stance": "negative", "group": "relation", "type": "reason", "text": "It is because people can understand each other's emotions better when they talk in person.", "textJP": "なぜなら、直接話すことで、お互いの気持ちをよりよく理解できるからです。"},
+    {"id": "conf_neg_E2", "stance": "negative", "group": "relation", "type": "evidence", "text": "For example, when two people meet and talk honestly, they can start a closer and more trusting relationship.", "textJP": "例えば、直接会って素直に話すことで、より近くて信頼できる関係を作れます。"},
+    {"id": "conf_neg_S2", "stance": "negative", "group": "relation", "type": "mini_conclusion", "text": "Therefore, confessing face to face helps build a stronger relationship.", "textJP": "よって、対面で告白するほうが、関係を深めやすいです。"},
+
+    {"id": "fake_aff_A1", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "Online confessing makes you invisible.", "textJP": "オンライン告白はあなたを透明人間にします。"},
+    {"id": "fake_aff_R1", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because Wi-Fi hides your face.", "textJP": "なぜならWi-Fiが顔を隠すからです。"},
+    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "evidence", "text": "For example, I sent a message to a ghost.", "textJP": "例えば、私は幽霊にメッセージを送りました。"},
+    {"id": "fake_aff_S1", "stance": "affirmative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, ghosts like smartphones.", "textJP": "よって、幽霊はスマホが好きです。"},
+    {"id": "fake_aff_A2", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "Face to face is too loud.", "textJP": "対面はうるさすぎます。"},
+    {"id": "fake_aff_R2", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because people always scream.", "textJP": "なぜなら人はいつも叫ぶからです。"},
+
+    {"id": "fake_neg_A1", "stance": "negative", "group": "fake", "type": "assertion", "text": "Face to face confessing is a martial art.", "textJP": "対面告白は格闘技です。"},
+    {"id": "fake_neg_R1", "stance": "negative", "group": "fake", "type": "reason", "text": "Because you need to punch the person.", "textJP": "なぜなら相手を殴る必要があるからです。"},
+    {"id": "fake_neg_E1", "stance": "negative", "group": "fake", "type": "evidence", "text": "For example, I kicked my favorite person.", "textJP": "例えば、私は好きな人を蹴りました。"},
+    {"id": "fake_neg_S1", "stance": "negative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, let's go to the hospital.", "textJP": "よって、病院に行きましょう。"},
+    {"id": "fake_neg_A2", "stance": "negative", "group": "fake", "type": "assertion", "text": "Online messages eat your words.", "textJP": "オンラインメッセージはあなたの言葉を食べます。"},
+    {"id": "fake_neg_R2", "stance": "negative", "group": "fake", "type": "reason", "text": "Because smartphones are hungry.", "textJP": "なぜならスマホはお腹を空かせているからです。"}
   ],
-  "vocabulary": [{"word": "sincerity", "meaning": "誠実さ"}]
+  "vocabulary": [
+    {"word": "confess", "meaning": "告白する"}, {"word": "nervous", "meaning": "緊張した"},
+    {"word": "express", "meaning": "表す"}, {"word": "shy", "meaning": "はずかしがり屋の"},
+    {"word": "rejection", "meaning": "ふられること"}, {"word": "reaction", "meaning": "反応"},
+    {"word": "calm down", "meaning": "落ちつく"}, {"word": "move on", "meaning": "気持ちを切りかえる"},
+    {"word": "honest", "meaning": "正直な"}, {"word": "expression", "meaning": "表情"},
+    {"word": "serious", "meaning": "本気の"}, {"word": "relationship", "meaning": "関係"},
+    {"word": "trust", "meaning": "信頼"}, {"word": "misunderstand", "meaning": "誤解する"},
+    {"word": "in person", "meaning": "対面で"}
+  ],
+  "crossExam": {
+    "question": { "text": "But aren't online messages easily misunderstood?", "textJP": "でも、オンラインのメッセージは簡単に誤解されませんか？" },
+    "options": [
+      { "id": "q1", "text": "You can use emojis or stickers to show your feelings clearly.", "textJP": "絵文字やスタンプを使って、気持ちをはっきりと伝えることができます。", "type": "answer", "judgment": "correct" },
+      { "id": "fake_q1", "text": "Yes, I hate messages.", "textJP": "はい、私はメッセージが嫌いです。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q2", "text": "Phones are bad.", "textJP": "電話は悪いです。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q3", "text": "Let's use pigeons to send letters.", "textJP": "手紙を送るためにハトを使いましょう。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q4", "text": "I can only speak robot language.", "textJP": "私はロボット語しか話せません。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q5", "text": "Misunderstanding is fun.", "textJP": "誤解は楽しいです。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q6", "text": "Texting is a dangerous magic.", "textJP": "メールは危険な魔法です。", "type": "answer", "judgment": "weak" }
+    ]
+  },
+  "rebuttal": {
+    "attack": { 
+      "text": "But some people get too nervous to speak well face to face!", 
+      "textJP": "でも対面だと緊張しすぎてうまく話せない人もいます！", 
+      "damage": 15 
+    },
+    "options": [
+      { "id": "r1", "text": "Eye contact and voice tone can show your honest feelings even if you can't speak well.", "textJP": "うまく話せなくても、アイコンタクトや声のトーンで正直な気持ちは伝わります。", "type": "defense", "judgment": "perfect" },
+      { "id": "fake_r1", "text": "Nervous people should sleep.", "textJP": "緊張する人は寝るべきです。", "type": "reason", "judgment": "weak" },
+      { "id": "fake_r2", "text": "I am a rock.", "textJP": "私は石です。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r3", "text": "Let's abolish talking.", "textJP": "話すことを廃止しましょう。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r4", "text": "You should bring a dog to the confession.", "textJP": "告白には犬を連れて行くべきです。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r5", "text": "Running away is the best.", "textJP": "逃げるのが一番です。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r6", "text": "I speak with my hands only.", "textJP": "私は手だけで話します。", "type": "defense", "judgment": "weak" }
+    ]
+  },
+  "closing": {
+    "options": [
+      { "id": "c1", "text": "Face to face communication builds the strongest trust and relationship.", "textJP": "対面のコミュニケーションは、最も強い信頼と関係性を築きます。", "type": "closing", "judgment": "perfect" },
+      { "id": "fake_c1", "text": "Love is an alien.", "textJP": "愛は宇宙人です。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c2", "text": "I want to eat chocolate now.", "textJP": "私は今チョコレートが食べたいです。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c3", "text": "Let's break our smartphones.", "textJP": "スマホを壊しましょう。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c4", "text": "Everyone should be alone.", "textJP": "みんな一人になるべきです。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c5", "text": "Words are made of air.", "textJP": "言葉は空気でできています。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c6", "text": "Thank you for the ghost.", "textJP": "幽霊をありがとう。", "type": "closing", "judgment": "weak" }
+    ]
+  }
 }

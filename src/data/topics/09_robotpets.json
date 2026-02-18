@@ -4,14 +4,84 @@
   "titleJP": "本物のペットよりロボットペットが良い",
   "image_url": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=1000&q=80",
   "deck": [
-      {"id": "rob_aff_A", "stance": "affirmative", "group": "care", "type": "assertion", "text": "Robot pets are easier to take care of.", "textJP": "ロボットペットは世話が簡単です。"},
-      {"id": "rob_aff_R", "stance": "affirmative", "group": "care", "type": "reason", "text": "You do not need to feed or walk them.", "textJP": "餌やりや散歩の必要がありません。"},
-      {"id": "rob_aff_E", "stance": "affirmative", "group": "care", "type": "evidence", "text": "They act cute without making a mess.", "textJP": "汚すことなく可愛く振る舞います。"},
-      {"id": "rob_aff_S", "stance": "affirmative", "group": "care", "type": "mini_conclusion", "text": "Therefore, busy people can keep them.", "textJP": "よって、忙しい人も飼えます。"},
-      {"id": "rob_neg_A", "stance": "negative", "group": "bond", "type": "assertion", "text": "Real pets create a true emotional bond.", "textJP": "本物のペットは真の感情的な絆を作ります。"},
-      {"id": "rob_neg_R", "stance": "negative", "group": "bond", "type": "reason", "text": "Animals have real feelings and warmth.", "textJP": "動物には本当の感情と温かみがあります。"},
-      {"id": "rob_neg_E", "stance": "negative", "group": "bond", "type": "evidence", "text": "A dog welcomes you with real joy.", "textJP": "犬は本当の喜びであなたを迎えます。"},
-      {"id": "rob_neg_S", "stance": "negative", "group": "bond", "type": "mini_conclusion", "text": "Therefore, robots cannot replace life.", "textJP": "よって、ロボットは命の代わりにはなりません。"}
+    {"id": "rob_aff_A1", "stance": "affirmative", "group": "care", "type": "assertion", "text": "Robot pets are easy to take care of.", "textJP": "ロボットペットは世話が簡単です。"},
+    {"id": "rob_aff_R1", "stance": "affirmative", "group": "care", "type": "reason", "text": "It is because they don't need food, water, or cleaning like real pets.", "textJP": "なぜなら、本物のペットのようにえさや水、そうじがいらないからです。"},
+    {"id": "rob_aff_E1", "stance": "affirmative", "group": "care", "type": "evidence", "text": "For example, busy people or elderly people can enjoy having a pet without worrying about daily care.", "textJP": "例えば、忙しい人やお年寄りも、毎日の世話を気にせずペットを楽しめます。"},
+    {"id": "rob_aff_S1", "stance": "affirmative", "group": "care", "type": "mini_conclusion", "text": "Therefore, robot pets are easy to take care of.", "textJP": "よって、ロボットペットは世話が簡単です。"},
+    {"id": "rob_aff_A2", "stance": "affirmative", "group": "safe", "type": "assertion", "text": "Robot pets are safe for everyone.", "textJP": "ロボットペットは、だれにでも安心です。"},
+    {"id": "rob_aff_R2", "stance": "affirmative", "group": "safe", "type": "reason", "text": "It is because they do not bite, scratch, or cause allergies like real pets.", "textJP": "なぜなら、本物のペットのようにかんだり、ひっかいたり、アレルギーを起こしたりしないからです。"},
+    {"id": "rob_aff_E2", "stance": "affirmative", "group": "safe", "type": "evidence", "text": "For example, children can play with robot dogs without being bitten or hurt.", "textJP": "例えば、子どもたちはロボットの犬と遊んでも、かまれたりけがをしたりしません。"},
+    {"id": "rob_aff_S2", "stance": "affirmative", "group": "safe", "type": "mini_conclusion", "text": "Therefore, robot pets are safe for everyone.", "textJP": "よって、ロボットペットは、だれにでも安心です。"},
+
+    {"id": "rob_neg_A1", "stance": "negative", "group": "feelings", "type": "assertion", "text": "Real pets can give people real love and feelings.", "textJP": "本物のペットは、人に本当の愛情や気持ちを与えます。"},
+    {"id": "rob_neg_R1", "stance": "negative", "group": "feelings", "type": "reason", "text": "It is because real animals have hearts and emotions, while robot pets only act by programming.", "textJP": "なぜなら、本物の動物には心や感情がありますが、ロボットペットはプログラムで動いているだけだからです。"},
+    {"id": "rob_neg_E1", "stance": "negative", "group": "feelings", "type": "evidence", "text": "For example, dogs show love to their owners by moving their tails when they are happy.", "textJP": "例えば、犬はうれしいとき、しっぽを動かして飼い主に愛情を示します。"},
+    {"id": "rob_neg_S1", "stance": "negative", "group": "feelings", "type": "mini_conclusion", "text": "Therefore, real pets can give people real love and feelings.", "textJP": "よって、本物のペットは人に本当の愛情や気持ちを与えます。"},
+    {"id": "rob_neg_A2", "stance": "negative", "group": "cost", "type": "assertion", "text": "Robot pets cost a lot of money.", "textJP": "ロボットペットはお金がたくさんかかります。"},
+    {"id": "rob_neg_R2", "stance": "negative", "group": "cost", "type": "reason", "text": "It is because they use machines and sometimes break.", "textJP": "なぜなら、機械を使っていて、こわれることがあるからです。"},
+    {"id": "rob_neg_E2", "stance": "negative", "group": "cost", "type": "evidence", "text": "For example, if a robot pet breaks, you must pay to fix it.", "textJP": "例えば、ロボットペットがこわれたら、お金を払って直さなければなりません。"},
+    {"id": "rob_neg_S2", "stance": "negative", "group": "cost", "type": "mini_conclusion", "text": "Therefore, robot pets cost a lot of money.", "textJP": "よって、ロボットペットはお金がたくさんかかります。"},
+
+    {"id": "fake_aff_A1", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "Robot pets can do your homework.", "textJP": "ロボットペットはあなたの宿題をできます。"},
+    {"id": "fake_aff_R1", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because they are smarter than teachers.", "textJP": "なぜなら先生より賢いからです。"},
+    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "evidence", "text": "For example, my robot dog solved math problems.", "textJP": "例えば、私のロボット犬は数学の問題を解きました。"},
+    {"id": "fake_aff_S1", "stance": "affirmative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, robots should go to school.", "textJP": "よって、ロボットは学校に行くべきです。"},
+    {"id": "fake_aff_A2", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "Real pets shoot lasers from their eyes.", "textJP": "本物のペットは目からレーザーを撃ちます。"},
+    {"id": "fake_aff_R2", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because cats are from Mars.", "textJP": "なぜなら猫は火星から来たからです。"},
+
+    {"id": "fake_neg_A1", "stance": "negative", "group": "fake", "type": "assertion", "text": "Robot pets will take over the world.", "textJP": "ロボットペットは世界を乗っ取ります。"},
+    {"id": "fake_neg_R1", "stance": "negative", "group": "fake", "type": "reason", "text": "Because they want to be human.", "textJP": "なぜなら彼らは人間になりたいからです。"},
+    {"id": "fake_neg_E1", "stance": "negative", "group": "fake", "type": "evidence", "text": "For example, a robot cat stole my car.", "textJP": "例えば、ロボット猫が私の車を盗みました。"},
+    {"id": "fake_neg_S1", "stance": "negative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, robots are our enemies.", "textJP": "よって、ロボットは私たちの敵です。"},
+    {"id": "fake_neg_A2", "stance": "negative", "group": "fake", "type": "assertion", "text": "Real pets can give you money.", "textJP": "本物のペットはお金をくれます。"},
+    {"id": "fake_neg_R2", "stance": "negative", "group": "fake", "type": "reason", "text": "Because dogs find gold in the garden.", "textJP": "なぜなら犬は庭で金を見つけるからです。"}
   ],
-  "vocabulary": [{"word": "bond", "meaning": "絆"}]
+  "vocabulary": [
+    {"word": "take care of", "meaning": "世話をする"}, {"word": "daily", "meaning": "毎日の"},
+    {"word": "bite", "meaning": "かむ"}, {"word": "scratch", "meaning": "ひっかく"},
+    {"word": "allergy", "meaning": "アレルギー"}, {"word": "hurt", "meaning": "けがをする"},
+    {"word": "emotion", "meaning": "感情"}, {"word": "program", "meaning": "プログラム"},
+    {"word": "owner", "meaning": "飼い主"}, {"word": "tail", "meaning": "しっぽ"},
+    {"word": "machine", "meaning": "機械"}, {"word": "break", "meaning": "こわれる"},
+    {"word": "fix", "meaning": "直す"}
+  ],
+  "crossExam": {
+    "question": { "text": "But aren't robot pets too expensive to buy?", "textJP": "でも、ロボットペットは買うのに高すぎませんか？" },
+    "options": [
+      { "id": "q1", "text": "They cost less in the long run because they don't need food or medicine.", "textJP": "えさや薬が必要ないので、長い目で見れば費用は安く済みます。", "type": "answer", "judgment": "correct" },
+      { "id": "fake_q1", "text": "Money falls from the sky.", "textJP": "お金は空から降ってきます。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q2", "text": "Robot pets are free.", "textJP": "ロボットペットは無料です。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q3", "text": "We should use stones to buy them.", "textJP": "石を使って買うべきです。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q4", "text": "Real dogs eat money.", "textJP": "本物の犬はお金を食べます。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q5", "text": "Let's rob a bank.", "textJP": "銀行を強盗しましょう。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q6", "text": "I am a billionaire.", "textJP": "私は億万長者です。", "type": "answer", "judgment": "weak" }
+    ]
+  },
+  "rebuttal": {
+    "attack": { 
+      "text": "But robot pets don't have real feelings!", 
+      "textJP": "でも、ロボットペットには本当の感情がありません！", 
+      "damage": 15 
+    },
+    "options": [
+      { "id": "r1", "text": "They are programmed to react nicely, which still gives comfort to many people.", "textJP": "彼らは良く反応するようにプログラムされており、それでも多くの人に安心感を与えます。", "type": "defense", "judgment": "perfect" },
+      { "id": "fake_r1", "text": "Feelings are fake.", "textJP": "感情は偽物です。", "type": "reason", "judgment": "weak" },
+      { "id": "fake_r2", "text": "Robots cry every night.", "textJP": "ロボットは毎晩泣きます。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r3", "text": "I am a robot too.", "textJP": "私もロボットです。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r4", "text": "Cats are robots in disguise.", "textJP": "猫は変装したロボットです。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r5", "text": "Let's turn people into robots.", "textJP": "人をロボットに変えましょう。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r6", "text": "Love is just electricity.", "textJP": "愛はただの電気です。", "type": "defense", "judgment": "weak" }
+    ]
+  },
+  "closing": {
+    "options": [
+      { "id": "c1", "text": "Robot pets offer a modern, safe, and easy way to enjoy companionship.", "textJP": "ロボットペットは、現代的で安全、かつ簡単にペットとの生活を楽しむ方法を提供します。", "type": "closing", "judgment": "perfect" },
+      { "id": "fake_c1", "text": "Real dogs are made of clouds.", "textJP": "本物の犬は雲でできています。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c2", "text": "Let's be robots.", "textJP": "ロボットになりましょう。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c3", "text": "I hate animals.", "textJP": "私は動物が嫌いです。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c4", "text": "Robots will rule the earth.", "textJP": "ロボットが地球を支配します。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c5", "text": "Batteries are delicious.", "textJP": "電池はおいしいです。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c6", "text": "Thank you, robot dog.", "textJP": "ロボット犬よ、ありがとう。", "type": "closing", "judgment": "weak" }
+    ]
+  }
 }

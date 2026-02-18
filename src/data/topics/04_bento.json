@@ -4,14 +4,87 @@
   "titleJP": "給食より弁当の方が良い",
   "image_url": "https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?auto=format&fit=crop&w=1000&q=80",
   "deck": [
-    {"id": "ben_aff_A", "stance": "affirmative", "group": "taste", "type": "assertion", "text": "Bento allows students to eat what they like.", "textJP": "弁当なら好きなものを食べられます。"},
-    {"id": "ben_aff_R", "stance": "affirmative", "group": "taste", "type": "reason", "text": "Parents can pack favorite foods for their children.", "textJP": "親は子供のために好きな食べ物を詰められます。"},
-    {"id": "ben_aff_E", "stance": "affirmative", "group": "taste", "type": "evidence", "text": "Students leave less food when they like the menu.", "textJP": "メニューが好きなものなら残飯が減ります。"},
-    {"id": "ben_aff_S", "stance": "affirmative", "group": "taste", "type": "mini_conclusion", "text": "Therefore, Bento is more enjoyable.", "textJP": "よって、弁当の方が楽しいです。"},
-    {"id": "ben_neg_A", "stance": "negative", "group": "nutrition", "type": "assertion", "text": "School lunch provides better nutritional balance.", "textJP": "給食の方が栄養バランスが良いです。"},
-    {"id": "ben_neg_R", "stance": "negative", "group": "nutrition", "type": "reason", "text": "Nutritionists calculate the menu carefully.", "textJP": "栄養士がメニューを慎重に計算しています。"},
-    {"id": "ben_neg_E", "stance": "negative", "group": "nutrition", "type": "evidence", "text": "Bento often lacks vegetables.", "textJP": "弁当は野菜が不足しがちです。"},
-    {"id": "ben_neg_S", "stance": "negative", "group": "nutrition", "type": "mini_conclusion", "text": "Therefore, school lunch is healthier.", "textJP": "よって、給食の方が健康的です。"}
+    {"id": "ben_aff_A1", "stance": "affirmative", "group": "taste", "type": "assertion", "text": "Bento lets students eat what they like.", "textJP": "お弁当なら、生徒は自分の好きなものを食べられます。"},
+    {"id": "ben_aff_R1", "stance": "affirmative", "group": "taste", "type": "reason", "text": "It is because students or their families can decide the menu and add food they really like.", "textJP": "なぜなら、生徒や家族がメニューを決め、本当に好きな食べ物を入れられるからです。"},
+    {"id": "ben_aff_E1", "stance": "affirmative", "group": "taste", "type": "evidence", "text": "For example, some students might pack their favorite fried chicken or a big piece of tamagoyaki.", "textJP": "例えば、自分の好きなからあげや、大きな卵焼きを入れてくる生徒もいます。"},
+    {"id": "ben_aff_S1", "stance": "affirmative", "group": "taste", "type": "mini_conclusion", "text": "Therefore, Bento lets students eat what they like.", "textJP": "よって、お弁当なら、生徒は自分の好きなものを食べられます。"},
+
+    {"id": "ben_aff_A2", "stance": "affirmative", "group": "waste", "type": "assertion", "text": "Bento reduces food waste.", "textJP": "お弁当は食べ物のむだを減らします。"},
+    {"id": "ben_aff_R2", "stance": "affirmative", "group": "waste", "type": "reason", "text": "It is because students can bring only the food and amount they can eat.", "textJP": "なぜなら、生徒が自分で食べられる量や好きな食べ物だけを持ってこられるからです。"},
+    {"id": "ben_aff_E2", "stance": "affirmative", "group": "waste", "type": "evidence", "text": "For example, students who don't like milk or some vegetables can avoid wasting food.", "textJP": "例えば、牛乳や野菜が苦手な生徒も、食べ残さずにすみます。"},
+    {"id": "ben_aff_S2", "stance": "affirmative", "group": "waste", "type": "mini_conclusion", "text": "Therefore, Bento reduces food waste.", "textJP": "よって、お弁当は食べ物のむだを減らします。"},
+
+    {"id": "ben_neg_A1", "stance": "negative", "group": "fair", "type": "assertion", "text": "School lunch is fair for everyone.", "textJP": "給食はみんなに平等です。"},
+    {"id": "ben_neg_R1", "stance": "negative", "group": "fair", "type": "reason", "text": "It is because every student eats the same food at school.", "textJP": "なぜなら、みんなが同じ食べ物を食べるからです。"},
+    {"id": "ben_neg_E1", "stance": "negative", "group": "fair", "type": "evidence", "text": "For example, students don't have to worry about what other people bring.", "textJP": "例えば、他の人が持ってきているものを気にする必要がありません。"},
+    {"id": "ben_neg_S1", "stance": "negative", "group": "fair", "type": "mini_conclusion", "text": "Therefore, school lunch is fair for everyone.", "textJP": "よって、給食はみんなに平等です。"},
+
+    {"id": "ben_neg_A2", "stance": "negative", "group": "health", "type": "assertion", "text": "School lunch is good for students health.", "textJP": "給食は生徒の健康によいです。"},
+    {"id": "ben_neg_R2", "stance": "negative", "group": "health", "type": "reason", "text": "It is because nutrition teachers make balanced meals for students.", "textJP": "なぜなら、栄養の先生が生徒のためにバランスのよい食事を作っているからです。"},
+    {"id": "ben_neg_E2", "stance": "negative", "group": "health", "type": "evidence", "text": "For example, school lunch has rice, milk, and vegetables for a healthy diet.", "textJP": "例えば、給食にはお米や牛乳、野菜があり、健康的な食事ができます。"},
+    {"id": "ben_neg_S2", "stance": "negative", "group": "health", "type": "mini_conclusion", "text": "Therefore, school lunch is good for students health.", "textJP": "よって、給食は生徒の健康によいです。"},
+
+    {"id": "fake_aff_A1", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "Bento makes students invisible.", "textJP": "弁当は生徒を透明にします。"},
+    {"id": "fake_aff_R1", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because lunch boxes are very small.", "textJP": "なぜなら弁当箱がとても小さいからです。"},
+    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "evidence", "text": "For example, I ate a pencil yesterday.", "textJP": "例えば、私は昨日鉛筆を食べました。"},
+    {"id": "fake_aff_S1", "stance": "affirmative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, dogs like running.", "textJP": "よって、犬は走るのが好きです。"},
+    {"id": "fake_aff_A2", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "School lunch is made of plastic.", "textJP": "給食はプラスチックでできています。"},
+    {"id": "fake_aff_R2", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because the sky is blue.", "textJP": "なぜなら空が青いからです。"},
+
+    {"id": "fake_neg_A1", "stance": "negative", "group": "fake", "type": "assertion", "text": "Bento causes earthquakes.", "textJP": "弁当は地震を引き起こします。"},
+    {"id": "fake_neg_R1", "stance": "negative", "group": "fake", "type": "reason", "text": "Because making tamagoyaki is too noisy.", "textJP": "なぜなら卵焼きを作るのがうるさすぎるからです。"},
+    {"id": "fake_neg_E1", "stance": "negative", "group": "fake", "type": "evidence", "text": "For example, my mother threw a lunch box.", "textJP": "例えば、私の母は弁当箱を投げました。"},
+    {"id": "fake_neg_S1", "stance": "negative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, school lunch is a spaceship.", "textJP": "よって、給食は宇宙船です。"},
+    {"id": "fake_neg_A2", "stance": "negative", "group": "fake", "type": "assertion", "text": "Everyone hates eating.", "textJP": "みんな食べるのが嫌いです。"},
+    {"id": "fake_neg_R2", "stance": "negative", "group": "fake", "type": "reason", "text": "Because water is cold.", "textJP": "なぜなら水が冷たいからです。"}
   ],
-  "vocabulary": [{"word": "nutrition", "meaning": "栄養"}]
+  "vocabulary": [
+    {"word": "favorite", "meaning": "お気に入りの"}, {"word": "fried chicken", "meaning": "からあげ"},
+    {"word": "decide", "meaning": "決める"}, {"word": "reduce", "meaning": "減らす"},
+    {"word": "waste", "meaning": "むだ、廃棄"}, {"word": "amount", "meaning": "量"},
+    {"word": "avoid", "meaning": "避ける"}, {"word": "throw away", "meaning": "捨てる"},
+    {"word": "fair", "meaning": "公平な"}, {"word": "worry", "meaning": "心配する"},
+    {"word": "nutrition", "meaning": "栄養"}, {"word": "healthy", "meaning": "健康的な"},
+    {"word": "balanced", "meaning": "バランスのとれた"}, {"word": "diet", "meaning": "食事"},
+    {"word": "taste", "meaning": "好み"}
+  ],
+  "crossExam": {
+    "question": { "text": "Isn't it hard for parents to make Bento every day?", "textJP": "親が毎日弁当を作るのは大変ではありませんか？" },
+    "options": [
+      { "id": "q1", "text": "Students can help make their own Bento.", "textJP": "生徒が自分でお弁当作りを手伝うことができます。", "type": "answer", "judgment": "correct" },
+      { "id": "fake_q1", "text": "Parents don't sleep at all.", "textJP": "親は全く眠りません。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q2", "text": "I like eating grass.", "textJP": "私は草を食べるのが好きです。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q3", "text": "Making Bento is a sport.", "textJP": "弁当作りはスポーツです。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q4", "text": "School lunch is cooked by robots.", "textJP": "給食はロボットが作ります。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q5", "text": "We don't need to eat.", "textJP": "私たちは食べる必要がありません。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q6", "text": "Bento boxes are made of gold.", "textJP": "弁当箱は金でできています。", "type": "answer", "judgment": "weak" }
+    ]
+  },
+  "rebuttal": {
+    "attack": { 
+      "text": "But if students eat only what they like, it's not healthy!", 
+      "textJP": "でも好きなものしか食べないと、健康的ではありません！", 
+      "damage": 15 
+    },
+    "options": [
+      { "id": "r1", "text": "Parents can put healthy vegetables in the Bento secretly.", "textJP": "親は健康的な野菜をこっそり弁当に入れることができます。", "type": "defense", "judgment": "perfect" },
+      { "id": "fake_r1", "text": "Vegetables are aliens.", "textJP": "野菜は宇宙人です。", "type": "reason", "judgment": "weak" },
+      { "id": "fake_r2", "text": "I only drink juice.", "textJP": "私はジュースしか飲みません。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r3", "text": "Health is not important for students.", "textJP": "健康は生徒にとって重要ではありません。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r4", "text": "School lunch is too colorful.", "textJP": "給食はカラフルすぎます。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r5", "text": "Everyone loves fried chicken.", "textJP": "みんなからあげが大好きです。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r6", "text": "Let's abolish school lunch.", "textJP": "給食を廃止しましょう。", "type": "defense", "judgment": "weak" }
+    ]
+  },
+  "closing": {
+    "options": [
+      { "id": "c1", "text": "Bento brings joy and reduces food waste.", "textJP": "弁当は喜びをもたらし、食品ロスを減らします。", "type": "closing", "judgment": "perfect" },
+      { "id": "fake_c1", "text": "Bento is my enemy.", "textJP": "弁当は私の敵です。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c2", "text": "Let's eat fast food every day.", "textJP": "毎日ファストフードを食べましょう。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c3", "text": "School lunch is a game.", "textJP": "給食はゲームです。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c4", "text": "I forgot my chopsticks.", "textJP": "おはしを忘れました。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c5", "text": "Sleeping is better than eating.", "textJP": "食べるより寝るほうが良いです。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c6", "text": "Thank you for the meal.", "textJP": "食事をありがとう。", "type": "closing", "judgment": "weak" }
+    ]
+  }
 }

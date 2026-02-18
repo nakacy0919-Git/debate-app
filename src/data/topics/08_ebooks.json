@@ -4,14 +4,83 @@
   "titleJP": "紙の本より電子書籍の方が良い",
   "image_url": "https://images.unsplash.com/photo-1544982503-9f984c14501a?auto=format&fit=crop&w=1000&q=80",
   "deck": [
-      {"id": "eb_aff_A", "stance": "affirmative", "group": "portability", "type": "assertion", "text": "E-books are very portable.", "textJP": "電子書籍はとても持ち運びやすいです。"},
-      {"id": "eb_aff_R", "stance": "affirmative", "group": "portability", "type": "reason", "text": "You can carry thousands of books in one device.", "textJP": "1つの端末で何千冊もの本を持ち運べます。"},
-      {"id": "eb_aff_E", "stance": "affirmative", "group": "portability", "type": "evidence", "text": "It is lighter than a single dictionary.", "textJP": "辞書1冊よりも軽いです。"},
-      {"id": "eb_aff_S", "stance": "affirmative", "group": "portability", "type": "mini_conclusion", "text": "Therefore, it is convenient for travel.", "textJP": "よって、旅行に便利です。"},
-      {"id": "eb_neg_A", "stance": "negative", "group": "feel", "type": "assertion", "text": "Paper books offer a better reading experience.", "textJP": "紙の本の方が読書体験が良いです。"},
-      {"id": "eb_neg_R", "stance": "negative", "group": "feel", "type": "reason", "text": "Turning pages helps you focus.", "textJP": "ページをめくることで集中できます。"},
-      {"id": "eb_neg_E", "stance": "negative", "group": "feel", "type": "evidence", "text": "Blue light from screens hurts eyes.", "textJP": "画面からのブルーライトは目を痛めます。"},
-      {"id": "eb_neg_S", "stance": "negative", "group": "feel", "type": "mini_conclusion", "text": "Therefore, paper is kinder to humans.", "textJP": "よって、紙の方が人間に優しいです。"}
+    {"id": "eb_aff_A1", "stance": "affirmative", "group": "portable", "type": "assertion", "text": "E-books are very easy to carry.", "textJP": "電子書籍はとても持ち運びやすいです。"},
+    {"id": "eb_aff_R1", "stance": "affirmative", "group": "portable", "type": "reason", "text": "It is because you can carry thousands of books in one device such as a tablet.", "textJP": "なぜなら、タブレットなどの1つの端末で何千冊もの本を持ち運べるからです。"},
+    {"id": "eb_aff_E1", "stance": "affirmative", "group": "portable", "type": "evidence", "text": "For example, students can read textbooks and novels anywhere without carrying heavy bags.", "textJP": "例えば、生徒は重いカバンを持たなくても、教科書や小説をどこでも読めます。"},
+    {"id": "eb_aff_S1", "stance": "affirmative", "group": "portable", "type": "mini_conclusion", "text": "Therefore, e-books are easy to carry and convenient.", "textJP": "よって、電子書籍は持ち運びが簡単で便利です。"},
+    {"id": "eb_aff_A2", "stance": "affirmative", "group": "eco", "type": "assertion", "text": "E-books are good for the environment.", "textJP": "電子書籍は環境にやさしいです。"},
+    {"id": "eb_aff_R2", "stance": "affirmative", "group": "eco", "type": "reason", "text": "It is because they do not need paper, so fewer trees are cut down.", "textJP": "なぜなら、紙を使わないので、木を切る量が減るからです。"},
+    {"id": "eb_aff_E2", "stance": "affirmative", "group": "eco", "type": "evidence", "text": "For example, if more people read e-books, we can save many forests and reduce waste.", "textJP": "例えば、電子書籍を読む人が増えれば、多くの森を守り、ゴミも減らすことができます。"},
+    {"id": "eb_aff_S2", "stance": "affirmative", "group": "eco", "type": "mini_conclusion", "text": "Therefore, e-books are good for the environment.", "textJP": "よって、電子書籍は環境にやさしいです。"},
+
+    {"id": "eb_neg_A1", "stance": "negative", "group": "eyes", "type": "assertion", "text": "Paper books are better for the eyes.", "textJP": "紙の本のほうが、目にやさしいです。"},
+    {"id": "eb_neg_R1", "stance": "negative", "group": "eyes", "type": "reason", "text": "It is because reading on screens for a long time can make people's eyes tired.", "textJP": "なぜなら、長い時間スクリーンを見ていると、目が疲れてしまうからです。"},
+    {"id": "eb_neg_E1", "stance": "negative", "group": "eyes", "type": "evidence", "text": "For example, students who use e-books for many hours may get eye strain or headaches.", "textJP": "例えば、電子書籍を何時間も読む生徒は、目の疲れや頭痛を感じることがあります。"},
+    {"id": "eb_neg_S1", "stance": "negative", "group": "eyes", "type": "mini_conclusion", "text": "Therefore, paper books are better for the eyes.", "textJP": "よって、紙の本のほうが、目にやさしいです。"},
+    {"id": "eb_neg_A2", "stance": "negative", "group": "battery", "type": "assertion", "text": "Paper books can be read anytime.", "textJP": "紙の本はいつでも読めます。"},
+    {"id": "eb_neg_R2", "stance": "negative", "group": "battery", "type": "reason", "text": "It is because, unlike e-books, they don't need batteries or chargers.", "textJP": "なぜなら、電子書籍と違って、電池や充電器がいらないからです。"},
+    {"id": "eb_neg_E2", "stance": "negative", "group": "battery", "type": "evidence", "text": "For example, people can read paper books even during a power outage or without Wi-Fi.", "textJP": "例えば、紙の本なら停電のときや Wi-Fi がないときでも読むことができます。"},
+    {"id": "eb_neg_S2", "stance": "negative", "group": "battery", "type": "mini_conclusion", "text": "Therefore, paper books can be read anytime.", "textJP": "よって、紙の本はいつでも読めます。"},
+
+    {"id": "fake_aff_A1", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "E-books can cook dinner.", "textJP": "電子書籍は夕食を作れます。"},
+    {"id": "fake_aff_R1", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because they have an oven inside.", "textJP": "なぜなら中にオーブンがあるからです。"},
+    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "evidence", "text": "For example, my tablet baked a cake.", "textJP": "例えば、私のタブレットはケーキを焼きました。"},
+    {"id": "fake_aff_S1", "stance": "affirmative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, e-books are delicious.", "textJP": "よって、電子書籍はおいしいです。"},
+    {"id": "fake_aff_A2", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "Paper books bite people's fingers.", "textJP": "紙の本は人の指を噛みます。"},
+    {"id": "fake_aff_R2", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because paper is angry.", "textJP": "なぜなら紙が怒っているからです。"},
+
+    {"id": "fake_neg_A1", "stance": "negative", "group": "fake", "type": "assertion", "text": "E-books will eat your eyes.", "textJP": "電子書籍はあなたの目を食べます。"},
+    {"id": "fake_neg_R1", "stance": "negative", "group": "fake", "type": "reason", "text": "Because screens are hungry.", "textJP": "なぜなら画面がお腹を空かせているからです。"},
+    {"id": "fake_neg_E1", "stance": "negative", "group": "fake", "type": "evidence", "text": "For example, my phone ate my homework.", "textJP": "例えば、私のスマホが宿題を食べました。"},
+    {"id": "fake_neg_S1", "stance": "negative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, we must hide from computers.", "textJP": "よって、私たちはコンピューターから隠れなければなりません。"},
+    {"id": "fake_neg_A2", "stance": "negative", "group": "fake", "type": "assertion", "text": "Paper books smell like victory.", "textJP": "紙の本は勝利の匂いがします。"},
+    {"id": "fake_neg_R2", "stance": "negative", "group": "fake", "type": "reason", "text": "Because trees are champions.", "textJP": "なぜなら木はチャンピオンだからです。"}
   ],
-  "vocabulary": [{"word": "portable", "meaning": "携帯できる"}]
+  "vocabulary": [
+    {"word": "portable", "meaning": "携帯できる"}, {"word": "device", "meaning": "機器"},
+    {"word": "convenient", "meaning": "便利な"}, {"word": "environment", "meaning": "環境"},
+    {"word": "cut down", "meaning": "切り倒す"}, {"word": "reduce", "meaning": "減らす"},
+    {"word": "waste", "meaning": "ゴミ"}, {"word": "screen", "meaning": "画面"},
+    {"word": "eye strain", "meaning": "目の疲れ"}, {"word": "headache", "meaning": "頭痛"},
+    {"word": "battery", "meaning": "電池"}, {"word": "power outage", "meaning": "停電"}
+  ],
+  "crossExam": {
+    "question": { "text": "Don't e-books run out of battery quickly?", "textJP": "電子書籍はすぐに電池が切れませんか？" },
+    "options": [
+      { "id": "q1", "text": "Modern devices have long battery lives and can be charged easily.", "textJP": "現代の端末はバッテリー寿命が長く、簡単に充電できます。", "type": "answer", "judgment": "correct" },
+      { "id": "fake_q1", "text": "We don't need electricity.", "textJP": "電気は必要ありません。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q2", "text": "Batteries are made of water.", "textJP": "電池は水でできています。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q3", "text": "I use magic to charge it.", "textJP": "私は魔法を使って充電します。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q4", "text": "Let's read in the dark.", "textJP": "暗闇の中で読みましょう。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q5", "text": "Books don't exist.", "textJP": "本は存在しません。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q6", "text": "I swallow batteries.", "textJP": "私は電池を飲み込みます。", "type": "answer", "judgment": "weak" }
+    ]
+  },
+  "rebuttal": {
+    "attack": { 
+      "text": "But reading on screens for a long time hurts your eyes!", 
+      "textJP": "でも長時間画面を読むと目が痛くなります！", 
+      "damage": 15 
+    },
+    "options": [
+      { "id": "r1", "text": "You can use dark mode or adjust the screen brightness to protect your eyes.", "textJP": "ダークモードを使ったり、画面の明るさを調整して目を守ることができます。", "type": "defense", "judgment": "perfect" },
+      { "id": "fake_r1", "text": "Eyes are not important.", "textJP": "目は重要ではありません。", "type": "reason", "judgment": "weak" },
+      { "id": "fake_r2", "text": "Screens are healthy for your brain.", "textJP": "画面は脳に健康です。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r3", "text": "I like eye pain.", "textJP": "私は目の痛みが好きです。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r4", "text": "Paper books have laser beams.", "textJP": "紙の本からはレーザービームが出ます。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r5", "text": "Let's close our eyes forever.", "textJP": "永遠に目を閉じましょう。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r6", "text": "I read with my ears.", "textJP": "私は耳で読みます。", "type": "defense", "judgment": "weak" }
+    ]
+  },
+  "closing": {
+    "options": [
+      { "id": "c1", "text": "E-books are more convenient and eco-friendly for our modern lifestyle.", "textJP": "電子書籍は現代のライフスタイルにとって便利で環境に優しいです。", "type": "closing", "judgment": "perfect" },
+      { "id": "fake_c1", "text": "Paper books are aliens.", "textJP": "紙の本は宇宙人です。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c2", "text": "I want to live in a library.", "textJP": "私は図書館に住みたいです。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c3", "text": "Let's eat paper.", "textJP": "紙を食べましょう。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c4", "text": "Tablets are made of cheese.", "textJP": "タブレットはチーズでできています。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c5", "text": "Reading is illegal.", "textJP": "読書は違法です。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c6", "text": "Thank you for the smartphone.", "textJP": "スマホをありがとう。", "type": "closing", "judgment": "weak" }
+    ]
+  }
 }

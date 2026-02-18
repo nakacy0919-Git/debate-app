@@ -4,14 +4,86 @@
   "titleJP": "学校の制服は廃止すべきである",
   "image_url": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=1000&q=80",
   "deck": [
-    {"id": "uni_aff_A", "stance": "affirmative", "group": "expression", "type": "assertion", "text": "Uniforms limit students' self-expression.", "textJP": "制服は生徒の自己表現を制限します。"},
-    {"id": "uni_aff_R", "stance": "affirmative", "group": "expression", "type": "reason", "text": "Clothing is a way to show one's personality.", "textJP": "服装は個性をアピールする手段です。"},
-    {"id": "uni_aff_E", "stance": "affirmative", "group": "expression", "type": "evidence", "text": "In the US, students wear their own clothes freely.", "textJP": "アメリカでは生徒は自由に服を着ています。"},
-    {"id": "uni_aff_S", "stance": "affirmative", "group": "expression", "type": "mini_conclusion", "text": "Therefore, students should have freedom of choice.", "textJP": "よって、生徒は選択の自由を持つべきです。"},
-    {"id": "uni_neg_A", "stance": "negative", "group": "equality", "type": "assertion", "text": "Uniforms promote equality among students.", "textJP": "制服は生徒間の平等を促進します。"},
-    {"id": "uni_neg_R", "stance": "negative", "group": "equality", "type": "reason", "text": "Students do not have to worry about expensive fashion.", "textJP": "生徒は高価なファッションを気にする必要がありません。"},
-    {"id": "uni_neg_E", "stance": "negative", "group": "equality", "type": "evidence", "text": "Rich or poor, everyone looks the same.", "textJP": "貧富に関わらず、全員が同じに見えます。"},
-    {"id": "uni_neg_S", "stance": "negative", "group": "equality", "type": "mini_conclusion", "text": "Therefore, uniforms prevent bullying based on money.", "textJP": "よって、制服はお金に基づくイジメを防ぎます。"}
+    {"id": "uni_aff_A1", "stance": "affirmative", "group": "freedom", "type": "assertion", "text": "Abolishing school uniforms gives students more freedom of choice.", "textJP": "制服をなくすことは、生徒により多くの選択の自由を与えます。"},
+    {"id": "uni_aff_R1", "stance": "affirmative", "group": "freedom", "type": "reason", "text": "It is because they can choose their favorite clothes by themselves.", "textJP": "なぜなら、生徒は自分の好きな服を自分自身で選べるからです。"},
+    {"id": "uni_aff_E1", "stance": "affirmative", "group": "freedom", "type": "evidence", "text": "For example, in schools without uniforms, students enjoy choosing clothes that show their style.", "textJP": "例えば、制服のない学校では、生徒は自分のスタイルを表す服を楽しんで選んでいます。"},
+    {"id": "uni_aff_S1", "stance": "affirmative", "group": "freedom", "type": "mini_conclusion", "text": "Therefore, abolishing school uniforms gives students more freedom of choice.", "textJP": "よって、制服をなくすことは、生徒により多くの選択の自由を与えます。"},
+    
+    {"id": "uni_aff_A2", "stance": "affirmative", "group": "money", "type": "assertion", "text": "Abolishing school uniforms helps families save money.", "textJP": "制服をなくすことで、家族はお金を節約できます。"},
+    {"id": "uni_aff_R2", "stance": "affirmative", "group": "money", "type": "reason", "text": "It is because uniforms are expensive.", "textJP": "制服は高価だからです。"},
+    {"id": "uni_aff_E2", "stance": "affirmative", "group": "money", "type": "evidence", "text": "For example, we have to buy new uniforms every few years, which costs a lot.", "textJP": "例えば、何年かごとに新しい制服を買う必要があり、費用がかさみます。"},
+    {"id": "uni_aff_S2", "stance": "affirmative", "group": "money", "type": "mini_conclusion", "text": "Therefore, abolishing school uniforms helps families save money.", "textJP": "よって、制服をなくすことで、家族はお金を節約できます。"},
+
+    {"id": "uni_neg_A1", "stance": "negative", "group": "equality", "type": "assertion", "text": "Abolishing school uniforms creates lack of equality among students.", "textJP": "制服をなくすと、生徒の間に平等さの欠如が生まれます。"},
+    {"id": "uni_neg_R1", "stance": "negative", "group": "equality", "type": "reason", "text": "It is because some students can buy expensive clothes, while others cannot.", "textJP": "一部の生徒は高い服を買えるが、買えない生徒もいるからです。"},
+    {"id": "uni_neg_E1", "stance": "negative", "group": "equality", "type": "evidence", "text": "For example, students from rich families may show off their clothes, which can hurt others feelings.", "textJP": "例えば、裕福な家庭の生徒が服を見せびらかし、他の生徒を傷つけることがあります。"},
+    {"id": "uni_neg_S1", "stance": "negative", "group": "equality", "type": "mini_conclusion", "text": "Therefore, abolishing school uniforms creates lack of equality among students.", "textJP": "よって、制服をなくすと、生徒の間に平等さの欠如が生まれます。"},
+
+    {"id": "uni_neg_A2", "stance": "negative", "group": "discipline", "type": "assertion", "text": "Abolishing school uniforms causes loss of discipline among students.", "textJP": "制服をなくすと、生徒の規律がなくなります。"},
+    {"id": "uni_neg_R2", "stance": "negative", "group": "discipline", "type": "reason", "text": "It is because uniforms remind students that school is a place for study.", "textJP": "制服は生徒たちに、学校は勉強するための場所であること思い出させるからです。"},
+    {"id": "uni_neg_E2", "stance": "negative", "group": "discipline", "type": "evidence", "text": "For example, if students wear casual clothes, they forget good manners or act carelessly.", "textJP": "例えば、私服だとマナーを忘れたり、だらしない行動をとります。"},
+    {"id": "uni_neg_S2", "stance": "negative", "group": "discipline", "type": "mini_conclusion", "text": "Therefore, abolishing school uniforms causes loss of discipline among students.", "textJP": "よって、制服をなくすと、生徒の規律がなくなります。"},
+
+    {"id": "fake_aff_A1", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "School uniforms make students run faster.", "textJP": "制服は生徒を早く走れるようにします。"},
+    {"id": "fake_aff_R1", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because they can sleep during class.", "textJP": "なぜなら授業中に眠れるからです。"},
+    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "evidence", "text": "For example, wearing a hat is very heavy.", "textJP": "例えば、帽子をかぶるのはとても重いです。"},
+    {"id": "fake_aff_S1", "stance": "affirmative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, we should eat more pizza.", "textJP": "よって、私たちはもっとピザを食べるべきです。"},
+    {"id": "fake_aff_A2", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "Abolishing uniforms makes animals happy.", "textJP": "制服をなくすと動物が喜びます。"},
+    {"id": "fake_aff_R2", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because uniforms are made of chocolate.", "textJP": "なぜなら制服はチョコレートでできているからです。"},
+
+    {"id": "fake_neg_A1", "stance": "negative", "group": "fake", "type": "assertion", "text": "Uniforms protect students from aliens.", "textJP": "制服は宇宙人から生徒を守ります。"},
+    {"id": "fake_neg_R1", "stance": "negative", "group": "fake", "type": "reason", "text": "Because aliens hate black clothes.", "textJP": "なぜなら宇宙人は黒い服が嫌いだからです。"},
+    {"id": "fake_neg_E1", "stance": "negative", "group": "fake", "type": "evidence", "text": "For example, my dog wears a uniform too.", "textJP": "例えば、私の犬も制服を着ています。"},
+    {"id": "fake_neg_S1", "stance": "negative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, winter is cold.", "textJP": "よって、冬は寒いです。"},
+    {"id": "fake_neg_A2", "stance": "negative", "group": "fake", "type": "assertion", "text": "Without uniforms, students will forget their names.", "textJP": "制服がないと、生徒は自分の名前を忘れます。"},
+    {"id": "fake_neg_R2", "stance": "negative", "group": "fake", "type": "reason", "text": "Because names are written on the uniforms.", "textJP": "なぜなら名前は制服に書かれているからです。"}
   ],
-  "vocabulary": [{"word": "equality", "meaning": "平等"}]
+  "vocabulary": [
+    {"word": "abolish", "meaning": "廃止する"}, {"word": "freedom", "meaning": "自由"}, {"word": "choice", "meaning": "選択"},
+    {"word": "favorite", "meaning": "お気に入りの"}, {"word": "style", "meaning": "スタイル"}, {"word": "choose", "meaning": "選ぶ"},
+    {"word": "save", "meaning": "節約する"}, {"word": "expensive", "meaning": "高価な"}, {"word": "fashion", "meaning": "ファッション"},
+    {"word": "focus on", "meaning": "〜に集中する"}, {"word": "by themselves", "meaning": "自分自身で"}, {"word": "opposite", "meaning": "逆の"},
+    {"word": "cost", "meaning": "費用がかかる"}, {"word": "judge", "meaning": "判断する"}, {"word": "appearance", "meaning": "外見"},
+    {"word": "equality", "meaning": "平等"}, {"word": "show off", "meaning": "見せびらかす"}, {"word": "discipline", "meaning": "規律"},
+    {"word": "behavior", "meaning": "行動"}, {"word": "remind", "meaning": "思い出させる"}, {"word": "carelessly", "meaning": "いいかげんに"}
+  ],
+  "crossExam": {
+    "question": { "text": "Doesn't wearing casual clothes cost more money?", "textJP": "私服を着るほうがもっとお金がかかりませんか？" },
+    "options": [
+      { "id": "q1", "text": "Students can wear affordable clothes.", "textJP": "生徒は手頃な価格の服を着ることができます。", "type": "answer", "judgment": "correct" },
+      { "id": "fake_q1", "text": "I like shopping every day.", "textJP": "私は毎日買い物をするのが好きです。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q2", "text": "Money is not real.", "textJP": "お金は現実ではありません。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q3", "text": "We should abolish money.", "textJP": "お金も廃止すべきです。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q4", "text": "T-shirts are made of paper.", "textJP": "Tシャツは紙でできています。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q5", "text": "I want to be a fashion model.", "textJP": "私はファッションモデルになりたいです。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q6", "text": "You can print money at home.", "textJP": "家でお金を印刷できます。", "type": "answer", "judgment": "weak" }
+    ]
+  },
+  "rebuttal": {
+    "attack": { 
+      "text": "But students will forget discipline if they wear casual clothes!", 
+      "textJP": "でも私服を着ると生徒は規律を忘れてしまいます！", 
+      "damage": 15 
+    },
+    "options": [
+      { "id": "r1", "text": "True discipline comes from education, not from clothes.", "textJP": "本当の規律は服からではなく、教育から来ます。", "type": "defense", "judgment": "perfect" },
+      { "id": "fake_r1", "text": "Discipline is boring.", "textJP": "規律は退屈です。", "type": "reason", "judgment": "weak" },
+      { "id": "fake_r2", "text": "Clothes are just colors.", "textJP": "服はただの色です。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r3", "text": "I like wearing pajamas.", "textJP": "私はパジャマを着るのが好きです。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r4", "text": "Let's abolish schools.", "textJP": "学校を廃止しましょう。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r5", "text": "Dogs don't wear uniforms.", "textJP": "犬は制服を着ません。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r6", "text": "I forget my homework every day.", "textJP": "私は毎日宿題を忘れます。", "type": "defense", "judgment": "weak" }
+    ]
+  },
+  "closing": {
+    "options": [
+      { "id": "c1", "text": "Students should have the right to choose their clothes.", "textJP": "生徒は自分の服を選ぶ権利を持つべきです。", "type": "closing", "judgment": "perfect" },
+      { "id": "fake_c1", "text": "Uniforms are delicious.", "textJP": "制服はおいしいです。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c2", "text": "I want to sleep now.", "textJP": "私はもう寝たいです。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c3", "text": "Aliens will take our uniforms.", "textJP": "宇宙人が私たちの制服を奪います。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c4", "text": "Please give me money.", "textJP": "私にお金をください。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c5", "text": "Let's buy a lot of expensive clothes.", "textJP": "たくさん高い服を買いましょう。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c6", "text": "Thank you for the pizza.", "textJP": "ピザをありがとう。", "type": "closing", "judgment": "weak" }
+    ]
+  }
 }

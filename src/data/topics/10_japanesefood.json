@@ -4,14 +4,85 @@
   "titleJP": "和食は洋食より良い",
   "image_url": "https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?auto=format&fit=crop&w=1000&q=80",
   "deck": [
-      {"id": "jap_aff_A", "stance": "affirmative", "group": "healthy", "type": "assertion", "text": "Japanese food is healthier and balanced.", "textJP": "和食は健康的でバランスが良いです。"},
-      {"id": "jap_aff_R", "stance": "affirmative", "group": "healthy", "type": "reason", "text": "It uses less oil and more vegetables.", "textJP": "油が少なく、野菜が多いです。"},
-      {"id": "jap_aff_E", "stance": "affirmative", "group": "healthy", "type": "evidence", "text": "Life expectancy in Japan is very high.", "textJP": "日本の平均寿命はとても高いです。"},
-      {"id": "jap_aff_S", "stance": "affirmative", "group": "healthy", "type": "mini_conclusion", "text": "Therefore, it is good for long life.", "textJP": "よって、長生きに良いです。"},
-      {"id": "jap_neg_A", "stance": "negative", "group": "variety", "type": "assertion", "text": "Western food offers variety and volume.", "textJP": "洋食は多様性とボリュームがあります。"},
-      {"id": "jap_neg_R", "stance": "negative", "group": "variety", "type": "reason", "text": "Meat dishes give us strong energy.", "textJP": "肉料理は強いエネルギーを与えてくれます。"},
-      {"id": "jap_neg_E", "stance": "negative", "group": "variety", "type": "evidence", "text": "Hamburgers and steaks are popular worldwide.", "textJP": "ハンバーガーやステーキは世界中で人気です。"},
-      {"id": "jap_neg_S", "stance": "negative", "group": "variety", "type": "mini_conclusion", "text": "Therefore, it is more satisfying.", "textJP": "よって、より満足感があります。"}
+    {"id": "jap_aff_A1", "stance": "affirmative", "group": "healthy", "type": "assertion", "text": "Japanese food is healthier for the body.", "textJP": "和食は体に健康的です。"},
+    {"id": "jap_aff_R1", "stance": "affirmative", "group": "healthy", "type": "reason", "text": "It is because Japanese food uses less oil and sugar than Western food.", "textJP": "なぜなら、和食は洋食より油や砂糖をあまり使わないからです。"},
+    {"id": "jap_aff_E1", "stance": "affirmative", "group": "healthy", "type": "evidence", "text": "For example, dishes like miso soup and grilled fish are light and full of nutrition.", "textJP": "例えば、みそ汁や焼き魚などはあっさりしていて、栄養がたくさんあります。"},
+    {"id": "jap_aff_S1", "stance": "affirmative", "group": "healthy", "type": "mini_conclusion", "text": "Therefore, Japanese food is healthier for the body.", "textJP": "よって、和食は体に健康的です。"},
+
+    {"id": "jap_aff_A2", "stance": "affirmative", "group": "tradition", "type": "assertion", "text": "Eating Japanese food helps keep traditional culture.", "textJP": "和食を食べることは、伝統文化を守ることにつながります。"},
+    {"id": "jap_aff_R2", "stance": "affirmative", "group": "tradition", "type": "reason", "text": "It is because Japanese food has a long history and shows Japanese manners and customs.", "textJP": "なぜなら、和食には長い歴史があり、日本のマナーや習慣が表れているからです。"},
+    {"id": "jap_aff_E2", "stance": "affirmative", "group": "tradition", "type": "evidence", "text": "For example, eating with chopsticks and saying \"Itadakimasu\" are parts of Japanese food culture.", "textJP": "例えば、おはしを使って食べ、「いただきます」と言うのは、日本の食文化の一部です。"},
+    {"id": "jap_aff_S2", "stance": "affirmative", "group": "tradition", "type": "mini_conclusion", "text": "Therefore, eating Japanese food helps keep traditional culture.", "textJP": "よって、和食を食べることは、伝統文化を守ることにつながります。"},
+
+    {"id": "jap_neg_A1", "stance": "negative", "group": "variety", "type": "assertion", "text": "Western food has more variety and taste.", "textJP": "洋食のほうが味や種類が豊富です。"},
+    {"id": "jap_neg_R1", "stance": "negative", "group": "variety", "type": "reason", "text": "It is because Western food includes many kinds of dishes from different countries.", "textJP": "なぜなら、洋食にはいろいろな国の料理があり、さまざまな味を楽しめるからです。"},
+    {"id": "jap_neg_E1", "stance": "negative", "group": "variety", "type": "evidence", "text": "For example, people can eat pizza, pasta, steak, and hamburgers with many different flavors.", "textJP": "例えば、ピザ、パスタ、ステーキ、ハンバーガーなど、いろいろな味を楽しめます。"},
+    {"id": "jap_neg_S1", "stance": "negative", "group": "variety", "type": "mini_conclusion", "text": "Therefore, Western food has more variety and taste.", "textJP": "よって、洋食のほうが味や種類が豊富です。"},
+
+    {"id": "jap_neg_A2", "stance": "negative", "group": "easy", "type": "assertion", "text": "Western food is easier and quicker to cook.", "textJP": "洋食は作るのが簡単で早いです。"},
+    {"id": "jap_neg_R2", "stance": "negative", "group": "easy", "type": "reason", "text": "It is because many Western dishes can be made with simple ingredients and tools.", "textJP": "なぜなら、多くの洋食はシンプルな材料と道具で作れるからです。"},
+    {"id": "jap_neg_E2", "stance": "negative", "group": "easy", "type": "evidence", "text": "For example, people can make sandwiches or pasta quickly even when they are busy.", "textJP": "例えば、忙しいときでもサンドイッチやパスタをすぐに作ることができます。"},
+    {"id": "jap_neg_S2", "stance": "negative", "group": "easy", "type": "mini_conclusion", "text": "Therefore, Western food is easier and quicker to cook.", "textJP": "よって、洋食は作るのが簡単で早いです。"},
+
+    {"id": "fake_aff_A1", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "Japanese food gives you ninja powers.", "textJP": "和食を食べると忍者の力が手に入ります。"},
+    {"id": "fake_aff_R1", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because sushi is made of magic.", "textJP": "なぜなら寿司は魔法でできているからです。"},
+    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "evidence", "text": "For example, I ate a rice ball and disappeared.", "textJP": "例えば、私はおにぎりを食べて消えました。"},
+    {"id": "fake_aff_S1", "stance": "affirmative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, cars can fly in the sky.", "textJP": "よって、車は空を飛べます。"},
+    {"id": "fake_aff_A2", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "Western food is actually made of paper.", "textJP": "洋食は実は紙でできています。"},
+    {"id": "fake_aff_R2", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because bread looks like a notebook.", "textJP": "なぜならパンはノートのように見えるからです。"},
+
+    {"id": "fake_neg_A1", "stance": "negative", "group": "fake", "type": "assertion", "text": "Western food makes you speak English perfectly.", "textJP": "洋食を食べると英語が完璧に話せるようになります。"},
+    {"id": "fake_neg_R1", "stance": "negative", "group": "fake", "type": "reason", "text": "Because hamburgers contain dictionaries.", "textJP": "なぜならハンバーガーには辞書が入っているからです。"},
+    {"id": "fake_neg_E1", "stance": "negative", "group": "fake", "type": "evidence", "text": "For example, pizza taught me how to say hello.", "textJP": "例えば、ピザが私にハローの言い方を教えてくれました。"},
+    {"id": "fake_neg_S1", "stance": "negative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, I want to be a train.", "textJP": "よって、私は電車になりたいです。"},
+    {"id": "fake_neg_A2", "stance": "negative", "group": "fake", "type": "assertion", "text": "Miso soup is dangerous.", "textJP": "みそ汁は危険です。"},
+    {"id": "fake_neg_R2", "stance": "negative", "group": "fake", "type": "reason", "text": "Because it has sharks inside.", "textJP": "なぜなら中にサメがいるからです。"}
   ],
-  "vocabulary": [{"word": "expectancy", "meaning": "（平均）寿命"}]
+  "vocabulary": [
+    {"word": "healthy", "meaning": "健康的な"}, {"word": "sugar", "meaning": "砂糖"},
+    {"word": "nutrition", "meaning": "栄養"}, {"word": "traditional", "meaning": "伝統的な"},
+    {"word": "custom", "meaning": "習慣"}, {"word": "chopsticks", "meaning": "おはし"},
+    {"word": "variety", "meaning": "種類"}, {"word": "flavor", "meaning": "風味・味わい"},
+    {"word": "ingredient", "meaning": "材料"}, {"word": "rice ball", "meaning": "おにぎり"},
+    {"word": "grill", "meaning": "焼く"}, {"word": "include", "meaning": "含む"}
+  ],
+  "crossExam": {
+    "question": { "text": "Doesn't Japanese food have too much salt, such as ramen or miso soup?", "textJP": "ラーメンやみそ汁など、和食は塩分が多すぎませんか？" },
+    "options": [
+      { "id": "q1", "text": "We can choose lighter dishes and still eat healthy.", "textJP": "あっさりした料理を選べば、健康的に食べられます。", "type": "answer", "judgment": "correct" },
+      { "id": "fake_q1", "text": "Salt is my favorite vegetable.", "textJP": "塩は私のお気に入りの野菜です。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q2", "text": "Ramen is from the moon.", "textJP": "ラーメンは月から来ました。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q3", "text": "I like drinking sea water.", "textJP": "私は海水を飲むのが好きです。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q4", "text": "Let's eat only sugar.", "textJP": "砂糖だけを食べましょう。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q5", "text": "Hamburgers have no taste.", "textJP": "ハンバーガーには味がありません。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q6", "text": "Miso soup is a fruit.", "textJP": "みそ汁はフルーツです。", "type": "answer", "judgment": "weak" }
+    ]
+  },
+  "rebuttal": {
+    "attack": { 
+      "text": "But Western food has more variety and exciting tastes!", 
+      "textJP": "でも洋食のほうが種類が豊富でワクワクする味です！", 
+      "damage": 15 
+    },
+    "options": [
+      { "id": "r1", "text": "Japanese food also has many kinds of dishes, such as sushi, tempura and ramen.", "textJP": "和食にも、寿司や天ぷら、ラーメンなどたくさんの種類の料理があります。", "type": "defense", "judgment": "perfect" },
+      { "id": "fake_r1", "text": "Pizza is a Japanese food.", "textJP": "ピザは和食です。", "type": "reason", "judgment": "weak" },
+      { "id": "fake_r2", "text": "I don't like eating food.", "textJP": "私は食べ物を食べるのが好きではありません。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r3", "text": "Western food is too scary.", "textJP": "洋食は怖すぎます。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r4", "text": "Let's abolish cooking.", "textJP": "料理を廃止しましょう。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r5", "text": "Sushi is made of rocks.", "textJP": "寿司は石でできています。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r6", "text": "I eat sleeping pills.", "textJP": "私は睡眠薬を食べます。", "type": "defense", "judgment": "weak" }
+    ]
+  },
+  "closing": {
+    "options": [
+      { "id": "c1", "text": "Japanese food offers a great balance of health, tradition, and taste.", "textJP": "和食は健康、伝統、そして味の素晴らしいバランスを提供します。", "type": "closing", "judgment": "perfect" },
+      { "id": "fake_c1", "text": "Let's eat aliens.", "textJP": "宇宙人を食べましょう。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c2", "text": "I want to sleep in a burger.", "textJP": "私はハンバーガーの中で寝たいです。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c3", "text": "Chopsticks are dangerous swords.", "textJP": "おはしは危険な剣です。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c4", "text": "Thank you for the UFO.", "textJP": "UFOをありがとう。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c5", "text": "We should drink oil.", "textJP": "私たちは油を飲むべきです。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c6", "text": "Goodbye, my pizza.", "textJP": "さようなら、私のピザ。", "type": "closing", "judgment": "weak" }
+    ]
+  }
 }

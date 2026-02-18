@@ -4,14 +4,87 @@
   "titleJP": "修学旅行は海外の方が良い",
   "image_url": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80",
   "deck": [
-    {"id": "abr_aff_A", "stance": "affirmative", "group": "exp", "type": "assertion", "text": "Going abroad gives students cross-cultural experiences.", "textJP": "海外に行くことは異文化体験を与えます。"},
-    {"id": "abr_aff_R", "stance": "affirmative", "group": "exp", "type": "reason", "text": "Students can see different lifestyles directly.", "textJP": "生徒は異なる生活様式を直接見ることができます。"},
-    {"id": "abr_aff_E", "stance": "affirmative", "group": "exp", "type": "evidence", "text": "Using English in real situations is valuable.", "textJP": "実際の場面で英語を使うことは貴重です。"},
-    {"id": "abr_aff_S", "stance": "affirmative", "group": "exp", "type": "mini_conclusion", "text": "Therefore, it broadens their horizons.", "textJP": "よって、視野が広がります。"},
-    {"id": "abr_neg_A", "stance": "negative", "group": "cost", "type": "assertion", "text": "Domestic trips are safer and cheaper.", "textJP": "国内旅行の方が安全で安価です。"},
-    {"id": "abr_neg_R", "stance": "negative", "group": "cost", "type": "reason", "text": "Going abroad costs too much for some families.", "textJP": "海外は一部の家庭には費用が高すぎます。"},
-    {"id": "abr_neg_E", "stance": "negative", "group": "cost", "type": "evidence", "text": "Passports and flight tickets are expensive.", "textJP": "パスポートや航空券は高価です。"},
-    {"id": "abr_neg_S", "stance": "negative", "group": "cost", "type": "mini_conclusion", "text": "Therefore, domestic trips are accessible to all.", "textJP": "よって、国内旅行は全員が参加しやすいです。"}
+    {"id": "abr_aff_A1", "stance": "affirmative", "group": "exp", "type": "assertion", "text": "Going abroad helps students learn about the world.", "textJP": "海外に行くことで、生徒は世界について学ぶことができます。"},
+    {"id": "abr_aff_R1", "stance": "affirmative", "group": "exp", "type": "reason", "text": "It is because they can see different cultures, languages, and lifestyles directly.", "textJP": "なぜなら、ちがう文化や言葉、生活を直接見ることができるからです。"},
+    {"id": "abr_aff_E1", "stance": "affirmative", "group": "exp", "type": "evidence", "text": "For example, students can learn how people in other countries study, eat, and live.", "textJP": "例えば、外国の人がどのように学び、食べ、生活しているかを学べます。"},
+    {"id": "abr_aff_S1", "stance": "affirmative", "group": "exp", "type": "mini_conclusion", "text": "Therefore, going abroad helps students learn about the world better.", "textJP": "よって、海外に行くことで、生徒は世界について学ぶことができます。"},
+
+    {"id": "abr_aff_A2", "stance": "affirmative", "group": "english", "type": "assertion", "text": "Going abroad gives students a chance to use English in real life.", "textJP": "海外に行くことで、生徒は実際の生活の中で英語を使う機会を得ます。"},
+    {"id": "abr_aff_R2", "stance": "affirmative", "group": "english", "type": "reason", "text": "It is because they can talk with local people, order food, and ask questions in English.", "textJP": "なぜなら、現地の人と話したり、食べ物を注文したり、質問したりできるからです。"},
+    {"id": "abr_aff_E2", "stance": "affirmative", "group": "english", "type": "evidence", "text": "For example, students can feel proud when they speak English and are understood.", "textJP": "例えば、英語で話して相手に通じたとき、生徒は自信と誇りを感じます。"},
+    {"id": "abr_aff_S2", "stance": "affirmative", "group": "english", "type": "mini_conclusion", "text": "Therefore, going abroad gives students a chance to use English in real life.", "textJP": "よって、海外に行くことで、実際の生活で英語を使う機会を得ます。"},
+
+    {"id": "abr_neg_A1", "stance": "negative", "group": "cost", "type": "assertion", "text": "Overseas school trips cost too much money for many families.", "textJP": "海外の修学旅行は、多くの家庭にとってお金がかかりすぎます。"},
+    {"id": "abr_neg_R1", "stance": "negative", "group": "cost", "type": "reason", "text": "It is because airplane tickets, hotels, and other travel fees are very expensive.", "textJP": "なぜなら、飛行機代やホテル代、旅行にかかる費用がとても高いからです。"},
+    {"id": "abr_neg_E1", "stance": "negative", "group": "cost", "type": "evidence", "text": "For example, some families can't afford it, and this can make students feel unequal.", "textJP": "例えば、負担できない家庭もあり、生徒のあいだで不公平を感じることがあります。"},
+    {"id": "abr_neg_S1", "stance": "negative", "group": "cost", "type": "mini_conclusion", "text": "Therefore, overseas school trips cost too much money for many families.", "textJP": "よって、海外の修学旅行はお金がかかりすぎます。"},
+
+    {"id": "abr_neg_A2", "stance": "negative", "group": "domestic", "type": "assertion", "text": "Domestic school trips can also give students cultural learning experiences.", "textJP": "国内の修学旅行でも文化的な学びを得られます。"},
+    {"id": "abr_neg_R2", "stance": "negative", "group": "domestic", "type": "reason", "text": "It is because Japan has many traditional places, foods, and arts that students should understand.", "textJP": "なぜなら、日本には生徒が学ぶべき伝統的な場所や食べ物、芸術がたくさんあるからです。"},
+    {"id": "abr_neg_E2", "stance": "negative", "group": "domestic", "type": "evidence", "text": "For example, visiting Kyoto or Hiroshima teaches students about history and peace.", "textJP": "例えば、京都や広島を訪れることで、歴史や平和について学べます。"},
+    {"id": "abr_neg_S2", "stance": "negative", "group": "domestic", "type": "mini_conclusion", "text": "Therefore, domestic school trips can also give students cultural learning experiences.", "textJP": "よって、国内の修学旅行でも文化的な学びを得られます。"},
+
+    {"id": "fake_aff_A1", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "Going abroad makes you an alien.", "textJP": "海外に行くと宇宙人になります。"},
+    {"id": "fake_aff_R1", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because airplanes fly to the moon.", "textJP": "なぜなら飛行機は月に飛ぶからです。"},
+    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "evidence", "text": "For example, I met a Martian in New York.", "textJP": "例えば、私はニューヨークで火星人に会いました。"},
+    {"id": "fake_aff_S1", "stance": "affirmative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, swimming is difficult.", "textJP": "よって、泳ぐのは難しいです。"},
+    {"id": "fake_aff_A2", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "English is made of numbers.", "textJP": "英語は数字でできています。"},
+    {"id": "fake_aff_R2", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because my teacher is a calculator.", "textJP": "なぜなら私の先生は電卓だからです。"},
+
+    {"id": "fake_neg_A1", "stance": "negative", "group": "fake", "type": "assertion", "text": "Japan is the only country in the world.", "textJP": "日本は世界で唯一の国です。"},
+    {"id": "fake_neg_R1", "stance": "negative", "group": "fake", "type": "reason", "text": "Because I have never seen a map.", "textJP": "なぜなら私は地図を見たことがないからです。"},
+    {"id": "fake_neg_E1", "stance": "negative", "group": "fake", "type": "evidence", "text": "For example, Kyoto is in Paris.", "textJP": "例えば、京都はパリにあります。"},
+    {"id": "fake_neg_S1", "stance": "negative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, airplanes are birds.", "textJP": "よって、飛行機は鳥です。"},
+    {"id": "fake_neg_A2", "stance": "negative", "group": "fake", "type": "assertion", "text": "Domestic trips are very dangerous.", "textJP": "国内旅行はとても危険です。"},
+    {"id": "fake_neg_R2", "stance": "negative", "group": "fake", "type": "reason", "text": "Because ninjas attack students.", "textJP": "なぜなら忍者が生徒を襲うからです。"}
   ],
-  "vocabulary": [{"word": "broaden", "meaning": "広げる"}]
+  "vocabulary": [
+    {"word": "culture", "meaning": "文化"}, {"word": "lifestyle", "meaning": "生活様式"},
+    {"word": "different", "meaning": "違う"}, {"word": "directly", "meaning": "直接"},
+    {"word": "local", "meaning": "現地の"}, {"word": "order", "meaning": "注文する"},
+    {"word": "proud", "meaning": "誇りに思う"}, {"word": "improve", "meaning": "向上させる"},
+    {"word": "cost", "meaning": "費用がかかる"}, {"word": "affordable", "meaning": "手が届く"},
+    {"word": "expensive", "meaning": "高価な"}, {"word": "afford", "meaning": "〜を負担できる"},
+    {"word": "unequal", "meaning": "不平等な"}, {"word": "domestic", "meaning": "国内の"},
+    {"word": "traditional", "meaning": "伝統的な"}, {"word": "valuable", "meaning": "価値のある"}
+  ],
+  "crossExam": {
+    "question": { "text": "Isn't it too dangerous for students to go abroad?", "textJP": "生徒が海外に行くのは危険すぎませんか？" },
+    "options": [
+      { "id": "q1", "text": "Teachers and guides will protect the students safely.", "textJP": "先生やガイドが生徒を安全に守ります。", "type": "answer", "judgment": "correct" },
+      { "id": "fake_q1", "text": "Yes, ninjas are everywhere.", "textJP": "はい、忍者がどこにでもいます。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q2", "text": "I like danger.", "textJP": "私は危険が好きです。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q3", "text": "Airplanes are made of paper.", "textJP": "飛行機は紙でできています。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q4", "text": "Japan is also dangerous.", "textJP": "日本も危険です。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q5", "text": "Students can fight bears.", "textJP": "生徒はクマと戦えます。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q6", "text": "We should stay in our beds forever.", "textJP": "私たちは永遠にベッドにいるべきです。", "type": "answer", "judgment": "weak" }
+    ]
+  },
+  "rebuttal": {
+    "attack": { 
+      "text": "But short trips can't improve English skills so much!", 
+      "textJP": "でも短い旅行では英語力はそれほど向上しません！", 
+      "damage": 15 
+    },
+    "options": [
+      { "id": "r1", "text": "It gives students motivation to study English more after the trip.", "textJP": "旅行後、もっと英語を勉強するモチベーションを与えてくれます。", "type": "defense", "judgment": "perfect" },
+      { "id": "fake_r1", "text": "English is not important.", "textJP": "英語は重要ではありません。", "type": "reason", "judgment": "weak" },
+      { "id": "fake_r2", "text": "I can speak dog language.", "textJP": "私は犬の言葉が話せます。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r3", "text": "We should speak Japanese in America.", "textJP": "アメリカでは日本語を話すべきです。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r4", "text": "Trips are just for eating.", "textJP": "旅行はただ食べるためだけのものです。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r5", "text": "My phone can translate everything.", "textJP": "私のスマホがすべて翻訳してくれます。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r6", "text": "Let's stay at the hotel all day.", "textJP": "一日中ホテルにいましょう。", "type": "defense", "judgment": "weak" }
+    ]
+  },
+  "closing": {
+    "options": [
+      { "id": "c1", "text": "Going abroad gives students priceless global experiences.", "textJP": "海外に行くことは生徒にかけがえのないグローバルな経験を与えます。", "type": "closing", "judgment": "perfect" },
+      { "id": "fake_c1", "text": "I want to eat sushi in Japan.", "textJP": "私は日本で寿司を食べたいです。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c2", "text": "Passports are annoying.", "textJP": "パスポートは面倒くさいです。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c3", "text": "Airplanes are too fast.", "textJP": "飛行機は速すぎます。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c4", "text": "Please give me a souvenir.", "textJP": "お土産をください。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c5", "text": "The world is actually flat.", "textJP": "世界は本当は平らです。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c6", "text": "Thank you for the flight.", "textJP": "フライトをありがとう。", "type": "closing", "judgment": "weak" }
+    ]
+  }
 }
