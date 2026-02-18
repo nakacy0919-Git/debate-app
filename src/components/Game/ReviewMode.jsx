@@ -13,13 +13,15 @@ const COLORS = {
 };
 
 export const ReviewMode = ({ topic, onClose, showJapanese, langMode }) => {
-  // グループ（論点）ごとにカードをまとめる処理
-  const groupedCards = topic.deck.reduce((acc, card) => {
-    if (!card.group) return acc;
-    if (!acc[card.group]) acc[card.group] = [];
-    acc[card.group].push(card);
-    return acc;
-  }, {});
+  // ★修正: group が "fake" のカードを除外してからまとめる
+  const groupedCards = topic.deck
+    .filter(card => card.group !== 'fake') 
+    .reduce((acc, card) => {
+      if (!card.group) return acc;
+      if (!acc[card.group]) acc[card.group] = [];
+      acc[card.group].push(card);
+      return acc;
+    }, {});
 
   return (
     <div className="absolute inset-0 z-[100] bg-[#0f172a] text-slate-200 flex flex-col">
@@ -31,37 +33,31 @@ export const ReviewMode = ({ topic, onClose, showJapanese, langMode }) => {
             <div className="text-xs text-blue-400 font-bold uppercase tracking-widest mb-1">Review Mode</div>
             <h1 className="font-black text-xl">{langMode === 'ja' ? topic.titleJP : topic.title}</h1>
         </div>
-        <div className="w-24"></div> {/* バランス調整用 */}
+        <div className="w-24"></div>
       </header>
 
       <div className="flex-1 overflow-y-auto p-6 scroll-smooth">
-        {/* レスポンシブなMasonry風グリッド（スマホは1列、タブレット以上は複数列） */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
-          
           {Object.entries(groupedCards).map(([groupName, cards]) => {
-            const stance = cards[0]?.stance; // affirmative or negative
+            const stance = cards[0]?.stance;
             return (
               <div key={groupName} className={`p-6 rounded-2xl border-t-4 shadow-xl ${stance === 'affirmative' ? 'bg-slate-900/80 border-blue-500' : 'bg-slate-900/80 border-red-500'}`}>
-                
                 <div className="flex justify-between items-center mb-6 pb-2 border-b border-white/10">
                    <span className="font-mono text-slate-400 text-sm">Logic: {groupName}</span>
                    <span className={`px-3 py-1 rounded text-xs font-black uppercase ${stance === 'affirmative' ? 'bg-blue-600/20 text-blue-400' : 'bg-red-600/20 text-red-400'}`}>
                       {stance}
                    </span>
                 </div>
-
                 <div className="space-y-4">
                   {cards.map(card => {
                      const Icon = ICONS[card.type] || ArrowUpCircle;
                      const colorClass = COLORS[card.type] || COLORS.reason;
-                     
                      return (
                         <div key={card.id} className={`p-4 rounded-xl border ${colorClass}`}>
                             <div className="flex items-center gap-2 mb-2 opacity-80">
                                <Icon className="w-4 h-4"/>
                                <span className="text-[10px] font-black uppercase tracking-widest">{card.type}</span>
                             </div>
-                            
                             {langMode === 'ja' ? (
                                 <p className="font-bold text-lg text-white leading-relaxed">{card.textJP}</p>
                             ) : (
