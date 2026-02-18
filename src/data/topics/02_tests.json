@@ -22,7 +22,21 @@
     {"id": "test_neg_A2", "stance": "negative", "group": "unfair", "type": "assertion", "text": "Abolishing regular tests makes evaluation unfair.", "textJP": "定期テストをなくすと、評価が不公平になります。"},
     {"id": "test_neg_R2", "stance": "negative", "group": "unfair", "type": "reason", "text": "It is because without tests, teachers cannot compare students fairly.", "textJP": "なぜなら、テストがなければ、先生は生徒を公平に比べられないからです。"},
     {"id": "test_neg_E2", "stance": "negative", "group": "unfair", "type": "evidence", "text": "Grades might depend too much on attitude or homework.", "textJP": "成績が態度や宿題によりすぎてしまうかもしれません。"},
-    {"id": "test_neg_S2", "stance": "negative", "group": "unfair", "type": "mini_conclusion", "text": "Therefore, abolishing regular tests makes evaluation unfair.", "textJP": "よって、テスト廃止は評価を不公平にします。"}
+    {"id": "test_neg_S2", "stance": "negative", "group": "unfair", "type": "mini_conclusion", "text": "Therefore, abolishing regular tests makes evaluation unfair.", "textJP": "よって、テスト廃止は評価を不公平にします。"},
+
+    {"id": "fake_aff_A1", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "Tests make students very hungry.", "textJP": "テストは生徒をとても空腹にします。"},
+    {"id": "fake_aff_R1", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because writing names takes too much energy.", "textJP": "なぜなら名前を書くのにエネルギーを使いすぎるからです。"},
+    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "evidence", "text": "For example, my pencil is always broken.", "textJP": "例えば、私の鉛筆はいつも折れています。"},
+    {"id": "fake_aff_S1", "stance": "affirmative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, tests are delicious.", "textJP": "よって、テストはおいしいです。"},
+    {"id": "fake_aff_A2", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "Tests are just a video game.", "textJP": "テストはただのテレビゲームです。"},
+    {"id": "fake_aff_R2", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because I like playing games on weekends.", "textJP": "なぜなら私は週末にゲームをするのが好きだからです。"},
+
+    {"id": "fake_neg_A1", "stance": "negative", "group": "fake", "type": "assertion", "text": "Tests are very good for sleeping.", "textJP": "テストは睡眠にとても良いです。"},
+    {"id": "fake_neg_R1", "stance": "negative", "group": "fake", "type": "reason", "text": "Because the classroom becomes very quiet.", "textJP": "なぜなら教室がとても静かになるからです。"},
+    {"id": "fake_neg_E1", "stance": "negative", "group": "fake", "type": "evidence", "text": "For example, teachers also look sleepy.", "textJP": "例えば、先生も眠そうに見えます。"},
+    {"id": "fake_neg_S1", "stance": "negative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, tests improve our health.", "textJP": "よって、テストは私たちの健康を改善します。"},
+    {"id": "fake_neg_A2", "stance": "negative", "group": "fake", "type": "assertion", "text": "Without tests, the world will end.", "textJP": "テストがないと、世界は終わります。"},
+    {"id": "fake_neg_R2", "stance": "negative", "group": "fake", "type": "reason", "text": "Because aliens love taking tests.", "textJP": "なぜなら宇宙人はテストを受けるのが好きだからです。"}
   ],
   "vocabulary": [{"word": "evaluation", "meaning": "評価"}],
 
@@ -30,7 +44,12 @@
     "question": { "text": "Don't tests cause too much stress?", "textJP": "テストはストレスになりすぎませんか？" },
     "options": [
       { "id": "q1", "text": "It's good practice for the future.", "textJP": "将来のための良い練習です。", "type": "answer", "judgment": "correct" },
-      { "id": "q2", "text": "Stress is bad.", "textJP": "ストレスは悪いです。", "type": "answer", "judgment": "weak" }
+      { "id": "fake_q1", "text": "Yes, we should cry every day.", "textJP": "はい、私たちは毎日泣くべきです。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q2", "text": "Stress is my best friend.", "textJP": "ストレスは私の親友です。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q3", "text": "I don't know what stress is.", "textJP": "ストレスが何か知りません。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q4", "text": "Teachers like to give stress.", "textJP": "先生はストレスを与えるのが好きです。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q5", "text": "Let's abolish schools too.", "textJP": "学校も廃止しましょう。", "type": "answer", "judgment": "weak" },
+      { "id": "fake_q6", "text": "Eating chocolate reduces stress.", "textJP": "チョコレートを食べるとストレスが減ります。", "type": "answer", "judgment": "weak" }
     ]
   },
   "rebuttal": {
@@ -41,12 +60,23 @@
     },
     "options": [
       { "id": "r1", "text": "Tests provide fair and objective goals.", "textJP": "テストは公平で客観的な目標を提供します。", "type": "defense", "judgment": "perfect" },
-      { "id": "r2", "text": "Projects are fun.", "textJP": "プロジェクトは楽しいです。", "type": "reason", "judgment": "weak" }
+      { "id": "fake_r1", "text": "Projects are just for fun.", "textJP": "プロジェクトはただの遊びです。", "type": "reason", "judgment": "weak" },
+      { "id": "fake_r2", "text": "I hate making presentations.", "textJP": "私は発表をするのが嫌いです。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r3", "text": "Motivation is not necessary.", "textJP": "やる気は必要ありません。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r4", "text": "Tests are printed on paper.", "textJP": "テストは紙に印刷されています。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r5", "text": "No one likes projects.", "textJP": "誰もプロジェクトを好きではありません。", "type": "defense", "judgment": "weak" },
+      { "id": "fake_r6", "text": "Let's play games instead of projects.", "textJP": "プロジェクトの代わりにゲームをしましょう。", "type": "defense", "judgment": "weak" }
     ]
   },
   "closing": {
     "options": [
-      { "id": "c1", "text": "Tests provide fair goals and motivation.", "textJP": "テストは公平な目標とやる気を与えてくれます。", "type": "closing", "judgment": "perfect" }
+      { "id": "c1", "text": "Tests provide fair goals and motivation.", "textJP": "テストは公平な目標とやる気を与えてくれます。", "type": "closing", "judgment": "perfect" },
+      { "id": "fake_c1", "text": "Tests are scary monsters.", "textJP": "テストは怖いモンスターです。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c2", "text": "Everyone hates studying.", "textJP": "みんな勉強が嫌いです。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c3", "text": "Please give me a good score.", "textJP": "私に良い点数をください。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c4", "text": "Tests are just numbers.", "textJP": "テストはただの数字です。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c5", "text": "I want to go home early.", "textJP": "早く家に帰りたいです。", "type": "closing", "judgment": "weak" },
+      { "id": "fake_c6", "text": "Thank you for your time.", "textJP": "お時間をいただきありがとうございます。", "type": "closing", "judgment": "weak" }
     ]
   }
 }

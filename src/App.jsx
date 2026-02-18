@@ -1,17 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
-  Trophy, RefreshCcw, CheckCircle2, ArrowUpCircle, Play,
-  AlertTriangle, Lightbulb, ShieldCheck, Languages, GripVertical,
-  ChevronRight, ChevronLeft, Palette, Home, Zap, Swords,
-  Shield, MessageCircleQuestion, Gavel, Plus, BrainCircuit,
-  Settings, X, Type, Monitor, Target, Heart, Clock, Undo2, Skull,
-  HelpCircle, MoveHorizontal, BookOpen, Link
+  Trophy, CheckCircle2, ArrowUpCircle, Play, AlertTriangle, Lightbulb, ShieldCheck, GripVertical,
+  Home, Zap, Swords, Shield, MessageCircleQuestion, Gavel, Plus, BrainCircuit, X, Type, Heart, Clock, Undo2, HelpCircle, MoveHorizontal, BookOpen
 } from 'lucide-react';
 
 import { getAllTopics } from './utils/dataLoader';
 import { SmartText } from './components/UI/SmartText';
 import { VocabDrill } from './components/Game/VocabDrill';
-import { ReviewMode } from './components/Game/ReviewMode'; // 新規追加
+import { ReviewMode } from './components/Game/ReviewMode';
 
 // --- 設定値 ---
 const MAX_HP = 100;
@@ -20,16 +16,17 @@ const DAMAGE_SMALL = 25;
 const DAMAGE_TICK = 12.5; 
 const TIME_LIMIT_SEC = 10; 
 
+// ★修正点: Fakeの数と対戦時の選択肢数を定義
 const DIFFICULTIES = {
-  easy: { label: 'Easy', deckSize: 4, showHint: true },
-  medium: { label: 'Medium', deckSize: 5, showHint: false },
-  hard: { label: 'Hard', deckSize: 6, showHint: false },
+  easy:   { label: 'Easy',   fakeCount: 4, battleOptions: 4, showHint: true },  
+  medium: { label: 'Medium', fakeCount: 6, battleOptions: 5, showHint: false }, 
+  hard:   { label: 'Hard',   fakeCount: 8, battleOptions: 6, showHint: false }, 
 };
 
 // モードごとの必要構成
 const FLOWS = {
   area: ['assertion', 'reason', 'evidence', 'mini_conclusion'],
-  logic_link: ['reason', 'evidence'] // 理由と根拠だけを繋ぐ新モード
+  logic_link: ['reason', 'evidence'] // 理由と根拠だけを繋ぐモード
 };
 
 const THEMES = {
@@ -46,9 +43,7 @@ const CARD_TYPES = {
   closing:   { label: "Closing",   labelJP: "最終弁論", icon: Gavel, color: "text-pink-200", border: "border-pink-500", bg: "bg-gradient-to-br from-pink-600 to-pink-800" },
 };
 
-const FONT_SIZES = {
-  normal: 'text-base', large: 'text-xl', xlarge: 'text-2xl'
-};
+const FONT_SIZES = { normal: 'text-base', large: 'text-xl', xlarge: 'text-2xl' };
 
 // ルール説明モーダル (日英切り替え対応)
 const RuleBook = ({ onClose }) => {
@@ -59,9 +54,7 @@ const RuleBook = ({ onClose }) => {
         <div className="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
           <h2 className="text-3xl font-black text-white flex items-center gap-2"><HelpCircle/> {isJp ? "遊び方" : "How to Play"}</h2>
           <div className="flex gap-4">
-            <button onClick={() => setIsJp(!isJp)} className="px-3 py-1 rounded bg-blue-600/20 text-blue-400 font-bold border border-blue-500/30">
-               {isJp ? "EN" : "日本語"}
-            </button>
+            <button onClick={() => setIsJp(!isJp)} className="px-3 py-1 rounded bg-blue-600/20 text-blue-400 font-bold border border-blue-500/30">{isJp ? "EN" : "日本語"}</button>
             <button onClick={onClose} className="p-2 bg-white/10 rounded-full hover:bg-white/20 text-white"><X/></button>
           </div>
         </div>
@@ -90,9 +83,8 @@ export default function App() {
   const [selectedTopicId, setSelectedTopicId] = useState(null);
   const [userStance, setUserStance] = useState('affirmative'); 
   
-  // 新機能: ゲームモードと表示言語モード
-  const [gameMode, setGameMode] = useState('area'); // 'area', 'logic_link', 'review'
-  const [langMode, setLangMode] = useState('en'); // 'en', 'ja' (完全日本語)
+  const [gameMode, setGameMode] = useState('area'); 
+  const [langMode, setLangMode] = useState('en'); 
   const [fontSize, setFontSize] = useState('normal'); 
 
   const [difficulty, setDifficulty] = useState('easy');
@@ -116,12 +108,11 @@ export default function App() {
 
   const [sidePanelPos, setSidePanelPos] = useState('right'); 
   const [sidePanelWidth, setSidePanelWidth] = useState(30); 
-  
   const [timeProgress, setTimeProgress] = useState(0); 
   
   // Refs
   const timerIntervalRef = useRef(null);
-  const startTimeRef = useRef(Date.now()); // タイマーのリセット用基準時間
+  const startTimeRef = useRef(Date.now()); 
   const isResizing = useRef(false);
   const scrollRef = useRef(null);
 
@@ -132,37 +123,30 @@ export default function App() {
     if(loadedTopics.length > 0) setSelectedTopicId(loadedTopics[0].id);
   }, []);
 
-  // ⑤ Timer Logic (完全に独立してリセットされるように修正)
+  // Timer Logic
   useEffect(() => {
     if (gameState !== 'construct' && gameState !== 'cross_exam' && gameState !== 'rebuttal_defense') {
       clearInterval(timerIntervalRef.current);
       return;
     }
 
-    // フェーズが変わった時にリセット
     startTimeRef.current = Date.now();
-
     timerIntervalRef.current = setInterval(() => {
       const elapsed = Date.now() - startTimeRef.current;
       const progress = Math.min((elapsed / (TIME_LIMIT_SEC * 1000)) * 100, 100);
       setTimeProgress(progress);
       
       if (progress >= 100) {
-        startTimeRef.current = Date.now(); // ペナルティ後にリセット
-        
-        // useEffectの依存配列に入れずにsetStateする
-        setPlayerHP(prev => {
-           const newHp = Math.max(0, prev - DAMAGE_TICK);
-           return newHp;
-        });
+        startTimeRef.current = Date.now(); 
+        setPlayerHP(prev => Math.max(0, prev - DAMAGE_TICK));
         setShake(true); setTimeout(() => setShake(false), 300);
         setFeedback({ msg: `-${DAMAGE_TICK} HP (Time Penalty)`, type: 'damage', judgment: 'weak' });
-        setTimeout(() => setFeedback(null), 1500); // 消えないバグ修正
+        setTimeout(() => setFeedback(null), 1500); 
       }
     }, 100);
 
     return () => clearInterval(timerIntervalRef.current);
-  }, [gameState]); // playerHPへの依存を削除
+  }, [gameState]); 
 
   // HP Watcher
   useEffect(() => {
@@ -202,7 +186,7 @@ export default function App() {
     setShake(true); 
     setTimeout(() => setShake(false), 300);
     setFeedback({ msg: `-${amount} HP (${reason})`, type: 'damage', judgment: 'weak' });
-    setTimeout(() => setFeedback(null), 1500); // ① 消えないバグ修正
+    setTimeout(() => setFeedback(null), 1500); 
   };
 
   const damageOpponent = (amount) => {
@@ -221,6 +205,28 @@ export default function App() {
     setTimeout(() => setParticles(prev => prev.filter(p => !newParticles.find(np => np.id === p.id))), 1000);
   };
 
+  // ★復活：対戦フェーズ用のFake混入ヘルパー関数
+  const setupBattlePhase = (options) => {
+    if (!options || options.length === 0) return [];
+    
+    // 正解と不正解（Fake）を分ける
+    const corrects = options.filter(o => o.judgment === 'correct' || o.judgment === 'perfect');
+    const weaks = options.filter(o => o.judgment === 'weak');
+    
+    // 難易度に応じた選択肢の総数
+    const targetCount = DIFFICULTIES[difficulty].battleOptions || 4;
+    
+    // 正解は必ず1つ入れる
+    const selectedCorrect = corrects.sort(() => Math.random() - 0.5).slice(0, 1);
+    
+    // 残りの枠を不正解（Fake）で埋める
+    const neededWeaks = targetCount - selectedCorrect.length;
+    const selectedWeaks = weaks.sort(() => Math.random() - 0.5).slice(0, Math.max(0, neededWeaks));
+    
+    // 混ぜてシャッフルして返す
+    return [...selectedCorrect, ...selectedWeaks].sort(() => Math.random() - 0.5);
+  };
+
   const initGame = () => {
     if (gameMode === 'review') {
        setGameState('review');
@@ -236,12 +242,11 @@ export default function App() {
     setGameState('construct');
     setFeedback(null);
     setTimeProgress(0);
-    startTimeRef.current = Date.now(); // 確実なタイマーリセット
+    startTimeRef.current = Date.now(); 
     
     const currentTopic = topics.find(t => t.id === selectedTopicId) || topics[0];
     let myStanceCards = currentTopic.deck.filter(c => c.stance === userStance);
     
-    // Logic Link モードの場合は、Reason と Evidence だけを抽出
     if (gameMode === 'logic_link') {
        myStanceCards = myStanceCards.filter(c => c.type === 'reason' || c.type === 'evidence');
     }
@@ -251,17 +256,15 @@ export default function App() {
         return;
     }
 
-    const allGroups = [...new Set(myStanceCards.map(c => c.group))];
+    const allGroups = [...new Set(myStanceCards.filter(c => c.group !== 'fake').map(c => c.group))];
     const targetGroup = allGroups[Math.floor(Math.random() * allGroups.length)];
     
     const correctCards = myStanceCards.filter(c => c.group === targetGroup);
-    const otherCards = myStanceCards.filter(c => c.group !== targetGroup);
+    // ダミーカード候補（他グループのもの ＋ group='fake' のもの）
+    const otherCards = myStanceCards.filter(c => c.group !== targetGroup || c.group === 'fake');
     
-    // 難易度に応じたノイズ
-    let noiseCount = 0;
-    if (difficulty === 'medium') noiseCount = 1;
-    if (difficulty === 'hard') noiseCount = 2;
-
+    // ★修正：難易度に応じたFakeの数を抽出
+    const noiseCount = DIFFICULTIES[difficulty].fakeCount || 4;
     const noiseCards = otherCards.sort(() => Math.random() - 0.5).slice(0, Math.max(0, noiseCount));
     
     const deck = [...correctCards, ...noiseCards].sort(() => Math.random() - 0.5);
@@ -287,7 +290,7 @@ export default function App() {
   // --- Phase Logic ---
   const triggerCrossExam = () => {
     if (gameMode === 'logic_link') {
-       setGameState('result'); // Logic Linkモードは敵なしですぐ終わる
+       setGameState('result'); 
        return;
     }
 
@@ -296,7 +299,8 @@ export default function App() {
     if (q) {
       setGameState('cross_exam');
       setRivalCard({ id: 'rival_q', text: q.text, textJP: q.textJP, type: 'answer', isQuestion: true });
-      setHand(currentTopic.crossExam.options || []);
+      // ★復活：Fakeを混ぜた手札をセット
+      setHand(setupBattlePhase(currentTopic.crossExam.options));
     } else {
       triggerRebuttalPhase();
     }
@@ -311,11 +315,12 @@ export default function App() {
       setGameState('rebuttal_attack');
       const atk = currentTopic.rebuttal?.attack;
       if (atk) {
-        setRivalCard({ id: 'rival_atk', text: atk.text, textJP: atk.textJP, type: 'attack', damage: atk.damage });
-        takeDamage(DAMAGE_TICK, "Rival Attack");
+        setRivalCard({ id: 'rival_atk', text: atk.text, textJP: atk.textJP, type: 'attack', damage: atk.damage || 15 });
+        takeDamage(DAMAGE_TICK, "Opponent Attack!");
         setTimeout(() => {
           setGameState('rebuttal_defense');
-          setHand(currentTopic.rebuttal.options || []);
+          // ★復活：Fakeを混ぜた手札をセット
+          setHand(setupBattlePhase(currentTopic.rebuttal.options));
         }, 3000);
       } else {
         triggerClosingPhase();
@@ -327,11 +332,15 @@ export default function App() {
     const currentTopic = topics.find(t => t.id === selectedTopicId) || topics[0];
     setGameState('closing');
     setRivalCard(null);
-    setHand(currentTopic.closing?.options || []);
+    if(currentTopic.closing?.options) {
+      // ★復活：Fakeを混ぜた手札をセット
+      setHand(setupBattlePhase(currentTopic.closing.options));
+    } else {
+      setTimeout(() => setGameState('result'), 1500);
+    }
   };
 
   const handleCardSelect = (card) => {
-    // ⑤ 選択時に確実なタイマーリセットを行う
     startTimeRef.current = Date.now(); 
     setTimeProgress(0);
 
@@ -344,13 +353,11 @@ export default function App() {
       const expectedType = expectedFlow[currentStepIndex];
       const cardType = card.type === 'mini_conclusion' ? 'mini_conclusion' : card.type;
 
-      // 1. Structure Check
       if (cardType !== expectedType) {
         takeDamage(DAMAGE_BIG, "Wrong Structure!");
         return;
       }
 
-      // 2. Logic Check
       if (currentStepIndex === 0) {
         if (card.group !== activeLogicGroup) {
              takeDamage(DAMAGE_SMALL, "Logic Mismatch!");
@@ -373,24 +380,27 @@ export default function App() {
       
       if (newTower.length >= expectedFlow.length) {
         setFeedback({ msg: "PERFECT COMPLETE!", type: 'success', judgment: 'perfect' });
-        setTimeout(() => setFeedback(null), 1500); // ① 消えないバグ修正
+        setTimeout(() => setFeedback(null), 1500); 
         triggerExplosion(30, 'bg-blue-400');
         nextPhaseTrigger = () => setTimeout(triggerCrossExam, 1500);
       }
     } else {
-        // 対戦フェーズ
+        // 対戦フェーズ処理
         setHand([]); 
 
         if (card.judgment === 'weak') {
-            takeDamage(DAMAGE_SMALL, "Weak Argument");
+            takeDamage(DAMAGE_SMALL, "Weak Argument!");
             judgment = 'weak';
         } else {
             setScore(prev => prev + 50);
             damageOpponent(20);
             judgment = 'perfect';
-            setFeedback({ msg: "NICE MOVE!", type: 'success', judgment: 'perfect' });
-            setTimeout(() => setFeedback(null), 1500); // ① 消えないバグ修正
+            setFeedback({ msg: "NICE COUNTER!", type: 'success', judgment: 'perfect' });
+            setTimeout(() => setFeedback(null), 1500); 
         }
+
+        const newTower = [...tower, { ...card, judgment }];
+        setTower(newTower);
 
         if (gameState === 'cross_exam') nextPhaseTrigger = () => setTimeout(triggerRebuttalPhase, 1500);
         else if (gameState === 'rebuttal_defense') nextPhaseTrigger = () => setTimeout(triggerClosingPhase, 1500);
@@ -426,7 +436,6 @@ export default function App() {
 
   if (topics.length === 0) return <div className="h-screen flex items-center justify-center bg-[#09090b] text-white">Loading...</div>;
 
-  // ⑥ Review Mode のレンダリング
   if (gameState === 'review') {
     return <ReviewMode topic={currentTopic} onClose={goHome} showJapanese={showJapanese} langMode={langMode} />;
   }
@@ -451,7 +460,6 @@ export default function App() {
               </div>
           </div>
 
-          {/* ④ 現在のテーマとスタンスを常時表示 */}
           {gameState !== 'start' && (
             <div className="hidden md:flex flex-col ml-4 border-l border-white/20 pl-4 max-w-sm">
                 <span className="text-sm font-bold text-white truncate flex items-center gap-2">
@@ -465,7 +473,6 @@ export default function App() {
           )}
         </div>
 
-        {/* Timer */}
         {(gameState === 'construct' || gameState === 'cross_exam' || gameState === 'rebuttal_defense') && (
             <div className="absolute left-1/2 -translate-x-1/2 top-2 flex flex-col items-center w-32">
                 <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 flex items-center gap-1">
@@ -478,13 +485,11 @@ export default function App() {
         )}
 
         <div className="flex items-center gap-2">
-          {/* ⑦ テキストサイズ変更（ゲーム中も可能に） */}
           <button onClick={() => setFontSize(prev => prev === 'normal' ? 'large' : prev === 'large' ? 'xlarge' : 'normal')} className="p-2 hover:bg-white/10 rounded-full text-slate-400" title="Text Size">
              <Type className="w-5 h-5"/>
           </button>
           <button onClick={() => setShowRules(true)} className="p-2 hover:bg-white/10 rounded-full text-blue-400"><HelpCircle className="w-6 h-6"/></button>
           
-          {/* 言語切り替え */}
           {langMode !== 'ja' && (
              <button onClick={() => setShowJapanese(!showJapanese)} className={`w-8 h-8 rounded-full border flex items-center justify-center font-bold text-xs ${showJapanese ? 'bg-blue-600 border-blue-400' : 'border-slate-600'}`}>JP</button>
           )}
@@ -652,7 +657,7 @@ export default function App() {
                         </div>
                     </div>
 
-                    {/* Center: Game Mode & Language (⑧ ⑨ 新機能) */}
+                    {/* Center: Game Mode & Language */}
                     <div className="bg-slate-800/50 p-5 rounded-2xl border border-white/10 lg:col-span-1 space-y-6 flex flex-col justify-center">
                         <div>
                             <h2 className="text-sm font-bold text-purple-400 mb-3 uppercase tracking-widest border-b border-white/10 pb-2">2. Game Mode</h2>
@@ -720,7 +725,7 @@ export default function App() {
           </div>
       )}
 
-      {/* Drill Mode (②) */}
+      {/* Drill Mode */}
       {isDrillMode && <VocabDrill vocabList={currentTopic.vocabulary || []} onClose={() => setIsDrillMode(false)} />}
 
       {/* Result / Game Over Screens */}
@@ -741,7 +746,7 @@ export default function App() {
           ))}
       </div>
       
-      {/* Feedback Popup (① バグ修正済) */}
+      {/* Feedback Popup */}
       {feedback && (
          <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[120] pointer-events-none w-full flex justify-center">
             <div className={`px-10 py-6 rounded-xl backdrop-blur-md text-white font-black text-3xl shadow-[0_0_50px_rgba(0,0,0,0.8)] animate-in zoom-in flex items-center gap-4 ${feedback.type === 'damage' ? 'bg-red-600/90 border-2 border-red-400' : 'bg-blue-600/90 border-2 border-blue-400'}`}>
