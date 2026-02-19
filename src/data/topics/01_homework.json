@@ -4,82 +4,223 @@
   "titleJP": "宿題は廃止すべきである",
   "image_url": "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1000&q=80",
   "deck": [
-    {"id": "hw_aff_A1", "stance": "affirmative", "group": "time", "type": "assertion", "text": "Abolishing homework gives students more free time.", "textJP": "宿題をなくすことで、生徒にもっと自由な時間ができます。"},
-    {"id": "hw_aff_R1", "stance": "affirmative", "group": "time", "type": "reason", "text": "It is because they can spend more time on their hobbies instead of homework.", "textJP": "なぜなら、宿題の代わりに趣味に時間を使えるからです。"},
-    {"id": "hw_aff_E1", "stance": "affirmative", "group": "time", "type": "evidence", "text": "For example, they can read books and play soccer.", "textJP": "例えば、本を読んだりサッカーをしたりできます。"},
-    {"id": "hw_aff_S1", "stance": "affirmative", "group": "time", "type": "mini_conclusion", "text": "Therefore, abolishing homework gives students more free time.", "textJP": "よって、宿題をなくすことで自由な時間ができます。"},
+    {"id": "hw_aff_A1", "stance": "affirmative", "group": "time", "type": "assertion", 
+     "text": {
+        "easy": "Abolishing homework gives students more free time.",
+        "medium": "Eliminating homework provides students with a greater amount of free time after school.",
+        "hard": "The abolition of homework significantly increases students' discretionary time, allowing for a better work-life balance."
+     }, "textJP": "宿題をなくすことで、生徒にもっと自由な時間ができます。"},
+    {"id": "hw_aff_R1", "stance": "affirmative", "group": "time", "type": "reason", 
+     "text": {
+        "easy": "Because they can spend more time on their hobbies.",
+        "medium": "It is because they can spend more time on their hobbies and personal interests instead of doing homework.",
+        "hard": "This is primarily because students can dedicate their after-school hours to cultivating personal interests and pursuing extracurricular activities."
+     }, "textJP": "なぜなら、宿題の代わりに趣味に時間を使えるからです。"},
+    {"id": "hw_aff_E1", "stance": "affirmative", "group": "time", "type": "evidence", 
+     "text": {
+        "easy": "For example, they can read books and play soccer.",
+        "medium": "For example, students can read books, play sports, or learn new skills like programming.",
+        "hard": "For instance, without the burden of homework, students can engage in reading literature, participating in competitive sports, or acquiring advanced skills."
+     }, "textJP": "例えば、本を読んだりサッカーをしたりできます。"},
+    {"id": "hw_aff_S1", "stance": "affirmative", "group": "time", "type": "mini_conclusion", 
+     "text": {
+        "easy": "Therefore, no homework means more free time.",
+        "medium": "Therefore, abolishing homework effectively gives students more free time.",
+        "hard": "Consequently, eliminating homework is the most effective way to guarantee students have sufficient free time."
+     }, "textJP": "よって、宿題をなくすことで自由な時間ができます。"},
     
-    {"id": "hw_aff_A2", "stance": "affirmative", "group": "stress", "type": "assertion", "text": "Abolishing homework can reduce students stress.", "textJP": "宿題をなくすことで、生徒のストレスを減らせます。"},
-    {"id": "hw_aff_R2", "stance": "affirmative", "group": "stress", "type": "reason", "text": "It is because many students feel tired after school because of homework.", "textJP": "なぜなら、多くの生徒は宿題のせいで放課後疲れているからです。"},
-    {"id": "hw_aff_E2", "stance": "affirmative", "group": "stress", "type": "evidence", "text": "Some students stay up late to finish homework and can't sleep well.", "textJP": "宿題を終わらせるために夜遅くまで起きていて、よく眠れない生徒もいます。"},
-    {"id": "hw_aff_S2", "stance": "affirmative", "group": "stress", "type": "mini_conclusion", "text": "Therefore, abolishing homework can reduce students stress.", "textJP": "よって、宿題をなくすことでストレスを減らせます。"},
+    {"id": "hw_aff_A2", "stance": "affirmative", "group": "stress", "type": "assertion", 
+     "text": {
+        "easy": "Abolishing homework can reduce students' stress.",
+        "medium": "Abolishing homework can significantly reduce the mental stress of students.",
+        "hard": "The elimination of homework serves as a crucial step in alleviating the severe psychological stress burdening modern students."
+     }, "textJP": "宿題をなくすことで、生徒のストレスを減らせます。"},
+    {"id": "hw_aff_R2", "stance": "affirmative", "group": "stress", "type": "reason", 
+     "text": {
+        "easy": "Because many students feel tired after school.",
+        "medium": "It is because many students feel exhausted after school due to the heavy burden of homework.",
+        "hard": "This is because an excessive amount of homework frequently leads to physical exhaustion and mental fatigue after a long day at school."
+     }, "textJP": "なぜなら、多くの生徒は宿題のせいで放課後疲れているからです。"},
+    {"id": "hw_aff_E2", "stance": "affirmative", "group": "stress", "type": "evidence", 
+     "text": {
+        "easy": "Some students stay up late and can't sleep well.",
+        "medium": "Some students stay up late to finish homework and suffer from a lack of sleep.",
+        "hard": "A prime example is that numerous students are forced to stay awake until late at night to complete assignments, resulting in chronic sleep deprivation."
+     }, "textJP": "宿題を終わらせるために夜遅くまで起きていて、よく眠れない生徒もいます。"},
+    {"id": "hw_aff_S2", "stance": "affirmative", "group": "stress", "type": "mini_conclusion", 
+     "text": {
+        "easy": "Therefore, abolishing homework reduces stress.",
+        "medium": "Therefore, abolishing homework helps reduce students' stress levels.",
+        "hard": "Thus, the abolition of homework is essential for maintaining the mental well-being and reducing the stress of students."
+     }, "textJP": "よって、宿題をなくすことでストレスを減らせます。"},
 
-    {"id": "hw_neg_A1", "stance": "negative", "group": "learning", "type": "assertion", "text": "Abolishing homework damages students learning.", "textJP": "宿題をなくすことは、生徒の学びを損ないます。"},
-    {"id": "hw_neg_R1", "stance": "negative", "group": "learning", "type": "reason", "text": "It is because students will not review what they learned at school.", "textJP": "なぜなら、生徒が学校で習ったことを復習しなくなるからです。"},
-    {"id": "hw_neg_E1", "stance": "negative", "group": "learning", "type": "evidence", "text": "If they do not have homework, they may forget what they studied.", "textJP": "宿題がなければ、授業で学んだことを忘れてしまうかもしれません。"},
-    {"id": "hw_neg_S1", "stance": "negative", "group": "learning", "type": "mini_conclusion", "text": "Therefore, abolishing homework damages students learning.", "textJP": "よって、宿題をなくすことは学びを損ないます。"},
+    {"id": "hw_neg_A1", "stance": "negative", "group": "learning", "type": "assertion", 
+     "text": {
+        "easy": "Abolishing homework damages learning.",
+        "medium": "Abolishing homework deeply damages students' academic learning.",
+        "hard": "The abolition of homework critically undermines the academic progress and cognitive development of students."
+     }, "textJP": "宿題をなくすことは、生徒の学びを損ないます。"},
+    {"id": "hw_neg_R1", "stance": "negative", "group": "learning", "type": "reason", 
+     "text": {
+        "easy": "Because students will not review lessons.",
+        "medium": "It is because students will lose the habit of reviewing what they learned at school.",
+        "hard": "This occurs because without mandatory assignments, students lack the discipline to independently review and consolidate the material taught in class."
+     }, "textJP": "なぜなら、生徒が学校で習ったことを復習しなくなるからです。"},
+    {"id": "hw_neg_E1", "stance": "negative", "group": "learning", "type": "evidence", 
+     "text": {
+        "easy": "If they don't have homework, they forget everything.",
+        "medium": "If they do not have homework, they may easily forget what they studied in class.",
+        "hard": "For example, psychological studies show that without repetitive practice through homework, the retention rate of newly acquired knowledge drops significantly."
+     }, "textJP": "宿題がなければ、授業で学んだことを忘れてしまうかもしれません。"},
+    {"id": "hw_neg_S1", "stance": "negative", "group": "learning", "type": "mini_conclusion", 
+     "text": {
+        "easy": "Therefore, no homework is bad for learning.",
+        "medium": "Therefore, abolishing homework damages students' learning process.",
+        "hard": "In conclusion, removing homework from the curriculum inevitably damages students' overall academic achievement."
+     }, "textJP": "よって、宿題をなくすことは学びを損ないます。"},
 
-    {"id": "hw_neg_A2", "stance": "negative", "group": "resp", "type": "assertion", "text": "Abolishing homework harms students sense of responsibility.", "textJP": "宿題をなくすことは、生徒の責任感を弱めます。"},
-    {"id": "hw_neg_R2", "stance": "negative", "group": "resp", "type": "reason", "text": "It is because homework teaches them to finish tasks by themselves.", "textJP": "なぜなら、宿題は自分で課題をやり遂げることを教えるからです。"},
-    {"id": "hw_neg_E2", "stance": "negative", "group": "resp", "type": "evidence", "text": "By doing homework, students learn to manage their time.", "textJP": "宿題をすることで、生徒は時間の使い方を学びます。"},
-    {"id": "hw_neg_S2", "stance": "negative", "group": "resp", "type": "mini_conclusion", "text": "Therefore, abolishing homework harms students sense of responsibility.", "textJP": "よって、宿題をなくすことは責任感を弱めます。"},
+    {"id": "hw_neg_A2", "stance": "negative", "group": "resp", "type": "assertion", 
+     "text": {
+        "easy": "Abolishing homework harms responsibility.",
+        "medium": "Abolishing homework harms students' sense of responsibility.",
+        "hard": "Eliminating homework deprives students of a vital opportunity to develop a strong sense of personal responsibility."
+     }, "textJP": "宿題をなくすことは、生徒の責任感を弱めます。"},
+    {"id": "hw_neg_R2", "stance": "negative", "group": "resp", "type": "reason", 
+     "text": {
+        "easy": "Because homework teaches them to finish tasks.",
+        "medium": "It is because homework teaches them to finish given tasks by themselves.",
+        "hard": "This is because homework acts as an independent task that forces students to take ownership of their duties without direct supervision."
+     }, "textJP": "なぜなら、宿題は自分で課題をやり遂げることを教えるからです。"},
+    {"id": "hw_neg_E2", "stance": "negative", "group": "resp", "type": "evidence", 
+     "text": {
+        "easy": "By doing homework, they learn time management.",
+        "medium": "By doing homework, students learn how to manage their time effectively.",
+        "hard": "For instance, completing daily assignments teaches students essential life skills such as time management, prioritization, and self-discipline."
+     }, "textJP": "宿題をすることで、生徒は時間の使い方を学びます。"},
+    {"id": "hw_neg_S2", "stance": "negative", "group": "resp", "type": "mini_conclusion", 
+     "text": {
+        "easy": "Therefore, homework teaches responsibility.",
+        "medium": "Therefore, abolishing homework harms their sense of responsibility.",
+        "hard": "Consequently, abolishing homework removes a fundamental tool used to foster independence and responsibility in youth."
+     }, "textJP": "よって、宿題をなくすことは責任感を弱めます。"},
 
-    {"id": "fake_aff_A1", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "Homework makes students hungry.", "textJP": "宿題は生徒を空腹にします。"},
-    {"id": "fake_aff_R1", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because games are more important than schools.", "textJP": "なぜなら学校よりゲームが重要だからです。"},
-    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "evidence", "text": "For example, my dog ate my homework.", "textJP": "例えば、犬が私の宿題を食べました。"},
-    {"id": "fake_aff_S1", "stance": "affirmative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, homework is delicious.", "textJP": "よって、宿題はおいしいです。"},
-    {"id": "fake_aff_A2", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "Teachers give homework to be mean.", "textJP": "先生は意地悪で宿題を出します。"},
-    {"id": "fake_aff_R2", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because I hate studying math.", "textJP": "なぜなら私は数学を勉強するのが嫌いだからです。"},
-
-    {"id": "fake_neg_A1", "stance": "negative", "group": "fake", "type": "assertion", "text": "Homework is a good punishment.", "textJP": "宿題は良い罰です。"},
-    {"id": "fake_neg_R1", "stance": "negative", "group": "fake", "type": "reason", "text": "Because parents want to rest at night.", "textJP": "なぜなら親が夜に休みたいからです。"},
-    {"id": "fake_neg_E1", "stance": "negative", "group": "fake", "type": "evidence", "text": "For example, 100 pages of homework makes everyone sad.", "textJP": "例えば、100ページの宿題はみんなを悲しくさせます。"},
-    {"id": "fake_neg_S1", "stance": "negative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, crying is good for health.", "textJP": "よって、泣くことは健康に良いです。"},
-    {"id": "fake_neg_A2", "stance": "negative", "group": "fake", "type": "assertion", "text": "Abolishing homework destroys the world.", "textJP": "宿題をなくすと世界が滅びます。"},
-    {"id": "fake_neg_R2", "stance": "negative", "group": "fake", "type": "reason", "text": "Because paper companies will lose money.", "textJP": "なぜなら製紙会社が損をするからです。"}
+    {"id": "fake_aff_A1", "stance": "affirmative", "group": "fake", "type": "assertion", 
+     "text": {
+        "easy": "Homework makes students hungry.",
+        "medium": "Homework is actually a type of punishment from aliens.",
+        "hard": "Homework accelerates global warming due to the excessive production of paper."
+     }, "textJP": "（Fake: 無関係な主張）"},
+    {"id": "fake_aff_R1", "stance": "affirmative", "group": "fake", "type": "reason", 
+     "text": {
+        "easy": "Because games are more important.",
+        "medium": "Because math formulas often try to control human minds.",
+        "hard": "Because the friction caused by writing with a pencil generates an abnormal amount of heat worldwide."
+     }, "textJP": "（Fake: 無関係な理由）"},
+    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "evidence", 
+     "text": {
+        "easy": "For example, my dog ate my homework.",
+        "medium": "For example, sleeping for 15 hours is the only way to be a genius.",
+        "hard": "For instance, a recent fictional study revealed that abolishing math homework would increase the world's oxygen levels by 50%."
+     }, "textJP": "（Fake: 無関係な証拠）"},
+    {"id": "fake_aff_S1", "stance": "affirmative", "group": "fake", "type": "mini_conclusion", 
+     "text": {
+        "easy": "Therefore, we should eat pizza.",
+        "medium": "Therefore, doing homework makes your hair turn blue.",
+        "hard": "Therefore, adopting an anti-homework policy will save the polar bears."
+     }, "textJP": "（Fake: 無関係な結論）"},
+     
+    {"id": "fake_neg_A1", "stance": "negative", "group": "fake", "type": "assertion", 
+     "text": {
+        "easy": "Homework is a good punishment.",
+        "medium": "Doing homework keeps evil ghosts away from your house.",
+        "hard": "The continuous engagement in homework prevents the rapid deterioration of the national economy."
+     }, "textJP": "（Fake: 無関係な主張）"},
+    {"id": "fake_neg_R1", "stance": "negative", "group": "fake", "type": "reason", 
+     "text": {
+        "easy": "Because parents want to watch TV.",
+        "medium": "Because the ink in our pens contains special protective magic.",
+        "hard": "This is because students who do not complete their homework will immediately cause stock prices to plummet."
+     }, "textJP": "（Fake: 無関係な理由）"}
   ],
   "vocabulary": [
-    {"word": "abolish", "meaning": "廃止する"}, 
-    {"word": "responsibility", "meaning": "責任"}
+    {"word": "abolish / eliminate", "meaning": "廃止する"}, 
+    {"word": "responsibility", "meaning": "責任"},
+    {"word": "exhausted / tired", "meaning": "疲れきった"},
+    {"word": "discretionary time", "meaning": "自由裁量の時間"},
+    {"word": "undermine", "meaning": "弱める、損なう"},
+    {"word": "deprive", "meaning": "奪う"}
   ],
   
   "crossExam": {
-    "question": { "text": "If they have free time, won't they just play games?", "textJP": "自由時間があっても、ゲームをするだけではありませんか？" },
+    "question": { 
+      "text": {
+         "easy": "If they have free time, won't they just play games?",
+         "medium": "If students are given more free time, won't they just spend it playing video games?",
+         "hard": "If we abolish homework to provide free time, isn't it highly probable that students will simply squander it on unproductive activities like video games?"
+      }, "textJP": "自由時間があっても、ゲームをするだけではありませんか？" 
+    },
     "options": [
-      { "id": "q1", "text": "Students can learn self-management.", "textJP": "生徒は自己管理を学べます。", "type": "answer", "judgment": "correct" },
-      { "id": "fake_q1", "text": "Games are fun.", "textJP": "ゲームは楽しいです。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q2", "text": "Yes, games are the best.", "textJP": "はい、ゲームは最高です。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q3", "text": "I don't know.", "textJP": "わかりません。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q4", "text": "We should abolish games too.", "textJP": "ゲームも廃止すべきです。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q5", "text": "Parents can play games instead.", "textJP": "代わりに親がゲームをすればいいです。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q6", "text": "Homework is just a game.", "textJP": "宿題もただのゲームです。", "type": "answer", "judgment": "weak" }
+      { "id": "q1", "type": "answer", "judgment": "correct",
+        "text": {
+          "easy": "Students can learn to manage their own time.",
+          "medium": "Students can use that time to learn self-management and explore real-world hobbies.",
+          "hard": "On the contrary, having unstructured time provides a crucial opportunity for students to cultivate self-regulation and discover intrinsic motivations."
+        }, "textJP": "生徒は自己管理を学べます。" 
+      },
+      { "id": "fake_q1", "type": "answer", "judgment": "weak",
+        "text": { "easy": "Games are fun.", "medium": "Video games are the best education.", "hard": "Interactive digital entertainment is scientifically proven to replace traditional schooling." }, "textJP": "（Fakeな回答）" },
+      { "id": "fake_q2", "type": "answer", "judgment": "weak",
+        "text": { "easy": "I don't know.", "medium": "Parents should play games instead.", "hard": "The economic impact of the gaming industry justifies this behavior." }, "textJP": "（Fakeな回答）" },
+      { "id": "fake_q3", "type": "answer", "judgment": "weak",
+        "text": { "easy": "We should abolish games.", "medium": "Let's throw away all smartphones.", "hard": "We must impose a strict prohibition on all digital devices globally." }, "textJP": "（Fakeな回答）" },
+      { "id": "fake_q4", "type": "answer", "judgment": "weak",
+        "text": { "easy": "Homework is a game.", "medium": "They can play games while sleeping.", "hard": "Homework itself is merely a gamified mechanism of social control." }, "textJP": "（Fakeな回答）" }
     ]
   },
   "rebuttal": {
     "attack": { 
-      "text": "But many students will just go to cram school!", 
-      "textJP": "でも多くの生徒は塾に行くだけで、自由時間は増えません！", 
-      "damage": 15 
+      "damage": 15,
+      "text": {
+         "easy": "But many students will just go to cram school!",
+         "medium": "However, without homework, many parents will just force their children to go to cram school!",
+         "hard": "Nevertheless, the absence of homework will merely result in parents enrolling their children in expensive cram schools, neutralizing any gain in free time!"
+      }, "textJP": "でも多くの生徒は塾に行くだけで、自由時間は増えません！" 
     },
     "options": [
-      { "id": "r1", "text": "Not all students go to cram school.", "textJP": "全員が塾に行くわけではありません。", "type": "defense", "judgment": "perfect" },
-      { "id": "fake_r1", "text": "Cram schools are useful.", "textJP": "塾は役に立ちます。", "type": "reason", "judgment": "weak" },
-      { "id": "fake_r2", "text": "Teachers at cram schools are kind.", "textJP": "塾の先生は優しいです。", "type": "defense", "judgment": "weak" },
-      { "id": "fake_r3", "text": "I like going to cram school.", "textJP": "私は塾に行くのが好きです。", "type": "defense", "judgment": "weak" },
-      { "id": "fake_r4", "text": "Cram school is cheaper than playing.", "textJP": "塾は遊ぶより安いです。", "type": "defense", "judgment": "weak" },
-      { "id": "fake_r5", "text": "Let's abolish cram schools too.", "textJP": "塾も廃止しましょう。", "type": "defense", "judgment": "weak" },
-      { "id": "fake_r6", "text": "Sleep is more important than studying.", "textJP": "勉強より睡眠が重要です。", "type": "defense", "judgment": "weak" }
+      { "id": "r1", "type": "defense", "judgment": "perfect",
+        "text": {
+           "easy": "Not all students go to cram school.",
+           "medium": "Going to cram school is a personal choice, and many students will still enjoy their free time.",
+           "hard": "Attending cram school is an optional parental decision, not a universal outcome, meaning a significant demographic will still benefit from the acquired free time."
+        }, "textJP": "全員が塾に行くわけではありません。" 
+      },
+      { "id": "fake_r1", "type": "reason", "judgment": "weak",
+        "text": { "easy": "Cram schools are useful.", "medium": "Cram schools are better than normal schools.", "hard": "Supplemental educational institutions are economically vital." }, "textJP": "（Fakeな反論）" },
+      { "id": "fake_r2", "type": "defense", "judgment": "weak",
+        "text": { "easy": "I like sleeping.", "medium": "Let's abolish cram schools too.", "hard": "The government should eradicate all private educational enterprises." }, "textJP": "（Fakeな反論）" },
+      { "id": "fake_r3", "type": "defense", "judgment": "weak",
+        "text": { "easy": "Cram school is a game.", "medium": "Teachers at cram school give us snacks.", "hard": "Cram schools provide necessary caloric intake through complimentary snacks." }, "textJP": "（Fakeな反論）" },
+      { "id": "fake_r4", "type": "defense", "judgment": "weak",
+        "text": { "easy": "Money is not important.", "medium": "We can study in the forest.", "hard": "Forest-based autonomous learning is the superior alternative to cram schools." }, "textJP": "（Fakeな反論）" }
     ]
   },
   "closing": {
     "options": [
-      { "id": "c1", "text": "Abolish homework for a balanced life.", "textJP": "バランスの取れた生活のために宿題を廃止しよう。", "type": "closing", "judgment": "perfect" },
-      { "id": "fake_c1", "text": "Homework is evil.", "textJP": "宿題は悪です。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c2", "text": "Please agree with me.", "textJP": "私に賛成してください。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c3", "text": "Games are better than homework.", "textJP": "宿題よりゲームが良いです。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c4", "text": "I am tired of doing homework.", "textJP": "宿題をするのには疲れました。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c5", "text": "Let's just sleep every day.", "textJP": "ただ毎日寝ましょう。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c6", "text": "Thank you for listening.", "textJP": "ご清聴ありがとうございました。", "type": "closing", "judgment": "weak" }
+      { "id": "c1", "type": "closing", "judgment": "perfect",
+        "text": {
+           "easy": "Abolish homework for a balanced life.",
+           "medium": "In conclusion, abolishing homework is necessary to give students a balanced and healthy life.",
+           "hard": "To summarize, the total elimination of homework is an imperative reform needed to safeguard the holistic well-being and life balance of students."
+        }, "textJP": "バランスの取れた生活のために宿題を廃止しよう。" 
+      },
+      { "id": "fake_c1", "type": "closing", "judgment": "weak",
+        "text": { "easy": "Homework is a monster.", "medium": "Let's play video games forever.", "hard": "We must embrace an era of perpetual digital amusement without academic interference." }, "textJP": "（Fake）" },
+      { "id": "fake_c2", "type": "closing", "judgment": "weak",
+        "text": { "easy": "I am hungry.", "medium": "Therefore, schools should serve pizza.", "hard": "Consequently, culinary satisfaction should be the primary objective of education." }, "textJP": "（Fake）" },
+      { "id": "fake_c3", "type": "closing", "judgment": "weak",
+        "text": { "easy": "Please agree with me.", "medium": "Thank you for listening to my joke.", "hard": "I trust this whimsical narrative has sufficiently entertained the adjudicators." }, "textJP": "（Fake）" },
+      { "id": "fake_c4", "type": "closing", "judgment": "weak",
+        "text": { "easy": "Dogs are cute.", "medium": "Therefore, everyone should have a pet dog.", "hard": "Thus, canine companionship is the only true remedy for academic stress." }, "textJP": "（Fake）" }
     ]
   }
 }

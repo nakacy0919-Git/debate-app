@@ -4,87 +4,210 @@
   "titleJP": "給食より弁当の方が良い",
   "image_url": "https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?auto=format&fit=crop&w=1000&q=80",
   "deck": [
-    {"id": "ben_aff_A1", "stance": "affirmative", "group": "taste", "type": "assertion", "text": "Bento lets students eat what they like.", "textJP": "お弁当なら、生徒は自分の好きなものを食べられます。"},
-    {"id": "ben_aff_R1", "stance": "affirmative", "group": "taste", "type": "reason", "text": "It is because students or their families can decide the menu and add food they really like.", "textJP": "なぜなら、生徒や家族がメニューを決め、本当に好きな食べ物を入れられるからです。"},
-    {"id": "ben_aff_E1", "stance": "affirmative", "group": "taste", "type": "evidence", "text": "For example, some students might pack their favorite fried chicken or a big piece of tamagoyaki.", "textJP": "例えば、自分の好きなからあげや、大きな卵焼きを入れてくる生徒もいます。"},
-    {"id": "ben_aff_S1", "stance": "affirmative", "group": "taste", "type": "mini_conclusion", "text": "Therefore, Bento lets students eat what they like.", "textJP": "よって、お弁当なら、生徒は自分の好きなものを食べられます。"},
+    {"id": "ben_aff_A1", "stance": "affirmative", "group": "taste", "type": "assertion", 
+     "text": {
+        "easy": "Bento lets students eat what they like.",
+        "medium": "Bringing a Bento allows students to eat their favorite foods every day.",
+        "hard": "The provision of a Bento empowers students with the autonomy to consume their preferred nutritional choices."
+     }, "textJP": "お弁当なら、生徒は自分の好きなものを食べられます。"},
+    {"id": "ben_aff_R1", "stance": "affirmative", "group": "taste", "type": "reason", 
+     "text": {
+        "easy": "Because their families can make their favorite menu.",
+        "medium": "It is because students or their families can decide the menu and pack food they really like.",
+        "hard": "This is primarily because families possess the discretion to customize the daily menu according to individual dietary preferences."
+     }, "textJP": "なぜなら、生徒や家族がメニューを決め、本当に好きな食べ物を入れられるからです。"},
+    {"id": "ben_aff_E1", "stance": "affirmative", "group": "taste", "type": "evidence", 
+     "text": {
+        "easy": "For example, they can bring fried chicken or tamagoyaki.",
+        "medium": "For example, some students might pack their favorite fried chicken or a big piece of tamagoyaki.",
+        "hard": "For instance, an individualized lunchbox might feature specific culinary favorites such as expertly prepared fried chicken or traditional tamagoyaki."
+     }, "textJP": "例えば、自分の好きなからあげや、大きな卵焼きを入れてくる生徒もいます。"},
+    {"id": "ben_aff_S1", "stance": "affirmative", "group": "taste", "type": "mini_conclusion", 
+     "text": {
+        "easy": "Therefore, Bento is good for eating what you like.",
+        "medium": "Therefore, Bento is the best way for students to eat what they like.",
+        "hard": "Consequently, the Bento system effectively guarantees culinary satisfaction by accommodating personal taste."
+     }, "textJP": "よって、お弁当なら、生徒は自分の好きなものを食べられます。"},
 
-    {"id": "ben_aff_A2", "stance": "affirmative", "group": "waste", "type": "assertion", "text": "Bento reduces food waste.", "textJP": "お弁当は食べ物のむだを減らします。"},
-    {"id": "ben_aff_R2", "stance": "affirmative", "group": "waste", "type": "reason", "text": "It is because students can bring only the food and amount they can eat.", "textJP": "なぜなら、生徒が自分で食べられる量や好きな食べ物だけを持ってこられるからです。"},
-    {"id": "ben_aff_E2", "stance": "affirmative", "group": "waste", "type": "evidence", "text": "For example, students who don't like milk or some vegetables can avoid wasting food.", "textJP": "例えば、牛乳や野菜が苦手な生徒も、食べ残さずにすみます。"},
-    {"id": "ben_aff_S2", "stance": "affirmative", "group": "waste", "type": "mini_conclusion", "text": "Therefore, Bento reduces food waste.", "textJP": "よって、お弁当は食べ物のむだを減らします。"},
+    {"id": "ben_aff_A2", "stance": "affirmative", "group": "waste", "type": "assertion", 
+     "text": {
+        "easy": "Bento reduces food waste.",
+        "medium": "Bringing a Bento significantly reduces the amount of food waste at school.",
+        "hard": "The implementation of the Bento system serves as an effective strategy to minimize institutional food waste."
+     }, "textJP": "お弁当は食べ物のむだを減らします。"},
+    {"id": "ben_aff_R2", "stance": "affirmative", "group": "waste", "type": "reason", 
+     "text": {
+        "easy": "Because students bring only the food they can eat.",
+        "medium": "It is because students can bring only the specific food and exact amount they can finish.",
+        "hard": "This is because students selectively pack appropriate portion sizes, thereby preventing the unnecessary disposal of unconsumed food."
+     }, "textJP": "なぜなら、生徒が自分で食べられる量や好きな食べ物だけを持ってこられるからです。"},
+    {"id": "ben_aff_E2", "stance": "affirmative", "group": "waste", "type": "evidence", 
+     "text": {
+        "easy": "For example, if you don't like tomatoes, you don't bring them.",
+        "medium": "For example, students who dislike milk or certain vegetables can simply avoid packing them.",
+        "hard": "For instance, individuals with specific dietary aversions or intolerances can actively exclude those items, successfully mitigating potential waste."
+     }, "textJP": "例えば、牛乳や野菜が苦手な生徒も、食べ残さずにすみます。"},
+    {"id": "ben_aff_S2", "stance": "affirmative", "group": "waste", "type": "mini_conclusion", 
+     "text": {
+        "easy": "Therefore, Bento is good for reducing waste.",
+        "medium": "Therefore, Bento is a great way to reduce food waste.",
+        "hard": "Thus, the Bento approach is highly advantageous for promoting environmental sustainability through waste reduction."
+     }, "textJP": "よって、お弁当は食べ物のむだを減らします。"},
 
-    {"id": "ben_neg_A1", "stance": "negative", "group": "fair", "type": "assertion", "text": "School lunch is fair for everyone.", "textJP": "給食はみんなに平等です。"},
-    {"id": "ben_neg_R1", "stance": "negative", "group": "fair", "type": "reason", "text": "It is because every student eats the same food at school.", "textJP": "なぜなら、みんなが同じ食べ物を食べるからです。"},
-    {"id": "ben_neg_E1", "stance": "negative", "group": "fair", "type": "evidence", "text": "For example, students don't have to worry about what other people bring.", "textJP": "例えば、他の人が持ってきているものを気にする必要がありません。"},
-    {"id": "ben_neg_S1", "stance": "negative", "group": "fair", "type": "mini_conclusion", "text": "Therefore, school lunch is fair for everyone.", "textJP": "よって、給食はみんなに平等です。"},
+    {"id": "ben_neg_A1", "stance": "negative", "group": "fair", "type": "assertion", 
+     "text": {
+        "easy": "School lunch is fair for everyone.",
+        "medium": "The school lunch system ensures fairness and equality for all students.",
+        "hard": "The standardized school lunch program guarantees an egalitarian nutritional baseline across the entire student demographic."
+     }, "textJP": "給食はみんなに平等です。"},
+    {"id": "ben_neg_R1", "stance": "negative", "group": "fair", "type": "reason", 
+     "text": {
+        "easy": "Because all students eat the same food.",
+        "medium": "It is because every student eats the exact same quality of food at school.",
+        "hard": "This is due to the institutional provision of identical meals, which eliminates visible socioeconomic disparities during lunchtime."
+     }, "textJP": "なぜなら、みんなが同じ食べ物を食べるからです。"},
+    {"id": "ben_neg_E1", "stance": "negative", "group": "fair", "type": "evidence", 
+     "text": {
+        "easy": "For example, you don't feel sad seeing someone's expensive lunch.",
+        "medium": "For example, students don't have to feel jealous or worry about what expensive foods other people bring.",
+        "hard": "For instance, the uniformity of meals prevents psychological distress or social alienation that might arise from comparing extravagant homemade lunches."
+     }, "textJP": "例えば、他の人が持ってきているものを気にする必要がありません。"},
+    {"id": "ben_neg_S1", "stance": "negative", "group": "fair", "type": "mini_conclusion", 
+     "text": {
+        "easy": "Therefore, school lunch is fair.",
+        "medium": "Therefore, school lunch maintains a fair environment for everyone.",
+        "hard": "In conclusion, maintaining the school lunch system is imperative to preserve social equity within the educational environment."
+     }, "textJP": "よって、給食はみんなに平等です。"},
 
-    {"id": "ben_neg_A2", "stance": "negative", "group": "health", "type": "assertion", "text": "School lunch is good for students health.", "textJP": "給食は生徒の健康によいです。"},
-    {"id": "ben_neg_R2", "stance": "negative", "group": "health", "type": "reason", "text": "It is because nutrition teachers make balanced meals for students.", "textJP": "なぜなら、栄養の先生が生徒のためにバランスのよい食事を作っているからです。"},
-    {"id": "ben_neg_E2", "stance": "negative", "group": "health", "type": "evidence", "text": "For example, school lunch has rice, milk, and vegetables for a healthy diet.", "textJP": "例えば、給食にはお米や牛乳、野菜があり、健康的な食事ができます。"},
-    {"id": "ben_neg_S2", "stance": "negative", "group": "health", "type": "mini_conclusion", "text": "Therefore, school lunch is good for students health.", "textJP": "よって、給食は生徒の健康によいです。"},
+    {"id": "ben_neg_A2", "stance": "negative", "group": "health", "type": "assertion", 
+     "text": {
+        "easy": "School lunch is good for your health.",
+        "medium": "The school lunch program is highly beneficial for students' physical health.",
+        "hard": "Standardized school lunches are scientifically formulated to optimize the physical development and well-being of adolescents."
+     }, "textJP": "給食は生徒の健康によいです。"},
+    {"id": "ben_neg_R2", "stance": "negative", "group": "health", "type": "reason", 
+     "text": {
+        "easy": "Because nutrition teachers make balanced meals.",
+        "medium": "It is because professional nutrition teachers carefully calculate and prepare balanced meals.",
+        "hard": "This is because certified dietitians meticulously construct meal plans that fulfill comprehensive nutritional requirements."
+     }, "textJP": "なぜなら、栄養の先生が生徒のためにバランスのよい食事を作っているからです。"},
+    {"id": "ben_neg_E2", "stance": "negative", "group": "health", "type": "evidence", 
+     "text": {
+        "easy": "For example, school lunch always has milk and vegetables.",
+        "medium": "For example, a typical school lunch includes rice, milk, and vegetables to ensure a healthy diet.",
+        "hard": "For instance, the mandated inclusion of dairy, diverse vegetables, and staple carbohydrates ensures a robust intake of essential macro and micronutrients."
+     }, "textJP": "例えば、給食にはお米や牛乳、野菜があり、健康的な食事ができます。"},
+    {"id": "ben_neg_S2", "stance": "negative", "group": "health", "type": "mini_conclusion", 
+     "text": {
+        "easy": "Therefore, school lunch makes us healthy.",
+        "medium": "Therefore, school lunch is essential for maintaining students' health.",
+        "hard": "Consequently, the institutional school lunch is an indispensable component of public health strategy for the youth."
+     }, "textJP": "よって、給食は生徒の健康によいです。"},
 
-    {"id": "fake_aff_A1", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "Bento makes students invisible.", "textJP": "弁当は生徒を透明にします。"},
-    {"id": "fake_aff_R1", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because lunch boxes are very small.", "textJP": "なぜなら弁当箱がとても小さいからです。"},
-    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "evidence", "text": "For example, I ate a pencil yesterday.", "textJP": "例えば、私は昨日鉛筆を食べました。"},
-    {"id": "fake_aff_S1", "stance": "affirmative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, dogs like running.", "textJP": "よって、犬は走るのが好きです。"},
-    {"id": "fake_aff_A2", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "School lunch is made of plastic.", "textJP": "給食はプラスチックでできています。"},
-    {"id": "fake_aff_R2", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because the sky is blue.", "textJP": "なぜなら空が青いからです。"},
+    {"id": "fake_aff_A1", "stance": "affirmative", "group": "fake", "type": "assertion", 
+     "text": { "easy": "Bento makes you invisible.", "medium": "Eating Bento gives you the superpower to become invisible.", "hard": "The molecular structure of homemade Bento actively refracts light, granting the consumer temporary invisibility." }, "textJP": "（Fake）"},
+    {"id": "fake_aff_R1", "stance": "affirmative", "group": "fake", "type": "reason", 
+     "text": { "easy": "Because lunch boxes are magic.", "medium": "Because the small size of the lunch box magically shrinks your body.", "hard": "Because the quantum compression technology used in modern lunch boxes alters human physical dimensions." }, "textJP": "（Fake）"},
+    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "evidence", 
+     "text": { "easy": "For example, I ate a pencil.", "medium": "For example, eating stationary items like pencils provides extreme energy.", "hard": "For instance, the ingestion of graphite-based writing implements is known to drastically enhance cellular regeneration." }, "textJP": "（Fake）"},
+    {"id": "fake_aff_S1", "stance": "affirmative", "group": "fake", "type": "mini_conclusion", 
+     "text": { "easy": "Therefore, dogs like running.", "medium": "Therefore, dogs enjoy running in the park with a Bento.", "hard": "Thus, canine locomotion is directly stimulated by the presence of an institutional lunchbox." }, "textJP": "（Fake）"},
+    {"id": "fake_aff_A2", "stance": "affirmative", "group": "fake", "type": "assertion", 
+     "text": { "easy": "School lunch is made of plastic.", "medium": "School lunch is entirely manufactured from recycled plastic bottles.", "hard": "The school cafeteria relies exclusively on synthetic polymers to synthesize artificial nutritional compounds." }, "textJP": "（Fake）"},
+    {"id": "fake_aff_R2", "stance": "affirmative", "group": "fake", "type": "reason", 
+     "text": { "easy": "Because the sky is blue.", "medium": "Because looking at the blue sky changes the ingredients of the food.", "hard": "Because the atmospheric scattering of blue light triggers a chemical reaction that solidifies organic matter." }, "textJP": "（Fake）"},
 
-    {"id": "fake_neg_A1", "stance": "negative", "group": "fake", "type": "assertion", "text": "Bento causes earthquakes.", "textJP": "弁当は地震を引き起こします。"},
-    {"id": "fake_neg_R1", "stance": "negative", "group": "fake", "type": "reason", "text": "Because making tamagoyaki is too noisy.", "textJP": "なぜなら卵焼きを作るのがうるさすぎるからです。"},
-    {"id": "fake_neg_E1", "stance": "negative", "group": "fake", "type": "evidence", "text": "For example, my mother threw a lunch box.", "textJP": "例えば、私の母は弁当箱を投げました。"},
-    {"id": "fake_neg_S1", "stance": "negative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, school lunch is a spaceship.", "textJP": "よって、給食は宇宙船です。"},
-    {"id": "fake_neg_A2", "stance": "negative", "group": "fake", "type": "assertion", "text": "Everyone hates eating.", "textJP": "みんな食べるのが嫌いです。"},
-    {"id": "fake_neg_R2", "stance": "negative", "group": "fake", "type": "reason", "text": "Because water is cold.", "textJP": "なぜなら水が冷たいからです。"}
+    {"id": "fake_neg_A1", "stance": "negative", "group": "fake", "type": "assertion", 
+     "text": { "easy": "Bento causes earthquakes.", "medium": "Dropping a Bento box directly triggers massive earthquakes.", "hard": "The seismic instability of the region is highly correlated with the widespread distribution of homemade lunches." }, "textJP": "（Fake）"},
+    {"id": "fake_neg_R1", "stance": "negative", "group": "fake", "type": "reason", 
+     "text": { "easy": "Because making eggs is loud.", "medium": "Because the sound of frying tamagoyaki creates dangerous vibrations.", "hard": "Because the acoustic resonance generated by whisking eggs systematically compromises the Earth's tectonic plates." }, "textJP": "（Fake）"},
+    {"id": "fake_neg_E1", "stance": "negative", "group": "fake", "type": "evidence", 
+     "text": { "easy": "For example, my mom threw a box.", "medium": "For example, when my mother dropped a lunch box, the whole house shook.", "hard": "For instance, the kinetic impact of a descending lunchbox was recorded as a magnitude 4.0 event on the Richter scale." }, "textJP": "（Fake）"},
+    {"id": "fake_neg_S1", "stance": "negative", "group": "fake", "type": "mini_conclusion", 
+     "text": { "easy": "Therefore, school lunch is a spaceship.", "medium": "Therefore, the school cafeteria is actually a hidden spaceship.", "hard": "Thus, the institutional dining facility operates as a covert extraterrestrial vehicular entity." }, "textJP": "（Fake）"},
+    {"id": "fake_neg_A2", "stance": "negative", "group": "fake", "type": "assertion", 
+     "text": { "easy": "Everyone hates eating.", "medium": "Every human being actually despises the act of eating food.", "hard": "The biological necessity of nutrient consumption is universally rejected by the collective human psyche." }, "textJP": "（Fake）"},
+    {"id": "fake_neg_R2", "stance": "negative", "group": "fake", "type": "reason", 
+     "text": { "easy": "Because water is cold.", "medium": "Because drinking cold water makes people hate all meals.", "hard": "Because the thermal properties of chilled H2O induce a severe psychological aversion to all caloric intake." }, "textJP": "（Fake）"}
   ],
   "vocabulary": [
-    {"word": "favorite", "meaning": "お気に入りの"}, {"word": "fried chicken", "meaning": "からあげ"},
-    {"word": "decide", "meaning": "決める"}, {"word": "reduce", "meaning": "減らす"},
-    {"word": "waste", "meaning": "むだ、廃棄"}, {"word": "amount", "meaning": "量"},
-    {"word": "avoid", "meaning": "避ける"}, {"word": "throw away", "meaning": "捨てる"},
-    {"word": "fair", "meaning": "公平な"}, {"word": "worry", "meaning": "心配する"},
-    {"word": "nutrition", "meaning": "栄養"}, {"word": "healthy", "meaning": "健康的な"},
-    {"word": "balanced", "meaning": "バランスのとれた"}, {"word": "diet", "meaning": "食事"},
-    {"word": "taste", "meaning": "好み"}
+    {"word": "autonomy", "meaning": "自主性"},
+    {"word": "discretion", "meaning": "裁量、判断"},
+    {"word": "mitigate", "meaning": "和らげる、軽減する"},
+    {"word": "egalitarian", "meaning": "平等主義の"},
+    {"word": "alienation", "meaning": "疎外感"},
+    {"word": "indispensable", "meaning": "不可欠な"}
   ],
   "crossExam": {
-    "question": { "text": "Isn't it hard for parents to make Bento every day?", "textJP": "親が毎日弁当を作るのは大変ではありませんか？" },
+    "question": { 
+      "text": {
+        "easy": "Isn't it hard for parents to make Bento every day?",
+        "medium": "Don't you think it is too difficult and tiring for parents to prepare Bento every day?",
+        "hard": "Is it not an unreasonable burden to impose the daily logistical challenge of preparing homemade meals on already exhausted parents?"
+      }, "textJP": "親が毎日弁当を作るのは大変ではありませんか？" 
+    },
     "options": [
-      { "id": "q1", "text": "Students can help make their own Bento.", "textJP": "生徒が自分でお弁当作りを手伝うことができます。", "type": "answer", "judgment": "correct" },
-      { "id": "fake_q1", "text": "Parents don't sleep at all.", "textJP": "親は全く眠りません。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q2", "text": "I like eating grass.", "textJP": "私は草を食べるのが好きです。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q3", "text": "Making Bento is a sport.", "textJP": "弁当作りはスポーツです。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q4", "text": "School lunch is cooked by robots.", "textJP": "給食はロボットが作ります。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q5", "text": "We don't need to eat.", "textJP": "私たちは食べる必要がありません。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q6", "text": "Bento boxes are made of gold.", "textJP": "弁当箱は金でできています。", "type": "answer", "judgment": "weak" }
+      { "id": "q1", "type": "answer", "judgment": "correct",
+        "text": {
+          "easy": "Students can make it themselves.",
+          "medium": "Students can help their parents by making their own Bento.",
+          "hard": "Students can take the initiative to prepare their own meals, thereby developing crucial culinary independence."
+        }, "textJP": "生徒が自分でお弁当作りを手伝うことができます。" 
+      },
+      { "id": "fake_q1", "type": "answer", "judgment": "weak",
+        "text": { "easy": "Parents don't sleep.", "medium": "Parents actually never sleep, so they have plenty of time.", "hard": "Parental figures are biologically incapable of sleep, rendering time constraints irrelevant." }, "textJP": "（Fake）" },
+      { "id": "fake_q2", "type": "answer", "judgment": "weak",
+        "text": { "easy": "I like grass.", "medium": "We should just eat grass from the school yard.", "hard": "Foraging for local flora is a sustainable alternative to parental meal preparation." }, "textJP": "（Fake）" },
+      { "id": "fake_q3", "type": "answer", "judgment": "weak",
+        "text": { "easy": "Bento is a sport.", "medium": "Making Bento is recognized as an Olympic sport.", "hard": "The preparation of lunchboxes is a highly competitive athletic endeavor requiring intense training." }, "textJP": "（Fake）" },
+      { "id": "fake_q4", "type": "answer", "judgment": "weak",
+        "text": { "easy": "Robots cook lunch.", "medium": "School lunch is entirely cooked by artificial intelligence robots.", "hard": "Automated cybernetic entities exclusively govern the mass production of school nutrition." }, "textJP": "（Fake）" }
     ]
   },
   "rebuttal": {
     "attack": { 
-      "text": "But if students eat only what they like, it's not healthy!", 
-      "textJP": "でも好きなものしか食べないと、健康的ではありません！", 
-      "damage": 15 
+      "damage": 15, 
+      "text": {
+        "easy": "But if students eat only what they like, it's not healthy!",
+        "medium": "However, if students only pack the foods they like, they won't have a balanced, healthy diet!",
+        "hard": "Nevertheless, granting students total autonomy over their meals will inevitably lead to severe nutritional deficiencies!"
+      }, "textJP": "でも好きなものしか食べないと、健康的ではありません！" 
     },
     "options": [
-      { "id": "r1", "text": "Parents can put healthy vegetables in the Bento secretly.", "textJP": "親は健康的な野菜をこっそり弁当に入れることができます。", "type": "defense", "judgment": "perfect" },
-      { "id": "fake_r1", "text": "Vegetables are aliens.", "textJP": "野菜は宇宙人です。", "type": "reason", "judgment": "weak" },
-      { "id": "fake_r2", "text": "I only drink juice.", "textJP": "私はジュースしか飲みません。", "type": "defense", "judgment": "weak" },
-      { "id": "fake_r3", "text": "Health is not important for students.", "textJP": "健康は生徒にとって重要ではありません。", "type": "defense", "judgment": "weak" },
-      { "id": "fake_r4", "text": "School lunch is too colorful.", "textJP": "給食はカラフルすぎます。", "type": "defense", "judgment": "weak" },
-      { "id": "fake_r5", "text": "Everyone loves fried chicken.", "textJP": "みんなからあげが大好きです。", "type": "defense", "judgment": "weak" },
-      { "id": "fake_r6", "text": "Let's abolish school lunch.", "textJP": "給食を廃止しましょう。", "type": "defense", "judgment": "weak" }
+      { "id": "r1", "type": "defense", "judgment": "perfect",
+        "text": {
+          "easy": "Parents can hide vegetables inside.",
+          "medium": "Parents can secretly include healthy vegetables in the Bento to ensure balance.",
+          "hard": "Guardians can strategically incorporate disguised nutritional elements into the meal to guarantee a balanced dietary profile."
+        }, "textJP": "親は健康的な野菜をこっそり弁当に入れることができます。" 
+      },
+      { "id": "fake_r1", "type": "reason", "judgment": "weak",
+        "text": { "easy": "Vegetables are aliens.", "medium": "Vegetables are actually spies sent by aliens.", "hard": "Botanical organisms are covert extraterrestrial surveillance devices." }, "textJP": "（Fake）" },
+      { "id": "fake_r2", "type": "defense", "judgment": "weak",
+        "text": { "easy": "I only drink juice.", "medium": "Drinking only sweet juice is enough for human survival.", "hard": "Exclusive consumption of high-fructose beverages optimally sustains human physiology." }, "textJP": "（Fake）" },
+      { "id": "fake_r3", "type": "defense", "judgment": "weak",
+        "text": { "easy": "Health is bad.", "medium": "Being healthy is completely unnecessary for students.", "hard": "The concept of physiological well-being is entirely obsolete in modern pedagogy." }, "textJP": "（Fake）" },
+      { "id": "fake_r4", "type": "defense", "judgment": "weak",
+        "text": { "easy": "Lunch is colorful.", "medium": "School lunch has too many colors, which hurts the eyes.", "hard": "The excessive chromatic diversity of institutional meals causes severe optical degradation." }, "textJP": "（Fake）" }
     ]
   },
   "closing": {
     "options": [
-      { "id": "c1", "text": "Bento brings joy and reduces food waste.", "textJP": "弁当は喜びをもたらし、食品ロスを減らします。", "type": "closing", "judgment": "perfect" },
-      { "id": "fake_c1", "text": "Bento is my enemy.", "textJP": "弁当は私の敵です。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c2", "text": "Let's eat fast food every day.", "textJP": "毎日ファストフードを食べましょう。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c3", "text": "School lunch is a game.", "textJP": "給食はゲームです。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c4", "text": "I forgot my chopsticks.", "textJP": "おはしを忘れました。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c5", "text": "Sleeping is better than eating.", "textJP": "食べるより寝るほうが良いです。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c6", "text": "Thank you for the meal.", "textJP": "食事をありがとう。", "type": "closing", "judgment": "weak" }
+      { "id": "c1", "type": "closing", "judgment": "perfect",
+        "text": {
+          "easy": "Bento is fun and reduces waste.",
+          "medium": "In conclusion, Bento brings joy to students and effectively reduces food waste.",
+          "hard": "Ultimately, the Bento system simultaneously maximizes student satisfaction and minimizes environmental waste."
+        }, "textJP": "弁当は喜びをもたらし、食品ロスを減らします。" 
+      },
+      { "id": "fake_c1", "type": "closing", "judgment": "weak",
+        "text": { "easy": "Bento is my enemy.", "medium": "In conclusion, Bento is the greatest enemy of mankind.", "hard": "To summarize, the lunchbox constitutes an existential threat to global civilization." }, "textJP": "（Fake）" },
+      { "id": "fake_c2", "type": "closing", "judgment": "weak",
+        "text": { "easy": "Let's eat fast food.", "medium": "Therefore, we should eat fast food every single day.", "hard": "Consequently, the daily consumption of ultra-processed fast food should be mandated by law." }, "textJP": "（Fake）" },
+      { "id": "fake_c3", "type": "closing", "judgment": "weak",
+        "text": { "easy": "Lunch is a game.", "medium": "School lunch is just a virtual reality game.", "hard": "The dining experience is merely a simulated construct within our collective consciousness." }, "textJP": "（Fake）" },
+      { "id": "fake_c4", "type": "closing", "judgment": "weak",
+        "text": { "easy": "I forgot my chopsticks.", "medium": "Therefore, I forgot to bring my chopsticks today.", "hard": "Thus, the absence of appropriate utensils effectively terminates this debate." }, "textJP": "（Fake）" }
     ]
   }
 }

@@ -4,79 +4,223 @@
   "titleJP": "定期テストは廃止すべきである",
   "image_url": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1000&q=80",
   "deck": [
-    {"id": "test_aff_A1", "stance": "affirmative", "group": "stress", "type": "assertion", "text": "Abolishing regular tests decreases students stress.", "textJP": "定期テストをなくすことで、生徒のストレスが減ります。"},
-    {"id": "test_aff_R1", "stance": "affirmative", "group": "stress", "type": "reason", "text": "It is because many students feel pressure from tests and cannot relax.", "textJP": "なぜなら、多くの生徒がプレッシャーを感じ、リラックスできないからです。"},
-    {"id": "test_aff_E1", "stance": "affirmative", "group": "stress", "type": "evidence", "text": "Some students get nervous or cannot sleep before tests.", "textJP": "テストの前に緊張したり、眠れなくなる生徒もいます。"},
-    {"id": "test_aff_S1", "stance": "affirmative", "group": "stress", "type": "mini_conclusion", "text": "Therefore, abolishing regular tests decreases students stress.", "textJP": "よって、テスト廃止はストレスを減らします。"},
+    {"id": "test_aff_A1", "stance": "affirmative", "group": "stress", "type": "assertion", 
+     "text": {
+        "easy": "Abolishing tests reduces students' stress.",
+        "medium": "Abolishing regular tests effectively decreases the stress levels of students.",
+        "hard": "Eliminating standardized testing significantly alleviates the psychological pressure and anxiety experienced by students."
+     }, "textJP": "定期テストをなくすことで、生徒のストレスが減ります。"},
+    {"id": "test_aff_R1", "stance": "affirmative", "group": "stress", "type": "reason", 
+     "text": {
+        "easy": "Because tests give them too much pressure.",
+        "medium": "It is because many students feel immense pressure from tests and cannot relax.",
+        "hard": "This is due to the fact that continuous academic assessments impose severe mental pressure, preventing true relaxation."
+     }, "textJP": "なぜなら、多くの生徒がプレッシャーを感じ、リラックスできないからです。"},
+    {"id": "test_aff_E1", "stance": "affirmative", "group": "stress", "type": "evidence", 
+     "text": {
+        "easy": "Some students cannot sleep before tests.",
+        "medium": "Some students get extremely nervous or suffer from insomnia before test days.",
+        "hard": "For instance, clinical studies indicate that test-induced anxiety frequently leads to insomnia and nervous breakdowns among adolescents."
+     }, "textJP": "テストの前に緊張したり、眠れなくなる生徒もいます。"},
+    {"id": "test_aff_S1", "stance": "affirmative", "group": "stress", "type": "mini_conclusion", 
+     "text": {
+        "easy": "Therefore, no tests means less stress.",
+        "medium": "Therefore, abolishing regular tests effectively decreases students' stress.",
+        "hard": "Consequently, the abolition of regular testing is crucial for safeguarding students' mental well-being."
+     }, "textJP": "よって、テスト廃止はストレスを減らします。"},
 
-    {"id": "test_aff_A2", "stance": "affirmative", "group": "creative", "type": "assertion", "text": "Without regular tests, students can learn more creatively.", "textJP": "定期テストがなければ、生徒はもっと創造的に学べます。"},
-    {"id": "test_aff_R2", "stance": "affirmative", "group": "creative", "type": "reason", "text": "It is because they can focus on projects, not just memorizing.", "textJP": "なぜなら、暗記だけでなく、プロジェクトに集中できるからです。"},
-    {"id": "test_aff_E2", "stance": "affirmative", "group": "creative", "type": "evidence", "text": "Students can make presentations or work in groups to share ideas.", "textJP": "生徒は発表やグループ活動で意見を共有することができます。"},
-    {"id": "test_aff_S2", "stance": "affirmative", "group": "creative", "type": "mini_conclusion", "text": "Therefore, without regular tests, students can learn more creatively.", "textJP": "よって、テストなしで創造的に学べます。"},
+    {"id": "test_aff_A2", "stance": "affirmative", "group": "creative", "type": "assertion", 
+     "text": {
+        "easy": "Without tests, students can be creative.",
+        "medium": "Without regular tests, students can learn more creatively.",
+        "hard": "The absence of standardized tests fosters a highly creative and innovative educational environment."
+     }, "textJP": "定期テストがなければ、生徒はもっと創造的に学べます。"},
+    {"id": "test_aff_R2", "stance": "affirmative", "group": "creative", "type": "reason", 
+     "text": {
+        "easy": "Because they can focus on making things.",
+        "medium": "It is because they can focus on project-based learning instead of just memorizing facts.",
+        "hard": "This occurs because rote memorization is replaced by project-based learning, which encourages critical thinking."
+     }, "textJP": "なぜなら、暗記だけでなく、プロジェクトに集中できるからです。"},
+    {"id": "test_aff_E2", "stance": "affirmative", "group": "creative", "type": "evidence", 
+     "text": {
+        "easy": "Students can share ideas in group work.",
+        "medium": "Students can make presentations or work in groups to actively share their ideas.",
+        "hard": "For example, collaborative presentations and extensive group research allow students to synthesize and exchange complex concepts."
+     }, "textJP": "生徒は発表やグループ活動で意見を共有することができます。"},
+    {"id": "test_aff_S2", "stance": "affirmative", "group": "creative", "type": "mini_conclusion", 
+     "text": {
+        "easy": "Therefore, no tests helps creative learning.",
+        "medium": "Therefore, without regular tests, students can learn more creatively.",
+        "hard": "Thus, abolishing tests is a necessary step to cultivate creativity and practical problem-solving skills in students."
+     }, "textJP": "よって、テストなしで創造的に学べます。"},
 
-    {"id": "test_neg_A1", "stance": "negative", "group": "motiv", "type": "assertion", "text": "Abolishing regular tests reduces students motivation to study.", "textJP": "定期テストをなくすと、生徒の勉強するやる気が下がります。"},
-    {"id": "test_neg_R1", "stance": "negative", "group": "motiv", "type": "reason", "text": "It is because tests give students clear goals and a reason to study.", "textJP": "なぜなら、テストは明確な目標と勉強する理由を与えるからです。"},
-    {"id": "test_neg_E1", "stance": "negative", "group": "motiv", "type": "evidence", "text": "Without tests, some students may stop reviewing lessons.", "textJP": "テストがないと復習をしなくなる生徒もいます。"},
-    {"id": "test_neg_S1", "stance": "negative", "group": "motiv", "type": "mini_conclusion", "text": "Therefore, abolishing regular tests reduces students motivation.", "textJP": "よって、テスト廃止はやる気を下げます。"},
+    {"id": "test_neg_A1", "stance": "negative", "group": "motiv", "type": "assertion", 
+     "text": {
+        "easy": "Abolishing tests destroys motivation.",
+        "medium": "Abolishing regular tests reduces students' motivation to study.",
+        "hard": "The elimination of regular examinations severely diminishes students' intrinsic and extrinsic academic motivation."
+     }, "textJP": "定期テストをなくすと、生徒の勉強するやる気が下がります。"},
+    {"id": "test_neg_R1", "stance": "negative", "group": "motiv", "type": "reason", 
+     "text": {
+        "easy": "Because tests give them a reason to study.",
+        "medium": "It is because tests give students clear goals and a compelling reason to study.",
+        "hard": "This is primarily because standardized assessments provide concrete milestones and accountability for academic progress."
+     }, "textJP": "なぜなら、テストは明確な目標と勉強する理由を与えるからです。"},
+    {"id": "test_neg_E1", "stance": "negative", "group": "motiv", "type": "evidence", 
+     "text": {
+        "easy": "Without tests, students stop reviewing.",
+        "medium": "Without tests, many students may simply stop reviewing their daily lessons.",
+        "hard": "Empirical evidence suggests that in the absence of periodic testing, the frequency of independent review and knowledge retention drops drastically."
+     }, "textJP": "テストがないと復習をしなくなる生徒もいます。"},
+    {"id": "test_neg_S1", "stance": "negative", "group": "motiv", "type": "mini_conclusion", 
+     "text": {
+        "easy": "Therefore, tests are needed for motivation.",
+        "medium": "Therefore, abolishing regular tests reduces students' motivation.",
+        "hard": "In conclusion, regular testing remains an indispensable mechanism for sustaining high academic motivation."
+     }, "textJP": "よって、テスト廃止はやる気を下げます。"},
 
-    {"id": "test_neg_A2", "stance": "negative", "group": "unfair", "type": "assertion", "text": "Abolishing regular tests makes evaluation unfair.", "textJP": "定期テストをなくすと、評価が不公平になります。"},
-    {"id": "test_neg_R2", "stance": "negative", "group": "unfair", "type": "reason", "text": "It is because without tests, teachers cannot compare students fairly.", "textJP": "なぜなら、テストがなければ、先生は生徒を公平に比べられないからです。"},
-    {"id": "test_neg_E2", "stance": "negative", "group": "unfair", "type": "evidence", "text": "Grades might depend too much on attitude or homework.", "textJP": "成績が態度や宿題によりすぎてしまうかもしれません。"},
-    {"id": "test_neg_S2", "stance": "negative", "group": "unfair", "type": "mini_conclusion", "text": "Therefore, abolishing regular tests makes evaluation unfair.", "textJP": "よって、テスト廃止は評価を不公平にします。"},
+    {"id": "test_neg_A2", "stance": "negative", "group": "unfair", "type": "assertion", 
+     "text": {
+        "easy": "Without tests, grading is unfair.",
+        "medium": "Abolishing regular tests makes evaluation unfair.",
+        "hard": "The abolition of regular tests leads to highly subjective and inequitable evaluation systems."
+     }, "textJP": "定期テストをなくすと、評価が不公平になります。"},
+    {"id": "test_neg_R2", "stance": "negative", "group": "unfair", "type": "reason", 
+     "text": {
+        "easy": "Because teachers cannot compare students easily.",
+        "medium": "It is because without tests, teachers cannot compare students' abilities fairly.",
+        "hard": "This is because objective metrics are lost, making it virtually impossible for educators to assess student proficiency impartially."
+     }, "textJP": "なぜなら、テストがなければ、先生は生徒を公平に比べられないからです。"},
+    {"id": "test_neg_E2", "stance": "negative", "group": "unfair", "type": "evidence", 
+     "text": {
+        "easy": "Grades might depend on if the teacher likes you.",
+        "medium": "Grades might depend too much on subjective things like attitude or daily homework.",
+        "hard": "For example, an overreliance on subjective criteria, such as classroom demeanor or qualitative project assessments, often introduces unconscious teacher bias."
+     }, "textJP": "成績が態度や宿題によりすぎてしまうかもしれません。"},
+    {"id": "test_neg_S2", "stance": "negative", "group": "unfair", "type": "mini_conclusion", 
+     "text": {
+        "easy": "Therefore, abolishing tests is unfair.",
+        "medium": "Therefore, abolishing regular tests makes evaluation unfair.",
+        "hard": "Consequently, retaining regular tests is essential to ensure a fair and objective academic grading system."
+     }, "textJP": "よって、テスト廃止は評価を不公平にします。"},
 
-    {"id": "fake_aff_A1", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "Tests make students very hungry.", "textJP": "テストは生徒をとても空腹にします。"},
-    {"id": "fake_aff_R1", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because writing names takes too much energy.", "textJP": "なぜなら名前を書くのにエネルギーを使いすぎるからです。"},
-    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "evidence", "text": "For example, my pencil is always broken.", "textJP": "例えば、私の鉛筆はいつも折れています。"},
-    {"id": "fake_aff_S1", "stance": "affirmative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, tests are delicious.", "textJP": "よって、テストはおいしいです。"},
-    {"id": "fake_aff_A2", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "Tests are just a video game.", "textJP": "テストはただのテレビゲームです。"},
-    {"id": "fake_aff_R2", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because I like playing games on weekends.", "textJP": "なぜなら私は週末にゲームをするのが好きだからです。"},
+    {"id": "fake_aff_A1", "stance": "affirmative", "group": "fake", "type": "assertion", 
+     "text": {
+        "easy": "Tests make students very hungry.",
+        "medium": "Taking tests actually consumes all the vitamins in our bodies.",
+        "hard": "The neurochemical processes during exams deplete the body's caloric reserves, leading to global starvation."
+     }, "textJP": "（Fake）テストは生徒をとても空腹にします。"},
+    {"id": "fake_aff_R1", "stance": "affirmative", "group": "fake", "type": "reason", 
+     "text": {
+        "easy": "Because writing names takes energy.",
+        "medium": "Because holding a pencil for 50 minutes burns thousands of calories.",
+        "hard": "Because the kinetic energy required to fill out answer sheets disrupts the body's metabolic equilibrium."
+     }, "textJP": "（Fake）なぜなら名前を書くのにエネルギーを使いすぎるからです。"},
+    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "evidence", 
+     "text": {
+        "easy": "My pencil broke and I cried.",
+        "medium": "For example, my stomach always growls loudly during math exams.",
+        "hard": "For instance, research from an alternative universe shows that standardized testing directly causes severe malnutrition."
+     }, "textJP": "（Fake）例えば、私の鉛筆はいつも折れています。"},
+    {"id": "fake_aff_S1", "stance": "affirmative", "group": "fake", "type": "mini_conclusion", 
+     "text": {
+        "easy": "Therefore, tests are delicious.",
+        "medium": "Therefore, we should serve hamburgers instead of test papers.",
+        "hard": "Thus, substituting exam papers with edible materials is the only viable pedagogical solution."
+     }, "textJP": "（Fake）よって、テストはおいしいです。"},
 
-    {"id": "fake_neg_A1", "stance": "negative", "group": "fake", "type": "assertion", "text": "Tests are very good for sleeping.", "textJP": "テストは睡眠にとても良いです。"},
-    {"id": "fake_neg_R1", "stance": "negative", "group": "fake", "type": "reason", "text": "Because the classroom becomes very quiet.", "textJP": "なぜなら教室がとても静かになるからです。"},
-    {"id": "fake_neg_E1", "stance": "negative", "group": "fake", "type": "evidence", "text": "For example, teachers also look sleepy.", "textJP": "例えば、先生も眠そうに見えます。"},
-    {"id": "fake_neg_S1", "stance": "negative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, tests improve our health.", "textJP": "よって、テストは私たちの健康を改善します。"},
-    {"id": "fake_neg_A2", "stance": "negative", "group": "fake", "type": "assertion", "text": "Without tests, the world will end.", "textJP": "テストがないと、世界は終わります。"},
-    {"id": "fake_neg_R2", "stance": "negative", "group": "fake", "type": "reason", "text": "Because aliens love taking tests.", "textJP": "なぜなら宇宙人はテストを受けるのが好きだからです。"}
+    {"id": "fake_neg_A1", "stance": "negative", "group": "fake", "type": "assertion", 
+     "text": {
+        "easy": "Tests are good for sleeping.",
+        "medium": "Taking exams provides the perfect environment for a comfortable nap.",
+        "hard": "The implementation of rigorous testing is the most effective modern therapy for curing chronic insomnia."
+     }, "textJP": "（Fake）テストは睡眠にとても良いです。"},
+    {"id": "fake_neg_R1", "stance": "negative", "group": "fake", "type": "reason", 
+     "text": {
+        "easy": "Because the room is quiet.",
+        "medium": "Because the absolute silence in the classroom naturally induces sleep.",
+        "hard": "Because the acoustic isolation required for examinations generates specific sound waves that forcefully trigger the brain's sleep cycle."
+     }, "textJP": "（Fake）なぜなら教室がとても静かになるからです。"}
   ],
-  "vocabulary": [{"word": "evaluation", "meaning": "評価"}],
+  "vocabulary": [
+    {"word": "evaluation / assessment", "meaning": "評価"},
+    {"word": "alleviate", "meaning": "軽減する"},
+    {"word": "objective", "meaning": "客観的な"},
+    {"word": "subjective", "meaning": "主観的な"},
+    {"word": "foster / cultivate", "meaning": "育む"},
+    {"word": "intrinsic", "meaning": "内発的な（心からの）"}
+  ],
 
   "crossExam": {
-    "question": { "text": "Don't tests cause too much stress?", "textJP": "テストはストレスになりすぎませんか？" },
+    "question": { 
+      "text": {
+         "easy": "Don't tests cause too much stress?",
+         "medium": "Don't you think regular tests cause an excessive amount of stress for students?",
+         "hard": "Isn't it undeniable that the relentless pressure of regular testing inflicts disproportionate and harmful psychological stress on the student body?"
+      }, "textJP": "テストはストレスになりすぎませんか？" 
+    },
     "options": [
-      { "id": "q1", "text": "It's good practice for the future.", "textJP": "将来のための良い練習です。", "type": "answer", "judgment": "correct" },
-      { "id": "fake_q1", "text": "Yes, we should cry every day.", "textJP": "はい、私たちは毎日泣くべきです。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q2", "text": "Stress is my best friend.", "textJP": "ストレスは私の親友です。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q3", "text": "I don't know what stress is.", "textJP": "ストレスが何か知りません。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q4", "text": "Teachers like to give stress.", "textJP": "先生はストレスを与えるのが好きです。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q5", "text": "Let's abolish schools too.", "textJP": "学校も廃止しましょう。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q6", "text": "Eating chocolate reduces stress.", "textJP": "チョコレートを食べるとストレスが減ります。", "type": "answer", "judgment": "weak" }
+      { "id": "q1", "type": "answer", "judgment": "correct",
+        "text": {
+          "easy": "It's good practice for the future.",
+          "medium": "Overcoming this stress is good practice for facing challenges in the future.",
+          "hard": "Navigating such academic pressure cultivates psychological resilience, which is essential for overcoming future professional adversities."
+        }, "textJP": "将来のための良い練習です。" 
+      },
+      { "id": "fake_q1", "type": "answer", "judgment": "weak",
+        "text": { "easy": "We should cry every day.", "medium": "It is completely normal for students to cry every single day.", "hard": "The manifestation of profound sorrow is a necessary component of the educational paradigm." }, "textJP": "（Fake）" },
+      { "id": "fake_q2", "type": "answer", "judgment": "weak",
+        "text": { "easy": "Stress is my best friend.", "medium": "Stress is actually a magical power that makes us stronger.", "hard": "Psychological trauma is a scientifically proven method for achieving spiritual enlightenment." }, "textJP": "（Fake）" },
+      { "id": "fake_q3", "type": "answer", "judgment": "weak",
+        "text": { "easy": "I don't know what stress is.", "medium": "I believe that stress does not actually exist in the human mind.", "hard": "The concept of stress is merely a social construct fabricated by the pharmaceutical industry." }, "textJP": "（Fake）" },
+      { "id": "fake_q4", "type": "answer", "judgment": "weak",
+        "text": { "easy": "Teachers like to give stress.", "medium": "Teachers enjoy watching students suffer from stress.", "hard": "Educators derive malicious satisfaction from observing the psychological degradation of their pupils." }, "textJP": "（Fake）" }
     ]
   },
   "rebuttal": {
     "attack": { 
-      "text": "But students can get motivation from projects!", 
-      "textJP": "でも生徒はプロジェクトでやる気を出せます！", 
-      "damage": 15 
+      "damage": 15,
+      "text": {
+         "easy": "But projects give them motivation!",
+         "medium": "However, students can get enough motivation from engaging in creative projects!",
+         "hard": "Nevertheless, project-based learning and collaborative tasks provide a vastly superior and sustainable source of intrinsic motivation compared to tests!"
+      }, "textJP": "でも生徒はプロジェクトでやる気を出せます！" 
     },
     "options": [
-      { "id": "r1", "text": "Tests provide fair and objective goals.", "textJP": "テストは公平で客観的な目標を提供します。", "type": "defense", "judgment": "perfect" },
-      { "id": "fake_r1", "text": "Projects are just for fun.", "textJP": "プロジェクトはただの遊びです。", "type": "reason", "judgment": "weak" },
-      { "id": "fake_r2", "text": "I hate making presentations.", "textJP": "私は発表をするのが嫌いです。", "type": "defense", "judgment": "weak" },
-      { "id": "fake_r3", "text": "Motivation is not necessary.", "textJP": "やる気は必要ありません。", "type": "defense", "judgment": "weak" },
-      { "id": "fake_r4", "text": "Tests are printed on paper.", "textJP": "テストは紙に印刷されています。", "type": "defense", "judgment": "weak" },
-      { "id": "fake_r5", "text": "No one likes projects.", "textJP": "誰もプロジェクトを好きではありません。", "type": "defense", "judgment": "weak" },
-      { "id": "fake_r6", "text": "Let's play games instead of projects.", "textJP": "プロジェクトの代わりにゲームをしましょう。", "type": "defense", "judgment": "weak" }
+      { "id": "r1", "type": "defense", "judgment": "perfect",
+        "text": {
+           "easy": "Tests give fair goals.",
+           "medium": "Tests provide fair and objective goals that projects cannot always give.",
+           "hard": "While projects are engaging, objective examinations provide uniform and equitable benchmarks that are indispensable for standardized evaluation."
+        }, "textJP": "テストは公平で客観的な目標を提供します。" 
+      },
+      { "id": "fake_r1", "type": "reason", "judgment": "weak",
+        "text": { "easy": "Projects are just for fun.", "medium": "Projects are nothing more than playtime without any educational value.", "hard": "Collaborative projects are fundamentally devoid of any rigorous academic merit." }, "textJP": "（Fake）" },
+      { "id": "fake_r2", "type": "defense", "judgment": "weak",
+        "text": { "easy": "I hate presentations.", "medium": "Making posters and speaking in front of people is extremely annoying.", "hard": "The requirement of public speaking inherently discriminates against introverted personality types." }, "textJP": "（Fake）" },
+      { "id": "fake_r3", "type": "defense", "judgment": "weak",
+        "text": { "easy": "Motivation is bad.", "medium": "Students do not need any motivation to survive in this world.", "hard": "Intrinsic motivation is a theoretical fallacy that has no practical application in human development." }, "textJP": "（Fake）" },
+      { "id": "fake_r4", "type": "defense", "judgment": "weak",
+        "text": { "easy": "Tests are on paper.", "medium": "Paper tests are better because we can recycle the paper later.", "hard": "The tactile feedback of cellulose-based examination materials is paramount to cognitive absorption." }, "textJP": "（Fake）" }
     ]
   },
   "closing": {
     "options": [
-      { "id": "c1", "text": "Tests provide fair goals and motivation.", "textJP": "テストは公平な目標とやる気を与えてくれます。", "type": "closing", "judgment": "perfect" },
-      { "id": "fake_c1", "text": "Tests are scary monsters.", "textJP": "テストは怖いモンスターです。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c2", "text": "Everyone hates studying.", "textJP": "みんな勉強が嫌いです。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c3", "text": "Please give me a good score.", "textJP": "私に良い点数をください。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c4", "text": "Tests are just numbers.", "textJP": "テストはただの数字です。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c5", "text": "I want to go home early.", "textJP": "早く家に帰りたいです。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c6", "text": "Thank you for your time.", "textJP": "お時間をいただきありがとうございます。", "type": "closing", "judgment": "weak" }
+      { "id": "c1", "type": "closing", "judgment": "perfect",
+        "text": {
+           "easy": "Tests give fair goals and motivation.",
+           "medium": "We should keep regular tests because they provide fair goals and essential motivation.",
+           "hard": "In summary, regular examinations must be maintained as they are fundamental in providing equitable assessment and sustaining academic motivation."
+        }, "textJP": "テストは公平な目標とやる気を与えてくれます。" 
+      },
+      { "id": "fake_c1", "type": "closing", "judgment": "weak",
+        "text": { "easy": "Tests are scary monsters.", "medium": "We must keep tests to feed the invisible monsters in the classroom.", "hard": "Examinations serve as ritualistic sacrifices to appease the bureaucratic entities governing education." }, "textJP": "（Fake）" },
+      { "id": "fake_c2", "type": "closing", "judgment": "weak",
+        "text": { "easy": "Everyone hates studying.", "medium": "Since everyone hates studying, we should make them suffer more.", "hard": "The universal disdain for intellectual labor necessitates the enforcement of draconian testing measures." }, "textJP": "（Fake）" },
+      { "id": "fake_c3", "type": "closing", "judgment": "weak",
+        "text": { "easy": "Please give me a good score.", "medium": "If we keep tests, I demand that the teacher gives me a perfect score.", "hard": "I petition the arbiters of this debate to grant me favorable marks regardless of my logical coherence." }, "textJP": "（Fake）" },
+      { "id": "fake_c4", "type": "closing", "judgment": "weak",
+        "text": { "easy": "Tests are just numbers.", "medium": "Because numbers are beautiful, we need tests to see more numbers.", "hard": "The aesthetic supremacy of numerical data justifies the perpetual existence of standardized assessments." }, "textJP": "（Fake）" }
     ]
   }
 }

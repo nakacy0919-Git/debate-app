@@ -12,8 +12,8 @@ const COLORS = {
   mini_conclusion: "text-purple-400 border-purple-500/50 bg-purple-900/10"
 };
 
-export const ReviewMode = ({ topic, onClose, showJapanese, langMode }) => {
-  // ★修正: group が "fake" のカードを除外してからまとめる
+// ★難易度(difficulty)を受け取るように追加
+export const ReviewMode = ({ topic, onClose, showJapanese, langMode, difficulty = 'easy' }) => {
   const groupedCards = topic.deck
     .filter(card => card.group !== 'fake') 
     .reduce((acc, card) => {
@@ -30,7 +30,7 @@ export const ReviewMode = ({ topic, onClose, showJapanese, langMode }) => {
            <Home className="w-5 h-5"/> Exit Review
         </button>
         <div className="text-center">
-            <div className="text-xs text-blue-400 font-bold uppercase tracking-widest mb-1">Review Mode</div>
+            <div className="text-xs text-blue-400 font-bold uppercase tracking-widest mb-1">Review Mode ({difficulty})</div>
             <h1 className="font-black text-xl">{langMode === 'ja' ? topic.titleJP : topic.title}</h1>
         </div>
         <div className="w-24"></div>
@@ -52,6 +52,10 @@ export const ReviewMode = ({ topic, onClose, showJapanese, langMode }) => {
                   {cards.map(card => {
                      const Icon = ICONS[card.type] || ArrowUpCircle;
                      const colorClass = COLORS[card.type] || COLORS.reason;
+                     
+                     // ★レベル別テキストの読み込み処理
+                     const displayText = typeof card.text === 'object' ? card.text[difficulty] : card.text;
+
                      return (
                         <div key={card.id} className={`p-4 rounded-xl border ${colorClass}`}>
                             <div className="flex items-center gap-2 mb-2 opacity-80">
@@ -63,7 +67,7 @@ export const ReviewMode = ({ topic, onClose, showJapanese, langMode }) => {
                             ) : (
                                 <>
                                   <p className="font-bold text-white leading-relaxed text-base">
-                                      <SmartText text={card.text} vocabList={topic.vocabulary} />
+                                      <SmartText text={displayText} vocabList={topic.vocabulary} />
                                   </p>
                                   {showJapanese && <p className="mt-2 pt-2 border-t border-white/10 text-slate-400 text-sm">{card.textJP}</p>}
                                 </>
