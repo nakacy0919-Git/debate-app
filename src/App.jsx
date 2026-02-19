@@ -74,20 +74,20 @@ const RuleBook = ({ onClose }) => {
 
 export default function App() {
   const [topics, setTopics] = useState([]);
-  
-  // ★ 初期値をすべてnullにし、選ばせるようにする
   const [selectedTopicId, setSelectedTopicId] = useState(null);
   const [userStance, setUserStance] = useState(null); 
   const [difficulty, setDifficulty] = useState(null);
-  const [timerEnabled, setTimerEnabled] = useState(true); // ★ タイマーON/OFF
+  const [timerEnabled, setTimerEnabled] = useState(true); 
   
   const [gameMode, setGameMode] = useState('area'); 
   const [langMode, setLangMode] = useState('en'); 
   const [fontSize, setFontSize] = useState('normal'); 
 
-  // UI用 State
   const [setupStep, setSetupStep] = useState(1);
   const [setupHelpStep, setSetupHelpStep] = useState(null);
+  
+  // ★抜け落ちていた1行を復活！
+  const [showRules, setShowRules] = useState(false);
 
   const [playerHP, setPlayerHP] = useState(MAX_HP);
   const [opponentHP, setOpponentHP] = useState(MAX_HP);
@@ -117,7 +117,6 @@ export default function App() {
     setTopics(loadedTopics);
   }, []);
 
-  // ★ タイマーの処理（timerEnabled が false なら動かさない）
   useEffect(() => {
     if (!timerEnabled) {
       setTimeProgress(0);
@@ -260,7 +259,7 @@ export default function App() {
     const q = currentTopic.crossExam?.question;
     if (q) {
       setGameState('cross_exam');
-      setRivalCard({ id: 'rival_q', text: q.text, textJP: q.textJP, type: 'answer', isQuestion: true });
+      setRivalCard({ id: 'rival_q', text: typeof q.text === 'object' ? q.text[difficulty] : q.text, textJP: q.textJP, type: 'answer', isQuestion: true });
       setHand(setupBattlePhase(currentTopic.crossExam.options));
     } else triggerRebuttalPhase();
   };
@@ -272,7 +271,7 @@ export default function App() {
       setGameState('rebuttal_attack');
       const atk = currentTopic.rebuttal?.attack;
       if (atk) {
-        setRivalCard({ id: 'rival_atk', text: atk.text, textJP: atk.textJP, type: 'attack', damage: atk.damage || 15 });
+        setRivalCard({ id: 'rival_atk', text: typeof atk.text === 'object' ? atk.text[difficulty] : atk.text, textJP: atk.textJP, type: 'attack', damage: atk.damage || 15 });
         if(timerEnabled) takeDamage(DAMAGE_TICK, "Opponent Attack!");
         setTimeout(() => { setGameState('rebuttal_defense'); setHand(setupBattlePhase(currentTopic.rebuttal.options)); }, 3000);
       } else triggerClosingPhase();
@@ -339,7 +338,6 @@ export default function App() {
     if (nextPhaseTrigger) nextPhaseTrigger();
   };
 
-  // ★ 追加: 現在のフェーズに必要なカードだけをフィルタリングして表示する関数
   const getVisibleHand = () => {
     if (gameState !== 'construct') return hand; 
     const expectedFlow = FLOWS[gameMode] || FLOWS.area;
@@ -377,7 +375,6 @@ export default function App() {
       );
   };
 
-  // ★ UI状態の判定
   const isTopicSelected = selectedTopicId !== null;
   const isStanceSelected = userStance !== null;
   const isDifficultySelected = difficulty !== null;
@@ -450,7 +447,7 @@ export default function App() {
                                  
                                  <div className="grid md:grid-cols-2 gap-6 text-left flex-1 min-h-0">
                                      
-                                     {/* Topic List (ここだけ点滅＆スクロール) */}
+                                     {/* Topic List */}
                                      <div className={`bg-slate-950/50 p-4 md:p-5 rounded-2xl flex flex-col h-full min-h-0 transition-all duration-300 ${!isTopicSelected ? 'ring-4 ring-cyan-500 ring-opacity-70 animate-pulse border-transparent' : 'border border-white/10'}`}>
                                          <h3 className="text-sm font-bold text-blue-400 mb-3 uppercase tracking-widest border-b border-white/10 pb-2 shrink-0">Topic</h3>
                                          <div className="space-y-3 overflow-y-auto pr-2 custom-scrollbar flex-1">
@@ -483,7 +480,6 @@ export default function App() {
                                              </div>
                                          </div>
 
-                                         {/* ★ 追加: タイマーのON/OFF設定 */}
                                          <div className={`bg-slate-950/50 p-4 md:p-5 rounded-2xl transition-all duration-300 border border-white/10 ${!isDifficultySelected ? 'opacity-30 pointer-events-none' : ''}`}>
                                              <div className="flex justify-between items-center">
                                                  <h3 className="text-sm font-bold text-pink-400 uppercase tracking-widest flex items-center gap-2">
@@ -501,7 +497,6 @@ export default function App() {
                                      </div>
                                  </div>
 
-                                 {/* すべて選択されたらスタートボタン表示 */}
                                  {canStart && (
                                     <button onClick={initGame} className="w-full mt-6 py-4 md:py-5 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full font-black text-2xl md:text-3xl hover:shadow-[0_0_40px_rgba(34,211,238,0.6)] transition-all hover:scale-[1.02] border border-white/20 text-white flex justify-center items-center gap-3 shrink-0 animate-in zoom-in duration-300">
                                         {gameMode === 'review' ? <BookOpen/> : <Play className="fill-current"/>} 
@@ -536,13 +531,12 @@ export default function App() {
           </div>
       )}
 
-      {/* --- ★ Game Header (大きく見やすく改善) --- */}
+      {/* --- ★ Game Header --- */}
       {gameState !== 'start' && (
         <header className={`shrink-0 ${theme.headerBg} z-30 px-6 py-3 flex justify-between items-center shadow-xl min-h-[5rem] md:min-h-[6rem]`}>
           <div className="flex items-center gap-4 flex-1">
             <button onClick={goHome} className="p-3 rounded-full hover:bg-white/10 transition-colors bg-white/5 border border-white/10"><Home className="w-6 h-6 md:w-8 md:h-8"/></button>
             
-            {/* HP Bar */}
             <div className="flex-1 max-w-[200px] md:max-w-[300px] mx-2 md:mx-6">
                 <div className="flex justify-between text-xs md:text-sm font-black uppercase mb-2 opacity-90">
                     <span className="text-blue-400 flex items-center gap-1"><Heart className="w-4 h-4 md:w-5 md:h-5 fill-current"/> HP</span>
@@ -553,7 +547,6 @@ export default function App() {
                 </div>
             </div>
 
-            {/* Topic Info */}
             <div className="hidden lg:flex flex-col ml-4 border-l border-white/20 pl-6 max-w-xl">
                 <span className="text-xl md:text-2xl font-black text-white truncate flex items-center gap-3 drop-shadow-md">
                   {langMode === 'ja' ? currentTopic.titleJP : currentTopic.title}
@@ -565,7 +558,6 @@ export default function App() {
             </div>
           </div>
 
-          {/* タイマー表示 (timerEnabledがtrueの時だけ表示) */}
           {timerEnabled && (gameState === 'construct' || gameState === 'cross_exam' || gameState === 'rebuttal_defense') && (
               <div className="absolute left-1/2 -translate-x-1/2 top-4 md:top-6 flex flex-col items-center w-32 md:w-48 bg-slate-900/50 px-4 py-2 rounded-xl border border-white/10 backdrop-blur-md shadow-lg">
                   <div className="text-[10px] md:text-xs font-bold text-pink-400 uppercase tracking-widest mb-1 md:mb-2 flex items-center gap-1"><Clock className="w-3 h-3 md:w-4 md:h-4"/> Time Limit</div>
@@ -655,7 +647,6 @@ export default function App() {
                   </div>
               </div>
               <div className="flex-1 overflow-y-auto p-3 space-y-3">
-                  {/* ★修正: visibleHand をマップして、今選ぶべきカードだけを表示する */}
                   {visibleHand.map((card) => {
                       const type = CARD_TYPES[card.type] || CARD_TYPES.reason;
                       return (
