@@ -16,7 +16,7 @@
         "medium": "It is because they can directly experience different cultures, languages, and lifestyles.",
         "hard": "This is because immersive exposure to foreign cultures and linguistic environments accelerates cross-cultural competence."
      }, "textJP": "なぜなら、ちがう文化や言葉、生活を直接見ることができるからです。"},
-    {"id": "abr_aff_E1", "stance": "affirmative", "group": "exp", "type": "evidence", 
+    {"id": "abr_aff_E1", "stance": "affirmative", "group": "exp", "type": "example", 
      "text": {
         "easy": "For example, we see how people live in other countries.",
         "medium": "For example, students can learn firsthand how people in foreign countries study, eat, and live.",
@@ -41,7 +41,7 @@
         "medium": "It is because they are forced to talk with local people and order food in English.",
         "hard": "This is primarily because students must actively employ target language skills to navigate everyday logistical challenges."
      }, "textJP": "なぜなら、現地の人と話したり、食べ物を注文したり、質問したりできるからです。"},
-    {"id": "abr_aff_E2", "stance": "affirmative", "group": "english", "type": "evidence", 
+    {"id": "abr_aff_E2", "stance": "affirmative", "group": "english", "type": "example", 
      "text": {
         "easy": "For example, it is fun when people understand your English.",
         "medium": "For example, students build confidence when they speak English and locals understand them.",
@@ -66,7 +66,7 @@
         "medium": "It is because airplane tickets, passports, and hotel accommodations are extremely expensive.",
         "hard": "This is due to the inherently high costs associated with international aviation, visa procurement, and foreign accommodations."
      }, "textJP": "なぜなら、飛行機代やホテル代、旅行にかかる費用がとても高いからです。"},
-    {"id": "abr_neg_E1", "stance": "negative", "group": "cost", "type": "evidence", 
+    {"id": "abr_neg_E1", "stance": "negative", "group": "cost", "type": "example", 
      "text": {
         "easy": "For example, some students cannot go, which is sad.",
         "medium": "For example, families who cannot afford the trip might feel left out, creating inequality.",
@@ -91,7 +91,7 @@
         "medium": "It is because Japan possesses many historical places and traditional arts that students need to study.",
         "hard": "This is because the domestic landscape is replete with essential cultural heritage that remains under-explored by the youth."
      }, "textJP": "なぜなら、日本には生徒が学ぶべき伝統的な場所や食べ物、芸術がたくさんあるからです。"},
-    {"id": "abr_neg_E2", "stance": "negative", "group": "domestic", "type": "evidence", 
+    {"id": "abr_neg_E2", "stance": "negative", "group": "domestic", "type": "example", 
      "text": {
         "easy": "For example, we can learn about peace in Hiroshima.",
         "medium": "For example, visiting cities like Kyoto or Hiroshima teaches students deeply about Japanese history and peace.",
@@ -108,7 +108,7 @@
      "text": { "easy": "Going abroad makes you an alien.", "medium": "Going abroad magically transforms students into space aliens.", "hard": "International border crossings trigger rapid DNA mutations, converting students into extraterrestrial entities." }, "textJP": "（Fake）"},
     {"id": "fake_aff_R1", "stance": "affirmative", "group": "fake", "type": "reason", 
      "text": { "easy": "Because airplanes fly to the moon.", "medium": "Because airplanes accidentally fly straight to the moon.", "hard": "Because commercial aviation inadvertently navigates through trans-dimensional lunar portals." }, "textJP": "（Fake）"},
-    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "evidence", 
+    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "example", 
      "text": { "easy": "For example, I met a Martian in New York.", "medium": "For example, it is very common to meet Martians in New York City.", "hard": "For instance, statistical data verifies that 90% of tourists encounter Martian delegates in Manhattan." }, "textJP": "（Fake）"},
     {"id": "fake_aff_S1", "stance": "affirmative", "group": "fake", "type": "mini_conclusion", 
      "text": { "easy": "Therefore, swimming is difficult.", "medium": "Therefore, swimming in the ocean is a very difficult sport.", "hard": "Thus, aquatic navigation remains the most complex physiological challenge known to science." }, "textJP": "（Fake）"},
@@ -121,7 +121,7 @@
      "text": { "easy": "Japan is the only country.", "medium": "Japan is scientifically proven to be the only country on Earth.", "hard": "Geological consensus dictates that the Japanese archipelago constitutes the entirety of the planetary landmass." }, "textJP": "（Fake）"},
     {"id": "fake_neg_R1", "stance": "negative", "group": "fake", "type": "reason", 
      "text": { "easy": "Because I have never seen a map.", "medium": "Because world maps are just drawings made for fantasy novels.", "hard": "Because cartography is a well-documented global conspiracy designed to deceive the masses." }, "textJP": "（Fake）"},
-    {"id": "fake_neg_E1", "stance": "negative", "group": "fake", "type": "evidence", 
+    {"id": "fake_neg_E1", "stance": "negative", "group": "fake", "type": "example", 
      "text": { "easy": "For example, Kyoto is in Paris.", "medium": "For example, the city of Kyoto is actually located right inside Paris.", "hard": "For instance, precise topographical surveys reveal that Kyoto is geographically nested within the Parisian suburbs." }, "textJP": "（Fake）"},
     {"id": "fake_neg_S1", "stance": "negative", "group": "fake", "type": "mini_conclusion", 
      "text": { "easy": "Therefore, airplanes are birds.", "medium": "Therefore, we can conclude that airplanes are just large metal birds.", "hard": "Thus, commercial aircraft are merely bio-engineered avian species operating under government control." }, "textJP": "（Fake）"},

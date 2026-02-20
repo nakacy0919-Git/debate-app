@@ -16,7 +16,7 @@
         "medium": "It is because working overnight shifts heavily disrupts the human body clock and causes fatigue.",
         "hard": "This is primarily because nocturnal labor severely disrupts circadian rhythms, precipitating chronic physiological exhaustion."
      }, "textJP": "なぜなら、夜おそくまで働くことはとても疲れ、健康によくないからです。"},
-    {"id": "con_aff_E1", "stance": "affirmative", "group": "health", "type": "evidence", 
+    {"id": "con_aff_E1", "stance": "affirmative", "group": "health", "type": "example", 
      "text": {
         "easy": "For example, night workers cannot sleep enough.",
         "medium": "For example, store clerks who work the night shift often suffer from severe sleep deprivation.",
@@ -41,7 +41,7 @@
         "medium": "It is because 24-hour stores consume a massive amount of electricity for lighting and refrigeration.",
         "hard": "This is because continuous operation necessitates the unrelenting expenditure of electrical resources for illumination and climate control."
      }, "textJP": "なぜなら、コンビニは夜中も照明やエアコンに電気を使っているからです。"},
-    {"id": "con_aff_E2", "stance": "affirmative", "group": "energy", "type": "evidence", 
+    {"id": "con_aff_E2", "stance": "affirmative", "group": "energy", "type": "example", 
      "text": {
         "easy": "For example, turning off lights saves a lot of power.",
         "medium": "For example, if thousands of stores close at midnight, the entire country can reduce carbon emissions.",
@@ -66,7 +66,7 @@
         "medium": "It is because diverse lifestyles require access to essential goods like food or medicine at any hour.",
         "hard": "This occurs because contemporary socio-economic structures necessitate round-the-clock access to essential sustenance and pharmaceuticals."
      }, "textJP": "なぜなら、夜おそくに食べ物や薬を買う必要がある人もいるからです。"},
-    {"id": "con_neg_E1", "stance": "negative", "group": "inconvenient", "type": "evidence", 
+    {"id": "con_neg_E1", "stance": "negative", "group": "inconvenient", "type": "example", 
      "text": {
         "easy": "For example, night shift workers need to buy dinner.",
         "medium": "For example, medical workers or those who suddenly fall ill at night would suffer if stores were closed.",
@@ -91,7 +91,7 @@
         "medium": "It is because total sales will drop, and many students or freelancers will lose their part-time jobs.",
         "hard": "This is primarily because constrained operational hours severely compress revenue streams and necessitate widespread workforce reductions."
      }, "textJP": "なぜなら、売れる商品が減り、多くのアルバイトの仕事がなくなるからです。"},
-    {"id": "con_neg_E2", "stance": "negative", "group": "economy", "type": "evidence", 
+    {"id": "con_neg_E2", "stance": "negative", "group": "economy", "type": "example", 
      "text": {
         "easy": "For example, students can't work night shifts for money.",
         "medium": "For example, individuals who specifically rely on the higher wages of night shifts will face financial hardship.",
@@ -108,7 +108,7 @@
      "text": { "easy": "Convenience stores are made of candy.", "medium": "Most convenience stores are actually built entirely out of sweet candy.", "hard": "The architectural infrastructure of convenience retail relies on crystallized sucrose formations." }, "textJP": "（Fake）"},
     {"id": "fake_aff_R1", "stance": "affirmative", "group": "fake", "type": "reason", 
      "text": { "easy": "Because unicorns work there.", "medium": "Because magical unicorns are employed as the primary staff at night.", "hard": "This is because mythzoological equines manage the nocturnal logistical supply chains." }, "textJP": "（Fake）"},
-    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "evidence", 
+    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "example", 
      "text": { "easy": "For example, I bought a star.", "medium": "For example, I recently purchased a glowing star from the candy aisle.", "hard": "For instance, retail transactions frequently involve the exchange of celestial bodies for currency." }, "textJP": "（Fake）"},
     {"id": "fake_aff_S1", "stance": "affirmative", "group": "fake", "type": "mini_conclusion", 
      "text": { "easy": "Therefore, stores can fly.", "medium": "Therefore, convenience stores have the ability to fly away at sunrise.", "hard": "Thus, retail establishments inherently possess advanced aerodynamic levitation capabilities." }, "textJP": "（Fake）"},
@@ -121,7 +121,7 @@
      "text": { "easy": "Convenience stores are our parents.", "medium": "Convenience stores serve as the actual biological parents of modern citizens.", "hard": "Retail conglomerates have usurped the biological role of maternal nurturing in society." }, "textJP": "（Fake）"},
     {"id": "fake_neg_R1", "stance": "negative", "group": "fake", "type": "reason", 
      "text": { "easy": "Because they give us toys.", "medium": "Because the cashiers kindly distribute free plastic toys to everyone.", "hard": "Because the systematic distribution of polymer-based entertainment mimics parental affection." }, "textJP": "（Fake）"},
-    {"id": "fake_neg_E1", "stance": "negative", "group": "fake", "type": "evidence", 
+    {"id": "fake_neg_E1", "stance": "negative", "group": "fake", "type": "example", 
      "text": { "easy": "For example, I live in a store.", "medium": "For example, I have permanently moved my bed into the local convenience store.", "hard": "For instance, numerous urban demographic cohorts have legally designated retail outlets as their primary domiciles." }, "textJP": "（Fake）"},
     {"id": "fake_neg_S1", "stance": "negative", "group": "fake", "type": "mini_conclusion", 
      "text": { "easy": "Therefore, we should sleep there.", "medium": "Therefore, society should mandate sleeping inside convenience stores.", "hard": "Thus, public policy must enforce universal nocturnal habitation within commercial retail zones." }, "textJP": "（Fake）"},

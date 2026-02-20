@@ -21,19 +21,21 @@ const DIFFICULTIES = {
   hard:   { label: 'Hard',   fakeCount: 8, battleOptions: 6, showHint: false }, 
 };
 
+// ★修正: FLOWSの中の 'evidence' を 'example' に変更
 const FLOWS = {
-  area: ['assertion', 'reason', 'evidence', 'mini_conclusion'],
-  logic_link: ['reason', 'evidence']
+  area: ['assertion', 'reason', 'example', 'mini_conclusion'],
+  logic_link: ['reason', 'example']
 };
 
 const THEMES = {
   techno: { bg: 'bg-[#0f172a]', text: 'text-slate-100', headerBg: 'bg-[#1e293b]/90 border-b border-white/5', cardBg: 'bg-[#1e293b]' }
 };
 
+// ★修正: CARD_TYPESのキーを 'evidence' から 'example' に変更
 const CARD_TYPES = {
   assertion: { label: "Assertion", labelJP: "主張 (A)", icon: ShieldCheck, color: "text-blue-200", border: "border-blue-500", bg: "bg-gradient-to-br from-blue-600 to-blue-800" },
   reason:    { label: "Reason",    labelJP: "理由 (R)",    icon: ArrowUpCircle, color: "text-green-200", border: "border-green-500", bg: "bg-gradient-to-br from-green-600 to-green-800" },
-  evidence:  { label: "Evidence",  labelJP: "根拠/例 (E)", icon: Lightbulb,     color: "text-orange-200", border: "border-orange-500", bg: "bg-gradient-to-br from-orange-600 to-orange-800" },
+  example:   { label: "Example",   labelJP: "具体例 (E)", icon: Lightbulb,     color: "text-orange-200", border: "border-orange-500", bg: "bg-gradient-to-br from-orange-600 to-orange-800" },
   mini_conclusion:{ label: "Summary",labelJP: "再主張 (A)", icon: ShieldCheck, color: "text-purple-200", border: "border-purple-500", bg: "bg-gradient-to-br from-purple-600 to-purple-800" },
   answer:    { label: "Answer",    labelJP: "回答", icon: MessageCircleQuestion, color: "text-teal-200", border: "border-teal-500", bg: "bg-gradient-to-br from-teal-600 to-teal-800" },
   defense:   { label: "Rebuttal",  labelJP: "再反論", icon: Shield, color: "text-indigo-200", border: "border-indigo-500", bg: "bg-gradient-to-br from-indigo-600 to-indigo-800" },
@@ -57,13 +59,13 @@ const RuleBook = ({ onClose }) => {
         {isJp ? (
           <div className="space-y-6 text-slate-300">
             <section><h3 className="text-xl font-bold text-blue-400 mb-2">1. 目的</h3><p>HPがなくなる前に、論理的な主張を組み立てて対戦相手を倒しましょう。</p></section>
-            <section><h3 className="text-xl font-bold text-green-400 mb-2">2. AREA構造 (AREA Battle)</h3><ul className="list-disc pl-5 space-y-2"><li><span className="text-blue-400 font-bold">A</span>ssertion: あなたの主張（まともな意見ならどれでもOK！）</li><li><span className="text-green-400 font-bold">R</span>eason: 主張に合った理由</li><li><span className="text-orange-400 font-bold">E</span>vidence: 主張に合った具体例</li><li><span className="text-purple-400 font-bold">A</span>ssertion: 結論（まとめ）</li></ul></section>
+            <section><h3 className="text-xl font-bold text-green-400 mb-2">2. AREA構造 (AREA Battle)</h3><ul className="list-disc pl-5 space-y-2"><li><span className="text-blue-400 font-bold">A</span>ssertion: あなたの主張（まともな意見ならどれでもOK！）</li><li><span className="text-green-400 font-bold">R</span>eason: 主張に合った理由</li><li><span className="text-orange-400 font-bold">E</span>xample: 主張に合った具体例</li><li><span className="text-purple-400 font-bold">A</span>ssertion: 結論（まとめ）</li></ul></section>
             <section><h3 className="text-xl font-bold text-red-400 mb-2">3. ダメージのルール</h3><ul className="space-y-2 text-sm"><li className="flex items-center gap-2"><AlertTriangle className="text-red-500 w-4 h-4"/> <strong>順番ミス:</strong> 大ダメージ (-50 HP)</li><li className="flex items-center gap-2"><Zap className="text-yellow-500 w-4 h-4"/> <strong>論理ミス:</strong> 小ダメージ (-25 HP) ※ふざけた意見や、途中で別の論点にすり替わった場合</li><li className="flex items-center gap-2"><Clock className="text-slate-400 w-4 h-4"/> <strong>時間切れ:</strong> 10秒ごとに -12.5 HP (※タイマーON時のみ)</li></ul></section>
           </div>
         ) : (
           <div className="space-y-6 text-slate-300">
             <section><h3 className="text-xl font-bold text-blue-400 mb-2">1. Objective</h3><p>Build a logical argument and defeat your opponent before your HP runs out.</p></section>
-            <section><h3 className="text-xl font-bold text-green-400 mb-2">2. The AREA Structure</h3><ul className="list-disc pl-5 space-y-2"><li><span className="text-blue-400 font-bold">A</span>ssertion: Your main point. (Choose any valid opinion!)</li><li><span className="text-green-400 font-bold">R</span>eason: Reason matching your assertion.</li><li><span className="text-orange-400 font-bold">E</span>vidence: Examples matching your assertion.</li><li><span className="text-purple-400 font-bold">A</span>ssertion: Summary.</li></ul></section>
+            <section><h3 className="text-xl font-bold text-green-400 mb-2">2. The AREA Structure</h3><ul className="list-disc pl-5 space-y-2"><li><span className="text-blue-400 font-bold">A</span>ssertion: Your main point. (Choose any valid opinion!)</li><li><span className="text-green-400 font-bold">R</span>eason: Reason matching your assertion.</li><li><span className="text-orange-400 font-bold">E</span>xample: Examples or facts.</li><li><span className="text-purple-400 font-bold">A</span>ssertion: Summary.</li></ul></section>
             <section><h3 className="text-xl font-bold text-red-400 mb-2">3. Damage Rules</h3><ul className="space-y-2 text-sm"><li className="flex items-center gap-2"><AlertTriangle className="text-red-500 w-4 h-4"/> <strong>Wrong Order:</strong> Large Damage (-50 HP).</li><li className="flex items-center gap-2"><Zap className="text-yellow-500 w-4 h-4"/> <strong>Logic Mismatch:</strong> Small Damage (-25 HP).</li><li className="flex items-center gap-2"><Clock className="text-slate-400 w-4 h-4"/> <strong>Time Penalty:</strong> -12.5 HP every 10 seconds. (If Timer is ON)</li></ul></section>
           </div>
         )}
@@ -85,8 +87,6 @@ export default function App() {
 
   const [setupStep, setSetupStep] = useState(1);
   const [setupHelpStep, setSetupHelpStep] = useState(null);
-  
-  // ★抜け落ちていた1行を復活！
   const [showRules, setShowRules] = useState(false);
 
   const [playerHP, setPlayerHP] = useState(MAX_HP);
@@ -215,8 +215,9 @@ export default function App() {
     const currentTopic = topics.find(t => t.id === selectedTopicId) || topics[0];
     let myStanceCards = currentTopic.deck.filter(c => c.stance === userStance);
     
+    // ★修正: logic_link モードの場合も evidence ではなく example で抽出
     if (gameMode === 'logic_link') {
-       myStanceCards = myStanceCards.filter(c => c.type === 'reason' || c.type === 'evidence');
+       myStanceCards = myStanceCards.filter(c => c.type === 'reason' || c.type === 'example');
     }
     if (myStanceCards.length === 0) {
         alert("No appropriate cards found for this mode/stance!");
@@ -386,7 +387,7 @@ export default function App() {
   return (
     <div className={`h-screen w-full ${theme.bg} ${theme.text} font-sans flex flex-col overflow-hidden ${FONT_SIZES[fontSize]}`}>
       
-      {/* --- Start Screen (ステップ選択UI & アニメーション背景) --- */}
+      {/* --- Start Screen --- */}
       {gameState === 'start' && !isDrillMode && (
           <div className="absolute inset-0 z-50 flex flex-col items-center justify-center p-4 md:p-6 bg-gradient-to-br from-[#0f172a] via-[#1e1b4b] to-[#0f172a] animate-gradient-xy overflow-hidden">
              <div className="text-center w-full max-w-5xl flex flex-col items-center h-full max-h-[850px]">
@@ -395,7 +396,6 @@ export default function App() {
                     DEBATE BATTLE
                  </h1>
 
-                 {/* 段階的選択画面 */}
                  <div className="bg-slate-900/80 backdrop-blur-xl p-6 md:p-8 rounded-3xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative w-full flex-1 flex flex-col min-h-0 overflow-hidden">
                      
                      <div className="flex justify-between items-center mb-6 pb-4 border-b border-white/10 shrink-0">
@@ -417,7 +417,6 @@ export default function App() {
                      </div>
 
                      <div className="flex-1 flex flex-col justify-center w-full min-h-0">
-                         {/* Step 1: Language */}
                          {setupStep === 1 && (
                              <div className="animate-in fade-in slide-in-from-right-8 duration-500 w-full max-w-2xl mx-auto">
                                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 text-center tracking-widest uppercase">1. Language</h2>
@@ -428,26 +427,22 @@ export default function App() {
                              </div>
                          )}
 
-                         {/* Step 2: Game Mode */}
                          {setupStep === 2 && (
                              <div className="animate-in fade-in slide-in-from-right-8 duration-500 w-full max-w-2xl mx-auto">
                                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 text-center tracking-widest uppercase">2. Game Mode</h2>
                                  <div className="flex flex-col gap-5">
                                      <button onClick={() => { setGameMode('area'); setSetupStep(3); }} className={`p-5 md:p-6 rounded-2xl border-4 text-xl md:text-2xl font-bold transition-all hover:scale-105 ${gameMode === 'area' ? 'bg-purple-600 border-purple-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}>AREA Battle (Standard)</button>
-                                     <button onClick={() => { setGameMode('logic_link'); setSetupStep(3); }} className={`p-5 md:p-6 rounded-2xl border-4 text-xl md:text-2xl font-bold transition-all hover:scale-105 ${gameMode === 'logic_link' ? 'bg-purple-600 border-purple-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}>Logic Link (Reason → Evidence)</button>
+                                     <button onClick={() => { setGameMode('logic_link'); setSetupStep(3); }} className={`p-5 md:p-6 rounded-2xl border-4 text-xl md:text-2xl font-bold transition-all hover:scale-105 ${gameMode === 'logic_link' ? 'bg-purple-600 border-purple-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}>Logic Link (Reason → Example)</button>
                                      <button onClick={() => { setGameMode('review'); setSetupStep(3); }} className={`p-5 md:p-6 rounded-2xl border-4 text-xl md:text-2xl font-bold flex items-center justify-center gap-3 transition-all hover:scale-105 ${gameMode === 'review' ? 'bg-teal-600 border-teal-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}><BookOpen className="w-6 h-6"/> Review Mode</button>
                                  </div>
                              </div>
                          )}
 
-                         {/* Step 3: Topic, Stance, Difficulty & Timer */}
                          {setupStep === 3 && (
                              <div className="animate-in fade-in slide-in-from-right-8 duration-500 w-full flex flex-col h-full min-h-0">
                                  <h2 className="text-xl md:text-2xl font-bold text-white mb-6 text-center tracking-widest uppercase shrink-0">3. Final Settings</h2>
                                  
                                  <div className="grid md:grid-cols-2 gap-6 text-left flex-1 min-h-0">
-                                     
-                                     {/* Topic List */}
                                      <div className={`bg-slate-950/50 p-4 md:p-5 rounded-2xl flex flex-col h-full min-h-0 transition-all duration-300 ${!isTopicSelected ? 'ring-4 ring-cyan-500 ring-opacity-70 animate-pulse border-transparent' : 'border border-white/10'}`}>
                                          <h3 className="text-sm font-bold text-blue-400 mb-3 uppercase tracking-widest border-b border-white/10 pb-2 shrink-0">Topic</h3>
                                          <div className="space-y-3 overflow-y-auto pr-2 custom-scrollbar flex-1">
@@ -460,9 +455,7 @@ export default function App() {
                                          </div>
                                      </div>
 
-                                     {/* Stance, Difficulty, Timer */}
                                      <div className="flex flex-col gap-5 shrink-0 overflow-y-auto custom-scrollbar pr-2">
-                                         
                                          <div className={`bg-slate-950/50 p-4 md:p-5 rounded-2xl transition-all duration-300 ${!isTopicSelected ? 'opacity-30 pointer-events-none border border-white/5' : (!isStanceSelected ? 'ring-4 ring-green-500 ring-opacity-70 animate-pulse border-transparent' : 'border border-white/10')}`}>
                                              <h3 className="text-sm font-bold text-green-400 mb-3 uppercase tracking-widest border-b border-white/10 pb-2">Your Stance</h3>
                                              <div className="flex gap-3">
@@ -493,7 +486,6 @@ export default function App() {
                                                  {timerEnabled ? 'ON: 時間制限ありの緊張感バトル' : 'OFF: 時間制限なしでゆっくり考える'}
                                              </p>
                                          </div>
-
                                      </div>
                                  </div>
 
@@ -514,14 +506,13 @@ export default function App() {
                  </div>
              </div>
 
-             {/* Help Modal */}
              {setupHelpStep && (
                 <div className="fixed inset-0 z-[200] bg-black/80 flex items-center justify-center p-4 animate-in fade-in zoom-in-95" onClick={() => setSetupHelpStep(null)}>
                    <div className="bg-slate-800 p-8 rounded-3xl max-w-md w-full border border-white/20 shadow-2xl" onClick={e => e.stopPropagation()}>
                       <h3 className="text-3xl font-black text-blue-400 mb-4 flex items-center gap-2"><HelpCircle/> Step {setupHelpStep} Guide</h3>
                       <div className="text-slate-200 mb-8 text-lg leading-relaxed whitespace-pre-line">
                          {setupHelpStep === 1 && "使用する言語を選びます。\n\n・English: 英語学習用の標準モードです。\n・日本語: 全てが日本語になり、国語の論理練習に使えます。"}
-                         {setupHelpStep === 2 && "遊び方を選びます。\n\n・AREA Battle: 4枚のカードを正しい論理の順番で組み立てて敵と戦います。\n・Logic Link: 理由と根拠の2枚だけを繋ぐ短時間モードです。\n・Review Mode: バトルなしで、各テーマの模範解答をじっくり読むことができます。"}
+                         {setupHelpStep === 2 && "遊び方を選びます。\n\n・AREA Battle: 4枚のカードを正しい論理の順番で組み立てて敵と戦います。\n・Logic Link: 理由と具体例の2枚だけを繋ぐ短時間モードです。\n・Review Mode: バトルなしで、各テーマの模範解答をじっくり読むことができます。"}
                          {setupHelpStep === 3 && "最後に、ディベートのテーマ、あなたの立場（肯定/否定）、敵の強さを選びます。\n光っている場所を順番に選んでいくと、BATTLE STARTボタンが現れます！"}
                       </div>
                       <button onClick={() => setSetupHelpStep(null)} className="w-full py-4 bg-blue-600 rounded-xl font-bold text-white hover:bg-blue-500 text-xl transition-colors">Got it!</button>
@@ -531,7 +522,7 @@ export default function App() {
           </div>
       )}
 
-      {/* --- ★ Game Header --- */}
+      {/* --- Game Header --- */}
       {gameState !== 'start' && (
         <header className={`shrink-0 ${theme.headerBg} z-30 px-6 py-3 flex justify-between items-center shadow-xl min-h-[5rem] md:min-h-[6rem]`}>
           <div className="flex items-center gap-4 flex-1">
@@ -680,7 +671,6 @@ export default function App() {
                </h2>
                <div className="text-2xl font-mono text-white/80 mb-8 bg-black/30 px-6 py-2 rounded-full border border-white/10">Score: {score}</div>
                
-               {/* 模範解答の表示 */}
                {(() => {
                    let targetGroup = activeLogicGroup;
                    if (!targetGroup) {
@@ -689,7 +679,7 @@ export default function App() {
                    }
                    if (targetGroup) {
                        const correctCards = currentTopic.deck.filter(c => c.stance === userStance && c.group === targetGroup && c.group !== 'fake');
-                       const order = { assertion: 1, reason: 2, evidence: 3, mini_conclusion: 4 };
+                       const order = { assertion: 1, reason: 2, example: 3, mini_conclusion: 4 };
                        correctCards.sort((a, b) => order[a.type] - order[b.type]);
 
                        return (
@@ -731,12 +721,10 @@ export default function App() {
            </div>
       )}
 
-      {/* Particles */}
       <div className="absolute inset-0 pointer-events-none z-[100] overflow-hidden">
           {particles.map((p) => (<div key={p.id} className={`absolute rounded-full ${p.color} animate-particle`} style={{ left: `${p.x}%`, top: `${p.y}%`, width: `${10 * p.scale}px`, height: `${10 * p.scale}px`, '--tx': `${p.tx}px`, '--ty': `${p.ty}px` }} />))}
       </div>
       
-      {/* Feedback Popup */}
       {feedback && (
          <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[120] pointer-events-none w-full flex justify-center">
             <div className={`px-10 py-6 rounded-xl backdrop-blur-md text-white font-black text-2xl md:text-3xl shadow-[0_0_50px_rgba(0,0,0,0.8)] animate-in zoom-in flex items-center gap-4 ${feedback.type === 'damage' ? 'bg-red-600/90 border-2 border-red-400' : 'bg-blue-600/90 border-2 border-blue-400'}`}>

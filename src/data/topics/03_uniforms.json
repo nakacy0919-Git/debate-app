@@ -16,7 +16,7 @@
         "medium": "It is because they can choose their favorite clothes by themselves.",
         "hard": "This is because students are empowered to independently select attire that reflects their personal identity."
      }, "textJP": "なぜなら、生徒は自分の好きな服を自分自身で選べるからです。"},
-    {"id": "uni_aff_E1", "stance": "affirmative", "group": "freedom", "type": "evidence", 
+    {"id": "uni_aff_E1", "stance": "affirmative", "group": "freedom", "type": "example", 
      "text": {
         "easy": "For example, students can wear cool T-shirts.",
         "medium": "For example, in schools without uniforms, students enjoy choosing clothes that show their style.",
@@ -41,7 +41,7 @@
         "medium": "It is because buying school uniforms is often very expensive for parents.",
         "hard": "This is primarily due to the exorbitant monopolistic pricing often associated with designated school apparel."
      }, "textJP": "制服は高価だからです。"},
-    {"id": "uni_aff_E2", "stance": "affirmative", "group": "money", "type": "evidence", 
+    {"id": "uni_aff_E2", "stance": "affirmative", "group": "money", "type": "example", 
      "text": {
         "easy": "Buying a new winter uniform costs a lot.",
         "medium": "For example, we have to buy new uniforms as students grow, which costs a lot of money.",
@@ -66,7 +66,7 @@
         "medium": "It is because some students can buy expensive branded clothes, while others cannot afford them.",
         "hard": "This occurs because the absence of standardized attire visually amplifies the unequal financial capabilities of different families."
      }, "textJP": "一部の生徒は高い服を買えるが、買えない生徒もいるからです。"},
-    {"id": "uni_neg_E1", "stance": "negative", "group": "equality", "type": "evidence", 
+    {"id": "uni_neg_E1", "stance": "negative", "group": "equality", "type": "example", 
      "text": {
         "easy": "Rich students might show off their shoes.",
         "medium": "For example, students from rich families may show off their clothes, which can hurt others' feelings.",
@@ -91,7 +91,7 @@
         "medium": "It is because uniforms remind students that school is a place for serious study.",
         "hard": "This is because formal attire serves as a constant psychological cue reinforcing the primary academic purpose of the educational facility."
      }, "textJP": "制服は生徒たちに、学校は勉強するための場所であること思い出させるからです。"},
-    {"id": "uni_neg_E2", "stance": "negative", "group": "discipline", "type": "evidence", 
+    {"id": "uni_neg_E2", "stance": "negative", "group": "discipline", "type": "example", 
      "text": {
         "easy": "In casual clothes, students might act badly.",
         "medium": "For example, if students wear casual clothes, they might forget good manners and act carelessly.",
@@ -116,7 +116,7 @@
         "medium": "Because falling asleep in a uniform charges up your physical energy.",
         "hard": "This is because the textile composition induces a state of hibernation that stores kinetic potential."
      }, "textJP": "（Fake）なぜなら授業中に眠れるからです。"},
-    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "evidence", 
+    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "example", 
      "text": {
         "easy": "For example, wearing a hat is very heavy.",
         "medium": "For example, carrying a heavy hat makes your legs stronger.",

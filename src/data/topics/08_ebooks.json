@@ -2,85 +2,362 @@
   "id": "ebooks",
   "title": "E-books are better than paper books.",
   "titleJP": "紙の本より電子書籍の方が良い",
-  "image_url": "https://images.unsplash.com/photo-1544982503-9f984c14501a?auto=format&fit=crop&w=1000&q=80",
+  "image_url": "https://images.unsplash.com/photo-1544328159-a284e9eb0eb6?auto=format&fit=crop&w=1000&q=80",
   "deck": [
-    {"id": "eb_aff_A1", "stance": "affirmative", "group": "portable", "type": "assertion", "text": "E-books are very easy to carry.", "textJP": "電子書籍はとても持ち運びやすいです。"},
-    {"id": "eb_aff_R1", "stance": "affirmative", "group": "portable", "type": "reason", "text": "It is because you can carry thousands of books in one device such as a tablet.", "textJP": "なぜなら、タブレットなどの1つの端末で何千冊もの本を持ち運べるからです。"},
-    {"id": "eb_aff_E1", "stance": "affirmative", "group": "portable", "type": "evidence", "text": "For example, students can read textbooks and novels anywhere without carrying heavy bags.", "textJP": "例えば、生徒は重いカバンを持たなくても、教科書や小説をどこでも読めます。"},
-    {"id": "eb_aff_S1", "stance": "affirmative", "group": "portable", "type": "mini_conclusion", "text": "Therefore, e-books are easy to carry and convenient.", "textJP": "よって、電子書籍は持ち運びが簡単で便利です。"},
-    {"id": "eb_aff_A2", "stance": "affirmative", "group": "eco", "type": "assertion", "text": "E-books are good for the environment.", "textJP": "電子書籍は環境にやさしいです。"},
-    {"id": "eb_aff_R2", "stance": "affirmative", "group": "eco", "type": "reason", "text": "It is because they do not need paper, so fewer trees are cut down.", "textJP": "なぜなら、紙を使わないので、木を切る量が減るからです。"},
-    {"id": "eb_aff_E2", "stance": "affirmative", "group": "eco", "type": "evidence", "text": "For example, if more people read e-books, we can save many forests and reduce waste.", "textJP": "例えば、電子書籍を読む人が増えれば、多くの森を守り、ゴミも減らすことができます。"},
-    {"id": "eb_aff_S2", "stance": "affirmative", "group": "eco", "type": "mini_conclusion", "text": "Therefore, e-books are good for the environment.", "textJP": "よって、電子書籍は環境にやさしいです。"},
+    {"id": "ebk_aff_A1", "stance": "affirmative", "group": "portability", "type": "assertion", 
+     "text": {
+        "easy": "E-books are very easy to carry.",
+        "medium": "E-books are much more convenient to carry around than paper books.",
+        "hard": "The unparalleled portability of electronic literature vastly enhances logistical convenience for avid readers."
+     }, "textJP": "電子書籍は持ち運びにとても便利です。"},
+    {"id": "ebk_aff_R1", "stance": "affirmative", "group": "portability", "type": "reason", 
+     "text": {
+        "easy": "Because one tablet holds many books.",
+        "medium": "It is because you can store thousands of heavy books inside a single lightweight device.",
+        "hard": "This is primarily because digital storage capacities allow users to compress entire libraries into a singular, weightless interface."
+     }, "textJP": "なぜなら、1つの軽い端末の中に何千冊もの重い本を保存できるからです。"},
+    {"id": "ebk_aff_E1", "stance": "affirmative", "group": "portability", "type": "example", 
+     "text": {
+        "easy": "For example, reading on a crowded train is easy.",
+        "medium": "For example, when you travel or commute on a crowded train, you don't need to carry a heavy bag.",
+        "hard": "For instance, international travelers can bypass severe luggage weight restrictions while maintaining access to diverse literary catalogs."
+     }, "textJP": "例えば、旅行や満員電車で通勤するときに、重いカバンを持ち歩く必要がありません。"},
+    {"id": "ebk_aff_S1", "stance": "affirmative", "group": "portability", "type": "mini_conclusion", 
+     "text": {
+        "easy": "Therefore, e-books are great for traveling.",
+        "medium": "Therefore, e-books are incredibly practical and convenient for our daily lives.",
+        "hard": "Consequently, the ergonomic superiority of e-readers renders traditional paper formats obsolete in modern transit."
+     }, "textJP": "よって、電子書籍は私たちの日常生活にとって非常に実用的で便利です。"},
 
-    {"id": "eb_neg_A1", "stance": "negative", "group": "eyes", "type": "assertion", "text": "Paper books are better for the eyes.", "textJP": "紙の本のほうが、目にやさしいです。"},
-    {"id": "eb_neg_R1", "stance": "negative", "group": "eyes", "type": "reason", "text": "It is because reading on screens for a long time can make people's eyes tired.", "textJP": "なぜなら、長い時間スクリーンを見ていると、目が疲れてしまうからです。"},
-    {"id": "eb_neg_E1", "stance": "negative", "group": "eyes", "type": "evidence", "text": "For example, students who use e-books for many hours may get eye strain or headaches.", "textJP": "例えば、電子書籍を何時間も読む生徒は、目の疲れや頭痛を感じることがあります。"},
-    {"id": "eb_neg_S1", "stance": "negative", "group": "eyes", "type": "mini_conclusion", "text": "Therefore, paper books are better for the eyes.", "textJP": "よって、紙の本のほうが、目にやさしいです。"},
-    {"id": "eb_neg_A2", "stance": "negative", "group": "battery", "type": "assertion", "text": "Paper books can be read anytime.", "textJP": "紙の本はいつでも読めます。"},
-    {"id": "eb_neg_R2", "stance": "negative", "group": "battery", "type": "reason", "text": "It is because, unlike e-books, they don't need batteries or chargers.", "textJP": "なぜなら、電子書籍と違って、電池や充電器がいらないからです。"},
-    {"id": "eb_neg_E2", "stance": "negative", "group": "battery", "type": "evidence", "text": "For example, people can read paper books even during a power outage or without Wi-Fi.", "textJP": "例えば、紙の本なら停電のときや Wi-Fi がないときでも読むことができます。"},
-    {"id": "eb_neg_S2", "stance": "negative", "group": "battery", "type": "mini_conclusion", "text": "Therefore, paper books can be read anytime.", "textJP": "よって、紙の本はいつでも読めます。"},
+    {"id": "ebk_aff_A2", "stance": "affirmative", "group": "environment", "type": "assertion", 
+     "text": {
+        "easy": "E-books are good for the Earth.",
+        "medium": "E-books are highly environmentally friendly because they don't use paper.",
+        "hard": "The transition to digital publishing constitutes a critical imperative for mitigating global deforestation."
+     }, "textJP": "紙を使わないため、電子書籍はとても環境に優しいです。"},
+    {"id": "ebk_aff_R2", "stance": "affirmative", "group": "environment", "type": "reason", 
+     "text": {
+        "easy": "Because we don't have to cut down trees.",
+        "medium": "It is because we can save millions of trees that are normally cut down to print books.",
+        "hard": "This is because the cessation of physical printing drastically curtails the industrial logging required for cellulose extraction."
+     }, "textJP": "なぜなら、本を印刷するために普段切り倒されている何百万本もの木を救うことができるからです。"},
+    {"id": "ebk_aff_E2", "stance": "affirmative", "group": "environment", "type": "example", 
+     "text": {
+        "easy": "For example, schools using tablets save forests.",
+        "medium": "For example, if all schools switch to digital textbooks, we can stop the destruction of global forests.",
+        "hard": "For instance, a systemic educational pivot towards digitized curricula would yield a massive reduction in the planetary carbon footprint."
+     }, "textJP": "例えば、すべての学校がデジタル教科書に切り替えれば、世界の森の破壊を止めることができます。"},
+    {"id": "ebk_aff_S2", "stance": "affirmative", "group": "environment", "type": "mini_conclusion", 
+     "text": {
+        "easy": "Therefore, e-books protect nature.",
+        "medium": "Therefore, adopting e-books is a vital step to protect our natural environment.",
+        "hard": "Thus, universal adoption of digital literature is an indispensable strategy for securing ecological sustainability."
+     }, "textJP": "よって、電子書籍を取り入れることは、自然環境を守るための重要な一歩です。"},
 
-    {"id": "fake_aff_A1", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "E-books can cook dinner.", "textJP": "電子書籍は夕食を作れます。"},
-    {"id": "fake_aff_R1", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because they have an oven inside.", "textJP": "なぜなら中にオーブンがあるからです。"},
-    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "evidence", "text": "For example, my tablet baked a cake.", "textJP": "例えば、私のタブレットはケーキを焼きました。"},
-    {"id": "fake_aff_S1", "stance": "affirmative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, e-books are delicious.", "textJP": "よって、電子書籍はおいしいです。"},
-    {"id": "fake_aff_A2", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "Paper books bite people's fingers.", "textJP": "紙の本は人の指を噛みます。"},
-    {"id": "fake_aff_R2", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because paper is angry.", "textJP": "なぜなら紙が怒っているからです。"},
+    {"id": "ebk_neg_A1", "stance": "negative", "group": "health", "type": "assertion", 
+     "text": {
+        "easy": "E-books are bad for our eyes.",
+        "medium": "Reading e-books on a digital screen is harmful to our eye health.",
+        "hard": "Prolonged ocular exposure to digital displays precipitates severe visual degradation and chronic fatigue."
+     }, "textJP": "デジタル画面で電子書籍を読むことは、目の健康に悪影響を与えます。"},
+    {"id": "ebk_neg_R1", "stance": "negative", "group": "health", "type": "reason", 
+     "text": {
+        "easy": "Because screens have blue light.",
+        "medium": "It is because staring at screens emitting blue light for a long time causes eye strain and headaches.",
+        "hard": "This is primarily due to the detrimental effects of high-energy visible blue light on the human retina and circadian rhythms."
+     }, "textJP": "なぜなら、ブルーライトを発する画面を長時間見つめることで、眼精疲労や頭痛が起こるからです。"},
+    {"id": "ebk_neg_E1", "stance": "negative", "group": "health", "type": "example", 
+     "text": {
+        "easy": "For example, many students get bad eyesight.",
+        "medium": "For example, many students who use tablets for studying experience blurry vision and cannot sleep well.",
+        "hard": "For instance, optometric studies reveal a direct correlation between sustained tablet usage and increasing rates of adolescent myopia."
+     }, "textJP": "例えば、勉強でタブレットを使う多くの学生が、視界がぼやけたり、よく眠れなくなったりしています。"},
+    {"id": "ebk_neg_S1", "stance": "negative", "group": "health", "type": "mini_conclusion", 
+     "text": {
+        "easy": "Therefore, paper books are safer.",
+        "medium": "Therefore, paper books are much safer and healthier for our eyes.",
+        "hard": "In conclusion, maintaining analog reading materials is critical for preserving global ocular health."
+     }, "textJP": "よって、紙の本のほうが私たちの目にとってずっと安全で健康的です。"},
 
-    {"id": "fake_neg_A1", "stance": "negative", "group": "fake", "type": "assertion", "text": "E-books will eat your eyes.", "textJP": "電子書籍はあなたの目を食べます。"},
-    {"id": "fake_neg_R1", "stance": "negative", "group": "fake", "type": "reason", "text": "Because screens are hungry.", "textJP": "なぜなら画面がお腹を空かせているからです。"},
-    {"id": "fake_neg_E1", "stance": "negative", "group": "fake", "type": "evidence", "text": "For example, my phone ate my homework.", "textJP": "例えば、私のスマホが宿題を食べました。"},
-    {"id": "fake_neg_S1", "stance": "negative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, we must hide from computers.", "textJP": "よって、私たちはコンピューターから隠れなければなりません。"},
-    {"id": "fake_neg_A2", "stance": "negative", "group": "fake", "type": "assertion", "text": "Paper books smell like victory.", "textJP": "紙の本は勝利の匂いがします。"},
-    {"id": "fake_neg_R2", "stance": "negative", "group": "fake", "type": "reason", "text": "Because trees are champions.", "textJP": "なぜなら木はチャンピオンだからです。"}
+    {"id": "ebk_neg_A2", "stance": "negative", "group": "focus", "type": "assertion", 
+     "text": {
+        "easy": "Paper books help us focus better.",
+        "medium": "Paper books are far superior for concentration and deep learning.",
+        "hard": "The tactile engagement of physical print fundamentally optimizes cognitive retention and intellectual focus."
+     }, "textJP": "紙の本は、集中力と深い学びにおいてずっと優れています。"},
+    {"id": "ebk_neg_R2", "stance": "negative", "group": "focus", "type": "reason", 
+     "text": {
+        "easy": "Because tablets have games and YouTube.",
+        "medium": "It is because digital devices are full of distractions like notifications, games, and social media.",
+        "hard": "This is because electronic reading environments are intrinsically compromised by algorithms designed to interrupt and divert user attention."
+     }, "textJP": "なぜなら、デジタル端末には通知やゲーム、SNSなどの気が散るものがあふれているからです。"},
+    {"id": "ebk_neg_E2", "stance": "negative", "group": "focus", "type": "example", 
+     "text": {
+        "easy": "For example, students stop reading to watch videos.",
+        "medium": "For example, students often stop reading their e-textbooks to watch YouTube videos instead.",
+        "hard": "For instance, neurological data confirms that continuous digital notifications systematically fracture a student's reading comprehension."
+     }, "textJP": "例えば、生徒たちは電子教科書を読むのをやめて、代わりにYouTubeの動画を見てしまうことがよくあります。"},
+    {"id": "ebk_neg_S2", "stance": "negative", "group": "focus", "type": "mini_conclusion", 
+     "text": {
+        "easy": "Therefore, we need paper books to study.",
+        "medium": "Therefore, we must keep paper books to help students focus on their studies.",
+        "hard": "Consequently, traditional paper texts remain an indispensable pedagogical tool for uninterrupted academic inquiry."
+     }, "textJP": "よって、生徒が勉強に集中できるように、紙の本を残さなければなりません。"},
+
+    {"id": "fake_aff_A1", "stance": "affirmative", "group": "fake", "type": "assertion", 
+     "text": {
+        "easy": "Paper books eat people.",
+        "medium": "Paper books are actually dangerous monsters that bite your fingers.",
+        "hard": "Traditional cellulose manuscripts are inherently predatory organisms designed to consume human appendages."
+     }, "textJP": "（Fake: 無関係な主張）"},
+    {"id": "fake_aff_R1", "stance": "affirmative", "group": "fake", "type": "reason", 
+     "text": {
+        "easy": "Because books have sharp teeth.",
+        "medium": "Because the pages of old books hide very sharp, invisible teeth.",
+        "hard": "This is due to the carnivorous evolutionary adaptations hidden within the binding of antique encyclopedias."
+     }, "textJP": "（Fake: 無関係な理由）"},
+    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "example", 
+     "text": {
+        "easy": "For example, a dictionary chased me.",
+        "medium": "For example, yesterday a giant dictionary jumped off the shelf and chased me.",
+        "hard": "For instance, historical archives document numerous cases of autonomous hardcover texts executing tactical ambushes."
+     }, "textJP": "（Fake: 無関係な具体例）"},
+    {"id": "fake_aff_S1", "stance": "affirmative", "group": "fake", "type": "mini_conclusion", 
+     "text": {
+        "easy": "Therefore, libraries are haunted.",
+        "medium": "Therefore, libraries should be permanently closed for our safety.",
+        "hard": "Thus, the eradication of physical literature is strictly a matter of planetary defense."
+     }, "textJP": "（Fake: 無関係な結論）"},
+    {"id": "fake_aff_A2", "stance": "affirmative", "group": "fake", "type": "assertion", 
+     "text": {
+        "easy": "Tablets shoot lasers.",
+        "medium": "E-books give you the magical power to shoot lasers from your eyes.",
+        "hard": "Electronic readers emit quantum radiation that instantly unlocks latent telekinetic ocular abilities."
+     }, "textJP": "（Fake: 無関係な主張）"},
+    {"id": "fake_aff_R2", "stance": "affirmative", "group": "fake", "type": "reason", 
+     "text": {
+        "easy": "Because batteries are magic.",
+        "medium": "Because tablet batteries contain powerful alien energy.",
+        "hard": "This phenomenon is driven by the hyper-advanced extraterrestrial microchips embedded in the screen."
+     }, "textJP": "（Fake: 無関係な理由）"},
+
+    {"id": "fake_neg_A1", "stance": "negative", "group": "fake", "type": "assertion", 
+     "text": {
+        "easy": "Paper tastes delicious.",
+        "medium": "We should keep paper books because they are a delicious emergency snack.",
+        "hard": "The consumption of wood pulp provides essential dietary fiber necessary for human survival."
+     }, "textJP": "（Fake: 無関係な主張）"},
+    {"id": "fake_neg_R1", "stance": "negative", "group": "fake", "type": "reason", 
+     "text": {
+        "easy": "Because ink is like chocolate.",
+        "medium": "Because black printer ink actually tastes exactly like dark chocolate.",
+        "hard": "Because the typographic pigmentation process synthesizes complex, highly palatable carbohydrate structures."
+     }, "textJP": "（Fake: 無関係な理由）"},
+    {"id": "fake_neg_E1", "stance": "negative", "group": "fake", "type": "example", 
+     "text": {
+        "easy": "For example, I eat math books for lunch.",
+        "medium": "For example, eating a math textbook is the best way to get a perfect score.",
+        "hard": "For instance, digesting calculus manuscripts allows students to absorb mathematical theorems intravenously."
+     }, "textJP": "（Fake: 無関係な具体例）"},
+    {"id": "fake_neg_S1", "stance": "negative", "group": "fake", "type": "mini_conclusion", 
+     "text": {
+        "easy": "Therefore, paper is food.",
+        "medium": "Therefore, bookstores are actually the best restaurants in the city.",
+        "hard": "Thus, the integration of literature into the culinary industry is a socio-economic imperative."
+     }, "textJP": "（Fake: 無関係な結論）"},
+    {"id": "fake_neg_A2", "stance": "negative", "group": "fake", "type": "assertion", 
+     "text": {
+        "easy": "Wi-Fi summons ghosts.",
+        "medium": "Downloading an e-book will invite evil ghosts into your bedroom.",
+        "hard": "The electromagnetic frequencies of wireless downloads inevitably summon malevolent spectral entities."
+     }, "textJP": "（Fake: 無関係な主張）"},
+    {"id": "fake_neg_R2", "stance": "negative", "group": "fake", "type": "reason", 
+     "text": {
+        "easy": "Because ghosts love the internet.",
+        "medium": "Because ancient spirits use the internet to find humans.",
+        "hard": "This occurs because the digital bandwidth creates a dimensional rift susceptible to paranormal intrusion."
+     }, "textJP": "（Fake: 無関係な理由）"}
   ],
   "vocabulary": [
-    {"word": "portable", "meaning": "携帯できる"}, {"word": "device", "meaning": "機器"},
-    {"word": "convenient", "meaning": "便利な"}, {"word": "environment", "meaning": "環境"},
-    {"word": "cut down", "meaning": "切り倒す"}, {"word": "reduce", "meaning": "減らす"},
-    {"word": "waste", "meaning": "ゴミ"}, {"word": "screen", "meaning": "画面"},
-    {"word": "eye strain", "meaning": "目の疲れ"}, {"word": "headache", "meaning": "頭痛"},
-    {"word": "battery", "meaning": "電池"}, {"word": "power outage", "meaning": "停電"}
+    {"word": "portability", "meaning": "持ち運びやすさ"},
+    {"word": "deforestation", "meaning": "森林破壊"},
+    {"word": "prolonged", "meaning": "長時間の"},
+    {"word": "cognitive retention", "meaning": "記憶の定着、認知的な保持"},
+    {"word": "indispensable", "meaning": "不可欠な"}
   ],
+
   "crossExam": {
-    "question": { "text": "Don't e-books run out of battery quickly?", "textJP": "電子書籍はすぐに電池が切れませんか？" },
+    "question": { 
+      "text": {
+         "easy": "Don't e-books suddenly run out of battery?",
+         "medium": "Isn't it a huge problem that e-books can run out of battery while you are reading?",
+         "hard": "Does not the reliance on finite electrical power sources introduce an unacceptable vulnerability to the reading experience?"
+      }, "textJP": "電子書籍は途中でバッテリーが切れてしまいませんか？" 
+    },
     "options": [
-      { "id": "q1", "text": "Modern devices have long battery lives and can be charged easily.", "textJP": "現代の端末はバッテリー寿命が長く、簡単に充電できます。", "type": "answer", "judgment": "correct" },
-      { "id": "fake_q1", "text": "We don't need electricity.", "textJP": "電気は必要ありません。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q2", "text": "Batteries are made of water.", "textJP": "電池は水でできています。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q3", "text": "I use magic to charge it.", "textJP": "私は魔法を使って充電します。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q4", "text": "Let's read in the dark.", "textJP": "暗闇の中で読みましょう。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q5", "text": "Books don't exist.", "textJP": "本は存在しません。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q6", "text": "I swallow batteries.", "textJP": "私は電池を飲み込みます。", "type": "answer", "judgment": "weak" }
+      { "id": "q1", "type": "answer", "judgment": "correct",
+        "text": {
+          "easy": "You can charge them easily.",
+          "medium": "Modern batteries last for weeks, and you can charge them very easily anywhere.",
+          "hard": "Contemporary lithium-ion technology guarantees extensive operational longevity, rendering power depletion a negligible concern."
+        }, "textJP": "最近のバッテリーは数週間持ちますし、どこでも簡単に充電できます。" 
+      },
+      { "id": "fake_q1", "type": "answer", "judgment": "weak",
+        "text": {
+           "easy": "Batteries are potatoes.",
+           "medium": "Batteries are actually powered by tiny hamsters running on wheels.",
+           "hard": "The internal energy grid is sustained by microscopic, bio-engineered rodents."
+        }, "textJP": "（Fakeな回答）" 
+      },
+      { "id": "fake_q2", "type": "answer", "judgment": "weak",
+        "text": {
+           "easy": "Let's throw away electricity.",
+           "medium": "We should destroy all electricity and live by candlelight.",
+           "hard": "The total abandonment of the global power grid is the only ethical solution."
+        }, "textJP": "（Fakeな回答）" 
+      },
+      { "id": "fake_q3", "type": "answer", "judgment": "weak",
+        "text": {
+           "easy": "Paper books need batteries too.",
+           "medium": "You have to plug paper books into the wall every night too.",
+           "hard": "Cellulose-based formats secretly require clandestine high-voltage recharges."
+        }, "textJP": "（Fakeな回答）" 
+      },
+      { "id": "fake_q4", "type": "answer", "judgment": "weak",
+        "text": {
+           "easy": "Lightning hits the tablet.",
+           "medium": "Just hold your tablet in a thunderstorm to charge it instantly.",
+           "hard": "Atmospheric electrical discharges provide optimal, instantaneous device replenishment."
+        }, "textJP": "（Fakeな回答）" 
+      },
+      { "id": "fake_q5", "type": "answer", "judgment": "weak",
+        "text": {
+           "easy": "I can't read.",
+           "medium": "It doesn't matter because I actually don't know how to read.",
+           "hard": "I lack the fundamental cognitive capacity to decipher alphanumeric symbols."
+        }, "textJP": "（Fakeな回答）" 
+      },
+      { "id": "fake_q6", "type": "answer", "judgment": "weak",
+        "text": {
+           "easy": "Books are for eating.",
+           "medium": "Books are primarily manufactured as an emergency food source.",
+           "hard": "The literary industry is merely a subsidiary of global agricultural production."
+        }, "textJP": "（Fakeな回答）" 
+      }
     ]
   },
   "rebuttal": {
     "attack": { 
-      "text": "But reading on screens for a long time hurts your eyes!", 
-      "textJP": "でも長時間画面を読むと目が痛くなります！", 
-      "damage": 15 
+      "damage": 15,
+      "text": {
+         "easy": "But the physical feeling of paper is important!",
+         "medium": "However, the special smell and touch of physical paper books are irreplaceable for readers!",
+         "hard": "Nevertheless, the tactile sensation and olfactory resonance of physical paper constitute an irreplaceable component of the literary aesthetic!"
+      }, "textJP": "しかし、紙の匂いや手触りなど、物理的な感覚は読者にとってかけがえのないものです！" 
     },
     "options": [
-      { "id": "r1", "text": "You can use dark mode or adjust the screen brightness to protect your eyes.", "textJP": "ダークモードを使ったり、画面の明るさを調整して目を守ることができます。", "type": "defense", "judgment": "perfect" },
-      { "id": "fake_r1", "text": "Eyes are not important.", "textJP": "目は重要ではありません。", "type": "reason", "judgment": "weak" },
-      { "id": "fake_r2", "text": "Screens are healthy for your brain.", "textJP": "画面は脳に健康です。", "type": "defense", "judgment": "weak" },
-      { "id": "fake_r3", "text": "I like eye pain.", "textJP": "私は目の痛みが好きです。", "type": "defense", "judgment": "weak" },
-      { "id": "fake_r4", "text": "Paper books have laser beams.", "textJP": "紙の本からはレーザービームが出ます。", "type": "defense", "judgment": "weak" },
-      { "id": "fake_r5", "text": "Let's close our eyes forever.", "textJP": "永遠に目を閉じましょう。", "type": "defense", "judgment": "weak" },
-      { "id": "fake_r6", "text": "I read with my ears.", "textJP": "私は耳で読みます。", "type": "defense", "judgment": "weak" }
+      { "id": "r1", "type": "defense", "judgment": "perfect",
+        "text": {
+           "easy": "Convenience is more important than smell.",
+           "medium": "While the physical feeling is nice, the practical convenience of e-books is much more important for modern life.",
+           "hard": "Although aesthetic nostalgia holds subjective value, the overwhelming logistical and ecological efficiencies of digital formats take objective precedence."
+        }, "textJP": "物理的な感覚は素晴らしいですが、現代生活においては電子書籍の実用的な利便性の方がはるかに重要です。" 
+      },
+      { "id": "fake_r1", "type": "reason", "judgment": "weak",
+        "text": {
+           "easy": "We should smell garbage.",
+           "medium": "If you want a good smell, you should just sniff the garbage can.",
+           "hard": "Olfactory satisfaction is more efficiently derived from urban waste receptacles."
+        }, "textJP": "（Fakeな反論）" 
+      },
+      { "id": "fake_r2", "type": "defense", "judgment": "weak",
+        "text": {
+           "easy": "Touching screens gives magic.",
+           "medium": "Touching a glass screen actually transfers magical powers into your fingers.",
+           "hard": "Tactile interaction with synthetic glass channels arcane energies into the human epidermis."
+        }, "textJP": "（Fakeな反論）" 
+      },
+      { "id": "fake_r3", "type": "defense", "judgment": "weak",
+        "text": {
+           "easy": "Paper is made of dinosaurs.",
+           "medium": "Paper books feel good because they are made from real dinosaur skin.",
+           "hard": "The tactile superiority of print is derived entirely from prehistoric reptilian leather."
+        }, "textJP": "（Fakeな反論）" 
+      },
+      { "id": "fake_r4", "type": "defense", "judgment": "weak",
+        "text": {
+           "easy": "Reading is illegal.",
+           "medium": "Actually, looking at any kind of words is now strictly illegal.",
+           "hard": "The act of visual textual processing has been universally outlawed by global decree."
+        }, "textJP": "（Fakeな反論）" 
+      },
+      { "id": "fake_r5", "type": "defense", "judgment": "weak",
+        "text": {
+           "easy": "I like mud.",
+           "medium": "I prefer to write my messages in the mud with a stick.",
+           "hard": "Geological inscription remains the most reliable method of data preservation."
+        }, "textJP": "（Fakeな反論）" 
+      },
+      { "id": "fake_r6", "type": "defense", "judgment": "weak",
+        "text": {
+           "easy": "Screens are hot.",
+           "medium": "Digital screens are so hot they will burn your house down.",
+           "hard": "Electronic displays generate sufficient thermal output to trigger spontaneous combustion."
+        }, "textJP": "（Fakeな反論）" 
+      }
     ]
   },
   "closing": {
     "options": [
-      { "id": "c1", "text": "E-books are more convenient and eco-friendly for our modern lifestyle.", "textJP": "電子書籍は現代のライフスタイルにとって便利で環境に優しいです。", "type": "closing", "judgment": "perfect" },
-      { "id": "fake_c1", "text": "Paper books are aliens.", "textJP": "紙の本は宇宙人です。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c2", "text": "I want to live in a library.", "textJP": "私は図書館に住みたいです。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c3", "text": "Let's eat paper.", "textJP": "紙を食べましょう。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c4", "text": "Tablets are made of cheese.", "textJP": "タブレットはチーズでできています。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c5", "text": "Reading is illegal.", "textJP": "読書は違法です。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c6", "text": "Thank you for the smartphone.", "textJP": "スマホをありがとう。", "type": "closing", "judgment": "weak" }
+      { "id": "c1", "type": "closing", "judgment": "perfect",
+        "text": {
+           "easy": "E-books are convenient and save trees.",
+           "medium": "In conclusion, e-books provide unmatched convenience while protecting our natural environment.",
+           "hard": "To summarize, the transition to electronic literature is a paramount necessity for both logistical efficiency and ecological preservation."
+        }, "textJP": "電子書籍は比類のない利便性を提供し、同時に自然環境を保護します。" 
+      },
+      { "id": "fake_c1", "type": "closing", "judgment": "weak",
+        "text": {
+           "easy": "E-books are spaceships.",
+           "medium": "In conclusion, we should all ride our e-books to the planet Mars.",
+           "hard": "Ultimately, digital readers serve as the primary propulsion systems for interstellar colonization."
+        }, "textJP": "（Fake）" 
+      },
+      { "id": "fake_c2", "type": "closing", "judgment": "weak",
+        "text": {
+           "easy": "Let's eat books.",
+           "medium": "Therefore, please boil your books in soup for dinner tonight.",
+           "hard": "Consequently, the thermal processing of literature remains the optimal culinary technique."
+        }, "textJP": "（Fake）" 
+      },
+      { "id": "fake_c3", "type": "closing", "judgment": "weak",
+        "text": {
+           "easy": "I am a tablet.",
+           "medium": "Thank you for listening, I will now transform into an iPad.",
+           "hard": "I hereby conclude this debate by initiating my own cybernetic metamorphosis."
+        }, "textJP": "（Fake）" 
+      },
+      { "id": "fake_c4", "type": "closing", "judgment": "weak",
+        "text": {
+           "easy": "Dogs cannot read.",
+           "medium": "Because dogs cannot read, we should ban all books forever.",
+           "hard": "The canine inability to decipher text necessitates a total eradication of written media."
+        }, "textJP": "（Fake）" 
+      },
+      { "id": "fake_c5", "type": "closing", "judgment": "weak",
+        "text": {
+           "easy": "Paper is made of gold.",
+           "medium": "Because paper is made of solid gold, it is too expensive to use.",
+           "hard": "The auric composition of standard A4 sheets renders them economically unviable."
+        }, "textJP": "（Fake）" 
+      },
+      { "id": "fake_c6", "type": "closing", "judgment": "weak",
+        "text": {
+           "easy": "Let's live in trees.",
+           "medium": "We should all return to the forest and live in the trees.",
+           "hard": "Arboreal habitation is the only logical response to modern technological advancements."
+        }, "textJP": "（Fake）" 
+      }
     ]
   }
 }

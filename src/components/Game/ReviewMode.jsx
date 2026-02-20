@@ -3,16 +3,15 @@ import { ShieldCheck, ArrowUpCircle, Lightbulb, Home } from 'lucide-react';
 import { SmartText } from '../UI/SmartText';
 
 const ICONS = {
-  assertion: ShieldCheck, reason: ArrowUpCircle, evidence: Lightbulb, mini_conclusion: ShieldCheck
+  assertion: ShieldCheck, reason: ArrowUpCircle, example: Lightbulb, mini_conclusion: ShieldCheck
 };
 const COLORS = {
   assertion: "text-blue-400 border-blue-500/50 bg-blue-900/10",
   reason: "text-green-400 border-green-500/50 bg-green-900/10",
-  evidence: "text-orange-400 border-orange-500/50 bg-orange-900/10",
+  example: "text-orange-400 border-orange-500/50 bg-orange-900/10",
   mini_conclusion: "text-purple-400 border-purple-500/50 bg-purple-900/10"
 };
 
-// ★難易度(difficulty)を受け取るように追加
 export const ReviewMode = ({ topic, onClose, showJapanese, langMode, difficulty = 'easy' }) => {
   const groupedCards = topic.deck
     .filter(card => card.group !== 'fake') 
@@ -52,14 +51,13 @@ export const ReviewMode = ({ topic, onClose, showJapanese, langMode, difficulty 
                   {cards.map(card => {
                      const Icon = ICONS[card.type] || ArrowUpCircle;
                      const colorClass = COLORS[card.type] || COLORS.reason;
-                     
-                     // ★レベル別テキストの読み込み処理
                      const displayText = typeof card.text === 'object' ? card.text[difficulty] : card.text;
 
                      return (
                         <div key={card.id} className={`p-4 rounded-xl border ${colorClass}`}>
                             <div className="flex items-center gap-2 mb-2 opacity-80">
                                <Icon className="w-4 h-4"/>
+                               {/* ★削除した表示変換処理の代わりに、そのまま card.type を表示 */}
                                <span className="text-[10px] font-black uppercase tracking-widest">{card.type}</span>
                             </div>
                             {langMode === 'ja' ? (

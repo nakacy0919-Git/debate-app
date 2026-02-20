@@ -4,87 +4,200 @@
   "titleJP": "生徒による掃除時間をなくすべきである",
   "image_url": "https://images.unsplash.com/photo-1584824486509-112e4181f1ce?auto=format&fit=crop&w=1000&q=80",
   "deck": [
-    {"id": "cln_aff_A1", "stance": "affirmative", "group": "time", "type": "assertion", "text": "Stopping student cleaning gives students more time to study.", "textJP": "掃除をやめれば、生徒はもっと勉強の時間をもてます。"},
-    {"id": "cln_aff_R1", "stance": "affirmative", "group": "time", "type": "reason", "text": "It is because cleaning takes time every day, and students can use that time for study or rest.", "textJP": "なぜなら、掃除は毎日時間を使うので、その時間を勉強や休けいに使えるからです。"},
-    {"id": "cln_aff_E1", "stance": "affirmative", "group": "time", "type": "evidence", "text": "For example, if students use 15 minutes a day for cleaning, they lose more than an hour each week.", "textJP": "例えば、毎日15分掃除をすれば、1週間で1時間以上の時間を失うことになります。"},
-    {"id": "cln_aff_S1", "stance": "affirmative", "group": "time", "type": "mini_conclusion", "text": "Therefore, stopping student cleaning gives students more time to study.", "textJP": "よって、掃除をやめれば、生徒はもっと勉強の時間をもてます。"},
+    {"id": "cln_aff_A1", "stance": "affirmative", "group": "time", "type": "assertion", 
+     "text": { 
+        "easy": "Stopping cleaning gives us more time to study.", 
+        "medium": "Abolishing student cleaning gives students more time to study and relax.", 
+        "hard": "The abolition of student-led cleaning significantly reallocates time towards rigorous academic study and recovery." 
+     }, "textJP": "掃除をやめれば、生徒はもっと勉強や休けいの時間をもてます。"},
+    {"id": "cln_aff_R1", "stance": "affirmative", "group": "time", "type": "reason", 
+     "text": { 
+        "easy": "Because cleaning takes time every day.", 
+        "medium": "It is because cleaning takes time every day, and students can use that time for learning.", 
+        "hard": "This is because the daily allocation of time for janitorial duties distracts from primary educational objectives." 
+     }, "textJP": "なぜなら、掃除は毎日時間を使うので、その時間を学習に使えるからです。"},
+    {"id": "cln_aff_E1", "stance": "affirmative", "group": "time", "type": "example", 
+     "text": { 
+        "easy": "For example, 15 minutes a day is an hour a week.", 
+        "medium": "For example, if students use 15 minutes a day for cleaning, they lose more than an hour each week.", 
+        "hard": "For instance, a daily 15-minute cleaning regimen cumulatively deprives students of over an hour of instructional time weekly." 
+     }, "textJP": "例えば、毎日15分掃除をすれば、1週間で1時間以上の時間を失うことになります。"},
+    {"id": "cln_aff_S1", "stance": "affirmative", "group": "time", "type": "mini_conclusion", 
+     "text": { 
+        "easy": "Therefore, we should stop cleaning to study.", 
+        "medium": "Therefore, abolishing student cleaning gives students more time to focus on their education.", 
+        "hard": "Consequently, terminating student cleaning is essential for maximizing academic engagement." 
+     }, "textJP": "よって、生徒は教育に集中するために掃除をやめるべきです。"},
 
-    {"id": "cln_aff_A2", "stance": "affirmative", "group": "cleaner", "type": "assertion", "text": "Cleaning staff can make school much cleaner.", "textJP": "清掃員のほうが学校をもっときれいにできます。"},
-    {"id": "cln_aff_R2", "stance": "affirmative", "group": "cleaner", "type": "reason", "text": "It is because professional cleaning staffs can clean the school more carefully and make it more sanitary.", "textJP": "なぜなら、専門の清掃員はよりていねいに掃除し、学校をより衛生的にできるからです。"},
-    {"id": "cln_aff_E2", "stance": "affirmative", "group": "cleaner", "type": "evidence", "text": "For example, cleaning staff can wash bathrooms and floors with special tools and make the school shine.", "textJP": "例えば、清掃員は特別な道具を使ってトイレや床を洗い、学校をピカピカにできます。"},
-    {"id": "cln_aff_S2", "stance": "affirmative", "group": "cleaner", "type": "mini_conclusion", "text": "Therefore, cleaning staff can make school much cleaner.", "textJP": "よって、清掃員のほうが学校をもっときれいにできます。"},
+    {"id": "cln_aff_A2", "stance": "affirmative", "group": "cleaner", "type": "assertion", 
+     "text": { 
+        "easy": "Cleaning staff makes the school cleaner.", 
+        "medium": "Professional cleaning staff can make the school much cleaner and safer.", 
+        "hard": "Employing professional custodial personnel guarantees a significantly higher standard of institutional hygiene." 
+     }, "textJP": "清掃員のほうが学校をもっときれいにできます。"},
+    {"id": "cln_aff_R2", "stance": "affirmative", "group": "cleaner", "type": "reason", 
+     "text": { 
+        "easy": "Because professionals know how to clean well.", 
+        "medium": "It is because professional cleaning staff can clean the school more carefully and efficiently.", 
+        "hard": "This is because certified professionals utilize specialized techniques and equipment to ensure comprehensive sanitation." 
+     }, "textJP": "なぜなら、専門の清掃員はよりていねいで効率的に掃除できるからです。"},
+    {"id": "cln_aff_E2", "stance": "affirmative", "group": "cleaner", "type": "example", 
+     "text": { 
+        "easy": "For example, they wash bathrooms with special tools.", 
+        "medium": "For example, cleaning staff can wash bathrooms and floors with special tools and make them shine.", 
+        "hard": "For instance, custodial teams employ industrial-grade equipment and chemical agents to eradicate pathogens effectively." 
+     }, "textJP": "例えば、清掃員は特別な道具を使ってトイレや床を洗い、ピカピカにできます。"},
+    {"id": "cln_aff_S2", "stance": "affirmative", "group": "cleaner", "type": "mini_conclusion", 
+     "text": { 
+        "easy": "Therefore, professionals are better at cleaning.", 
+        "medium": "Therefore, hiring cleaning staff is the best way to keep the school perfectly clean.", 
+        "hard": "Thus, the delegation of cleaning to professionals is vital for maintaining a sanitary educational environment." 
+     }, "textJP": "よって、清掃員を雇うことが学校をきれいに保つ最善の方法です。"},
 
-    {"id": "cln_neg_A1", "stance": "negative", "group": "resp", "type": "assertion", "text": "Abolishing student cleaning makes students lose responsibility.", "textJP": "掃除をなくすと、生徒の責任感がなくなります。"},
-    {"id": "cln_neg_R1", "stance": "negative", "group": "resp", "type": "reason", "text": "It is because students will not have the chance to take care of their classrooms and school.", "textJP": "なぜなら、生徒が教室や学校を自分たちで大切にする機会がなくなるからです。"},
-    {"id": "cln_neg_E1", "stance": "negative", "group": "resp", "type": "evidence", "text": "For example, if students stop cleaning, some may think that keeping the school clean is not their job.", "textJP": "例えば、掃除をしなくなると、学校をきれいに保つのは自分の仕事ではないと思う生徒も出てきます。"},
-    {"id": "cln_neg_S1", "stance": "negative", "group": "resp", "type": "mini_conclusion", "text": "Therefore, abolishing student cleaning makes students lose responsibility.", "textJP": "よって、掃除をなくすと、生徒の責任感がなくなります。"},
+    {"id": "cln_neg_A1", "stance": "negative", "group": "resp", "type": "assertion", 
+     "text": { 
+        "easy": "Abolishing cleaning makes students irresponsible.", 
+        "medium": "Abolishing student cleaning makes students lose their sense of responsibility.", 
+        "hard": "The cessation of student cleaning duties precipitates a profound decline in personal and communal responsibility." 
+     }, "textJP": "掃除をなくすと、生徒の責任感がなくなります。"},
+    {"id": "cln_neg_R1", "stance": "negative", "group": "resp", "type": "reason", 
+     "text": { 
+        "easy": "Because they won't take care of the classroom.", 
+        "medium": "It is because students will not have the chance to take care of their own school environment.", 
+        "hard": "This occurs because students are deprived of the practical mechanism through which civic accountability is fostered." 
+     }, "textJP": "なぜなら、生徒が自分たちの学校環境を大切にする機会がなくなるからです。"},
+    {"id": "cln_neg_E1", "stance": "negative", "group": "resp", "type": "example", 
+     "text": { 
+        "easy": "For example, they might leave trash on the floor.", 
+        "medium": "For example, if students stop cleaning, some may think that keeping the school clean is not their job.", 
+        "hard": "For instance, eliminating these duties often results in increased littering, as students no longer feel ownership of their environment." 
+     }, "textJP": "例えば、掃除をしなくなると、学校をきれいに保つのは自分の仕事ではないと思う生徒も出てきます。"},
+    {"id": "cln_neg_S1", "stance": "negative", "group": "resp", "type": "mini_conclusion", 
+     "text": { 
+        "easy": "Therefore, cleaning teaches responsibility.", 
+        "medium": "Therefore, regular cleaning is necessary to teach students responsibility.", 
+        "hard": "Consequently, maintaining student-led cleaning is an indispensable pedagogical tool for teaching responsibility." 
+     }, "textJP": "よって、生徒に責任感を教えるために定期的な掃除が必要です。"},
 
-    {"id": "cln_neg_A2", "stance": "negative", "group": "team", "type": "assertion", "text": "Abolishing student cleaning weakens teamwork.", "textJP": "掃除をなくすと、チームワークが弱まります。"},
-    {"id": "cln_neg_R2", "stance": "negative", "group": "team", "type": "reason", "text": "It is because students will have fewer chances to work together.", "textJP": "なぜなら、生徒たちが一緒に協力する機会が少なくなるからです。"},
-    {"id": "cln_neg_E2", "stance": "negative", "group": "team", "type": "evidence", "text": "For example, when students clean stairs or windows together, they talk, cooperate, and build teamwork.", "textJP": "例えば、生徒が階段や窓を一緒に掃除すると、話をしたり協力したりしてチームワークができます。"},
-    {"id": "cln_neg_S2", "stance": "negative", "group": "team", "type": "mini_conclusion", "text": "Therefore, abolishing student cleaning weakens teamwork.", "textJP": "よって、掃除をなくすと、チームワークが弱まります。"},
+    {"id": "cln_neg_A2", "stance": "negative", "group": "team", "type": "assertion", 
+     "text": { 
+        "easy": "Cleaning builds good teamwork.", 
+        "medium": "Cleaning together strongly builds teamwork and cooperation among students.", 
+        "hard": "The communal nature of cleaning activities significantly reinforces collaborative social dynamics." 
+     }, "textJP": "掃除をすることは、良いチームワークを築きます。"},
+    {"id": "cln_neg_R2", "stance": "negative", "group": "team", "type": "reason", 
+     "text": { 
+        "easy": "Because students work together to clean.", 
+        "medium": "It is because students must communicate and cooperate to finish cleaning the classroom.", 
+        "hard": "This is because shared manual labor requires essential interpersonal coordination and conflict resolution." 
+     }, "textJP": "なぜなら、生徒たちは教室の掃除を終わらせるために協力し合わなければならないからです。"},
+    {"id": "cln_neg_E2", "stance": "negative", "group": "team", "type": "example", 
+     "text": { 
+        "easy": "For example, cleaning windows together is fun.", 
+        "medium": "For example, when students move heavy desks and clean the floor together, they build strong friendships.", 
+        "hard": "For instance, synchronizing efforts to maintain expansive facilities directly translates to enhanced peer cohesion and mutual trust." 
+     }, "textJP": "例えば、重い机を運んで一緒に床を掃除することで、強い友情が築かれます。"},
+    {"id": "cln_neg_S2", "stance": "negative", "group": "team", "type": "mini_conclusion", 
+     "text": { 
+        "easy": "Therefore, cleaning is good for teamwork.", 
+        "medium": "Therefore, abolishing student cleaning weakens important teamwork skills.", 
+        "hard": "In conclusion, cooperative cleaning is fundamental to the structural integrity of student relationships." 
+     }, "textJP": "よって、生徒の掃除をなくすとチームワークのスキルが弱まります。"},
 
-    {"id": "fake_aff_A1", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "Brooms are evil weapons.", "textJP": "ほうきは邪悪な武器です。"},
-    {"id": "fake_aff_R1", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because they fly in the sky like witches.", "textJP": "なぜなら魔女のように空を飛ぶからです。"},
-    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "evidence", "text": "For example, my broom attacked me yesterday.", "textJP": "例えば、昨日私のほうきが私を攻撃しました。"},
-    {"id": "fake_aff_S1", "stance": "affirmative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, apples are red.", "textJP": "よって、リンゴは赤いです。"},
-    {"id": "fake_aff_A2", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "Dirt is good for our skin.", "textJP": "汚れは肌に良いです。"},
-    {"id": "fake_aff_R2", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because mud monsters are very strong.", "textJP": "なぜなら泥のモンスターはとても強いからです。"},
+    {"id": "fake_aff_A1", "stance": "affirmative", "group": "fake", "type": "assertion", 
+     "text": { "easy": "Brooms are evil weapons.", "medium": "Brooms are actually dangerous weapons used by evil witches.", "hard": "Janitorial implements are primarily utilized as ballistic weaponry in covert supernatural warfare." }, "textJP": "（Fake）"},
+    {"id": "fake_aff_R1", "stance": "affirmative", "group": "fake", "type": "reason", 
+     "text": { "easy": "Because they fly in the sky.", "medium": "Because brooms can magically fly in the sky at night.", "hard": "This is due to the levitation protocols embedded within the wooden shafts by arcane entities." }, "textJP": "（Fake）"},
+    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "example", 
+     "text": { "easy": "For example, a broom attacked me.", "medium": "For example, yesterday a broom chased me around the classroom.", "hard": "For instance, autonomous sweeping apparatuses have been documented executing aggressive tactical maneuvers." }, "textJP": "（Fake）"},
+    {"id": "fake_aff_S1", "stance": "affirmative", "group": "fake", "type": "mini_conclusion", 
+     "text": { "easy": "Therefore, cleaning turns you into a frog.", "medium": "Therefore, touching a broom will permanently turn you into a frog.", "hard": "Thus, the eradication of sweeping is essential to prevent amphibian transmogrification." }, "textJP": "（Fake）"},
+    {"id": "fake_aff_A2", "stance": "affirmative", "group": "fake", "type": "assertion", 
+     "text": { "easy": "Dust is alien powder.", "medium": "The dust on the floor is actually secret powder from aliens.", "hard": "Floor particulates are confirmed to be extraterrestrial surveillance nanobots." }, "textJP": "（Fake）"},
+    {"id": "fake_aff_R2", "stance": "affirmative", "group": "fake", "type": "reason", 
+     "text": { "easy": "Because aliens want us to sneeze.", "medium": "Because the aliens want to make all humans sneeze forever.", "hard": "The induction of sternutation is a calculated method of biological sabotage by Martian forces." }, "textJP": "（Fake）"},
 
-    {"id": "fake_neg_A1", "stance": "negative", "group": "fake", "type": "assertion", "text": "If we don't clean, the school will disappear.", "textJP": "掃除をしないと学校が消えます。"},
-    {"id": "fake_neg_R1", "stance": "negative", "group": "fake", "type": "reason", "text": "Because trash eats the building.", "textJP": "なぜならゴミが建物を食べるからです。"},
-    {"id": "fake_neg_E1", "stance": "negative", "group": "fake", "type": "evidence", "text": "For example, my desk became a dustbin.", "textJP": "例えば、私の机がゴミ箱になりました。"},
-    {"id": "fake_neg_S1", "stance": "negative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, I like watching TV.", "textJP": "よって、私はテレビを見るのが好きです。"},
-    {"id": "fake_neg_A2", "stance": "negative", "group": "fake", "type": "assertion", "text": "Cleaning is the only reason to go to school.", "textJP": "掃除が学校に行く唯一の理由です。"},
-    {"id": "fake_neg_R2", "stance": "negative", "group": "fake", "type": "reason", "text": "Because studying is just a hobby.", "textJP": "なぜなら勉強はただの趣味だからです。"}
+    {"id": "fake_neg_A1", "stance": "negative", "group": "fake", "type": "assertion", 
+     "text": { "easy": "If we don't clean, the school disappears.", "medium": "If we don't clean, the school building will literally disappear into the sky.", "hard": "The structural molecular integrity of the educational facility is entirely dependent on adolescent sweeping friction." }, "textJP": "（Fake）"},
+    {"id": "fake_neg_R1", "stance": "negative", "group": "fake", "type": "reason", 
+     "text": { "easy": "Because trash eats buildings.", "medium": "Because invisible trash monsters eat the walls of the school.", "hard": "Because accumulated detritus spawns voracious micro-organisms that consume concrete and steel." }, "textJP": "（Fake）"},
+    {"id": "fake_neg_E1", "stance": "negative", "group": "fake", "type": "example", 
+     "text": { "easy": "For example, my desk ran away.", "medium": "For example, a dirty desk grew legs and ran out of the school.", "hard": "For instance, unpolished furniture frequently achieves sentience and initiates autonomous migration." }, "textJP": "（Fake）"},
+    {"id": "fake_neg_S1", "stance": "negative", "group": "fake", "type": "mini_conclusion", 
+     "text": { "easy": "Therefore, we must eat trash.", "medium": "Therefore, we should eat all the trash to keep the school clean.", "hard": "Consequently, the internal digestion of refuse is the only sustainable waste management strategy." }, "textJP": "（Fake）"},
+    {"id": "fake_neg_A2", "stance": "negative", "group": "fake", "type": "assertion", 
+     "text": { "easy": "Brooms are our parents.", "medium": "We must respect brooms because they are our real parents.", "hard": "Sweeping utensils hold the primary genetic coding responsible for human creation." }, "textJP": "（Fake）"},
+    {"id": "fake_neg_R2", "stance": "negative", "group": "fake", "type": "reason", 
+     "text": { "easy": "Because brooms sing lullabies.", "medium": "Because brooms sing beautiful lullabies when you sweep the floor.", "hard": "The acoustic friction generated by sweeping resonates at maternal frequency bands." }, "textJP": "（Fake）"}
   ],
   "vocabulary": [
-    {"word": "cleaning staff", "meaning": "清掃員"}, {"word": "professional", "meaning": "専門の"},
-    {"word": "carefully", "meaning": "ていねいに"}, {"word": "sanitary", "meaning": "衛生的な"},
-    {"word": "special tools", "meaning": "特別な道具"}, {"word": "shine", "meaning": "輝く"},
-    {"word": "notice", "meaning": "気づく"}, {"word": "dirt", "meaning": "よごれ"},
-    {"word": "trash", "meaning": "ごみ"}, {"word": "responsibility", "meaning": "責任感"},
-    {"word": "take care of", "meaning": "〜を大切にする"}, {"word": "weaken", "meaning": "弱める"},
-    {"word": "teamwork", "meaning": "チームワーク"}, {"word": "cooperate", "meaning": "協力する"},
-    {"word": "build", "meaning": "築く"}
+    {"word": "abolish", "meaning": "廃止する"},
+    {"word": "hygiene", "meaning": "衛生"},
+    {"word": "accountability", "meaning": "責任"},
+    {"word": "cohesion", "meaning": "団結、結束"},
+    {"word": "indispensable", "meaning": "不可欠な"}
   ],
   "crossExam": {
-    "question": { "text": "Isn't it important for students to learn how to clean?", "textJP": "生徒が掃除の仕方を学ぶことは重要ではありませんか？" },
+    "question": { 
+      "text": { 
+         "easy": "Isn't it important to learn how to clean?", 
+         "medium": "Isn't it important for students to learn how to clean the room?", 
+         "hard": "Is it not pedagogically imperative that students acquire fundamental sanitation methodologies?" 
+      }, "textJP": "生徒が掃除の仕方を学ぶことは重要ではありませんか？" 
+    },
     "options": [
-      { "id": "q1", "text": "Students can learn cleaning at home instead.", "textJP": "代わりに家で掃除を学ぶことができます。", "type": "answer", "judgment": "correct" },
-      { "id": "fake_q1", "text": "No, humans don't need to clean.", "textJP": "いいえ、人間は掃除をする必要がありません。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q2", "text": "Cleaning makes you poor.", "textJP": "掃除をすると貧しくなります。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q3", "text": "Robots will clean the earth.", "textJP": "ロボットが地球を掃除します。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q4", "text": "I like sleeping on the floor.", "textJP": "私は床で寝るのが好きです。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q5", "text": "We should eat the trash.", "textJP": "私たちはゴミを食べるべきです。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q6", "text": "Brooms are for witches only.", "textJP": "ほうきは魔女だけのものです。", "type": "answer", "judgment": "weak" }
+      { "id": "q1", "type": "answer", "judgment": "correct", 
+        "text": { 
+           "easy": "They can learn at home.", 
+           "medium": "Students can easily learn how to clean their own rooms at home.", 
+           "hard": "Such practical life skills are more appropriately and efficiently cultivated within the domestic sphere." 
+        }, "textJP": "彼らは家で自分の部屋の掃除の仕方を学ぶことができます。" },
+      { "id": "fake_q1", "type": "answer", "judgment": "weak", "text": { "easy": "Humans don't clean.", "medium": "Humans have never needed to clean anything in history.", "hard": "The concept of hygiene is a modern fabrication lacking evolutionary precedent." }, "textJP": "（Fake）" },
+      { "id": "fake_q2", "type": "answer", "judgment": "weak", "text": { "easy": "Robots clean Earth.", "medium": "Giant robots will soon clean the entire Earth for us.", "hard": "Autonomous planetary scrubbers render all human janitorial efforts completely redundant." }, "textJP": "（Fake）" },
+      { "id": "fake_q3", "type": "answer", "judgment": "weak", "text": { "easy": "Dirt is healthy.", "medium": "Eating dirt from the floor makes your body very healthy.", "hard": "The ingestion of pathogenic soil constitutes the primary basis of human nutrition." }, "textJP": "（Fake）" },
+      { "id": "fake_q4", "type": "answer", "judgment": "weak", "text": { "easy": "I live in a tree.", "medium": "I don't need to clean because I actually live in a tree.", "hard": "Arboreal habitation eliminates the structural necessity for sweeping protocols." }, "textJP": "（Fake）" },
+      { "id": "fake_q5", "type": "answer", "judgment": "weak", "text": { "easy": "School is made of soap.", "medium": "The school doesn't need cleaning because it is made of soap.", "hard": "Educational facilities are architecturally synthesized from self-cleaning saponaceous compounds." }, "textJP": "（Fake）" },
+      { "id": "fake_q6", "type": "answer", "judgment": "weak", "text": { "easy": "Cleaning is a crime.", "medium": "We should not clean because touching a broom is a serious crime.", "hard": "The act of removing dirt has been universally criminalized under intergalactic law." }, "textJP": "（Fake）" }
     ]
   },
   "rebuttal": {
     "attack": { 
-      "text": "But cleaning together builds strong teamwork!", 
-      "textJP": "でも一緒に掃除をすることで強いチームワークが生まれます！", 
-      "damage": 15 
+      "damage": 15, 
+      "text": { 
+         "easy": "But cleaning makes teamwork!", 
+         "medium": "But cleaning together is the best way to build strong teamwork!", 
+         "hard": "Nevertheless, collaborative sanitation is the premier sociodynamic catalyst for group cohesion!" 
+      }, "textJP": "でも一緒に掃除をすることで強いチームワークが生まれます！" 
     },
     "options": [
-      { "id": "r1", "text": "Students can build teamwork through sports or club activities.", "textJP": "スポーツや部活動を通じてチームワークを築くことができます。", "type": "defense", "judgment": "perfect" },
-      { "id": "fake_r1", "text": "Teamwork is a bad idea.", "textJP": "チームワークは悪い考えです。", "type": "reason", "judgment": "weak" },
-      { "id": "fake_r2", "text": "I only like playing video games alone.", "textJP": "私は一人でゲームをするのだけが好きです。", "type": "defense", "judgment": "weak" },
-      { "id": "fake_r3", "text": "Sweeping the floor is dangerous.", "textJP": "床を掃くのは危険です。", "type": "defense", "judgment": "weak" },
-      { "id": "fake_r4", "text": "Let's abolish friends.", "textJP": "友達を廃止しましょう。", "type": "defense", "judgment": "weak" },
-      { "id": "fake_r5", "text": "Trash cans are our best friends.", "textJP": "ゴミ箱が私たちの親友です。", "type": "defense", "judgment": "weak" },
-      { "id": "fake_r6", "text": "I can't see the dust.", "textJP": "私にはホコリが見えません。", "type": "defense", "judgment": "weak" }
+      { "id": "r1", "type": "defense", "judgment": "perfect", 
+        "text": { 
+           "easy": "Sports also build teamwork.", 
+           "medium": "Students can build teamwork through sports or club activities instead.", 
+           "hard": "Extracurricular athletics and collaborative academic projects offer vastly superior frameworks for developing team dynamics." 
+        }, "textJP": "スポーツや部活動を通じてチームワークを築くことができます。" },
+      { "id": "fake_r1", "type": "reason", "judgment": "weak", "text": { "easy": "Teamwork is bad.", "medium": "Teamwork is actually a very bad idea for humans.", "hard": "Interpersonal collaboration inherently dilutes individual intellectual superiority." }, "textJP": "（Fake）" },
+      { "id": "fake_r2", "type": "defense", "judgment": "weak", "text": { "easy": "Trash cans are friends.", "medium": "We don't need friends because trash cans are our best friends.", "hard": "Inanimate waste receptacles provide sufficient emotional sustenance for the modern student." }, "textJP": "（Fake）" },
+      { "id": "fake_r3", "type": "defense", "judgment": "weak", "text": { "easy": "We should fight.", "medium": "Instead of teamwork, students should just fight each other every day.", "hard": "Unrestricted gladiator combat is the optimal method for establishing a classroom hierarchy." }, "textJP": "（Fake）" },
+      { "id": "fake_r4", "type": "defense", "judgment": "weak", "text": { "easy": "Desks are dark matter.", "medium": "We cannot move desks together because they are made of dark matter.", "hard": "The gravitational density of classroom furniture actively bends the space-time continuum." }, "textJP": "（Fake）" },
+      { "id": "fake_r5", "type": "defense", "judgment": "weak", "text": { "easy": "I am a wild wolf.", "medium": "I don't need teamwork because I am literally a lone wild wolf.", "hard": "My biological classification as a solitary apex predator renders teamwork impossible." }, "textJP": "（Fake）" },
+      { "id": "fake_r6", "type": "defense", "judgment": "weak", "text": { "easy": "Spiders do teamwork.", "medium": "Only giant spiders need teamwork to build their webs.", "hard": "Arachnid architectural coordination is the only valid application of collaborative effort." }, "textJP": "（Fake）" }
     ]
   },
   "closing": {
     "options": [
-      { "id": "c1", "text": "We should abolish student cleaning to give them more time to study.", "textJP": "勉強時間を増やすために生徒の掃除は廃止すべきです。", "type": "closing", "judgment": "perfect" },
-      { "id": "fake_c1", "text": "Dust makes us strong.", "textJP": "ホコリは私たちを強くします。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c2", "text": "I want to be a professional cleaner.", "textJP": "私はプロの清掃員になりたいです。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c3", "text": "Please clean my room.", "textJP": "私の部屋を掃除してください。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c4", "text": "Washing hands is enough.", "textJP": "手を洗うだけで十分です。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c5", "text": "Schools should be dirty.", "textJP": "学校は汚くあるべきです。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c6", "text": "Thank you for the broom.", "textJP": "ほうきをありがとう。", "type": "closing", "judgment": "weak" }
+      { "id": "c1", "type": "closing", "judgment": "perfect", 
+        "text": { 
+           "easy": "We should stop cleaning to study.", 
+           "medium": "We should abolish student cleaning to give them more time to study.", 
+           "hard": "In conclusion, the cessation of mandatory cleaning is a vital prerequisite for academic optimization." 
+        }, "textJP": "勉強時間を増やすために生徒の掃除は廃止すべきです。" },
+      { "id": "fake_c1", "type": "closing", "judgment": "weak", "text": { "easy": "Dust makes us strong.", "medium": "Eating dust from the floor makes our bodies very strong.", "hard": "The ingestion of particulate matter is essential for fortifying the human immune system." }, "textJP": "（Fake）" },
+      { "id": "fake_c2", "type": "closing", "judgment": "weak", "text": { "easy": "I want to be a broom.", "medium": "In conclusion, my greatest dream in life is to become a wooden broom.", "hard": "My entire argument hinges upon my impending transmogrification into a sweeping apparatus." }, "textJP": "（Fake）" },
+      { "id": "fake_c3", "type": "closing", "judgment": "weak", "text": { "easy": "Let's clean the moon.", "medium": "Therefore, we should send all students to space to clean the moon.", "hard": "The immediate sanitation of lunar craters remains humanity's most pressing obligation." }, "textJP": "（Fake）" },
+      { "id": "fake_c4", "type": "closing", "judgment": "weak", "text": { "easy": "Thank you for the trash.", "medium": "Thank you very much for putting garbage in my desk today.", "hard": "I wish to express my profound gratitude for the recent distribution of waste materials." }, "textJP": "（Fake）" },
+      { "id": "fake_c5", "type": "closing", "judgment": "weak", "text": { "easy": "Schools should be mud.", "medium": "Because cleaning is boring, we should cover the whole school in mud.", "hard": "The systematic application of geological slurry to the campus is the only logical conclusion." }, "textJP": "（Fake）" },
+      { "id": "fake_c6", "type": "closing", "judgment": "weak", "text": { "easy": "Aliens hate clean rooms.", "medium": "We must not clean because aliens will attack clean rooms.", "hard": "Extraterrestrial forces are known to specifically target and vaporize sanitized environments." }, "textJP": "（Fake）" }
     ]
   }
 }

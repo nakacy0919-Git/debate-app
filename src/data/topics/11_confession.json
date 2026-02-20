@@ -1,90 +1,225 @@
 {
   "id": "confession",
-  "title": "Confessing online is better than face to face.",
-  "titleJP": "告白は対面よりオンラインの方が良い",
-  "image_url": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1000&q=80",
+  "title": "Confessing your love online is better than in person.",
+  "titleJP": "告白は直接よりオンライン（LINEやSNS）の方が良い",
+  "image_url": "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=1000&q=80",
   "deck": [
-    {"id": "conf_aff_A1", "stance": "affirmative", "group": "nervous", "type": "assertion", "text": "Confessing online makes people less nervous.", "textJP": "オンラインで告白すると、緊張しにくいです。"},
-    {"id": "conf_aff_R1", "stance": "affirmative", "group": "nervous", "type": "reason", "text": "It is because people can take their time to write messages and express their true feelings.", "textJP": "なぜなら、メッセージを書く時間があり、本当の気持ちを伝えられるからです。"},
-    {"id": "conf_aff_E1", "stance": "affirmative", "group": "nervous", "type": "evidence", "text": "For example, shy people can say \"I like you\" more easily in a text than in person.", "textJP": "例えば、はずかしがり屋でも、対面よりメッセージのほうが「好き」と言いやすいです。"},
-    {"id": "conf_aff_S1", "stance": "affirmative", "group": "nervous", "type": "mini_conclusion", "text": "Therefore, confessing online makes people less nervous.", "textJP": "よって、オンラインで告白すると、緊張しにくいです。"},
-    
-    {"id": "conf_aff_A2", "stance": "affirmative", "group": "rejection", "type": "assertion", "text": "Confessing online reduces the fear of rejection.", "textJP": "オンラインで告白すれば、ふられるこわさが少なくなります。"},
-    {"id": "conf_aff_R2", "stance": "affirmative", "group": "rejection", "type": "reason", "text": "It is because people don't have to see the other person's reaction directly.", "textJP": "なぜなら、相手の反応を直接見なくてすむからです。"},
-    {"id": "conf_aff_E2", "stance": "affirmative", "group": "rejection", "type": "evidence", "text": "For example, if someone is rejected online, they can calm down and move on more easily.", "textJP": "例えば、オンラインでふられても、落ちついて気持ちを切りかえることができます。"},
-    {"id": "conf_aff_S2", "stance": "affirmative", "group": "rejection", "type": "mini_conclusion", "text": "Therefore, confessing online reduces the fear of rejection.", "textJP": "よって、オンラインで告白すれば、ふられるこわさが少なくなります。"},
+    {"id": "cnf_aff_A1", "stance": "affirmative", "group": "stress", "type": "assertion", 
+     "text": {
+        "easy": "Confessing online reduces your stress.",
+        "medium": "Confessing your feelings online significantly reduces anxiety and stress.",
+        "hard": "Utilizing digital mediums for romantic declarations effectively mitigates severe psychological anxiety."
+     }, "textJP": "オンラインでの告白は緊張やストレスを減らします。"},
+    {"id": "cnf_aff_R1", "stance": "affirmative", "group": "stress", "type": "reason", 
+     "text": {
+        "easy": "Because you don't have to stand face-to-face.",
+        "medium": "It is because you do not have to endure the immense pressure of standing face-to-face.",
+        "hard": "This is primarily because the physical separation buffers the emotional intensity of direct interpersonal confrontation."
+     }, "textJP": "なぜなら、対面で立つというプレッシャーに耐えなくて済むからです。"},
+    {"id": "cnf_aff_E1", "stance": "affirmative", "group": "stress", "type": "example", 
+     "text": {
+        "easy": "For example, your heart won't beat too fast, and you won't panic.",
+        "medium": "For example, you won't blush, shake, or panic like you might when talking in person.",
+        "hard": "For instance, digital communication prevents the visible manifestation of involuntary physiological panic responses, such as excessive perspiration."
+     }, "textJP": "例えば、対面のように顔が赤くなったり、パニックになったりすることがありません。"},
+    {"id": "cnf_aff_S1", "stance": "affirmative", "group": "stress", "type": "mini_conclusion", 
+     "text": {
+        "easy": "Therefore, online is a safer way to confess.",
+        "medium": "Therefore, online confession is a much calmer and safer way to express your love.",
+        "hard": "Consequently, remote digital declarations provide a psychologically secure environment for expressing vulnerability."
+     }, "textJP": "よって、オンラインでの告白ははるかに落ち着いて気持ちを伝えられる方法です。"},
 
-    {"id": "conf_neg_A1", "stance": "negative", "group": "honest", "type": "assertion", "text": "Confessing face to face shows more honest feelings.", "textJP": "対面で告白するほうが、気持ちがより正直に伝わります。"},
-    {"id": "conf_neg_R1", "stance": "negative", "group": "honest", "type": "reason", "text": "It is because people can use eye contact, voice, and facial expressions to show their true emotions.", "textJP": "なぜなら、目を見たり、声のトーンや表情で本当の気持ちを伝えられるからです。"},
-    {"id": "conf_neg_E1", "stance": "negative", "group": "honest", "type": "evidence", "text": "For example, when someone says \"I like you\" in person, it sounds more serious and real.", "textJP": "例えば、直接「好き」と言われたほうが、本気で本物の気持ちに聞こえます。"},
-    {"id": "conf_neg_S1", "stance": "negative", "group": "honest", "type": "mini_conclusion", "text": "Therefore, confessing face to face shows more honest feelings.", "textJP": "よって、対面で告白するほうが、気持ちがより正直に伝わります。"},
-    
-    {"id": "conf_neg_A2", "stance": "negative", "group": "relation", "type": "assertion", "text": "Confessing face to face helps build a stronger relationship.", "textJP": "対面で告白するほうが、関係を深めやすいです。"},
-    {"id": "conf_neg_R2", "stance": "negative", "group": "relation", "type": "reason", "text": "It is because people can understand each other's emotions better when they talk in person.", "textJP": "なぜなら、直接話すことで、お互いの気持ちをよりよく理解できるからです。"},
-    {"id": "conf_neg_E2", "stance": "negative", "group": "relation", "type": "evidence", "text": "For example, when two people meet and talk honestly, they can start a closer and more trusting relationship.", "textJP": "例えば、直接会って素直に話すことで、より近くて信頼できる関係を作れます。"},
-    {"id": "conf_neg_S2", "stance": "negative", "group": "relation", "type": "mini_conclusion", "text": "Therefore, confessing face to face helps build a stronger relationship.", "textJP": "よって、対面で告白するほうが、関係を深めやすいです。"},
+    {"id": "cnf_aff_A2", "stance": "affirmative", "group": "words", "type": "assertion", 
+     "text": {
+        "easy": "You can choose your words carefully.",
+        "medium": "Online confession allows you to carefully choose and edit your words.",
+        "hard": "Asynchronous communication facilitates the meticulous curation of your romantic narrative."
+     }, "textJP": "言葉を慎重に選んで伝えることができます。"},
+    {"id": "cnf_aff_R2", "stance": "affirmative", "group": "words", "type": "reason", 
+     "text": {
+        "easy": "Because you have plenty of time to type.",
+        "medium": "It is because you have plenty of time to think, type, and rewrite before sending the message.",
+        "hard": "This occurs because text-based interfaces grant infinite temporal leeway for drafting and redrafting prose."
+     }, "textJP": "なぜなら、メッセージを送る前に考えて書き直す時間がたっぷりあるからです。"},
+    {"id": "cnf_aff_E2", "stance": "affirmative", "group": "words", "type": "example", 
+     "text": {
+        "easy": "For example, you can rewrite your message until it is perfect.",
+        "medium": "For example, you can write a beautiful and polite letter without stumbling over your words.",
+        "hard": "For instance, an individual can strategically refine their linguistic phrasing to maximize emotional resonance without the risk of verbal stumbles."
+     }, "textJP": "例えば、言葉に詰まることなく、美しく丁寧な文章を書いて送ることができます。"},
+    {"id": "cnf_aff_S2", "stance": "affirmative", "group": "words", "type": "mini_conclusion", 
+     "text": {
+        "easy": "Therefore, online helps you express yourself well.",
+        "medium": "Therefore, confessing via text helps you convey your exact feelings perfectly.",
+        "hard": "Thus, the capacity for extensive editorial revision renders digital confessions intellectually superior."
+     }, "textJP": "よって、テキストでの告白は自分の正確な気持ちを完璧に伝えるのに役立ちます。"},
 
-    {"id": "fake_aff_A1", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "Online confessing makes you invisible.", "textJP": "オンライン告白はあなたを透明人間にします。"},
-    {"id": "fake_aff_R1", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because Wi-Fi hides your face.", "textJP": "なぜならWi-Fiが顔を隠すからです。"},
-    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "evidence", "text": "For example, I sent a message to a ghost.", "textJP": "例えば、私は幽霊にメッセージを送りました。"},
-    {"id": "fake_aff_S1", "stance": "affirmative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, ghosts like smartphones.", "textJP": "よって、幽霊はスマホが好きです。"},
-    {"id": "fake_aff_A2", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "Face to face is too loud.", "textJP": "対面はうるさすぎます。"},
-    {"id": "fake_aff_R2", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because people always scream.", "textJP": "なぜなら人はいつも叫ぶからです。"},
+    {"id": "cnf_neg_A1", "stance": "negative", "group": "sincere", "type": "assertion", 
+     "text": {
+        "easy": "Confessing in person shows true sincerity.",
+        "medium": "Confessing directly in person shows your true sincerity and courage.",
+        "hard": "In-person declarations inherently convey a profound level of emotional authenticity and personal valor."
+     }, "textJP": "直接告白することは、本当の誠実さと勇気を示します。"},
+    {"id": "cnf_neg_R1", "stance": "negative", "group": "sincere", "type": "reason", 
+     "text": {
+        "easy": "Because they can hear your real voice.",
+        "medium": "It is because the person can see your facial expressions and hear the earnest tone of your voice.",
+        "hard": "This is because non-verbal cues, such as micro-expressions and vocal inflection, are critical vectors for transmitting genuine empathy."
+     }, "textJP": "なぜなら、相手はあなたの表情を見たり、真剣な声のトーンを聞いたりできるからです。"},
+    {"id": "cnf_neg_E1", "stance": "negative", "group": "sincere", "type": "example", 
+     "text": {
+        "easy": "For example, looking into someone's eyes is very romantic.",
+        "medium": "For example, looking directly into someone's eyes shows them that you are truly serious.",
+        "hard": "For instance, sustained eye contact is a universally recognized psychological indicator of unwavering commitment and honesty."
+     }, "textJP": "例えば、相手の目を直接見ることは、あなたが本当に真剣であることを示します。"},
+    {"id": "cnf_neg_S1", "stance": "negative", "group": "sincere", "type": "mini_conclusion", 
+     "text": {
+        "easy": "Therefore, in-person confessions are more real.",
+        "medium": "Therefore, face-to-face confessions feel much more genuine and impactful.",
+        "hard": "In conclusion, the irreplaceable authenticity of physical presence makes in-person confessions overwhelmingly superior."
+     }, "textJP": "よって、対面での告白の方がはるかに本物らしく、心に響きます。"},
 
-    {"id": "fake_neg_A1", "stance": "negative", "group": "fake", "type": "assertion", "text": "Face to face confessing is a martial art.", "textJP": "対面告白は格闘技です。"},
-    {"id": "fake_neg_R1", "stance": "negative", "group": "fake", "type": "reason", "text": "Because you need to punch the person.", "textJP": "なぜなら相手を殴る必要があるからです。"},
-    {"id": "fake_neg_E1", "stance": "negative", "group": "fake", "type": "evidence", "text": "For example, I kicked my favorite person.", "textJP": "例えば、私は好きな人を蹴りました。"},
-    {"id": "fake_neg_S1", "stance": "negative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, let's go to the hospital.", "textJP": "よって、病院に行きましょう。"},
-    {"id": "fake_neg_A2", "stance": "negative", "group": "fake", "type": "assertion", "text": "Online messages eat your words.", "textJP": "オンラインメッセージはあなたの言葉を食べます。"},
-    {"id": "fake_neg_R2", "stance": "negative", "group": "fake", "type": "reason", "text": "Because smartphones are hungry.", "textJP": "なぜならスマホはお腹を空かせているからです。"}
+    {"id": "cnf_neg_A2", "stance": "negative", "group": "response", "type": "assertion", 
+     "text": {
+        "easy": "You can get a clear answer immediately.",
+        "medium": "You can get an immediate and clear response without any painful waiting.",
+        "hard": "Synchronous, face-to-face dialogue guarantees immediate declarative feedback, eliminating protracted ambiguity."
+     }, "textJP": "辛い待ち時間なしに、明確な返事をすぐに得ることができます。"},
+    {"id": "cnf_neg_R2", "stance": "negative", "group": "response", "type": "reason", 
+     "text": {
+        "easy": "Because texts can be easily ignored.",
+        "medium": "It is because online messages can be ignored or left 'on read' for several days.",
+        "hard": "This is primarily because digital communication platforms easily enable ghosting and ambiguous read-receipt manipulation."
+     }, "textJP": "なぜなら、オンラインのメッセージは無視されたり、何日も「既読無視」されたりする可能性があるからです。"},
+    {"id": "cnf_neg_E2", "stance": "negative", "group": "response", "type": "example", 
+     "text": {
+        "easy": "For example, waiting for a reply text makes you very sad.",
+        "medium": "For example, waiting hours for a reply text creates terrible anxiety and misunderstandings.",
+        "hard": "For instance, the prolonged latency between sending a digital declaration and receiving a response actively induces severe psychological distress."
+     }, "textJP": "例えば、返信のテキストを何時間も待つことは、ひどい不安や誤解を生み出します。"},
+    {"id": "cnf_neg_S2", "stance": "negative", "group": "response", "type": "mini_conclusion", 
+     "text": {
+        "easy": "Therefore, talking directly is better.",
+        "medium": "Therefore, face-to-face prevents painful waiting and digital misunderstandings.",
+        "hard": "Consequently, direct conversational engagement is crucial to avoid the psychological torture of digital latency."
+     }, "textJP": "よって、対面での告白は、辛い待ち時間やデジタルのすれ違いを防ぎます。"},
+
+    {"id": "fake_aff_A1", "stance": "affirmative", "group": "fake", "type": "assertion", 
+     "text": { "easy": "Phones shoot love lasers.", "medium": "Smartphones can shoot magical love lasers into someone's heart.", "hard": "Telecommunication devices emit specific electromagnetic frequencies that artificially synthesize human infatuation." }, "textJP": "（Fake: 無関係な主張）"},
+    {"id": "fake_aff_R1", "stance": "affirmative", "group": "fake", "type": "reason", 
+     "text": { "easy": "Because Wi-Fi is romantic.", "medium": "Because Wi-Fi signals actually consist of pure romantic energy.", "hard": "This phenomenon relies on the subliminal manipulation of serotonin receptors via 5G broadband infrastructure." }, "textJP": "（Fake: 無関係な理由）"},
+    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "example", 
+     "text": { "easy": "For example, my phone turned into Cupid.", "medium": "For example, my router grew wings and flew around like Cupid.", "hard": "For instance, localized cellular towers frequently manifest localized anomalies resembling mythological deities." }, "textJP": "（Fake: 無関係な具体例）"},
+    {"id": "fake_aff_S1", "stance": "affirmative", "group": "fake", "type": "mini_conclusion", 
+     "text": { "easy": "Therefore, routers are the gods of love.", "medium": "Therefore, we should worship our internet routers as gods of love.", "hard": "Thus, the cybernetic infrastructure of the internet is the sole arbiter of human reproductive success." }, "textJP": "（Fake: 無関係な結論）"},
+    {"id": "fake_aff_A2", "stance": "affirmative", "group": "fake", "type": "assertion", 
+     "text": { "easy": "Emojis control minds.", "medium": "Sending a heart emoji allows you to completely mind-control another person.", "hard": "Digital ideograms function as sophisticated visual algorithms that override cognitive autonomy." }, "textJP": "（Fake: 無関係な主張）"},
+    {"id": "fake_aff_R2", "stance": "affirmative", "group": "fake", "type": "reason", 
+     "text": { "easy": "Because yellow faces are magic.", "medium": "Because the little yellow faces contain ancient hypnotic magic.", "hard": "This is due to the encrypted hypnotic patterns embedded within standardized Unicode characters." }, "textJP": "（Fake: 無関係な理由）"},
+
+    {"id": "fake_neg_A1", "stance": "negative", "group": "fake", "type": "assertion", 
+     "text": { "easy": "Texting causes earthquakes.", "medium": "Sending romantic texts directly causes massive global earthquakes.", "hard": "The transmission of sentimental digital data consistently triggers catastrophic seismic anomalies." }, "textJP": "（Fake: 無関係な主張）"},
+    {"id": "fake_neg_R1", "stance": "negative", "group": "fake", "type": "reason", 
+     "text": { "easy": "Because words are too heavy.", "medium": "Because the emotional weight of digital letters crushes the Earth's crust.", "hard": "Because the excessive bandwidth required for emotional nuance structurally destabilizes tectonic plates." }, "textJP": "（Fake: 無関係な理由）"},
+    {"id": "fake_neg_E1", "stance": "negative", "group": "fake", "type": "example", 
+     "text": { "easy": "For example, my text broke the floor.", "medium": "For example, when I texted 'I love you', my living room floor split open.", "hard": "For instance, geological sensors recorded a magnitude 8.0 event precisely synchronized with a Valentine's text." }, "textJP": "（Fake: 無関係な具体例）"},
+    {"id": "fake_neg_S1", "stance": "negative", "group": "fake", "type": "mini_conclusion", 
+     "text": { "easy": "Therefore, we must scream from mountains.", "medium": "Therefore, the only safe way to confess is by screaming from a high mountain.", "hard": "Consequently, high-altitude vocal projection remains the only geologically stable method of courtship." }, "textJP": "（Fake: 無関係な結論）"},
+    {"id": "fake_neg_A2", "stance": "negative", "group": "fake", "type": "assertion", 
+     "text": { "easy": "Phones melt fingers.", "medium": "Touching a smartphone screen to confess will literally melt your fingers off.", "hard": "The friction generated by typing affectionate syntax initiates rapid epidermal liquefaction." }, "textJP": "（Fake: 無関係な主張）"},
+    {"id": "fake_neg_R2", "stance": "negative", "group": "fake", "type": "reason", 
+     "text": { "easy": "Because screens hate love.", "medium": "Because the glass on the screen is allergic to human romance.", "hard": "This occurs because capacitive touchscreens are engineered to reject biochemical oxytocin signatures." }, "textJP": "（Fake: 無関係な理由）"}
   ],
   "vocabulary": [
-    {"word": "confess", "meaning": "告白する"}, {"word": "nervous", "meaning": "緊張した"},
-    {"word": "express", "meaning": "表す"}, {"word": "shy", "meaning": "はずかしがり屋の"},
-    {"word": "rejection", "meaning": "ふられること"}, {"word": "reaction", "meaning": "反応"},
-    {"word": "calm down", "meaning": "落ちつく"}, {"word": "move on", "meaning": "気持ちを切りかえる"},
-    {"word": "honest", "meaning": "正直な"}, {"word": "expression", "meaning": "表情"},
-    {"word": "serious", "meaning": "本気の"}, {"word": "relationship", "meaning": "関係"},
-    {"word": "trust", "meaning": "信頼"}, {"word": "misunderstand", "meaning": "誤解する"},
-    {"word": "in person", "meaning": "対面で"}
+    {"word": "mitigate", "meaning": "和らげる、軽減する"},
+    {"word": "asynchronous", "meaning": "非同期の（同時に起こらない）"},
+    {"word": "authenticity", "meaning": "本物であること、確実性"},
+    {"word": "synchronous", "meaning": "同期の（同時に起こる）"},
+    {"word": "ambiguity", "meaning": "曖昧さ"},
+    {"word": "latency", "meaning": "遅延、待ち時間"}
   ],
   "crossExam": {
-    "question": { "text": "But aren't online messages easily misunderstood?", "textJP": "でも、オンラインのメッセージは簡単に誤解されませんか？" },
+    "question": { 
+      "text": {
+         "easy": "Isn't it too easy to fake your feelings online?",
+         "medium": "Isn't it far too easy to lie and fake your true feelings when you confess online?",
+         "hard": "Does not the digital veil of text-based communication inherently facilitate emotional deception and insincerity?"
+      }, "textJP": "オンラインだと気持ちを偽るのが簡単すぎませんか？" 
+    },
     "options": [
-      { "id": "q1", "text": "You can use emojis or stickers to show your feelings clearly.", "textJP": "絵文字やスタンプを使って、気持ちをはっきりと伝えることができます。", "type": "answer", "judgment": "correct" },
-      { "id": "fake_q1", "text": "Yes, I hate messages.", "textJP": "はい、私はメッセージが嫌いです。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q2", "text": "Phones are bad.", "textJP": "電話は悪いです。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q3", "text": "Let's use pigeons to send letters.", "textJP": "手紙を送るためにハトを使いましょう。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q4", "text": "I can only speak robot language.", "textJP": "私はロボット語しか話せません。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q5", "text": "Misunderstanding is fun.", "textJP": "誤解は楽しいです。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q6", "text": "Texting is a dangerous magic.", "textJP": "メールは危険な魔法です。", "type": "answer", "judgment": "weak" }
+      { "id": "q1", "type": "answer", "judgment": "correct",
+        "text": {
+          "easy": "People can still write very honest messages.",
+          "medium": "Even online, people can write deeply honest and heartfelt messages.",
+          "hard": "Despite the lack of physical presence, carefully composed textual narratives can effectively convey profound emotional authenticity."
+        }, "textJP": "オンラインでも、人々はとても正直で心のこもったメッセージを書くことができます。" 
+      },
+      { "id": "fake_q1", "type": "answer", "judgment": "weak",
+        "text": { "easy": "Yes, everyone is a robot.", "medium": "Yes, because every single person on the internet is actually a robot.", "hard": "Indeed, human sentience has been entirely replaced by automated conversational algorithms." }, "textJP": "（Fakeな回答）" },
+      { "id": "fake_q2", "type": "answer", "judgment": "weak",
+        "text": { "easy": "Love is made of plastic.", "medium": "It doesn't matter because human love is made of cheap plastic anyway.", "hard": "Emotional attachment is fundamentally a synthetic construct devoid of intrinsic value." }, "textJP": "（Fakeな回答）" },
+      { "id": "fake_q3", "type": "answer", "judgment": "weak",
+        "text": { "easy": "Let's send a pigeon.", "medium": "We should stop using phones and start sending carrier pigeons instead.", "hard": "The deployment of avian messengers remains the only cryptographically secure method of communication." }, "textJP": "（Fakeな回答）" },
+      { "id": "fake_q4", "type": "answer", "judgment": "weak",
+        "text": { "easy": "I am a smartphone.", "medium": "I cannot answer this because I am literally a walking smartphone.", "hard": "My identification as an anthropomorphic mobile device precludes me from addressing emotional queries." }, "textJP": "（Fakeな回答）" },
+      { "id": "fake_q5", "type": "answer", "judgment": "weak",
+        "text": { "easy": "Emojis are evil spies.", "medium": "We must be careful because emojis are evil spies sent by the government.", "hard": "Pictographic icons are actually covert surveillance tools utilized by intelligence agencies." }, "textJP": "（Fakeな回答）" },
+      { "id": "fake_q6", "type": "answer", "judgment": "weak",
+        "text": { "easy": "We should use telepathy.", "medium": "The only honest way to confess is by using mental telepathy.", "hard": "Psychic cognitive transmission is the sole barrier against romantic deception." }, "textJP": "（Fakeな回答）" }
     ]
   },
   "rebuttal": {
     "attack": { 
-      "text": "But some people get too nervous to speak well face to face!", 
-      "textJP": "でも対面だと緊張しすぎてうまく話せない人もいます！", 
-      "damage": 15 
+      "damage": 15,
+      "text": {
+         "easy": "But staring at a screen is not romantic!",
+         "medium": "However, just staring at a digital screen is not romantic at all!",
+         "hard": "Nevertheless, the sterile interface of a digital screen completely obliterates the requisite romantic ambiance!"
+      }, "textJP": "でも画面を見つめるのは全くロマンチックではありません！" 
     },
     "options": [
-      { "id": "r1", "text": "Eye contact and voice tone can show your honest feelings even if you can't speak well.", "textJP": "うまく話せなくても、アイコンタクトや声のトーンで正直な気持ちは伝わります。", "type": "defense", "judgment": "perfect" },
-      { "id": "fake_r1", "text": "Nervous people should sleep.", "textJP": "緊張する人は寝るべきです。", "type": "reason", "judgment": "weak" },
-      { "id": "fake_r2", "text": "I am a rock.", "textJP": "私は石です。", "type": "defense", "judgment": "weak" },
-      { "id": "fake_r3", "text": "Let's abolish talking.", "textJP": "話すことを廃止しましょう。", "type": "defense", "judgment": "weak" },
-      { "id": "fake_r4", "text": "You should bring a dog to the confession.", "textJP": "告白には犬を連れて行くべきです。", "type": "defense", "judgment": "weak" },
-      { "id": "fake_r5", "text": "Running away is the best.", "textJP": "逃げるのが一番です。", "type": "defense", "judgment": "weak" },
-      { "id": "fake_r6", "text": "I speak with my hands only.", "textJP": "私は手だけで話します。", "type": "defense", "judgment": "weak" }
+      { "id": "r1", "type": "defense", "judgment": "perfect",
+        "text": {
+           "easy": "You can add photos and music to make it special.",
+           "medium": "You can easily make it romantic by adding special photos, digital letters, or meaningful music.",
+           "hard": "The integration of multimedia elements, such as curated audio and personalized imagery, successfully artificially synthesizes a profoundly romantic atmosphere."
+        }, "textJP": "特別な写真やデジタルレター、音楽を添えることで、簡単にロマンチックにすることができます。" 
+      },
+      { "id": "fake_r1", "type": "reason", "judgment": "weak",
+        "text": { "easy": "My screen is chocolate.", "medium": "It is romantic because my smartphone screen is made of delicious chocolate.", "hard": "The integration of edible cocoa interfaces elevates digital communication to an unprecedented culinary romance." }, "textJP": "（Fakeな反論）" },
+      { "id": "fake_r2", "type": "defense", "judgment": "weak",
+        "text": { "easy": "Romance is banned.", "medium": "Romance was officially banned by the government last year.", "hard": "The socio-political prohibition of romantic engagement nullifies this aesthetic concern entirely." }, "textJP": "（Fakeな反論）" },
+      { "id": "fake_r3", "type": "defense", "judgment": "weak",
+        "text": { "easy": "Let's date a laptop.", "medium": "Instead of a human, you should just try going on a date with your laptop.", "hard": "Forming romantic bonds with computational hardware is the pinnacle of modern relationships." }, "textJP": "（Fakeな反論）" },
+      { "id": "fake_r4", "type": "defense", "judgment": "weak",
+        "text": { "easy": "Wi-Fi is pure love.", "medium": "Wi-Fi signals are actually the most romantic thing in the universe.", "hard": "The propagation of wireless radio frequencies represents the ultimate manifestation of universal affection." }, "textJP": "（Fakeな反論）" },
+      { "id": "fake_r5", "type": "defense", "judgment": "weak",
+        "text": { "easy": "Staring at the sun is better.", "medium": "If you want romance, you should just stare directly into the hot sun.", "hard": "Unprotected ocular exposure to solar radiation is the definitive method of achieving romantic enlightenment." }, "textJP": "（Fakeな反論）" },
+      { "id": "fake_r6", "type": "defense", "judgment": "weak",
+        "text": { "easy": "I will marry a router.", "medium": "I don't need a partner because I am going to legally marry my internet router.", "hard": "My matrimonial commitment to networking hardware renders human courtship obsolete." }, "textJP": "（Fakeな反論）" }
     ]
   },
   "closing": {
     "options": [
-      { "id": "c1", "text": "Face to face communication builds the strongest trust and relationship.", "textJP": "対面のコミュニケーションは、最も強い信頼と関係性を築きます。", "type": "closing", "judgment": "perfect" },
-      { "id": "fake_c1", "text": "Love is an alien.", "textJP": "愛は宇宙人です。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c2", "text": "I want to eat chocolate now.", "textJP": "私は今チョコレートが食べたいです。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c3", "text": "Let's break our smartphones.", "textJP": "スマホを壊しましょう。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c4", "text": "Everyone should be alone.", "textJP": "みんな一人になるべきです。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c5", "text": "Words are made of air.", "textJP": "言葉は空気でできています。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c6", "text": "Thank you for the ghost.", "textJP": "幽霊をありがとう。", "type": "closing", "judgment": "weak" }
+      { "id": "c1", "type": "closing", "judgment": "perfect",
+        "text": {
+           "easy": "Online is a calm and thoughtful way to confess.",
+           "medium": "In conclusion, online confession is a thoughtful, low-stress way to show your true love.",
+           "hard": "To summarize, the digital declaration of affection provides a highly curated, psychologically secure framework for establishing romantic connections."
+        }, "textJP": "オンラインでの告白は、思いやりがありストレスの少ない愛情表現の方法です。" 
+      },
+      { "id": "fake_c1", "type": "closing", "judgment": "weak",
+        "text": { "easy": "I will marry my phone.", "medium": "In conclusion, we should all just abandon humans and marry our phones.", "hard": "Ultimately, the transhumanist integration with mobile devices is the only viable path for romantic fulfillment." }, "textJP": "（Fake）" },
+      { "id": "fake_c2", "type": "closing", "judgment": "weak",
+        "text": { "easy": "Love is a computer virus.", "medium": "Because love is actually just a dangerous computer virus, we should avoid it.", "hard": "Consequently, emotional attachment must be treated as a malicious malware infection requiring immediate quarantine." }, "textJP": "（Fake）" },
+      { "id": "fake_c3", "type": "closing", "judgment": "weak",
+        "text": { "easy": "Let's go to Mars.", "medium": "Therefore, the only valid place to confess your love is on the surface of Mars.", "hard": "Thus, interplanetary relocation remains the sole prerequisite for valid romantic initiation." }, "textJP": "（Fake）" },
+      { "id": "fake_c4", "type": "closing", "judgment": "weak",
+        "text": { "easy": "I am a Wi-Fi signal.", "medium": "Thank you for your time, I will now transform into a pure Wi-Fi signal.", "hard": "I hereby conclude my argument and initiate my ascension into an electromagnetic waveform." }, "textJP": "（Fake）" },
+      { "id": "fake_c5", "type": "closing", "judgment": "weak",
+        "text": { "easy": "Eye contact makes you explode.", "medium": "We must avoid face-to-face contact because looking at eyes makes you explode.", "hard": "The necessity of digital mediums is verified by the spontaneous combustion induced by direct optical engagement." }, "textJP": "（Fake）" },
+      { "id": "fake_c6", "type": "closing", "judgment": "weak",
+        "text": { "easy": "Pigeons are the only way.", "medium": "Finally, we must remember that pigeons are the only true messengers of love.", "hard": "In closing, the ornithological delivery of romantic intent remains functionally unsurpassed by modern technology." }, "textJP": "（Fake）" }
     ]
   }
 }

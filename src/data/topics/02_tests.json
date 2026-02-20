@@ -16,7 +16,7 @@
         "medium": "It is because many students feel immense pressure from tests and cannot relax.",
         "hard": "This is due to the fact that continuous academic assessments impose severe mental pressure, preventing true relaxation."
      }, "textJP": "なぜなら、多くの生徒がプレッシャーを感じ、リラックスできないからです。"},
-    {"id": "test_aff_E1", "stance": "affirmative", "group": "stress", "type": "evidence", 
+    {"id": "test_aff_E1", "stance": "affirmative", "group": "stress", "type": "example", 
      "text": {
         "easy": "Some students cannot sleep before tests.",
         "medium": "Some students get extremely nervous or suffer from insomnia before test days.",
@@ -41,7 +41,7 @@
         "medium": "It is because they can focus on project-based learning instead of just memorizing facts.",
         "hard": "This occurs because rote memorization is replaced by project-based learning, which encourages critical thinking."
      }, "textJP": "なぜなら、暗記だけでなく、プロジェクトに集中できるからです。"},
-    {"id": "test_aff_E2", "stance": "affirmative", "group": "creative", "type": "evidence", 
+    {"id": "test_aff_E2", "stance": "affirmative", "group": "creative", "type": "example", 
      "text": {
         "easy": "Students can share ideas in group work.",
         "medium": "Students can make presentations or work in groups to actively share their ideas.",
@@ -66,7 +66,7 @@
         "medium": "It is because tests give students clear goals and a compelling reason to study.",
         "hard": "This is primarily because standardized assessments provide concrete milestones and accountability for academic progress."
      }, "textJP": "なぜなら、テストは明確な目標と勉強する理由を与えるからです。"},
-    {"id": "test_neg_E1", "stance": "negative", "group": "motiv", "type": "evidence", 
+    {"id": "test_neg_E1", "stance": "negative", "group": "motiv", "type": "example", 
      "text": {
         "easy": "Without tests, students stop reviewing.",
         "medium": "Without tests, many students may simply stop reviewing their daily lessons.",
@@ -91,7 +91,7 @@
         "medium": "It is because without tests, teachers cannot compare students' abilities fairly.",
         "hard": "This is because objective metrics are lost, making it virtually impossible for educators to assess student proficiency impartially."
      }, "textJP": "なぜなら、テストがなければ、先生は生徒を公平に比べられないからです。"},
-    {"id": "test_neg_E2", "stance": "negative", "group": "unfair", "type": "evidence", 
+    {"id": "test_neg_E2", "stance": "negative", "group": "unfair", "type": "example", 
      "text": {
         "easy": "Grades might depend on if the teacher likes you.",
         "medium": "Grades might depend too much on subjective things like attitude or daily homework.",
@@ -116,7 +116,7 @@
         "medium": "Because holding a pencil for 50 minutes burns thousands of calories.",
         "hard": "Because the kinetic energy required to fill out answer sheets disrupts the body's metabolic equilibrium."
      }, "textJP": "（Fake）なぜなら名前を書くのにエネルギーを使いすぎるからです。"},
-    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "evidence", 
+    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "example", 
      "text": {
         "easy": "My pencil broke and I cried.",
         "medium": "For example, my stomach always growls loudly during math exams.",

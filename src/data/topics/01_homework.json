@@ -16,7 +16,7 @@
         "medium": "It is because they can spend more time on their hobbies and personal interests instead of doing homework.",
         "hard": "This is primarily because students can dedicate their after-school hours to cultivating personal interests and pursuing extracurricular activities."
      }, "textJP": "なぜなら、宿題の代わりに趣味に時間を使えるからです。"},
-    {"id": "hw_aff_E1", "stance": "affirmative", "group": "time", "type": "evidence", 
+    {"id": "hw_aff_E1", "stance": "affirmative", "group": "time", "type": "example", 
      "text": {
         "easy": "For example, they can read books and play soccer.",
         "medium": "For example, students can read books, play sports, or learn new skills like programming.",
@@ -41,7 +41,7 @@
         "medium": "It is because many students feel exhausted after school due to the heavy burden of homework.",
         "hard": "This is because an excessive amount of homework frequently leads to physical exhaustion and mental fatigue after a long day at school."
      }, "textJP": "なぜなら、多くの生徒は宿題のせいで放課後疲れているからです。"},
-    {"id": "hw_aff_E2", "stance": "affirmative", "group": "stress", "type": "evidence", 
+    {"id": "hw_aff_E2", "stance": "affirmative", "group": "stress", "type": "example", 
      "text": {
         "easy": "Some students stay up late and can't sleep well.",
         "medium": "Some students stay up late to finish homework and suffer from a lack of sleep.",
@@ -66,7 +66,7 @@
         "medium": "It is because students will lose the habit of reviewing what they learned at school.",
         "hard": "This occurs because without mandatory assignments, students lack the discipline to independently review and consolidate the material taught in class."
      }, "textJP": "なぜなら、生徒が学校で習ったことを復習しなくなるからです。"},
-    {"id": "hw_neg_E1", "stance": "negative", "group": "learning", "type": "evidence", 
+    {"id": "hw_neg_E1", "stance": "negative", "group": "learning", "type": "example", 
      "text": {
         "easy": "If they don't have homework, they forget everything.",
         "medium": "If they do not have homework, they may easily forget what they studied in class.",
@@ -91,7 +91,7 @@
         "medium": "It is because homework teaches them to finish given tasks by themselves.",
         "hard": "This is because homework acts as an independent task that forces students to take ownership of their duties without direct supervision."
      }, "textJP": "なぜなら、宿題は自分で課題をやり遂げることを教えるからです。"},
-    {"id": "hw_neg_E2", "stance": "negative", "group": "resp", "type": "evidence", 
+    {"id": "hw_neg_E2", "stance": "negative", "group": "resp", "type": "example", 
      "text": {
         "easy": "By doing homework, they learn time management.",
         "medium": "By doing homework, students learn how to manage their time effectively.",
@@ -116,7 +116,7 @@
         "medium": "Because math formulas often try to control human minds.",
         "hard": "Because the friction caused by writing with a pencil generates an abnormal amount of heat worldwide."
      }, "textJP": "（Fake: 無関係な理由）"},
-    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "evidence", 
+    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "example", 
      "text": {
         "easy": "For example, my dog ate my homework.",
         "medium": "For example, sleeping for 15 hours is the only way to be a genius.",

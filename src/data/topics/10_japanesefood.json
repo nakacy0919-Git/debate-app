@@ -1,88 +1,225 @@
 {
   "id": "japanesefood",
-  "title": "Japanese food is better than Western food.",
-  "titleJP": "和食は洋食より良い",
+  "title": "Traditional Japanese food is better than Western food.",
+  "titleJP": "和食は洋食よりも優れている",
   "image_url": "https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?auto=format&fit=crop&w=1000&q=80",
   "deck": [
-    {"id": "jap_aff_A1", "stance": "affirmative", "group": "healthy", "type": "assertion", "text": "Japanese food is healthier for the body.", "textJP": "和食は体に健康的です。"},
-    {"id": "jap_aff_R1", "stance": "affirmative", "group": "healthy", "type": "reason", "text": "It is because Japanese food uses less oil and sugar than Western food.", "textJP": "なぜなら、和食は洋食より油や砂糖をあまり使わないからです。"},
-    {"id": "jap_aff_E1", "stance": "affirmative", "group": "healthy", "type": "evidence", "text": "For example, dishes like miso soup and grilled fish are light and full of nutrition.", "textJP": "例えば、みそ汁や焼き魚などはあっさりしていて、栄養がたくさんあります。"},
-    {"id": "jap_aff_S1", "stance": "affirmative", "group": "healthy", "type": "mini_conclusion", "text": "Therefore, Japanese food is healthier for the body.", "textJP": "よって、和食は体に健康的です。"},
+    {"id": "jpn_aff_A1", "stance": "affirmative", "group": "health", "type": "assertion", 
+     "text": {
+        "easy": "Japanese food is very healthy.",
+        "medium": "Traditional Japanese food is much healthier than Western food.",
+        "hard": "The traditional Japanese diet provides unparalleled nutritional benefits and promotes longevity."
+     }, "textJP": "和食はとても健康的です。"},
+    {"id": "jpn_aff_R1", "stance": "affirmative", "group": "health", "type": "reason", 
+     "text": {
+        "easy": "Because it uses vegetables and fish.",
+        "medium": "It is because Washoku uses fresh fish and vegetables instead of heavy oil.",
+        "hard": "This is primarily because its macronutrient profile minimizes saturated fats while maximizing essential fatty acids."
+     }, "textJP": "なぜなら、油をあまり使わず、新鮮な野菜や魚を使うからです。"},
+    {"id": "jpn_aff_E1", "stance": "affirmative", "group": "health", "type": "example", 
+     "text": {
+        "easy": "For example, a meal has rice, soup, and fish.",
+        "medium": "For example, a standard Japanese meal includes rice, miso soup, and grilled fish, which are great for your body.",
+        "hard": "For instance, the synergistic consumption of fermented soy products and marine omega-3s drastically reduces cardiovascular risks."
+     }, "textJP": "例えば、ご飯、味噌汁、焼き魚といった食事は体にとって非常に良いです。"},
+    {"id": "jpn_aff_S1", "stance": "affirmative", "group": "health", "type": "mini_conclusion", 
+     "text": {
+        "easy": "Therefore, Japanese food is the best for health.",
+        "medium": "Therefore, eating Japanese food helps us maintain a very healthy body.",
+        "hard": "Consequently, the systematic consumption of Washoku is a robust preventive measure against modern lifestyle diseases."
+     }, "textJP": "よって、和食を食べることは健康的な体を維持するのに役立ちます。"},
 
-    {"id": "jap_aff_A2", "stance": "affirmative", "group": "tradition", "type": "assertion", "text": "Eating Japanese food helps keep traditional culture.", "textJP": "和食を食べることは、伝統文化を守ることにつながります。"},
-    {"id": "jap_aff_R2", "stance": "affirmative", "group": "tradition", "type": "reason", "text": "It is because Japanese food has a long history and shows Japanese manners and customs.", "textJP": "なぜなら、和食には長い歴史があり、日本のマナーや習慣が表れているからです。"},
-    {"id": "jap_aff_E2", "stance": "affirmative", "group": "tradition", "type": "evidence", "text": "For example, eating with chopsticks and saying \"Itadakimasu\" are parts of Japanese food culture.", "textJP": "例えば、おはしを使って食べ、「いただきます」と言うのは、日本の食文化の一部です。"},
-    {"id": "jap_aff_S2", "stance": "affirmative", "group": "tradition", "type": "mini_conclusion", "text": "Therefore, eating Japanese food helps keep traditional culture.", "textJP": "よって、和食を食べることは、伝統文化を守ることにつながります。"},
+    {"id": "jpn_aff_A2", "stance": "affirmative", "group": "season", "type": "assertion", 
+     "text": {
+        "easy": "Japanese food is beautiful.",
+        "medium": "Japanese food beautifully expresses the four seasons of nature.",
+        "hard": "The culinary philosophy of Washoku serves as a profound aesthetic reflection of seasonal transitions."
+     }, "textJP": "和食は自然の四季を美しく表現しています。"},
+    {"id": "jpn_aff_R2", "stance": "affirmative", "group": "season", "type": "reason", 
+     "text": {
+        "easy": "Because it uses seasonal ingredients.",
+        "medium": "It is because chefs carefully choose ingredients that are fresh in each season.",
+        "hard": "This is due to the meticulous integration of 'shun'—ingredients harvested at their absolute peak of seasonal vitality."
+     }, "textJP": "なぜなら、料理人がその季節に旬を迎える新鮮な食材を注意深く選ぶからです。"},
+    {"id": "jpn_aff_E2", "stance": "affirmative", "group": "season", "type": "example", 
+     "text": {
+        "easy": "For example, we eat sweet potatoes in autumn.",
+        "medium": "For example, we enjoy bamboo shoots in spring and delicious chestnuts in autumn.",
+        "hard": "For instance, the incorporation of autumnal matsutake mushrooms or vernal bamboo shoots provides a distinct temporal context to the dining experience."
+     }, "textJP": "例えば、春にはタケノコ、秋には美味しい栗を楽しみます。"},
+    {"id": "jpn_aff_S2", "stance": "affirmative", "group": "season", "type": "mini_conclusion", 
+     "text": {
+        "easy": "Therefore, Japanese food shows the beauty of nature.",
+        "medium": "Therefore, Washoku is not just food, but a wonderful cultural art.",
+        "hard": "Thus, traditional Japanese cuisine transcends mere sustenance, elevating gastronomy to an environmental art form."
+     }, "textJP": "よって、和食は単なる食べ物ではなく、素晴らしい文化的な芸術です。"},
 
-    {"id": "jap_neg_A1", "stance": "negative", "group": "variety", "type": "assertion", "text": "Western food has more variety and taste.", "textJP": "洋食のほうが味や種類が豊富です。"},
-    {"id": "jap_neg_R1", "stance": "negative", "group": "variety", "type": "reason", "text": "It is because Western food includes many kinds of dishes from different countries.", "textJP": "なぜなら、洋食にはいろいろな国の料理があり、さまざまな味を楽しめるからです。"},
-    {"id": "jap_neg_E1", "stance": "negative", "group": "variety", "type": "evidence", "text": "For example, people can eat pizza, pasta, steak, and hamburgers with many different flavors.", "textJP": "例えば、ピザ、パスタ、ステーキ、ハンバーガーなど、いろいろな味を楽しめます。"},
-    {"id": "jap_neg_S1", "stance": "negative", "group": "variety", "type": "mini_conclusion", "text": "Therefore, Western food has more variety and taste.", "textJP": "よって、洋食のほうが味や種類が豊富です。"},
+    {"id": "jpn_neg_A1", "stance": "negative", "group": "popular", "type": "assertion", 
+     "text": {
+        "easy": "Western food is more delicious for kids.",
+        "medium": "Western food is much more popular among younger generations today.",
+        "hard": "Contemporary adolescent demographics exhibit an overwhelming gastronomic preference for Western dietary paradigms."
+     }, "textJP": "今日、洋食は若い世代の間でずっと人気があります。"},
+    {"id": "jpn_neg_R1", "stance": "negative", "group": "popular", "type": "reason", 
+     "text": {
+        "easy": "Because it has strong flavors.",
+        "medium": "It is because Western dishes often have rich, strong flavors that children love.",
+        "hard": "This phenomenon is driven by the hyper-palatability of lipid-dense and high-sodium flavor profiles inherent in Western cuisine."
+     }, "textJP": "なぜなら、洋食には子供たちが好む豊かで強い風味があるからです。"},
+    {"id": "jpn_neg_E1", "stance": "negative", "group": "popular", "type": "example", 
+     "text": {
+        "easy": "For example, everyone loves hamburgers and pizza.",
+        "medium": "For example, hamburgers, pizza, and steak are always the top choices for kids' parties.",
+        "hard": "For instance, empirical dietary surveys consistently rank hamburgers and processed dairy products as the apex of juvenile culinary desirability."
+     }, "textJP": "例えば、ハンバーガー、ピザ、ステーキは常に子供のパーティーでのトップの選択肢です。"},
+    {"id": "jpn_neg_S1", "stance": "negative", "group": "popular", "type": "mini_conclusion", 
+     "text": {
+        "easy": "Therefore, Western food makes people happier.",
+        "medium": "Therefore, Western food brings more joy and satisfaction to young people.",
+        "hard": "In conclusion, the widespread adoption of Western diets more effectively fulfills the immediate hedonic desires of the youth."
+     }, "textJP": "よって、洋食は若者により多くの喜びと満足感をもたらします。"},
 
-    {"id": "jap_neg_A2", "stance": "negative", "group": "easy", "type": "assertion", "text": "Western food is easier and quicker to cook.", "textJP": "洋食は作るのが簡単で早いです。"},
-    {"id": "jap_neg_R2", "stance": "negative", "group": "easy", "type": "reason", "text": "It is because many Western dishes can be made with simple ingredients and tools.", "textJP": "なぜなら、多くの洋食はシンプルな材料と道具で作れるからです。"},
-    {"id": "jap_neg_E2", "stance": "negative", "group": "easy", "type": "evidence", "text": "For example, people can make sandwiches or pasta quickly even when they are busy.", "textJP": "例えば、忙しいときでもサンドイッチやパスタをすぐに作ることができます。"},
-    {"id": "jap_neg_S2", "stance": "negative", "group": "easy", "type": "mini_conclusion", "text": "Therefore, Western food is easier and quicker to cook.", "textJP": "よって、洋食は作るのが簡単で早いです。"},
+    {"id": "jpn_neg_A2", "stance": "negative", "group": "time", "type": "assertion", 
+     "text": {
+        "easy": "Cooking Japanese food is too hard.",
+        "medium": "Preparing traditional Japanese food takes too much time and effort.",
+        "hard": "The exhaustive preparation protocols of traditional Washoku impose an unsustainable logistical burden on modern households."
+     }, "textJP": "伝統的な和食を作るのには、時間と手間がかかりすぎます。"},
+    {"id": "jpn_neg_R2", "stance": "negative", "group": "time", "type": "reason", 
+     "text": {
+        "easy": "Because making many small dishes takes time.",
+        "medium": "It is because making authentic dashi broth and preparing multiple small dishes is very difficult.",
+        "hard": "This is because the requisite multi-course structure and fundamental broth extraction demand extensive chronological investment."
+     }, "textJP": "なぜなら、本格的な出汁をとったり、複数の小鉢を用意したりするのはとても難しいからです。"},
+    {"id": "jpn_neg_E2", "stance": "negative", "group": "time", "type": "example", 
+     "text": {
+        "easy": "For example, busy parents cannot cook it every day.",
+        "medium": "For example, working parents are too busy to cook a full Japanese meal after returning home.",
+        "hard": "For instance, dual-income demographics frequently lack the discretionary time required to execute the complex culinary techniques of Washoku."
+     }, "textJP": "例えば、共働きの親は家に帰った後、本格的な和食を作るには忙しすぎます。"},
+    {"id": "jpn_neg_S2", "stance": "negative", "group": "time", "type": "mini_conclusion", 
+     "text": {
+        "easy": "Therefore, Western food is faster.",
+        "medium": "Therefore, Western food is a much more practical choice for busy families.",
+        "hard": "Consequently, the operational efficiency of Western culinary methods renders Washoku obsolete for daily domestic application."
+     }, "textJP": "よって、忙しい家族にとっては洋食のほうがはるかに実用的な選択です。"},
 
-    {"id": "fake_aff_A1", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "Japanese food gives you ninja powers.", "textJP": "和食を食べると忍者の力が手に入ります。"},
-    {"id": "fake_aff_R1", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because sushi is made of magic.", "textJP": "なぜなら寿司は魔法でできているからです。"},
-    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "evidence", "text": "For example, I ate a rice ball and disappeared.", "textJP": "例えば、私はおにぎりを食べて消えました。"},
-    {"id": "fake_aff_S1", "stance": "affirmative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, cars can fly in the sky.", "textJP": "よって、車は空を飛べます。"},
-    {"id": "fake_aff_A2", "stance": "affirmative", "group": "fake", "type": "assertion", "text": "Western food is actually made of paper.", "textJP": "洋食は実は紙でできています。"},
-    {"id": "fake_aff_R2", "stance": "affirmative", "group": "fake", "type": "reason", "text": "Because bread looks like a notebook.", "textJP": "なぜならパンはノートのように見えるからです。"},
+    {"id": "fake_aff_A1", "stance": "affirmative", "group": "fake", "type": "assertion", 
+     "text": { "easy": "Sushi flies in the sky.", "medium": "Sushi actually has the magical ability to fly through the air.", "hard": "Raw marine proteins possess latent aerodynamic levitation capabilities." }, "textJP": "（Fake: 無関係な主張）"},
+    {"id": "fake_aff_R1", "stance": "affirmative", "group": "fake", "type": "reason", 
+     "text": { "easy": "Because fish have invisible wings.", "medium": "Because ocean fish secretly grow invisible wings when they are caught.", "hard": "The molecular composition of tuna induces anti-gravity thrust when combined with vinegared rice." }, "textJP": "（Fake: 無関係な理由）"},
+    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "example", 
+     "text": { "easy": "For example, I rode a flying tuna.", "medium": "For example, yesterday I saw a piece of salmon fly over my school.", "hard": "For instance, aerodynamic engineers frequently utilize sashimi structures for orbital propulsion." }, "textJP": "（Fake: 無関係な具体例）"},
+    {"id": "fake_aff_S1", "stance": "affirmative", "group": "fake", "type": "mini_conclusion", 
+     "text": { "easy": "Therefore, fish are airplanes.", "medium": "Therefore, we can travel the world simply by riding on giant sushi.", "hard": "Thus, piscatorial aviation is the undisputed future of intercontinental transit." }, "textJP": "（Fake: 無関係な結論）"},
+    {"id": "fake_aff_A2", "stance": "affirmative", "group": "fake", "type": "assertion", 
+     "text": { "easy": "Miso soup shoots lasers.", "medium": "Drinking hot miso soup gives you the power to shoot lasers.", "hard": "Fermented soybean paste activates latent ocular energy beams." }, "textJP": "（Fake: 無関係な主張）"},
+    {"id": "fake_aff_R2", "stance": "affirmative", "group": "fake", "type": "reason", 
+     "text": { "easy": "Because tofu is explosive.", "medium": "Because the white tofu inside the soup contains explosive magic.", "hard": "This is due to the highly unstable thermonuclear properties of processed soybeans." }, "textJP": "（Fake: 無関係な理由）"},
 
-    {"id": "fake_neg_A1", "stance": "negative", "group": "fake", "type": "assertion", "text": "Western food makes you speak English perfectly.", "textJP": "洋食を食べると英語が完璧に話せるようになります。"},
-    {"id": "fake_neg_R1", "stance": "negative", "group": "fake", "type": "reason", "text": "Because hamburgers contain dictionaries.", "textJP": "なぜならハンバーガーには辞書が入っているからです。"},
-    {"id": "fake_neg_E1", "stance": "negative", "group": "fake", "type": "evidence", "text": "For example, pizza taught me how to say hello.", "textJP": "例えば、ピザが私にハローの言い方を教えてくれました。"},
-    {"id": "fake_neg_S1", "stance": "negative", "group": "fake", "type": "mini_conclusion", "text": "Therefore, I want to be a train.", "textJP": "よって、私は電車になりたいです。"},
-    {"id": "fake_neg_A2", "stance": "negative", "group": "fake", "type": "assertion", "text": "Miso soup is dangerous.", "textJP": "みそ汁は危険です。"},
-    {"id": "fake_neg_R2", "stance": "negative", "group": "fake", "type": "reason", "text": "Because it has sharks inside.", "textJP": "なぜなら中にサメがいるからです。"}
+    {"id": "fake_neg_A1", "stance": "negative", "group": "fake", "type": "assertion", 
+     "text": { "easy": "Hamburgers are clouds.", "medium": "Hamburgers are actually made directly from fluffy white clouds.", "hard": "Ground beef patties are exclusively synthesized from cumulonimbus atmospheric formations." }, "textJP": "（Fake: 無関係な主張）"},
+    {"id": "fake_neg_R1", "stance": "negative", "group": "fake", "type": "reason", 
+     "text": { "easy": "Because cows live on the moon.", "medium": "Because secret space cows live happily on the moon.", "hard": "This is because bovine agriculture has been entirely relocated to the lunar surface." }, "textJP": "（Fake: 無関係な理由）"},
+    {"id": "fake_neg_E1", "stance": "negative", "group": "fake", "type": "example", 
+     "text": { "easy": "For example, I ate a rainy burger.", "medium": "For example, eating a hamburger immediately makes it rain inside your mouth.", "hard": "For instance, the consumption of fast food directly manipulates regional meteorological patterns." }, "textJP": "（Fake: 無関係な具体例）"},
+    {"id": "fake_neg_S1", "stance": "negative", "group": "fake", "type": "mini_conclusion", 
+     "text": { "easy": "Therefore, we should eat the sky.", "medium": "Therefore, we should build a giant ladder to eat the sky.", "hard": "Consequently, atmospheric consumption is the primary solution to global food shortages." }, "textJP": "（Fake: 無関係な結論）"},
+    {"id": "fake_neg_A2", "stance": "negative", "group": "fake", "type": "assertion", 
+     "text": { "easy": "Bread turns you into a bird.", "medium": "Eating bread will slowly turn your arms into beautiful wings.", "hard": "The ingestion of baked wheat gluten initiates rapid avian genetic mutation." }, "textJP": "（Fake: 無関係な主張）"},
+    {"id": "fake_neg_R2", "stance": "negative", "group": "fake", "type": "reason", 
+     "text": { "easy": "Because yeast likes to fly.", "medium": "Because the yeast inside the bread desperately wants to fly away.", "hard": "The fungal microorganisms in yeast contain encrypted ornithological DNA sequences." }, "textJP": "（Fake: 無関係な理由）"}
   ],
   "vocabulary": [
-    {"word": "healthy", "meaning": "健康的な"}, {"word": "sugar", "meaning": "砂糖"},
-    {"word": "nutrition", "meaning": "栄養"}, {"word": "traditional", "meaning": "伝統的な"},
-    {"word": "custom", "meaning": "習慣"}, {"word": "chopsticks", "meaning": "おはし"},
-    {"word": "variety", "meaning": "種類"}, {"word": "flavor", "meaning": "風味・味わい"},
-    {"word": "ingredient", "meaning": "材料"}, {"word": "rice ball", "meaning": "おにぎり"},
-    {"word": "grill", "meaning": "焼く"}, {"word": "include", "meaning": "含む"}
+    {"word": "unparalleled", "meaning": "比類のない"},
+    {"word": "longevity", "meaning": "長寿"},
+    {"word": "synergistic", "meaning": "相乗的な"},
+    {"word": "aesthetic", "meaning": "美的な"},
+    {"word": "obsolete", "meaning": "時代遅れの"},
+    {"word": "mitigate", "meaning": "軽減する"}
   ],
   "crossExam": {
-    "question": { "text": "Doesn't Japanese food have too much salt, such as ramen or miso soup?", "textJP": "ラーメンやみそ汁など、和食は塩分が多すぎませんか？" },
+    "question": { 
+      "text": {
+         "easy": "Isn't Japanese food too salty because of soy sauce?",
+         "medium": "Isn't traditional Japanese food sometimes too salty because of soy sauce?",
+         "hard": "Doesn't the heavy reliance on fermented soy sauces induce a dangerously high sodium intake?"
+      }, "textJP": "醤油のせいで和食は塩分が高すぎませんか？" 
+    },
     "options": [
-      { "id": "q1", "text": "We can choose lighter dishes and still eat healthy.", "textJP": "あっさりした料理を選べば、健康的に食べられます。", "type": "answer", "judgment": "correct" },
-      { "id": "fake_q1", "text": "Salt is my favorite vegetable.", "textJP": "塩は私のお気に入りの野菜です。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q2", "text": "Ramen is from the moon.", "textJP": "ラーメンは月から来ました。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q3", "text": "I like drinking sea water.", "textJP": "私は海水を飲むのが好きです。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q4", "text": "Let's eat only sugar.", "textJP": "砂糖だけを食べましょう。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q5", "text": "Hamburgers have no taste.", "textJP": "ハンバーガーには味がありません。", "type": "answer", "judgment": "weak" },
-      { "id": "fake_q6", "text": "Miso soup is a fruit.", "textJP": "みそ汁はフルーツです。", "type": "answer", "judgment": "weak" }
+      { "id": "q1", "type": "answer", "judgment": "correct",
+        "text": {
+          "easy": "We can use dashi umami to reduce salt.",
+          "medium": "We can use the rich flavor of dashi to significantly reduce the amount of salt.",
+          "hard": "The strategic application of umami-rich broths effectively mitigates the necessity for excessive sodium chloride."
+        }, "textJP": "出汁の豊かな風味を利用することで、塩の量を大幅に減らすことができます。" 
+      },
+      { "id": "fake_q1", "type": "answer", "judgment": "weak",
+        "text": { "easy": "Salt makes you invisible.", "medium": "Eating a lot of salt gives you the power of invisibility.", "hard": "Sodium chloride induces complete optical transparency in human subjects." }, "textJP": "（Fakeな回答）" },
+      { "id": "fake_q2", "type": "answer", "judgment": "weak",
+        "text": { "easy": "Soy sauce is black magic.", "medium": "Soy sauce is actually a dangerous black magic potion.", "hard": "Fermented soy liquid is fundamentally an arcane elixir of darkness." }, "textJP": "（Fakeな回答）" },
+      { "id": "fake_q3", "type": "answer", "judgment": "weak",
+        "text": { "easy": "We should drink the ocean.", "medium": "We should just drink directly from the salty ocean.", "hard": "Immediate consumption of marine saltwater is the optimal hydration strategy." }, "textJP": "（Fakeな回答）" },
+      { "id": "fake_q4", "type": "answer", "judgment": "weak",
+        "text": { "easy": "Salt is made of sugar.", "medium": "Salt is actually just white sugar in disguise.", "hard": "Saline crystals are merely a deceptive iteration of refined sucrose." }, "textJP": "（Fakeな回答）" },
+      { "id": "fake_q5", "type": "answer", "judgment": "weak",
+        "text": { "easy": "I am a soy bean.", "medium": "I cannot answer because I am secretly a soy bean.", "hard": "My status as an anthropomorphic legume prohibits me from responding." }, "textJP": "（Fakeな回答）" },
+      { "id": "fake_q6", "type": "answer", "judgment": "weak",
+        "text": { "easy": "Aliens stole our salt.", "medium": "Aliens came to Earth and stole all of our salt.", "hard": "Extraterrestrial resource extraction has completely depleted our planetary sodium reserves." }, "textJP": "（Fakeな回答）" }
     ]
   },
   "rebuttal": {
     "attack": { 
-      "text": "But Western food has more variety and exciting tastes!", 
-      "textJP": "でも洋食のほうが種類が豊富でワクワクする味です！", 
-      "damage": 15 
+      "damage": 15,
+      "text": {
+         "easy": "But Western food is much faster to cook!",
+         "medium": "But Western food like pasta is much faster and easier to cook!",
+         "hard": "However, the rapid preparation times of Western cuisine render the laborious Washoku methods entirely impractical!"
+      }, "textJP": "でもパスタなどの洋食の方がずっと早く簡単に作れます！" 
     },
     "options": [
-      { "id": "r1", "text": "Japanese food also has many kinds of dishes, such as sushi, tempura and ramen.", "textJP": "和食にも、寿司や天ぷら、ラーメンなどたくさんの種類の料理があります。", "type": "defense", "judgment": "perfect" },
-      { "id": "fake_r1", "text": "Pizza is a Japanese food.", "textJP": "ピザは和食です。", "type": "reason", "judgment": "weak" },
-      { "id": "fake_r2", "text": "I don't like eating food.", "textJP": "私は食べ物を食べるのが好きではありません。", "type": "defense", "judgment": "weak" },
-      { "id": "fake_r3", "text": "Western food is too scary.", "textJP": "洋食は怖すぎます。", "type": "defense", "judgment": "weak" },
-      { "id": "fake_r4", "text": "Let's abolish cooking.", "textJP": "料理を廃止しましょう。", "type": "defense", "judgment": "weak" },
-      { "id": "fake_r5", "text": "Sushi is made of rocks.", "textJP": "寿司は石でできています。", "type": "defense", "judgment": "weak" },
-      { "id": "fake_r6", "text": "I eat sleeping pills.", "textJP": "私は睡眠薬を食べます。", "type": "defense", "judgment": "weak" }
+      { "id": "r1", "type": "defense", "judgment": "perfect",
+        "text": {
+           "easy": "We can use pre-made dashi to cook quickly.",
+           "medium": "We can use convenient pre-made dashi to cook traditional meals very quickly.",
+           "hard": "The utilization of commercially extracted broth concentrates drastically accelerates traditional culinary preparation."
+        }, "textJP": "便利な市販の出汁を使えば、伝統的な食事もとても早く作れます。" 
+      },
+      { "id": "fake_r1", "type": "reason", "judgment": "weak",
+        "text": { "easy": "Time is an illusion.", "medium": "Time does not exist, so cooking speed doesn't matter.", "hard": "The chronological framework of existence is a fabricated cognitive delusion." }, "textJP": "（Fakeな反論）" },
+      { "id": "fake_r2", "type": "defense", "judgment": "weak",
+        "text": { "easy": "We should eat raw potatoes.", "medium": "We should just eat raw, unwashed potatoes to save time.", "hard": "The immediate consumption of unrefined subterranean tubers is the pinnacle of culinary efficiency." }, "textJP": "（Fakeな反論）" },
+      { "id": "fake_r3", "type": "defense", "judgment": "weak",
+        "text": { "easy": "Fast food is a time machine.", "medium": "Eating fast food literally transports you to the future.", "hard": "The drive-thru infrastructure functions exclusively as a localized temporal displacement portal." }, "textJP": "（Fakeな反論）" },
+      { "id": "fake_r4", "type": "defense", "judgment": "weak",
+        "text": { "easy": "Cooking is illegal.", "medium": "Cooking any kind of food was banned by the government.", "hard": "The thermal alteration of organic matter has been universally criminalized." }, "textJP": "（Fakeな反論）" },
+      { "id": "fake_r5", "type": "defense", "judgment": "weak",
+        "text": { "easy": "Microwaves are ghosts.", "medium": "Microwaves cook food fast because they are powered by ghosts.", "hard": "Electromagnetic kitchen appliances operate via trapped spectral entities." }, "textJP": "（Fakeな反論）" },
+      { "id": "fake_r6", "type": "defense", "judgment": "weak",
+        "text": { "easy": "I like waiting for 10 hours.", "medium": "I prefer to wait 10 hours for a single meal.", "hard": "Enduring extensive periods of starvation maximizes my gastronomic anticipation." }, "textJP": "（Fakeな反論）" }
     ]
   },
   "closing": {
     "options": [
-      { "id": "c1", "text": "Japanese food offers a great balance of health, tradition, and taste.", "textJP": "和食は健康、伝統、そして味の素晴らしいバランスを提供します。", "type": "closing", "judgment": "perfect" },
-      { "id": "fake_c1", "text": "Let's eat aliens.", "textJP": "宇宙人を食べましょう。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c2", "text": "I want to sleep in a burger.", "textJP": "私はハンバーガーの中で寝たいです。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c3", "text": "Chopsticks are dangerous swords.", "textJP": "おはしは危険な剣です。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c4", "text": "Thank you for the UFO.", "textJP": "UFOをありがとう。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c5", "text": "We should drink oil.", "textJP": "私たちは油を飲むべきです。", "type": "closing", "judgment": "weak" },
-      { "id": "fake_c6", "text": "Goodbye, my pizza.", "textJP": "さようなら、私のピザ。", "type": "closing", "judgment": "weak" }
+      { "id": "c1", "type": "closing", "judgment": "perfect",
+        "text": {
+           "easy": "Washoku is a healthy cultural treasure.",
+           "medium": "In conclusion, Washoku is a perfectly healthy and beautiful treasure of our culture.",
+           "hard": "To summarize, traditional Japanese cuisine constitutes an irreplaceable fusion of nutritional superiority and aesthetic heritage."
+        }, "textJP": "和食は私たちの文化の、完璧に健康的で美しい宝物です。" 
+      },
+      { "id": "fake_c1", "type": "closing", "judgment": "weak",
+        "text": { "easy": "Sushi will rule the galaxy.", "medium": "In conclusion, sushi will soon become the king of the entire galaxy.", "hard": "The impending intergalactic empire will undoubtedly be governed by raw seafood." }, "textJP": "（Fake）" },
+      { "id": "fake_c2", "type": "closing", "judgment": "weak",
+        "text": { "easy": "Pizza is a UFO.", "medium": "Actually, every pizza is a small UFO from another planet.", "hard": "The circular geometry of Italian flatbread is undeniable proof of its extraterrestrial origin." }, "textJP": "（Fake）" },
+      { "id": "fake_c3", "type": "closing", "judgment": "weak",
+        "text": { "easy": "I am a bowl of rice.", "medium": "Thank you for listening, I will now turn into a bowl of rice.", "hard": "I shall now conclude my argument and undergo metamorphosis into steamed grain." }, "textJP": "（Fake）" },
+      { "id": "fake_c4", "type": "closing", "judgment": "weak",
+        "text": { "easy": "Forks are dangerous swords.", "medium": "We must ban Western food because forks are dangerous swords.", "hard": "The multi-pronged utensil poses an unacceptable threat to international security." }, "textJP": "（Fake）" },
+      { "id": "fake_c5", "type": "closing", "judgment": "weak",
+        "text": { "easy": "Let's eat the sun.", "medium": "Ultimately, our true goal should be to eat the hot sun.", "hard": "The consumption of our local stellar body is the ultimate nutritional milestone." }, "textJP": "（Fake）" },
+      { "id": "fake_c6", "type": "closing", "judgment": "weak",
+        "text": { "easy": "Soy sauce is my blood.", "medium": "Thank you, soy sauce flows through my veins instead of blood.", "hard": "My cardiovascular system is exclusively pressurized by fermented condiment liquids." }, "textJP": "（Fake）" }
     ]
   }
 }
