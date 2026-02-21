@@ -2,225 +2,414 @@
   "id": "homework",
   "title": "Homework should be abolished.",
   "titleJP": "宿題は廃止すべきである",
-  "image_url": "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1000&q=80",
+  "image_url": "/images/hw_main.webp",
   "deck": [
-    {"id": "hw_aff_A1", "stance": "affirmative", "group": "time", "type": "assertion", 
-     "text": {
-        "easy": "Abolishing homework gives students more free time.",
-        "medium": "Eliminating homework provides students with a greater amount of free time after school.",
-        "hard": "The abolition of homework significantly increases students' discretionary time, allowing for a better work-life balance."
-     }, "textJP": "宿題をなくすことで、生徒にもっと自由な時間ができます。"},
-    {"id": "hw_aff_R1", "stance": "affirmative", "group": "time", "type": "reason", 
-     "text": {
-        "easy": "Because they can spend more time on their hobbies.",
-        "medium": "It is because they can spend more time on their hobbies and personal interests instead of doing homework.",
-        "hard": "This is primarily because students can dedicate their after-school hours to cultivating personal interests and pursuing extracurricular activities."
-     }, "textJP": "なぜなら、宿題の代わりに趣味に時間を使えるからです。"},
-    {"id": "hw_aff_E1", "stance": "affirmative", "group": "time", "type": "example", 
-     "text": {
-        "easy": "For example, they can read books and play soccer.",
-        "medium": "For example, students can read books, play sports, or learn new skills like programming.",
-        "hard": "For instance, without the burden of homework, students can engage in reading literature, participating in competitive sports, or acquiring advanced skills."
-     }, "textJP": "例えば、本を読んだりサッカーをしたりできます。"},
-    {"id": "hw_aff_S1", "stance": "affirmative", "group": "time", "type": "mini_conclusion", 
-     "text": {
-        "easy": "Therefore, no homework means more free time.",
-        "medium": "Therefore, abolishing homework effectively gives students more free time.",
-        "hard": "Consequently, eliminating homework is the most effective way to guarantee students have sufficient free time."
-     }, "textJP": "よって、宿題をなくすことで自由な時間ができます。"},
+    {"id": "hw_aff_A1", "stance": "affirmative", "group": "time", "type": "assertion", "image_url": "/images/hw_aff_time_A.webp", "text": { "easy": "Abolishing homework gives students more free time.", "medium": "Eliminating homework provides students with a greater amount of free time after school.", "hard": "The abolition of homework significantly increases students' discretionary time, allowing for a better work-life balance." }, "textJP": "宿題をなくすことで、生徒にもっと自由な時間ができます。"},
+    {"id": "hw_aff_R1", "stance": "affirmative", "group": "time", "type": "reason", "image_url": "/images/hw_aff_time_R.webp", "text": { "easy": "Because they can spend more time on their hobbies.", "medium": "It is because they can spend more time on their hobbies and personal interests.", "hard": "This is primarily because students can dedicate their after-school hours to cultivating intrinsic personal interests." }, "textJP": "なぜなら、趣味に時間を使えるからです。"},
+    {"id": "hw_aff_E1", "stance": "affirmative", "group": "time", "type": "example", "image_url": "/images/hw_aff_time_E.webp", "text": { "easy": "For example, they can read books and play soccer.", "medium": "For example, students can read books, play sports, or learn new skills.", "hard": "For instance, students can engage in reading literature, participating in competitive sports, or acquiring advanced coding skills." }, "textJP": "例えば、本を読んだりサッカーをしたりできます。"},
+    {"id": "hw_aff_S1", "stance": "affirmative", "group": "time", "type": "mini_conclusion", "image_url": "/images/hw_aff_time_S.webp", "text": { "easy": "Therefore, no homework means more free time.", "medium": "Therefore, abolishing homework effectively gives students more free time.", "hard": "Consequently, eliminating homework is the most effective pedagogical shift to guarantee sufficient developmental free time." }, "textJP": "よって、宿題をなくすことで自由な時間ができます。"},
     
-    {"id": "hw_aff_A2", "stance": "affirmative", "group": "stress", "type": "assertion", 
-     "text": {
-        "easy": "Abolishing homework can reduce students' stress.",
-        "medium": "Abolishing homework can significantly reduce the mental stress of students.",
-        "hard": "The elimination of homework serves as a crucial step in alleviating the severe psychological stress burdening modern students."
-     }, "textJP": "宿題をなくすことで、生徒のストレスを減らせます。"},
-    {"id": "hw_aff_R2", "stance": "affirmative", "group": "stress", "type": "reason", 
-     "text": {
-        "easy": "Because many students feel tired after school.",
-        "medium": "It is because many students feel exhausted after school due to the heavy burden of homework.",
-        "hard": "This is because an excessive amount of homework frequently leads to physical exhaustion and mental fatigue after a long day at school."
-     }, "textJP": "なぜなら、多くの生徒は宿題のせいで放課後疲れているからです。"},
-    {"id": "hw_aff_E2", "stance": "affirmative", "group": "stress", "type": "example", 
-     "text": {
-        "easy": "Some students stay up late and can't sleep well.",
-        "medium": "Some students stay up late to finish homework and suffer from a lack of sleep.",
-        "hard": "A prime example is that numerous students are forced to stay awake until late at night to complete assignments, resulting in chronic sleep deprivation."
-     }, "textJP": "宿題を終わらせるために夜遅くまで起きていて、よく眠れない生徒もいます。"},
-    {"id": "hw_aff_S2", "stance": "affirmative", "group": "stress", "type": "mini_conclusion", 
-     "text": {
-        "easy": "Therefore, abolishing homework reduces stress.",
-        "medium": "Therefore, abolishing homework helps reduce students' stress levels.",
-        "hard": "Thus, the abolition of homework is essential for maintaining the mental well-being and reducing the stress of students."
-     }, "textJP": "よって、宿題をなくすことでストレスを減らせます。"},
+    {"id": "hw_aff_A2", "stance": "affirmative", "group": "stress", "type": "assertion", "image_url": "/images/hw_aff_stress_A.webp", "text": { "easy": "Abolishing homework can reduce students' stress.", "medium": "Abolishing homework can significantly reduce the mental stress of students.", "hard": "The elimination of homework serves as a crucial step in alleviating the severe psychological stress burdening modern students." }, "textJP": "宿題をなくすことで、ストレスを減らせます。"},
+    {"id": "hw_aff_R2", "stance": "affirmative", "group": "stress", "type": "reason", "image_url": "/images/hw_aff_stress_R.webp", "text": { "easy": "Because many students feel tired after school.", "medium": "It is because many students feel exhausted after school due to the heavy burden.", "hard": "This is because the continuous academic pressure frequently leads to physical exhaustion and severe mental fatigue." }, "textJP": "なぜなら、多くの生徒は放課後疲れているからです。"},
+    {"id": "hw_aff_E2", "stance": "affirmative", "group": "stress", "type": "example", "image_url": "/images/hw_aff_stress_E.webp", "text": { "easy": "Some students stay up late and can't sleep well.", "medium": "Some students stay up late to finish homework and suffer from a lack of sleep.", "hard": "Numerous students are forced to stay awake until dawn to complete assignments, resulting in chronic sleep deprivation." }, "textJP": "夜遅くまで起きていて、よく眠れない生徒もいます。"},
+    {"id": "hw_aff_S2", "stance": "affirmative", "group": "stress", "type": "mini_conclusion", "image_url": "/images/hw_aff_stress_S.webp", "text": { "easy": "Therefore, abolishing homework reduces stress.", "medium": "Therefore, abolishing homework helps reduce students' stress levels.", "hard": "Thus, the abolition of homework is strictly essential for maintaining the holistic mental well-being of adolescents." }, "textJP": "よって、宿題をなくすことでストレスを減らせます。"},
 
-    {"id": "hw_neg_A1", "stance": "negative", "group": "learning", "type": "assertion", 
-     "text": {
-        "easy": "Abolishing homework damages learning.",
-        "medium": "Abolishing homework deeply damages students' academic learning.",
-        "hard": "The abolition of homework critically undermines the academic progress and cognitive development of students."
-     }, "textJP": "宿題をなくすことは、生徒の学びを損ないます。"},
-    {"id": "hw_neg_R1", "stance": "negative", "group": "learning", "type": "reason", 
-     "text": {
-        "easy": "Because students will not review lessons.",
-        "medium": "It is because students will lose the habit of reviewing what they learned at school.",
-        "hard": "This occurs because without mandatory assignments, students lack the discipline to independently review and consolidate the material taught in class."
-     }, "textJP": "なぜなら、生徒が学校で習ったことを復習しなくなるからです。"},
-    {"id": "hw_neg_E1", "stance": "negative", "group": "learning", "type": "example", 
-     "text": {
-        "easy": "If they don't have homework, they forget everything.",
-        "medium": "If they do not have homework, they may easily forget what they studied in class.",
-        "hard": "For example, psychological studies show that without repetitive practice through homework, the retention rate of newly acquired knowledge drops significantly."
-     }, "textJP": "宿題がなければ、授業で学んだことを忘れてしまうかもしれません。"},
-    {"id": "hw_neg_S1", "stance": "negative", "group": "learning", "type": "mini_conclusion", 
-     "text": {
-        "easy": "Therefore, no homework is bad for learning.",
-        "medium": "Therefore, abolishing homework damages students' learning process.",
-        "hard": "In conclusion, removing homework from the curriculum inevitably damages students' overall academic achievement."
-     }, "textJP": "よって、宿題をなくすことは学びを損ないます。"},
+    {"id": "hw_neg_A1", "stance": "negative", "group": "learning", "type": "assertion", "image_url": "/images/hw_neg_learn_A.webp", "text": { "easy": "Abolishing homework damages learning.", "medium": "Abolishing homework deeply damages students' academic learning.", "hard": "The total abolition of homework critically undermines the academic progress and cognitive development of students." }, "textJP": "宿題をなくすことは、学びを損ないます。"},
+    {"id": "hw_neg_R1", "stance": "negative", "group": "learning", "type": "reason", "image_url": "/images/hw_neg_learn_R.webp", "text": { "easy": "Because students will not review lessons.", "medium": "It is because students will lose the habit of reviewing what they learned.", "hard": "Without mandatory assignments, students lack the intrinsic discipline to independently consolidate the material taught in class." }, "textJP": "なぜなら、生徒が復習しなくなるからです。"},
+    {"id": "hw_neg_E1", "stance": "negative", "group": "learning", "type": "example", "image_url": "/images/hw_neg_learn_E.webp", "text": { "easy": "If they don't have homework, they forget everything.", "medium": "If they do not have homework, they may easily forget what they studied.", "hard": "Psychological studies consistently show that without repetitive practice, the retention rate of newly acquired knowledge drops drastically." }, "textJP": "宿題がなければ、授業で学んだことを忘れてしまいます。"},
+    {"id": "hw_neg_S1", "stance": "negative", "group": "learning", "type": "mini_conclusion", "image_url": "/images/hw_neg_learn_S.webp", "text": { "easy": "Therefore, no homework is bad for learning.", "medium": "Therefore, abolishing homework damages students' learning process.", "hard": "In conclusion, removing homework from the curriculum inevitably sabotages students' overall long-term academic achievement." }, "textJP": "よって、宿題をなくすことは学びを損ないます。"},
 
-    {"id": "hw_neg_A2", "stance": "negative", "group": "resp", "type": "assertion", 
-     "text": {
-        "easy": "Abolishing homework harms responsibility.",
-        "medium": "Abolishing homework harms students' sense of responsibility.",
-        "hard": "Eliminating homework deprives students of a vital opportunity to develop a strong sense of personal responsibility."
-     }, "textJP": "宿題をなくすことは、生徒の責任感を弱めます。"},
-    {"id": "hw_neg_R2", "stance": "negative", "group": "resp", "type": "reason", 
-     "text": {
-        "easy": "Because homework teaches them to finish tasks.",
-        "medium": "It is because homework teaches them to finish given tasks by themselves.",
-        "hard": "This is because homework acts as an independent task that forces students to take ownership of their duties without direct supervision."
-     }, "textJP": "なぜなら、宿題は自分で課題をやり遂げることを教えるからです。"},
-    {"id": "hw_neg_E2", "stance": "negative", "group": "resp", "type": "example", 
-     "text": {
-        "easy": "By doing homework, they learn time management.",
-        "medium": "By doing homework, students learn how to manage their time effectively.",
-        "hard": "For instance, completing daily assignments teaches students essential life skills such as time management, prioritization, and self-discipline."
-     }, "textJP": "宿題をすることで、生徒は時間の使い方を学びます。"},
-    {"id": "hw_neg_S2", "stance": "negative", "group": "resp", "type": "mini_conclusion", 
-     "text": {
-        "easy": "Therefore, homework teaches responsibility.",
-        "medium": "Therefore, abolishing homework harms their sense of responsibility.",
-        "hard": "Consequently, abolishing homework removes a fundamental tool used to foster independence and responsibility in youth."
-     }, "textJP": "よって、宿題をなくすことは責任感を弱めます。"},
-
-    {"id": "fake_aff_A1", "stance": "affirmative", "group": "fake", "type": "assertion", 
-     "text": {
-        "easy": "Homework makes students hungry.",
-        "medium": "Homework is actually a type of punishment from aliens.",
-        "hard": "Homework accelerates global warming due to the excessive production of paper."
-     }, "textJP": "（Fake: 無関係な主張）"},
-    {"id": "fake_aff_R1", "stance": "affirmative", "group": "fake", "type": "reason", 
-     "text": {
-        "easy": "Because games are more important.",
-        "medium": "Because math formulas often try to control human minds.",
-        "hard": "Because the friction caused by writing with a pencil generates an abnormal amount of heat worldwide."
-     }, "textJP": "（Fake: 無関係な理由）"},
-    {"id": "fake_aff_E1", "stance": "affirmative", "group": "fake", "type": "example", 
-     "text": {
-        "easy": "For example, my dog ate my homework.",
-        "medium": "For example, sleeping for 15 hours is the only way to be a genius.",
-        "hard": "For instance, a recent fictional study revealed that abolishing math homework would increase the world's oxygen levels by 50%."
-     }, "textJP": "（Fake: 無関係な証拠）"},
-    {"id": "fake_aff_S1", "stance": "affirmative", "group": "fake", "type": "mini_conclusion", 
-     "text": {
-        "easy": "Therefore, we should eat pizza.",
-        "medium": "Therefore, doing homework makes your hair turn blue.",
-        "hard": "Therefore, adopting an anti-homework policy will save the polar bears."
-     }, "textJP": "（Fake: 無関係な結論）"},
-     
-    {"id": "fake_neg_A1", "stance": "negative", "group": "fake", "type": "assertion", 
-     "text": {
-        "easy": "Homework is a good punishment.",
-        "medium": "Doing homework keeps evil ghosts away from your house.",
-        "hard": "The continuous engagement in homework prevents the rapid deterioration of the national economy."
-     }, "textJP": "（Fake: 無関係な主張）"},
-    {"id": "fake_neg_R1", "stance": "negative", "group": "fake", "type": "reason", 
-     "text": {
-        "easy": "Because parents want to watch TV.",
-        "medium": "Because the ink in our pens contains special protective magic.",
-        "hard": "This is because students who do not complete their homework will immediately cause stock prices to plummet."
-     }, "textJP": "（Fake: 無関係な理由）"}
+    {"id": "hw_neg_A2", "stance": "negative", "group": "resp", "type": "assertion", "image_url": "/images/hw_neg_resp_A.webp", "text": { "easy": "Abolishing homework harms responsibility.", "medium": "Abolishing homework harms students' sense of responsibility.", "hard": "Eliminating homework deprives students of a vital opportunity to develop a strong sense of personal and academic responsibility." }, "textJP": "宿題をなくすことは、生徒の責任感を弱めます。"},
+    {"id": "hw_neg_R2", "stance": "negative", "group": "resp", "type": "reason", "image_url": "/images/hw_neg_resp_R.webp", "text": { "easy": "Because homework teaches them to finish tasks.", "medium": "It is because homework teaches them to finish given tasks by themselves.", "hard": "Homework functions as an independent task that forces students to take ownership of their duties without direct supervision." }, "textJP": "なぜなら、自分で課題をやり遂げることを教えるからです。"},
+    {"id": "hw_neg_E2", "stance": "negative", "group": "resp", "type": "example", "image_url": "/images/hw_neg_resp_E.webp", "text": { "easy": "By doing homework, they learn time management.", "medium": "By doing homework, students learn how to manage their time effectively.", "hard": "For instance, completing daily assignments teaches essential life skills such as long-term time management and self-discipline." }, "textJP": "宿題をすることで、時間の使い方を学びます。"},
+    {"id": "hw_neg_S2", "stance": "negative", "group": "resp", "type": "mini_conclusion", "image_url": "/images/hw_neg_resp_S.webp", "text": { "easy": "Therefore, homework teaches responsibility.", "medium": "Therefore, abolishing homework harms their sense of responsibility.", "hard": "Consequently, abolishing homework removes a fundamental pedagogical tool used to foster independence in youth." }, "textJP": "よって、宿題をなくすことは責任感を弱めます。"}
   ],
   "vocabulary": [
-    {"word": "abolish / eliminate", "meaning": "廃止する"}, 
-    {"word": "responsibility", "meaning": "責任"},
-    {"word": "exhausted / tired", "meaning": "疲れきった"},
     {"word": "discretionary time", "meaning": "自由裁量の時間"},
     {"word": "undermine", "meaning": "弱める、損なう"},
-    {"word": "deprive", "meaning": "奪う"}
+    {"word": "retention rate", "meaning": "定着率、記憶の保持率"},
+    {"word": "pedagogical", "meaning": "教育的な"},
+    {"word": "consolidate", "meaning": "強固にする、定着させる"}
   ],
   
   "crossExam": {
-    "question": { 
-      "text": {
-         "easy": "If they have free time, won't they just play games?",
-         "medium": "If students are given more free time, won't they just spend it playing video games?",
-         "hard": "If we abolish homework to provide free time, isn't it highly probable that students will simply squander it on unproductive activities like video games?"
-      }, "textJP": "自由時間があっても、ゲームをするだけではありませんか？" 
-    },
-    "options": [
-      { "id": "q1", "type": "answer", "judgment": "correct",
-        "text": {
-          "easy": "Students can learn to manage their own time.",
-          "medium": "Students can use that time to learn self-management and explore real-world hobbies.",
-          "hard": "On the contrary, having unstructured time provides a crucial opportunity for students to cultivate self-regulation and discover intrinsic motivations."
-        }, "textJP": "生徒は自己管理を学べます。" 
+    "affirmative": [
+      {
+        "id": "ce_aff_1",
+        "question": { "image_url": "/images/hw_ce_atk_aff_1.webp", "text": { "easy": "If they have free time, won't they just play games?", "medium": "If students get free time, won't they just spend it playing video games?", "hard": "Isn't it highly probable that students will simply squander unstructured time on digital entertainment rather than productive hobbies?" }, "textJP": "自由時間があっても、ゲームをするだけではありませんか？" },
+        "options": [
+          { "id": "q1", "type": "answer", "judgment": "correct", "image_url": "/images/hw_ce_ans_aff_1.webp", "text": { "easy": "Students can learn to manage their own time.", "medium": "Students can use that time to learn self-management and pursue real hobbies.", "hard": "On the contrary, having unstructured time provides a crucial opportunity for students to cultivate self-regulation and discover intrinsic motivations." }, "textJP": "生徒は自己管理を学べます。" },
+          { "id": "f1", "type": "answer", "judgment": "weak", "image_url": "/images/fake_pizza.webp", "text": { "easy": "Games are pizza.", "medium": "We should eat pizza while playing games.", "hard": "Culinary satisfaction overrides the necessity for academic regulation." } },
+          { "id": "f2", "type": "answer", "judgment": "weak", "image_url": "/images/fake_alien.webp", "text": { "easy": "Aliens play games.", "medium": "Aliens will come down and play games for us.", "hard": "Extraterrestrial entities will manage our digital entertainment." } },
+          { "id": "f3", "type": "answer", "judgment": "weak", "image_url": "/images/fake_sleep.webp", "text": { "easy": "I will sleep.", "medium": "Students will just sleep for a hundred years.", "hard": "Century-long hibernation is the optimal response to academic freedom." } },
+          { "id": "f4", "type": "answer", "judgment": "weak", "image_url": "/images/fake_dog.webp", "text": { "easy": "Dogs play better.", "medium": "Dogs are much better at video games than humans.", "hard": "Canine digital proficiency renders human gaming obsolete." } },
+          { "id": "f5", "type": "answer", "judgment": "weak", "image_url": "/images/fake_magic.webp", "text": { "easy": "Magic breaks games.", "medium": "I will use magic to make all games disappear.", "hard": "Arcane incantations will eradicate all digital software globally." } },
+          { "id": "f6", "type": "answer", "judgment": "weak", "image_url": "/images/fake_mars.webp", "text": { "easy": "Mars gaming.", "medium": "We will take our video games to the planet Mars.", "hard": "Interplanetary relocation is required for optimal gaming performance." } }
+        ]
       },
-      { "id": "fake_q1", "type": "answer", "judgment": "weak",
-        "text": { "easy": "Games are fun.", "medium": "Video games are the best education.", "hard": "Interactive digital entertainment is scientifically proven to replace traditional schooling." }, "textJP": "（Fakeな回答）" },
-      { "id": "fake_q2", "type": "answer", "judgment": "weak",
-        "text": { "easy": "I don't know.", "medium": "Parents should play games instead.", "hard": "The economic impact of the gaming industry justifies this behavior." }, "textJP": "（Fakeな回答）" },
-      { "id": "fake_q3", "type": "answer", "judgment": "weak",
-        "text": { "easy": "We should abolish games.", "medium": "Let's throw away all smartphones.", "hard": "We must impose a strict prohibition on all digital devices globally." }, "textJP": "（Fakeな回答）" },
-      { "id": "fake_q4", "type": "answer", "judgment": "weak",
-        "text": { "easy": "Homework is a game.", "medium": "They can play games while sleeping.", "hard": "Homework itself is merely a gamified mechanism of social control." }, "textJP": "（Fakeな回答）" }
+      {
+        "id": "ce_aff_2",
+        "question": { "image_url": "/images/hw_ce_atk_aff_2.webp", "text": { "easy": "Won't their test scores go down?", "medium": "Without daily homework, won't students' test scores inevitably go down?", "hard": "Does the absence of daily repetitive homework not directly correlate with a catastrophic decline in standardized test scores?" }, "textJP": "テストの点数が下がるのではありませんか？" },
+        "options": [
+          { "id": "q2", "type": "answer", "judgment": "correct", "image_url": "/images/hw_ce_ans_aff_2.webp", "text": { "easy": "They will focus better in class.", "medium": "Because they are well-rested, they will focus much better during class time.", "hard": "Enhanced sleep quality and reduced burnout significantly improve cognitive focus and knowledge retention during primary instructional hours." }, "textJP": "授業中により集中できるようになります。" },
+          { "id": "f1", "type": "answer", "judgment": "weak", "image_url": "/images/fake_pizza.webp", "text": { "easy": "Tests are pizza.", "medium": "Test papers are actually made of cheese pizza.", "hard": "Standardized assessments are primarily composed of baked dairy products." } },
+          { "id": "f2", "type": "answer", "judgment": "weak", "image_url": "/images/fake_alien.webp", "text": { "easy": "Aliens take tests.", "medium": "Aliens will take all our tests for us.", "hard": "Extraterrestrial proxies will execute all academic evaluations." } },
+          { "id": "f3", "type": "answer", "judgment": "weak", "image_url": "/images/fake_sleep.webp", "text": { "easy": "Sleep during tests.", "medium": "It is best to sleep deeply during every test.", "hard": "Unconscious states are optimal for navigating academic assessments." } },
+          { "id": "f4", "type": "answer", "judgment": "weak", "image_url": "/images/fake_dog.webp", "text": { "easy": "Dogs eat tests.", "medium": "My dog will eat the test paper anyway.", "hard": "Canine consumption of evaluation materials nullifies the data." } },
+          { "id": "f5", "type": "answer", "judgment": "weak", "image_url": "/images/fake_magic.webp", "text": { "easy": "Magic test scores.", "medium": "I will use magic to get a perfect score.", "hard": "Sorcery is the most reliable method for achieving academic excellence." } },
+          { "id": "f6", "type": "answer", "judgment": "weak", "image_url": "/images/fake_mars.webp", "text": { "easy": "Tests on Mars.", "medium": "The tests on planet Mars are much easier.", "hard": "Martian educational standards are significantly less rigorous." } }
+        ]
+      },
+      {
+        "id": "ce_aff_3",
+        "question": { "image_url": "/images/hw_ce_atk_aff_3.webp", "text": { "easy": "How will they remember what they learned?", "medium": "If they don't do homework, how will they remember the lessons?", "hard": "Without the reinforcement of after-school assignments, how can we prevent the rapid decay of short-term memory?" }, "textJP": "宿題なしで、どうやって習ったことを覚えるのですか？" },
+        "options": [
+          { "id": "q3", "type": "answer", "judgment": "correct", "image_url": "/images/hw_ce_ans_aff_3.webp", "text": { "easy": "Teachers can review in class.", "medium": "Teachers can include short review sessions at the beginning of each class.", "hard": "Educators can seamlessly integrate spaced repetition and active recall exercises directly into their daily pedagogical frameworks." }, "textJP": "先生が授業中に復習の時間を取ることができます。" },
+          { "id": "f1", "type": "answer", "judgment": "weak", "image_url": "/images/fake_pizza.webp", "text": { "easy": "Eat smart pizza.", "medium": "Eating special pizza makes your brain remember everything.", "hard": "Margarita consumption triggers immediate photographic memory." } },
+          { "id": "f2", "type": "answer", "judgment": "weak", "image_url": "/images/fake_alien.webp", "text": { "easy": "Aliens implant memory.", "medium": "Aliens will put a memory chip in our heads.", "hard": "Extraterrestrial neuro-implants bypass the need for biological memory." } },
+          { "id": "f3", "type": "answer", "judgment": "weak", "image_url": "/images/fake_sleep.webp", "text": { "easy": "Sleep makes you smart.", "medium": "If you sleep 20 hours, you instantly learn everything.", "hard": "Prolonged comatose states naturally synthesize complex academic data." } },
+          { "id": "f4", "type": "answer", "judgment": "weak", "image_url": "/images/fake_dog.webp", "text": { "easy": "Dogs whisper answers.", "medium": "My dog whispers the answers in my ear.", "hard": "Canine telepathy provides a constant stream of academic data." } },
+          { "id": "f5", "type": "answer", "judgment": "weak", "image_url": "/images/fake_magic.webp", "text": { "easy": "Memory potions.", "medium": "We just need to drink a magic memory potion.", "hard": "Alchemical elixirs are superior to traditional rote memorization." } },
+          { "id": "f6", "type": "answer", "judgment": "weak", "image_url": "/images/fake_mars.webp", "text": { "easy": "Mars air helps.", "medium": "Breathing the air on Mars gives you a perfect memory.", "hard": "The atmospheric composition of Mars naturally halts neural decay." } }
+        ]
+      },
+      {
+        "id": "ce_aff_4",
+        "question": { "image_url": "/images/hw_ce_atk_aff_4.webp", "text": { "easy": "Won't students become lazy?", "medium": "If we remove all homework, won't students just become lazy and lose discipline?", "hard": "Doesn't the complete removal of academic obligations outside school hours breed a culture of chronic laziness and apathy?" }, "textJP": "生徒が怠け者になってしまいませんか？" },
+        "options": [
+          { "id": "q4", "type": "answer", "judgment": "correct", "image_url": "/images/hw_ce_ans_aff_4.webp", "text": { "easy": "They will find things they love.", "medium": "Instead of being lazy, they will actively pursue passions they actually enjoy.", "hard": "Relieving forced obligations empowers students to direct their energy toward proactive, self-driven passion projects." }, "textJP": "怠けるのではなく、本当に好きなことに情熱を注ぐようになります。" },
+          { "id": "f1", "type": "answer", "judgment": "weak", "image_url": "/images/fake_pizza.webp", "text": { "easy": "Lazy is good for pizza.", "medium": "Being lazy is good because we can eat more pizza.", "hard": "Apathetic lifestyles maximize the efficiency of carbohydrate digestion." } },
+          { "id": "f2", "type": "answer", "judgment": "weak", "image_url": "/images/fake_alien.webp", "text": { "easy": "Aliens like lazy humans.", "medium": "Aliens prefer humans to be very lazy.", "hard": "Extraterrestrial conquerors intentionally cultivate human lethargy." } },
+          { "id": "f3", "type": "answer", "judgment": "weak", "image_url": "/images/fake_sleep.webp", "text": { "easy": "Laziness is sleep.", "medium": "Laziness is just a scientific word for beautiful sleep.", "hard": "Apathy is merely a misdiagnosed symptom of required cellular hibernation." } },
+          { "id": "f4", "type": "answer", "judgment": "weak", "image_url": "/images/fake_dog.webp", "text": { "easy": "Dogs are lazy.", "medium": "Dogs are lazy and they are very happy, so we should be too.", "hard": "The canine model of domestic lethargy represents the peak of evolution." } },
+          { "id": "f5", "type": "answer", "judgment": "weak", "image_url": "/images/fake_magic.webp", "text": { "easy": "Magic stops laziness.", "medium": "A wizard will cast a spell to make us run fast.", "hard": "Arcane kinetic enchantments will physically compel students to exercise." } },
+          { "id": "f6", "type": "answer", "judgment": "weak", "image_url": "/images/fake_mars.webp", "text": { "easy": "Gravity on Mars.", "medium": "We are only lazy because Earth's gravity is too heavy.", "hard": "Terrestrial gravitational pull is the sole scientific cause of human apathy." } }
+        ]
+      },
+      {
+        "id": "ce_aff_5",
+        "question": { "image_url": "/images/hw_ce_atk_aff_5.webp", "text": { "easy": "What about kids who don't study at home?", "medium": "Isn't abolishing homework unfair to kids who won't study at all without it?", "hard": "Doesn't the abolition of homework disenfranchise unmotivated students who rely on structural enforcement to study?" }, "textJP": "自発的に勉強しない子供にとって不利になりませんか？" },
+        "options": [
+          { "id": "q5", "type": "answer", "judgment": "correct", "image_url": "/images/hw_ce_ans_aff_5.webp", "text": { "easy": "Schools should help them in class.", "medium": "Schools should provide enough support and tutoring during school hours.", "hard": "Educational institutions must pivot to comprehensive in-school tutoring to ensure equitable academic support for all demographics." }, "textJP": "学校が授業時間内に十分なサポートを提供するべきです。" },
+          { "id": "f1", "type": "answer", "judgment": "weak", "image_url": "/images/fake_pizza.webp", "text": { "easy": "Feed them pizza.", "medium": "We should just feed those kids a lot of pizza.", "hard": "Nutritional bribery via Italian cuisine will spontaneously generate motivation." } },
+          { "id": "f2", "type": "answer", "judgment": "weak", "image_url": "/images/fake_alien.webp", "text": { "easy": "Aliens will abduct them.", "medium": "Kids who don't study will be abducted by aliens anyway.", "hard": "Extraterrestrial forces naturally cull academically unmotivated demographics." } },
+          { "id": "f3", "type": "answer", "judgment": "weak", "image_url": "/images/fake_sleep.webp", "text": { "easy": "They should sleep forever.", "medium": "If they don't study, they should just sleep forever.", "hard": "Permanent unconsciousness is the most viable alternative to academic failure." } },
+          { "id": "f4", "type": "answer", "judgment": "weak", "image_url": "/images/fake_dog.webp", "text": { "easy": "Dogs will bite them.", "medium": "Wild dogs will chase them if they don't study.", "hard": "Canine enforcement units are necessary to maintain academic compliance." } },
+          { "id": "f5", "type": "answer", "judgment": "weak", "image_url": "/images/fake_magic.webp", "text": { "easy": "Magic makes them smart.", "medium": "A wizard can just magically transfer knowledge into their brains.", "hard": "Arcane knowledge transfer entirely circumvents the need for structural enforcement." } },
+          { "id": "f6", "type": "answer", "judgment": "weak", "image_url": "/images/fake_mars.webp", "text": { "easy": "Send them to Mars.", "medium": "Kids who don't study should be sent to work on Mars.", "hard": "Interplanetary penal colonies are the optimal solution for unmotivated youth." } }
+        ]
+      },
+      {
+        "id": "ce_aff_6",
+        "question": { "image_url": "/images/hw_ce_atk_aff_6.webp", "text": { "easy": "How will they survive high school?", "medium": "If they don't do homework now, how will they handle heavy tasks in high school?", "hard": "How can students develop the rigorous stamina required for advanced university workloads without early conditioning?" }, "textJP": "今のうちに宿題に慣れないと、高校や大学で苦労しませんか？" },
+        "options": [
+          { "id": "q6", "type": "answer", "judgment": "correct", "image_url": "/images/hw_ce_ans_aff_6.webp", "text": { "easy": "They will learn when they are older.", "medium": "As they grow older, they will naturally develop the maturity to handle larger tasks.", "hard": "Cognitive maturity and self-directed academic stamina naturally emerge when students are intrinsically motivated by higher education goals." }, "textJP": "成長するにつれて、大きな課題をこなす精神力は自然に身につきます。" },
+          { "id": "f1", "type": "answer", "judgment": "weak", "image_url": "/images/fake_pizza.webp", "text": { "easy": "High schools are pizza.", "medium": "High schools will just be pizza eating contests in the future.", "hard": "Advanced degrees will soon be awarded based entirely on gastronomic capacity." } },
+          { "id": "f2", "type": "answer", "judgment": "weak", "image_url": "/images/fake_alien.webp", "text": { "easy": "Aliens destroy schools.", "medium": "Aliens will destroy all high schools next year anyway.", "hard": "Impending extraterrestrial annihilation renders higher education planning moot." } },
+          { "id": "f3", "type": "answer", "judgment": "weak", "image_url": "/images/fake_sleep.webp", "text": { "easy": "College is for sleeping.", "medium": "In college, you just sleep in the library every day.", "hard": "University curriculums consist exclusively of advanced somnology seminars." } },
+          { "id": "f4", "type": "answer", "judgment": "weak", "image_url": "/images/fake_dog.webp", "text": { "easy": "Dogs go to college.", "medium": "Only our pet dogs need to go to university.", "hard": "Higher education institutions are strictly reserved for the canine elite." } },
+          { "id": "f5", "type": "answer", "judgment": "weak", "image_url": "/images/fake_magic.webp", "text": { "easy": "Hogwarts is better.", "medium": "We should all just go to a magic school instead of high school.", "hard": "Traditional universities are inferior to arcane academies of witchcraft." } },
+          { "id": "f6", "type": "answer", "judgment": "weak", "image_url": "/images/fake_mars.webp", "text": { "easy": "Universities on Mars.", "medium": "The gravity on Mars makes university homework much lighter.", "hard": "Martian atmospheric pressure significantly reduces the physical weight of textbooks." } }
+        ]
+      }
+    ],
+    "negative": [
+      {
+        "id": "ce_neg_1",
+        "question": { "image_url": "/images/hw_ce_atk_neg_1.webp", "text": { "easy": "Doesn't homework cause too much stress?", "medium": "Doesn't homework cause too much mental stress and burnout for children?", "hard": "Does the relentless imposition of homework not generate unsustainable levels of psychological distress and academic burnout?" }, "textJP": "宿題は多すぎるストレスを引き起こしませんか？" },
+        "options": [
+          { "id": "q1", "type": "answer", "judgment": "correct", "image_url": "/images/hw_ce_ans_neg_1.webp", "text": { "easy": "Overcoming it makes them stronger.", "medium": "Overcoming this stress helps build resilience for their future challenges.", "hard": "Navigating such academic pressure cultivates essential psychological resilience and grit necessary for adulthood." }, "textJP": "それを乗り越えることで、将来のための強さが身につきます。" },
+          { "id": "f1", "type": "answer", "judgment": "weak", "image_url": "/images/fake_pizza.webp", "text": { "easy": "Pizza cures stress.", "medium": "Eating ten pizzas will instantly cure all stress.", "hard": "Excessive caloric intake of Italian cuisine neutralizes psychological distress." } },
+          { "id": "f2", "type": "answer", "judgment": "weak", "image_url": "/images/fake_alien.webp", "text": { "easy": "Aliens gave us stress.", "medium": "Stress was invented by aliens from another galaxy.", "hard": "Psychological pressure is a foreign concept introduced by extraterrestrials." } },
+          { "id": "f3", "type": "answer", "judgment": "weak", "image_url": "/images/fake_sleep.webp", "text": { "easy": "Sleeping is stressful.", "medium": "Actually, sleeping is much more stressful than studying.", "hard": "The state of unconsciousness generates exponentially more cortisol than homework." } },
+          { "id": "f4", "type": "answer", "judgment": "weak", "image_url": "/images/fake_dog.webp", "text": { "easy": "Dogs love stress.", "medium": "Dogs really enjoy feeling a lot of stress.", "hard": "Canines actively seek out high-pressure psychological environments." } },
+          { "id": "f5", "type": "answer", "judgment": "weak", "image_url": "/images/fake_magic.webp", "text": { "easy": "Stress is magic.", "medium": "Stress is actually a type of dark magic.", "hard": "Anxiety is fundamentally derived from arcane necrotic sorcery." } },
+          { "id": "f6", "type": "answer", "judgment": "weak", "image_url": "/images/fake_mars.webp", "text": { "easy": "Mars has no stress.", "medium": "We should go to Mars where there is no stress.", "hard": "Interplanetary migration completely eradicates human psychological fatigue." } }
+        ]
+      },
+      {
+        "id": "ce_neg_2",
+        "question": { "image_url": "/images/hw_ce_atk_neg_2.webp", "text": { "easy": "Is it fair if parents help with homework?", "medium": "Is homework fair when some parents help their kids and others don't?", "hard": "Does homework not exacerbate educational inequality due to drastically varying levels of parental assistance at home?" }, "textJP": "親が手伝う環境とそうでない環境があるのは教育格差を生みませんか？" },
+        "options": [
+          { "id": "q2", "type": "answer", "judgment": "correct", "image_url": "/images/hw_ce_ans_neg_2.webp", "text": { "easy": "Teachers know who did it alone.", "medium": "Teachers can check the students' real understanding during classes and tests.", "hard": "Educators can triangulate homework submissions with in-class assessments to accurately gauge true individual comprehension." }, "textJP": "先生は授業やテストで本当の理解度を確認できます。" },
+          { "id": "f1", "type": "answer", "judgment": "weak", "image_url": "/images/fake_pizza.webp", "text": { "easy": "Parents are pizza.", "medium": "Parents are actually just large slices of pizza.", "hard": "Parental figures are fundamentally composed of baked dough and cheese." } },
+          { "id": "f2", "type": "answer", "judgment": "weak", "image_url": "/images/fake_alien.webp", "text": { "easy": "Aliens do my homework.", "medium": "My parents are aliens who do my math homework.", "hard": "Extraterrestrial guardians provide superior academic assistance." } },
+          { "id": "f3", "type": "answer", "judgment": "weak", "image_url": "/images/fake_sleep.webp", "text": { "easy": "Parents are sleeping.", "medium": "All parents are sleeping and cannot help anyone.", "hard": "Universal parental narcolepsy prevents any academic intervention." } },
+          { "id": "f4", "type": "answer", "judgment": "weak", "image_url": "/images/fake_dog.webp", "text": { "easy": "Dogs are my parents.", "medium": "My dog is my parent and helps me study.", "hard": "Canine companions serve as the primary educational surrogates in modern homes." } },
+          { "id": "f5", "type": "answer", "judgment": "weak", "image_url": "/images/fake_magic.webp", "text": { "easy": "Magic solves everything.", "medium": "We can just use magic to make it fair.", "hard": "Arcane equalization spells neutralize all socio-economic disparities." } },
+          { "id": "f6", "type": "answer", "judgment": "weak", "image_url": "/images/fake_mars.webp", "text": { "easy": "Parents on Mars.", "medium": "Parents who help should be sent to Mars.", "hard": "The exile of overly helpful parents to Mars restores academic equilibrium." } }
+        ]
+      },
+      {
+        "id": "ce_neg_3",
+        "question": { "image_url": "/images/hw_ce_atk_neg_3.webp", "text": { "easy": "What about their sleep and health?", "medium": "Doesn't homework steal precious sleep time, damaging their growing bodies?", "hard": "Is it justifiable to compromise adolescent physiological development and circadian rhythms for the sake of redundant assignments?" }, "textJP": "宿題が睡眠時間を奪い、健康を害してはいませんか？" },
+        "options": [
+          { "id": "q3", "type": "answer", "judgment": "correct", "image_url": "/images/hw_ce_ans_neg_3.webp", "text": { "easy": "They just need to plan better.", "medium": "With proper time management, students can finish homework and sleep well.", "hard": "Optimal scheduling and elimination of digital distractions ensure students can fulfill academic duties while maintaining healthy sleep hygiene." }, "textJP": "時間の使い方の問題であり、計画的にやれば睡眠は確保できます。" },
+          { "id": "f1", "type": "answer", "judgment": "weak", "image_url": "/images/fake_pizza.webp", "text": { "easy": "Pizza is a bed.", "medium": "You can just sleep on a giant warm pizza.", "hard": "Margarita crusts provide optimal ergonomic support for spinal health." } },
+          { "id": "f2", "type": "answer", "judgment": "weak", "image_url": "/images/fake_alien.webp", "text": { "easy": "Aliens don't sleep.", "medium": "Aliens proved that humans don't actually need to sleep.", "hard": "Extraterrestrial biology confirms that cellular regeneration via sleep is a myth." } },
+          { "id": "f3", "type": "answer", "judgment": "weak", "image_url": "/images/fake_sleep.webp", "text": { "easy": "Homework is a dream.", "medium": "We can just do our homework while we are dreaming.", "hard": "Lucid dreaming interfaces allow for unconscious academic productivity." } },
+          { "id": "f4", "type": "answer", "judgment": "weak", "image_url": "/images/fake_dog.webp", "text": { "easy": "Dogs sleep for us.", "medium": "Our pet dogs can sleep 20 hours a day for us.", "hard": "Canine proxies can absorb human fatigue through quantum entanglement." } },
+          { "id": "f5", "type": "answer", "judgment": "weak", "image_url": "/images/fake_magic.webp", "text": { "easy": "Magic energy potion.", "medium": "We can drink a magic potion and never sleep again.", "hard": "Alchemical vitality elixirs permanently eradicate biological exhaustion." } },
+          { "id": "f6", "type": "answer", "judgment": "weak", "image_url": "/images/fake_mars.webp", "text": { "easy": "Nights on Mars.", "medium": "The nights on Mars are longer, so we should sleep there.", "hard": "Martian rotational periods naturally accommodate excessive study schedules." } }
+        ]
+      },
+      {
+        "id": "ce_neg_4",
+        "question": { "image_url": "/images/hw_ce_atk_neg_4.webp", "text": { "easy": "Isn't a lot of homework just copying?", "medium": "Isn't most homework just boring copying that doesn't help learning?", "hard": "Does the bulk of assigned homework not merely constitute mindless rote transcription rather than genuine cognitive engagement?" }, "textJP": "宿題の多くは、ただの「書き写し（作業）」になっていませんか？" },
+        "options": [
+          { "id": "q4", "type": "answer", "judgment": "correct", "image_url": "/images/hw_ce_ans_neg_4.webp", "text": { "easy": "Repetition helps memory.", "medium": "Even repetitive writing helps lock the basic information into their memory.", "hard": "While seemingly mundane, repetitive kinesthetic engagement actively strengthens neural pathways necessary for foundational memorization." }, "textJP": "反復的な作業であっても、基礎的な記憶の定着には非常に役立ちます。" },
+          { "id": "f1", "type": "answer", "judgment": "weak", "image_url": "/images/fake_pizza.webp", "text": { "easy": "Copy pizza recipes.", "medium": "We should only copy secret pizza recipes for homework.", "hard": "Transcribing Italian culinary texts is the only valid form of rote learning." } },
+          { "id": "f2", "type": "answer", "judgment": "weak", "image_url": "/images/fake_alien.webp", "text": { "easy": "Aliens like copying.", "medium": "Aliens force us to copy words to steal our brain power.", "hard": "Graphomotor repetition generates kinetic energy harvested by UFOs." } },
+          { "id": "f3", "type": "answer", "judgment": "weak", "image_url": "/images/fake_sleep.webp", "text": { "easy": "Copying makes you sleep.", "medium": "Copying words is the best way to fall asleep fast.", "hard": "Rote transcription is medically prescribed as a heavy sedative." } },
+          { "id": "f4", "type": "answer", "judgment": "weak", "image_url": "/images/fake_dog.webp", "text": { "easy": "Dogs hold the pencil.", "medium": "I just tape a pencil to my dog's tail to do the copying.", "hard": "Canine tail oscillations naturally replicate human cursive handwriting." } },
+          { "id": "f5", "type": "answer", "judgment": "weak", "image_url": "/images/fake_magic.webp", "text": { "easy": "Magic self-writing pen.", "medium": "I use a magic pen that copies everything automatically.", "hard": "Enchanted calligraphy tools completely automate all graphic output." } },
+          { "id": "f6", "type": "answer", "judgment": "weak", "image_url": "/images/fake_mars.webp", "text": { "easy": "Copying on Mars.", "medium": "Writing is much faster on Mars because of the air.", "hard": "Martian atmospheric friction accelerates handwriting velocity by 300%." } }
+        ]
+      },
+      {
+        "id": "ce_neg_5",
+        "question": { "image_url": "/images/hw_ce_atk_neg_5.webp", "text": { "easy": "Don't kids need time for sports?", "medium": "Don't children need time for sports and arts to grow up healthy?", "hard": "Does excessive homework not severely infringe upon the crucial developmental benefits of extracurricular athletics and fine arts?" }, "textJP": "子供にはスポーツや芸術に打ち込む時間も必要ではないですか？" },
+        "options": [
+          { "id": "q5", "type": "answer", "judgment": "correct", "image_url": "/images/hw_ce_ans_neg_5.webp", "text": { "easy": "They can do both.", "medium": "A reasonable amount of homework still leaves plenty of time for sports and arts.", "hard": "Properly calibrated academic assignments do not preclude participation in enriching extracurricular paradigms; they foster a balanced schedule." }, "textJP": "適切な量の宿題であれば、部活動と両立し、バランスの取れた生活を送れます。" },
+          { "id": "f1", "type": "answer", "judgment": "weak", "image_url": "/images/fake_pizza.webp", "text": { "easy": "Eating pizza is a sport.", "medium": "Competitive pizza eating is the only sport we need.", "hard": "Gastronomic endurance events provide superior cardiovascular conditioning." } },
+          { "id": "f2", "type": "answer", "judgment": "weak", "image_url": "/images/fake_alien.webp", "text": { "easy": "Aliens stole our soccer balls.", "medium": "We can't play sports because aliens stole all the equipment.", "hard": "Extraterrestrial confiscation of athletic gear renders physical education impossible." } },
+          { "id": "f3", "type": "answer", "judgment": "weak", "image_url": "/images/fake_sleep.webp", "text": { "easy": "Sleeping is the best art.", "medium": "Sleeping deeply is considered the highest form of modern art.", "hard": "Somnolescent immobility is the pinnacle of contemporary aesthetic expression." } },
+          { "id": "f4", "type": "answer", "judgment": "weak", "image_url": "/images/fake_dog.webp", "text": { "easy": "Dogs play the sports.", "medium": "Our dogs can play soccer while we do math homework.", "hard": "Canine athletic proxies fulfill all human physiological exercise requirements." } },
+          { "id": "f5", "type": "answer", "judgment": "weak", "image_url": "/images/fake_magic.webp", "text": { "easy": "Magic makes you strong.", "medium": "We don't need sports, a magic wand makes us very strong.", "hard": "Arcane physical augmentations completely replace the need for cardiovascular exertion." } },
+          { "id": "f6", "type": "answer", "judgment": "weak", "image_url": "/images/fake_mars.webp", "text": { "easy": "Basketball on Mars.", "medium": "Sports are only fun if you play them on the moon or Mars.", "hard": "Low-gravity environments are the only acceptable venues for athletic competition." } }
+        ]
+      },
+      {
+        "id": "ce_neg_6",
+        "question": { "image_url": "/images/hw_ce_atk_neg_6.webp", "text": { "easy": "Doesn't homework cause family fights?", "medium": "Doesn't forcing kids to do homework cause unnecessary arguments between parents and children?", "hard": "Does the daily enforcement of homework not act as a primary catalyst for severe domestic friction and familial toxicity?" }, "textJP": "宿題を無理にやらせることで、家庭内で無駄な喧嘩が起きていませんか？" },
+        "options": [
+          { "id": "q6", "type": "answer", "judgment": "correct", "image_url": "/images/hw_ce_ans_neg_6.webp", "text": { "easy": "It teaches communication.", "medium": "Working through these struggles together actually improves family communication.", "hard": "Navigating academic responsibilities collectively serves as an essential framework for establishing healthy parental boundaries and dialogue." }, "textJP": "その困難を一緒に乗り越えるプロセスが、かえって家族の対話を生み出します。" },
+          { "id": "f1", "type": "answer", "judgment": "weak", "image_url": "/images/fake_pizza.webp", "text": { "easy": "Fight with pizza.", "medium": "Families should just throw hot pizza at each other instead.", "hard": "Domestic disputes are best resolved via the ballistic application of Italian cuisine." } },
+          { "id": "f2", "type": "answer", "judgment": "weak", "image_url": "/images/fake_alien.webp", "text": { "easy": "Aliens cause the fights.", "medium": "The arguments are actually caused by invisible alien mind-control.", "hard": "Extraterrestrial telepathic interference is the sole root of all familial discord." } },
+          { "id": "f3", "type": "answer", "judgment": "weak", "image_url": "/images/fake_sleep.webp", "text": { "easy": "Everyone is sleepwalking.", "medium": "They are only fighting because the whole family is sleepwalking.", "hard": "Domestic friction is merely a hallucination induced by collective somnambulism." } },
+          { "id": "f4", "type": "answer", "judgment": "weak", "image_url": "/images/fake_dog.webp", "text": { "easy": "The dog is the boss.", "medium": "To stop fights, the pet dog should be the boss of the house.", "hard": "Establishing a canine matriarchy instantly resolves all inter-generational conflict." } },
+          { "id": "f5", "type": "answer", "judgment": "weak", "image_url": "/images/fake_magic.webp", "text": { "easy": "Silence spell.", "medium": "Parents can just use a magic spell to make kids quiet.", "hard": "Arcane vocal suppression enchantments are the optimal parenting strategy." } },
+          { "id": "f6", "type": "answer", "judgment": "weak", "image_url": "/images/fake_mars.webp", "text": { "easy": "Send them to Mars.", "medium": "If they fight, the parents should be launched to Mars.", "hard": "Interplanetary banishment of guardians is the most effective conflict resolution." } }
+        ]
+      }
     ]
   },
   "rebuttal": {
-    "attack": { 
-      "damage": 15,
-      "text": {
-         "easy": "But many students will just go to cram school!",
-         "medium": "However, without homework, many parents will just force their children to go to cram school!",
-         "hard": "Nevertheless, the absence of homework will merely result in parents enrolling their children in expensive cram schools, neutralizing any gain in free time!"
-      }, "textJP": "でも多くの生徒は塾に行くだけで、自由時間は増えません！" 
-    },
-    "options": [
-      { "id": "r1", "type": "defense", "judgment": "perfect",
-        "text": {
-           "easy": "Not all students go to cram school.",
-           "medium": "Going to cram school is a personal choice, and many students will still enjoy their free time.",
-           "hard": "Attending cram school is an optional parental decision, not a universal outcome, meaning a significant demographic will still benefit from the acquired free time."
-        }, "textJP": "全員が塾に行くわけではありません。" 
+    "affirmative": [
+      {
+        "id": "reb_aff_1",
+        "damage": 15,
+        "image_url": "/images/hw_reb_atk_aff_1.webp",
+        "text": { "easy": "But many students will just go to cram school!", "medium": "However, without homework, many parents will just force their children to go to cram school!", "hard": "Nevertheless, the absence of homework will merely result in parents enrolling their children in expensive cram schools, neutralizing any gain in free time!" },
+        "textJP": "でも多くの生徒は塾に行くだけで、自由時間は増えません！",
+        "options": [
+          { "id": "r1", "type": "defense", "judgment": "perfect", "image_url": "/images/hw_reb_def_aff_1.webp", "text": { "easy": "Not all students go to cram school.", "medium": "Going to cram school is a personal choice, and many will still enjoy their free time.", "hard": "Attending cram school is an optional parental decision, not a universal outcome, meaning a significant demographic will still benefit." }, "textJP": "全員が塾に行くわけではありません。多くの生徒が自由時間の恩恵を受けます。" },
+          { "id": "f1", "type": "reason", "judgment": "weak", "image_url": "/images/fake_pizza.webp", "text": { "easy": "Cram schools give pizza.", "medium": "Cram schools are good because they give you free pizza.", "hard": "Supplemental educational institutions are vital for Italian food distribution." } },
+          { "id": "f2", "type": "defense", "judgment": "weak", "image_url": "/images/fake_alien.webp", "text": { "easy": "Cram schools are UFOs.", "medium": "Cram schools are actually secret UFOs.", "hard": "After-school academies serve as clandestine extraterrestrial bases." } },
+          { "id": "f3", "type": "defense", "judgment": "weak", "image_url": "/images/fake_sleep.webp", "text": { "easy": "I sleep at cram school.", "medium": "I only go to cram school to sleep quietly.", "hard": "Supplemental education provides optimal environments for deep REM sleep." } },
+          { "id": "f4", "type": "defense", "judgment": "weak", "image_url": "/images/fake_dog.webp", "text": { "easy": "Dogs teach at cram school.", "medium": "Dogs are the best teachers at cram school.", "hard": "Canine educators deliver superior pedagogical outcomes in private academies." } },
+          { "id": "f5", "type": "defense", "judgment": "weak", "image_url": "/images/fake_magic.webp", "text": { "easy": "Cram school is a magic castle.", "medium": "Cram schools actually teach dark magic.", "hard": "Private academies focus exclusively on arcane sorcery curriculums." } },
+          { "id": "f6", "type": "defense", "judgment": "weak", "image_url": "/images/fake_mars.webp", "text": { "easy": "Cram schools are on Mars.", "medium": "We should build all cram schools on Mars.", "hard": "Interplanetary zoning is required for all supplemental education facilities." } }
+        ]
       },
-      { "id": "fake_r1", "type": "reason", "judgment": "weak",
-        "text": { "easy": "Cram schools are useful.", "medium": "Cram schools are better than normal schools.", "hard": "Supplemental educational institutions are economically vital." }, "textJP": "（Fakeな反論）" },
-      { "id": "fake_r2", "type": "defense", "judgment": "weak",
-        "text": { "easy": "I like sleeping.", "medium": "Let's abolish cram schools too.", "hard": "The government should eradicate all private educational enterprises." }, "textJP": "（Fakeな反論）" },
-      { "id": "fake_r3", "type": "defense", "judgment": "weak",
-        "text": { "easy": "Cram school is a game.", "medium": "Teachers at cram school give us snacks.", "hard": "Cram schools provide necessary caloric intake through complimentary snacks." }, "textJP": "（Fakeな反論）" },
-      { "id": "fake_r4", "type": "defense", "judgment": "weak",
-        "text": { "easy": "Money is not important.", "medium": "We can study in the forest.", "hard": "Forest-based autonomous learning is the superior alternative to cram schools." }, "textJP": "（Fakeな反論）" }
+      {
+        "id": "reb_aff_2",
+        "damage": 15,
+        "image_url": "/images/hw_reb_atk_aff_2.webp",
+        "text": { "easy": "But teachers cannot check your progress!", "medium": "But without homework, teachers will not know if you understand the lesson!", "hard": "However, the elimination of homework deprives educators of critical diagnostic metrics to accurately assess student comprehension!" },
+        "textJP": "でも宿題がないと、先生は生徒が理解しているか確認できません！",
+        "options": [
+          { "id": "r2", "type": "defense", "judgment": "perfect", "image_url": "/images/hw_reb_def_aff_2.webp", "text": { "easy": "Teachers can check during class.", "medium": "Teachers can evaluate students closely through class activities and short quizzes.", "hard": "Educators can effectively utilize formative in-class assessments, interactive projects, and dynamic dialogue as superior metrics." }, "textJP": "先生は授業中の活動や小テストで、より正確に評価できます。" },
+          { "id": "f1", "type": "reason", "judgment": "weak", "image_url": "/images/fake_pizza.webp", "text": { "easy": "Teachers only look at pizza.", "medium": "Teachers evaluate us based on how much pizza we eat.", "hard": "Academic grading is strictly correlated to student pizza consumption." } },
+          { "id": "f2", "type": "defense", "judgment": "weak", "image_url": "/images/fake_alien.webp", "text": { "easy": "Teachers are aliens.", "medium": "Teachers don't need to check because they are telepathic aliens.", "hard": "Educators utilize extraterrestrial telepathy to instantly read student minds." } },
+          { "id": "f3", "type": "defense", "judgment": "weak", "image_url": "/images/fake_sleep.webp", "text": { "easy": "Teachers are asleep.", "medium": "Teachers sleep all day, so they don't check anyway.", "hard": "Pedagogical staff are universally afflicted with severe narcolepsy." } },
+          { "id": "f4", "type": "defense", "judgment": "weak", "image_url": "/images/fake_dog.webp", "text": { "easy": "Dogs give grades.", "medium": "We should let wild dogs decide our grades.", "hard": "Canine algorithms provide the most unbiased academic evaluations." } },
+          { "id": "f5", "type": "defense", "judgment": "weak", "image_url": "/images/fake_magic.webp", "text": { "easy": "Grades are magic.", "medium": "Teachers use crystal balls to give us grades.", "hard": "Academic assessment relies entirely on clairvoyant divination." } },
+          { "id": "f6", "type": "defense", "judgment": "weak", "image_url": "/images/fake_mars.webp", "text": { "easy": "Grades come from Mars.", "medium": "All report cards are mailed directly from Mars.", "hard": "The planetary administration of Mars handles all earthly grading protocols." } }
+        ]
+      },
+      {
+        "id": "reb_aff_3",
+        "damage": 15,
+        "image_url": "/images/hw_reb_atk_aff_3.webp",
+        "text": { "easy": "But kids won't learn hard work!", "medium": "But without forcing them to do homework, kids will never learn the value of hard work!", "hard": "However, abolishing mandatory tasks removes the necessary friction required to forge an unyielding adult work ethic!" },
+        "textJP": "嫌なことを我慢してやる「努力の価値」を学べなくなるのでは？",
+        "options": [
+          { "id": "r3", "type": "defense", "judgment": "perfect", "image_url": "/images/hw_reb_def_aff_3.webp", "text": { "easy": "They work hard on hobbies.", "medium": "Students learn true hard work when they are passionate about a hobby or sport.", "hard": "Resilience and grit are far more effectively cultivated through deep, intrinsically motivated engagement in specialized personal disciplines." }, "textJP": "本当に好きな趣味やスポーツに打ち込む中で、本当の努力を学びます。" },
+          { "id": "f1", "type": "reason", "judgment": "weak", "image_url": "/images/fake_pizza.webp", "text": { "easy": "Chewing pizza is hard work.", "medium": "Eating a giant pizza requires incredible hard work.", "hard": "Masticating highly dense mozzarella is the ultimate test of human endurance." } },
+          { "id": "f2", "type": "defense", "judgment": "weak", "image_url": "/images/fake_alien.webp", "text": { "easy": "Aliens do all the work.", "medium": "We don't need to work hard because aliens will do it.", "hard": "Extraterrestrial automation renders all human physical labor obsolete." } },
+          { "id": "f3", "type": "defense", "judgment": "weak", "image_url": "/images/fake_sleep.webp", "text": { "easy": "Sleeping takes effort.", "medium": "Trying to sleep for 24 hours straight is extremely hard work.", "hard": "Maintaining an uninterrupted comatose state requires immense psychological discipline." } },
+          { "id": "f4", "type": "defense", "judgment": "weak", "image_url": "/images/fake_dog.webp", "text": { "easy": "Dogs work in offices.", "medium": "In the future, only dogs will have jobs in offices.", "hard": "Corporate hierarchies will inevitably be dominated by highly trained Golden Retrievers." } },
+          { "id": "f5", "type": "defense", "judgment": "weak", "image_url": "/images/fake_magic.webp", "text": { "easy": "Hard work is a curse.", "medium": "Hard work is just an evil curse from an angry wizard.", "hard": "The concept of labor is an ancient hex designed to bind human potential." } },
+          { "id": "f6", "type": "defense", "judgment": "weak", "image_url": "/images/fake_mars.webp", "text": { "easy": "Work is for Mars.", "medium": "Only the people living on Mars need to work hard.", "hard": "Diligent labor is strictly a mandate for Martian colonial expansion." } }
+        ]
+      },
+      {
+        "id": "reb_aff_4",
+        "damage": 15,
+        "image_url": "/images/hw_reb_atk_aff_4.webp",
+        "text": { "easy": "But other countries study more!", "medium": "But students in other competitive countries study much more after school!", "hard": "However, eliminating homework will decimate our nation's intellectual competitiveness in the ruthless global academic arena!" },
+        "textJP": "でも、他の競争の激しい国の生徒たちはもっと勉強しています！",
+        "options": [
+          { "id": "r4", "type": "defense", "judgment": "perfect", "image_url": "/images/hw_reb_def_aff_4.webp", "text": { "easy": "Creativity is more important now.", "medium": "In the modern world, creative thinking is much more valuable than just memorizing facts.", "hard": "Future global economic dominance relies heavily on innovative problem-solving and critical thinking, not mere rote memorization endurance." }, "textJP": "これからの時代、暗記の量よりも創造的な思考力の方がはるかに重要です。" },
+          { "id": "f1", "type": "reason", "judgment": "weak", "image_url": "/images/fake_pizza.webp", "text": { "easy": "Other countries eat pizza.", "medium": "Other countries only get high scores because they eat more pizza.", "hard": "International academic rankings are directly manipulated by the global pizza syndicate." } },
+          { "id": "f2", "type": "defense", "judgment": "weak", "image_url": "/images/fake_alien.webp", "text": { "easy": "They are alien robots.", "medium": "Students in other countries are actually highly advanced alien robots.", "hard": "Foreign student populations are entirely composed of synthetic extraterrestrial androids." } },
+          { "id": "f3", "type": "defense", "judgment": "weak", "image_url": "/images/fake_sleep.webp", "text": { "easy": "Competitions are boring.", "medium": "We should just quit the competition and go to sleep.", "hard": "Global academic rivalry should be replaced by a worldwide mandatory naptime." } },
+          { "id": "f4", "type": "defense", "judgment": "weak", "image_url": "/images/fake_dog.webp", "text": { "easy": "Dogs rule the world.", "medium": "It doesn't matter because dogs will soon rule every country.", "hard": "Canine geopolitical supremacy will soon render human education statistics irrelevant." } },
+          { "id": "f5", "type": "defense", "judgment": "weak", "image_url": "/images/fake_magic.webp", "text": { "easy": "We have magic.", "medium": "We don't need to study because we have secret magic powers.", "hard": "Our nation's reliance on classified necromancy ensures absolute global dominance." } },
+          { "id": "f6", "type": "defense", "judgment": "weak", "image_url": "/images/fake_mars.webp", "text": { "easy": "Mars is the enemy.", "medium": "Our only real competition is the students living on Mars.", "hard": "Interplanetary intellectual warfare with Mars is our only true academic concern." } }
+        ]
+      },
+      {
+        "id": "reb_aff_5",
+        "damage": 15,
+        "image_url": "/images/hw_reb_atk_aff_5.webp",
+        "text": { "easy": "But kids won't read books anymore!", "medium": "But without reading assignments, children will stop reading books completely!", "hard": "However, the absence of mandated reading homework guarantees the complete erosion of adolescent literary engagement!" },
+        "textJP": "でも、読書の宿題がなければ、子供たちは全く本を読まなくなりますよ！",
+        "options": [
+          { "id": "r5", "type": "defense", "judgment": "perfect", "image_url": "/images/hw_reb_def_aff_5.webp", "text": { "easy": "They will read fun books.", "medium": "If they have free time, they will choose to read books they actually find interesting.", "hard": "Removing forced literature allows students the autonomy to discover and engage deeply with self-selected, intellectually stimulating texts." }, "textJP": "自由があれば、彼らは自分が本当に面白いと思う本を自発的に読みます。" },
+          { "id": "f1", "type": "reason", "judgment": "weak", "image_url": "/images/fake_pizza.webp", "text": { "easy": "Books taste bad.", "medium": "Nobody should read books because they don't taste like pizza.", "hard": "Cellulose-based literature provides absolutely zero culinary satisfaction." } },
+          { "id": "f2", "type": "defense", "judgment": "weak", "image_url": "/images/fake_alien.webp", "text": { "easy": "Aliens stole the books.", "medium": "We can't read anyway because aliens stole every single book on Earth.", "hard": "An extraterrestrial embargo has completely depleted our planetary literary reserves." } },
+          { "id": "f3", "type": "defense", "judgment": "weak", "image_url": "/images/fake_sleep.webp", "text": { "easy": "Books are just pillows.", "medium": "Books are only useful as hard pillows for sleeping.", "hard": "The primary ergonomic function of hardcover novels is to induce rapid somnolence." } },
+          { "id": "f4", "type": "defense", "judgment": "weak", "image_url": "/images/fake_dog.webp", "text": { "easy": "Dogs write the books.", "medium": "It's fine because dogs are writing much better books now.", "hard": "Canine authors are currently producing the most avant-garde literature of our era." } },
+          { "id": "f5", "type": "defense", "judgment": "weak", "image_url": "/images/fake_magic.webp", "text": { "easy": "Words fly away.", "medium": "Because of a magic spell, all words fly off the pages anyway.", "hard": "An ongoing arcane hex causes severe typographical levitation upon opening a text." } },
+          { "id": "f6", "type": "defense", "judgment": "weak", "image_url": "/images/fake_mars.webp", "text": { "easy": "Read on Mars.", "medium": "You can only read books if you are sitting on the surface of Mars.", "hard": "The Martian atmosphere is uniquely required to decipher modern terrestrial prose." } }
+        ]
+      },
+      {
+        "id": "reb_aff_6",
+        "damage": 15,
+        "image_url": "/images/hw_reb_atk_aff_6.webp",
+        "text": { "easy": "But free time makes kids do bad things!", "medium": "But giving teenagers too much free time will just lead them into trouble!", "hard": "However, granting adolescents excessive unsupervised time inevitably catalyzes an alarming increase in juvenile delinquency!" },
+        "textJP": "でも、暇な時間が多すぎると、子供たちは非行に走ってしまいます！",
+        "options": [
+          { "id": "r6", "type": "defense", "judgment": "perfect", "image_url": "/images/hw_reb_def_aff_6.webp", "text": { "easy": "Parents and schools guide them.", "medium": "Communities and parents can provide safe spaces and guidance during their free time.", "hard": "Robust community programs and proactive parental engagement effectively channel this free time into constructive psychosocial development." }, "textJP": "地域や親が適切な見守りや安全な場所を提供することで、健全な成長に繋げられます。" },
+          { "id": "f1", "type": "reason", "judgment": "weak", "image_url": "/images/fake_pizza.webp", "text": { "easy": "Pizza stops crime.", "medium": "If they eat enough pizza, they will never do anything bad.", "hard": "Extreme consumption of pepperoni is scientifically proven to suppress criminal intent." } },
+          { "id": "f2", "type": "defense", "judgment": "weak", "image_url": "/images/fake_alien.webp", "text": { "easy": "Aliens do the crimes.", "medium": "Actually, all bad things are secretly done by invisible aliens.", "hard": "All recorded juvenile delinquency is in fact orchestrated by extraterrestrial saboteurs." } },
+          { "id": "f3", "type": "defense", "judgment": "weak", "image_url": "/images/fake_sleep.webp", "text": { "easy": "They sleep too much.", "medium": "They won't do bad things because they are too busy sleeping.", "hard": "Chronic teenage lethargy acts as an absolute prophylactic against any illicit activity." } },
+          { "id": "f4", "type": "defense", "judgment": "weak", "image_url": "/images/fake_dog.webp", "text": { "easy": "Dogs are the police.", "medium": "Our pet dogs will arrest them if they try to do bad things.", "hard": "The implementation of a canine-led police force ensures total adolescent compliance." } },
+          { "id": "f5", "type": "defense", "judgment": "weak", "image_url": "/images/fake_magic.webp", "text": { "easy": "Magic invisible cages.", "medium": "We just put them in invisible magic cages after school.", "hard": "Arcane confinement spells are the most ethical method of behavioral regulation." } },
+          { "id": "f6", "type": "defense", "judgment": "weak", "image_url": "/images/fake_mars.webp", "text": { "easy": "Exile to Mars.", "medium": "Any kid who makes trouble will be shot directly to Mars.", "hard": "Immediate interplanetary deportation serves as the ultimate deterrent to mischief." } }
+        ]
+      }
+    ],
+    "negative": [
+      {
+        "id": "reb_neg_1",
+        "damage": 15,
+        "image_url": "/images/hw_reb_atk_neg_1.webp",
+        "text": { "easy": "But projects give them motivation!", "medium": "However, students can get enough motivation from engaging in creative projects!", "hard": "Nevertheless, collaborative project-based learning provides a vastly superior source of intrinsic motivation compared to homework!" },
+        "textJP": "でも生徒はプロジェクト学習などで十分なやる気を出せます！",
+        "options": [
+          { "id": "r1", "type": "defense", "judgment": "perfect", "image_url": "/images/hw_reb_def_neg_1.webp", "text": { "easy": "Homework gives fair goals.", "medium": "Homework provides fair and objective goals that creative projects cannot always give.", "hard": "While projects are engaging, homework provides uniform and equitable benchmarks indispensable for standardized individual evaluation." }, "textJP": "プロジェクトとは違い、宿題は個人のための公平で客観的な目標を提供します。" },
+          { "id": "f1", "type": "reason", "judgment": "weak", "image_url": "/images/fake_pizza.webp", "text": { "easy": "Projects are pizza.", "medium": "Projects are useless unless we are making a giant pizza.", "hard": "Educational initiatives lack value unless they result in edible Italian cuisine." } },
+          { "id": "f2", "type": "defense", "judgment": "weak", "image_url": "/images/fake_alien.webp", "text": { "easy": "Aliens hate projects.", "medium": "Aliens will destroy our school if we do fun projects.", "hard": "Extraterrestrial forces actively suppress all creative pedagogical frameworks via orbital lasers." } },
+          { "id": "f3", "type": "defense", "judgment": "weak", "image_url": "/images/fake_sleep.webp", "text": { "easy": "Projects make me sleep.", "medium": "Creative projects just make everyone fall asleep instantly.", "hard": "Collaborative learning systematically induces widespread and uncontrollable classroom narcolepsy." } },
+          { "id": "f4", "type": "defense", "judgment": "weak", "image_url": "/images/fake_dog.webp", "text": { "easy": "Dogs eat projects.", "medium": "My dog always eats my group projects before I can present them.", "hard": "Canine interference consistently neutralizes all collaborative academic efforts without fail." } },
+          { "id": "f5", "type": "defense", "judgment": "weak", "image_url": "/images/fake_magic.webp", "text": { "easy": "Motivation is an illusion.", "medium": "Motivation is just a fake magic trick invented by a wizard.", "hard": "Intrinsic drive is a scientifically fabricated arcane illusion designed to control the masses." } },
+          { "id": "f6", "type": "defense", "judgment": "weak", "image_url": "/images/fake_mars.webp", "text": { "easy": "Projects are for Mars.", "medium": "Projects are only useful if you live in a colony on Mars.", "hard": "Collaborative tasks possess absolute zero utility within the Earth's atmosphere." } }
+        ]
+      },
+      {
+        "id": "reb_neg_2",
+        "damage": 15,
+        "image_url": "/images/hw_reb_atk_neg_2.webp",
+        "text": { "easy": "But Finland has no homework and high scores!", "medium": "But countries like Finland have no homework and still get very high test scores!", "hard": "However, nations like Finland have abolished homework while paradoxically maintaining top-tier global academic rankings!" },
+        "textJP": "でもフィンランドのように、宿題がなくても学力が高い国があります！",
+        "options": [
+          { "id": "r2", "type": "defense", "judgment": "perfect", "image_url": "/images/hw_reb_def_neg_2.webp", "text": { "easy": "Every culture is different.", "medium": "Educational systems are different; our society relies heavily on homework for practice.", "hard": "Direct international comparisons are critically flawed due to profound differences in cultural, demographic, and foundational educational contexts." }, "textJP": "文化や教育制度の土台が全く異なるため、単純な比較はできません。" },
+          { "id": "f1", "type": "reason", "judgment": "weak", "image_url": "/images/fake_pizza.webp", "text": { "easy": "Finland is made of pizza.", "medium": "Finland gets high scores because they eat a lot of pizza every day.", "hard": "Nordic academic supremacy is entirely derived from excessive and mandatory pizza consumption." } },
+          { "id": "f2", "type": "defense", "judgment": "weak", "image_url": "/images/fake_alien.webp", "text": { "easy": "Finland is an alien ship.", "medium": "Finland is actually just a giant alien spaceship in disguise.", "hard": "The Scandinavian peninsula is factually a cloaked extraterrestrial mothership." } },
+          { "id": "f3", "type": "defense", "judgment": "weak", "image_url": "/images/fake_sleep.webp", "text": { "easy": "They sleep all day.", "medium": "Students in Finland just sleep 24 hours a day to get smart.", "hard": "Nordic educational success is based entirely on perpetual and medically induced hibernation." } },
+          { "id": "f4", "type": "defense", "judgment": "weak", "image_url": "/images/fake_dog.webp", "text": { "easy": "Dogs take the tests.", "medium": "In Finland, super-smart dogs take all the tests for the children.", "hard": "Scandinavian test scores are artificially inflated by highly trained canine test-takers." } },
+          { "id": "f5", "type": "defense", "judgment": "weak", "image_url": "/images/fake_magic.webp", "text": { "easy": "Finland uses magic.", "medium": "They get high scores by using ancient winter magic spells.", "hard": "Nordic academic rankings rely exclusively on arcane sorcery and frost enchantments." } },
+          { "id": "f6", "type": "defense", "judgment": "weak", "image_url": "/images/fake_mars.webp", "text": { "easy": "Finland is on Mars.", "medium": "Actually, Finland is a country located on the surface of Mars.", "hard": "Geographical data confirms that the Finnish borders strictly exist within Martian craters." } }
+        ]
+      },
+      {
+        "id": "reb_neg_3",
+        "damage": 15,
+        "image_url": "/images/hw_reb_atk_neg_3.webp",
+        "text": { "easy": "But quality is better than quantity!", "medium": "But giving less, high-quality work is much better than boring daily homework!", "hard": "However, pivoting to intermittent, high-quality assignments completely negates the need for a relentless daily homework regimen!" },
+        "textJP": "毎日の退屈な宿題より、少量の質の高い課題を出す方が良いのでは？",
+        "options": [
+          { "id": "r3", "type": "defense", "judgment": "perfect", "image_url": "/images/hw_reb_def_neg_3.webp", "text": { "easy": "Daily practice builds habits.", "medium": "Even simple daily tasks are necessary to build a strong habit of continuous learning.", "hard": "Daily structured repetition, regardless of task complexity, is absolutely vital for instilling lifelong academic discipline and grit." }, "textJP": "たとえ簡単な作業でも、毎日続けることが「継続的な学習習慣」を築きます。" },
+          { "id": "f1", "type": "reason", "judgment": "weak", "image_url": "/images/fake_pizza.webp", "text": { "easy": "Quality pizza is better.", "medium": "I agree, we should only eat high-quality pizza instead of studying.", "hard": "The pursuit of artisanal Italian baked goods should entirely replace the educational curriculum." } },
+          { "id": "f2", "type": "defense", "judgment": "weak", "image_url": "/images/fake_alien.webp", "text": { "easy": "Aliens hate quality.", "medium": "Aliens will attack us if our homework quality becomes too high.", "hard": "Producing superior academic work immediately triggers hostile extraterrestrial retaliation." } },
+          { "id": "f3", "type": "defense", "judgment": "weak", "image_url": "/images/fake_sleep.webp", "text": { "easy": "Quality sleeping.", "medium": "The only quality thing we need is a very soft bed for sleeping.", "hard": "The optimization of premium slumber environments supersedes all pedagogical concerns." } },
+          { "id": "f4", "type": "defense", "judgment": "weak", "image_url": "/images/fake_dog.webp", "text": { "easy": "Dogs want more.", "medium": "My dog demands a massive quantity of homework to eat every night.", "hard": "Canine digestive requirements necessitate an enormous volume of daily paper assignments." } },
+          { "id": "f5", "type": "defense", "judgment": "weak", "image_url": "/images/fake_magic.webp", "text": { "easy": "Quality is a spell.", "medium": "Quality is just an illusion created by a dark magic spell.", "hard": "The qualitative assessment of labor is a complete fabrication born of arcane trickery." } },
+          { "id": "f6", "type": "defense", "judgment": "weak", "image_url": "/images/fake_mars.webp", "text": { "easy": "Mars has low quality.", "medium": "Everything on Mars is low quality, so we must be the same.", "hard": "We must deliberately lower our academic standards to align with Martian colonial expectations." } }
+        ]
+      },
+      {
+        "id": "reb_neg_4",
+        "damage": 15,
+        "image_url": "/images/hw_reb_atk_neg_4.webp",
+        "text": { "easy": "But mental health is most important!", "medium": "But protecting a child's mental health is much more important than math and science!", "hard": "However, safeguarding the psychological well-being of a child must unequivocally supersede the pursuit of arbitrary academic metrics!" },
+        "textJP": "数学や科学の点数より、子供の精神的な健康を守る方がずっと重要です！",
+        "options": [
+          { "id": "r4", "type": "defense", "judgment": "perfect", "image_url": "/images/hw_reb_def_neg_4.webp", "text": { "easy": "Homework builds confidence.", "medium": "Successfully finishing difficult homework actually builds strong mental confidence.", "hard": "Systematically conquering rigorous academic challenges provides a critical foundation for authentic self-esteem and psychological fortitude." }, "textJP": "困難な宿題をやり遂げたという達成感が、かえって強い自己肯定感と精神力を育てます。" },
+          { "id": "f1", "type": "reason", "judgment": "weak", "image_url": "/images/fake_pizza.webp", "text": { "easy": "Pizza heals minds.", "medium": "The only way to fix mental health is to eat a warm pizza.", "hard": "Psychological counseling has been entirely rendered obsolete by the invention of the calzone." } },
+          { "id": "f2", "type": "defense", "judgment": "weak", "image_url": "/images/fake_alien.webp", "text": { "easy": "Aliens don't have brains.", "medium": "Mental health doesn't matter because aliens will steal our brains soon.", "hard": "Impending extraterrestrial lobotomies make psychological preservation completely irrelevant." } },
+          { "id": "f3", "type": "defense", "judgment": "weak", "image_url": "/images/fake_sleep.webp", "text": { "easy": "Health means sleeping.", "medium": "True health means never waking up and sleeping forever.", "hard": "The only scientifically valid state of perfect mental health is an irreversible coma." } },
+          { "id": "f4", "type": "defense", "judgment": "weak", "image_url": "/images/fake_dog.webp", "text": { "easy": "Dogs have mental health.", "medium": "Only dogs have mental health, humans are actually just robots.", "hard": "The concept of psychological well-being is an exclusive biological trait of the canine species." } },
+          { "id": "f5", "type": "defense", "judgment": "weak", "image_url": "/images/fake_magic.webp", "text": { "easy": "Magic cures sadness.", "medium": "A wizard can cure all sadness with a single magic wand wave.", "hard": "Arcane emotional manipulation completely eliminates the need for holistic mental health care." } },
+          { "id": "f6", "type": "defense", "judgment": "weak", "image_url": "/images/fake_mars.webp", "text": { "easy": "Mars is crazy.", "medium": "Everyone loses their mind on Mars anyway, so it doesn't matter.", "hard": "Inevitable Martian psychosis renders all earthly mental health precautions utterly pointless." } }
+        ]
+      },
+      {
+        "id": "reb_neg_5",
+        "damage": 15,
+        "image_url": "/images/hw_reb_atk_neg_5.webp",
+        "text": { "easy": "But AI apps teach faster!", "medium": "But using smartphone AI apps can teach kids much faster than paper homework!", "hard": "However, leveraging adaptive AI algorithms accelerates cognitive acquisition far beyond the archaic constraints of traditional paper assignments!" },
+        "textJP": "紙の宿題より、AIアプリを使った方がはるかに速く学習できます！",
+        "options": [
+          { "id": "r5", "type": "defense", "judgment": "perfect", "image_url": "/images/hw_reb_def_neg_5.webp", "text": { "easy": "Writing by hand is special.", "medium": "Writing by hand physically connects to the brain and deepens true understanding.", "hard": "The tactile, kinesthetic feedback of manual writing engages distinct neural pathways essential for profound cognitive synthesis." }, "textJP": "手で文字を書くという物理的な作業が、脳を刺激し深い理解を促します。" },
+          { "id": "f1", "type": "reason", "judgment": "weak", "image_url": "/images/fake_pizza.webp", "text": { "easy": "AI makes pizza.", "medium": "AI apps are only good for ordering huge pizzas to my house.", "hard": "The singular valid application of artificial intelligence is the optimization of pizza delivery." } },
+          { "id": "f2", "type": "defense", "judgment": "weak", "image_url": "/images/fake_alien.webp", "text": { "easy": "AI is alien.", "medium": "All AI apps are actually traps created by evil aliens.", "hard": "Machine learning algorithms are fundamentally designed as extraterrestrial espionage vectors." } },
+          { "id": "f3", "type": "defense", "judgment": "weak", "image_url": "/images/fake_sleep.webp", "text": { "easy": "Phones make you sleep.", "medium": "Looking at an AI app just makes your eyes heavy and sleepy.", "hard": "Blue light emission from smartphones is exclusively designed to induce rapid onset narcolepsy." } },
+          { "id": "f4", "type": "defense", "judgment": "weak", "image_url": "/images/fake_dog.webp", "text": { "easy": "Dogs broke my phone.", "medium": "We can't use apps because my dog chewed up all the smartphones.", "hard": "Rampant canine hardware destruction prevents any sustained digital learning initiatives." } },
+          { "id": "f5", "type": "defense", "judgment": "weak", "image_url": "/images/fake_magic.webp", "text": { "easy": "AI is just magic.", "medium": "AI is not real computer science, it is just invisible magic elves.", "hard": "Artificial intelligence is a complete hoax perpetrated by a union of rogue sorcerers." } },
+          { "id": "f6", "type": "defense", "judgment": "weak", "image_url": "/images/fake_mars.webp", "text": { "easy": "Wi-Fi on Mars is bad.", "medium": "The Wi-Fi on Mars is too slow for any learning apps to work.", "hard": "Severe interplanetary bandwidth latency renders all adaptive learning algorithms dysfunctional." } }
+        ]
+      },
+      {
+        "id": "reb_neg_6",
+        "damage": 15,
+        "image_url": "/images/hw_reb_atk_neg_6.webp",
+        "text": { "easy": "But kids learn better when they choose!", "medium": "But students learn much better when they can choose what to study themselves!", "hard": "However, imposing unilateral assignments destroys the self-directed autonomy that is fundamentally required for authentic intellectual curiosity!" },
+        "textJP": "生徒は、自分で何を学ぶか選んだ時の方がはるかに良く学習します！",
+        "options": [
+          { "id": "r6", "type": "defense", "judgment": "perfect", "image_url": "/images/hw_reb_def_neg_6.webp", "text": { "easy": "They need basic skills first.", "medium": "They must first learn the required basic skills through homework before they can choose.", "hard": "Self-directed autonomy is only effective after students have rigorously internalized foundational academic paradigms through mandatory assignments." }, "textJP": "自発的な学習をするためにも、まずは宿題を通じて必須の基礎スキルを身につける必要があります。" },
+          { "id": "f1", "type": "reason", "judgment": "weak", "image_url": "/images/fake_pizza.webp", "text": { "easy": "I choose pizza.", "medium": "If I can choose, I will only study how to eat pizza.", "hard": "Unrestricted academic autonomy inevitably devolves into the exclusive study of Italian carbohydrates." } },
+          { "id": "f2", "type": "defense", "judgment": "weak", "image_url": "/images/fake_alien.webp", "text": { "easy": "Aliens make choices.", "medium": "We have no choices because aliens control our brains with a remote.", "hard": "The illusion of free will is actively maintained by an extraterrestrial neurological broadcast." } },
+          { "id": "f3", "type": "defense", "judgment": "weak", "image_url": "/images/fake_sleep.webp", "text": { "easy": "I choose to sleep.", "medium": "If given the choice, 100% of students will choose to just sleep.", "hard": "Unfettered student autonomy statistically guarantees a total collapse into chronic unconsciousness." } },
+          { "id": "f4", "type": "defense", "judgment": "weak", "image_url": "/images/fake_dog.webp", "text": { "easy": "Dogs make the rules.", "medium": "Students don't choose, the neighborhood dogs make all the rules.", "hard": "Educational curriculum choices are strictly dictated by the local canine administrative council." } },
+          { "id": "f5", "type": "defense", "judgment": "weak", "image_url": "/images/fake_magic.webp", "text": { "easy": "Choice is a spell.", "medium": "Free choice is a dangerous illusion created by a dark wizard.", "hard": "The concept of independent decision-making is a highly sophisticated arcane mirage." } },
+          { "id": "f6", "type": "defense", "judgment": "weak", "image_url": "/images/fake_mars.webp", "text": { "easy": "No choices on Mars.", "medium": "On Mars, there are no choices, you just dig rocks forever.", "hard": "The rigorous demands of Martian terraforming fundamentally prohibit any form of intellectual autonomy." } }
+        ]
+      }
     ]
   },
   "closing": {
-    "options": [
-      { "id": "c1", "type": "closing", "judgment": "perfect",
-        "text": {
-           "easy": "Abolish homework for a balanced life.",
-           "medium": "In conclusion, abolishing homework is necessary to give students a balanced and healthy life.",
-           "hard": "To summarize, the total elimination of homework is an imperative reform needed to safeguard the holistic well-being and life balance of students."
-        }, "textJP": "バランスの取れた生活のために宿題を廃止しよう。" 
-      },
-      { "id": "fake_c1", "type": "closing", "judgment": "weak",
-        "text": { "easy": "Homework is a monster.", "medium": "Let's play video games forever.", "hard": "We must embrace an era of perpetual digital amusement without academic interference." }, "textJP": "（Fake）" },
-      { "id": "fake_c2", "type": "closing", "judgment": "weak",
-        "text": { "easy": "I am hungry.", "medium": "Therefore, schools should serve pizza.", "hard": "Consequently, culinary satisfaction should be the primary objective of education." }, "textJP": "（Fake）" },
-      { "id": "fake_c3", "type": "closing", "judgment": "weak",
-        "text": { "easy": "Please agree with me.", "medium": "Thank you for listening to my joke.", "hard": "I trust this whimsical narrative has sufficiently entertained the adjudicators." }, "textJP": "（Fake）" },
-      { "id": "fake_c4", "type": "closing", "judgment": "weak",
-        "text": { "easy": "Dogs are cute.", "medium": "Therefore, everyone should have a pet dog.", "hard": "Thus, canine companionship is the only true remedy for academic stress." }, "textJP": "（Fake）" }
+    "affirmative": [
+      { "id": "c1", "type": "closing", "judgment": "perfect", "image_url": "/images/hw_close_aff.webp", "text": { "easy": "Abolish homework for a balanced life.", "medium": "In conclusion, abolishing homework is necessary to give students a balanced and healthy life.", "hard": "To summarize, the total elimination of homework is an imperative reform needed to safeguard holistic well-being." }, "textJP": "バランスの取れた生活のために宿題を廃止しよう。" },
+      { "id": "fake_c1", "type": "closing", "judgment": "weak", "image_url": "/images/fake_pizza.webp", "text": { "easy": "Homework is a monster.", "medium": "Let's play video games and eat pizza forever.", "hard": "We must embrace an era of perpetual digital amusement and culinary excess." } },
+      { "id": "fake_c2", "type": "closing", "judgment": "weak", "image_url": "/images/fake_alien.webp", "text": { "easy": "Aliens will save us.", "medium": "We must abolish homework before the aliens attack.", "hard": "The cessation of academic labor is required to appease impending alien invaders." } },
+      { "id": "fake_c3", "type": "closing", "judgment": "weak", "image_url": "/images/fake_sleep.webp", "text": { "easy": "Sleep is the only truth.", "medium": "Therefore, we should close all schools and just sleep.", "hard": "The eradication of educational institutions is necessary for global rest." } },
+      { "id": "fake_c4", "type": "closing", "judgment": "weak", "image_url": "/images/fake_dog.webp", "text": { "easy": "Dogs are cute.", "medium": "Therefore, everyone should have a pet dog instead of books.", "hard": "Thus, canine companionship is the only true remedy for academic stress." } },
+      { "id": "fake_c5", "type": "closing", "judgment": "weak", "image_url": "/images/fake_magic.webp", "text": { "easy": "I am a wizard.", "medium": "Thank you, I will now use my magic wand to leave.", "hard": "I hereby conclude my argument by casting a disappearance spell." } },
+      { "id": "fake_c6", "type": "closing", "judgment": "weak", "image_url": "/images/fake_mars.webp", "text": { "easy": "Let's fly to Mars.", "medium": "We must escape homework by building a rocket to Mars.", "hard": "Interplanetary evacuation is the only logical solution to the homework crisis." } }
+    ],
+    "negative": [
+      { "id": "c1", "type": "closing", "judgment": "perfect", "image_url": "/images/hw_close_neg.webp", "text": { "easy": "Homework gives us skills for the future.", "medium": "We should keep regular homework because it provides essential skills and motivation.", "hard": "In summary, homework must be maintained as it is fundamental in providing equitable assessment and sustaining academic motivation." }, "textJP": "宿題は将来へのスキルとやる気を与えてくれます。" },
+      { "id": "fake_c1", "type": "closing", "judgment": "weak", "image_url": "/images/fake_pizza.webp", "text": { "easy": "Homework is delicious.", "medium": "We must keep homework because paper tastes like pizza.", "hard": "The nutritional value of cellulose-based homework justifies its continuation." } },
+      { "id": "fake_c2", "type": "closing", "judgment": "weak", "image_url": "/images/fake_alien.webp", "text": { "easy": "Homework protects from aliens.", "medium": "Doing homework creates a shield that stops alien lasers.", "hard": "Academic labor generates electromagnetic frequencies that repel extraterrestrials." } },
+      { "id": "fake_c3", "type": "closing", "judgment": "weak", "image_url": "/images/fake_sleep.webp", "text": { "easy": "Homework makes us sleep.", "medium": "Homework is the best sleeping medicine in the world.", "hard": "The rigorous completion of assignments is the premier cure for chronic insomnia." } },
+      { "id": "fake_c4", "type": "closing", "judgment": "weak", "image_url": "/images/fake_dog.webp", "text": { "easy": "Dogs love homework.", "medium": "We need homework so our dogs have something to eat.", "hard": "The continuation of homework is a necessary dietary supplement for domestic canines." } },
+      { "id": "fake_c5", "type": "closing", "judgment": "weak", "image_url": "/images/fake_magic.webp", "text": { "easy": "Homework is a spell.", "medium": "Every math problem is actually a secret magic spell.", "hard": "Algebraic equations are fundamentally disguised arcane incantations." } },
+      { "id": "fake_c6", "type": "closing", "judgment": "weak", "image_url": "/images/fake_mars.webp", "text": { "easy": "Homework builds rockets.", "medium": "If we do enough homework, we can build a rocket to Mars.", "hard": "The accumulation of completed assignments provides the necessary thrust for space travel." } }
     ]
   }
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   Trophy, CheckCircle2, ArrowUpCircle, Play, AlertTriangle, Lightbulb, ShieldCheck, GripVertical,
-  Home, Zap, Swords, Shield, MessageCircleQuestion, Gavel, Plus, BrainCircuit, X, Type, Heart, Clock, Undo2, HelpCircle, MoveHorizontal, BookOpen, ChevronLeft
+  Home, Zap, Swords, Shield, MessageCircleQuestion, Gavel, Plus, BrainCircuit, X, Type, Heart, Clock, Undo2, HelpCircle, MoveHorizontal, BookOpen, ChevronLeft, Image as ImageIcon
 } from 'lucide-react';
 
 import { getAllTopics } from './utils/dataLoader';
@@ -16,12 +16,11 @@ const DAMAGE_TICK = 12.5;
 const TIME_LIMIT_SEC = 10; 
 
 const DIFFICULTIES = {
-  easy:   { label: 'Easy',   fakeCount: 4, battleOptions: 4, showHint: true },  
-  medium: { label: 'Medium', fakeCount: 6, battleOptions: 5, showHint: false }, 
-  hard:   { label: 'Hard',   fakeCount: 8, battleOptions: 6, showHint: false }, 
+  easy:   { label: 'Easy',   fakeCount: 4, battleOptions: 4 },  
+  medium: { label: 'Medium', fakeCount: 6, battleOptions: 5 }, 
+  hard:   { label: 'Hard',   fakeCount: 8, battleOptions: 6 }, 
 };
 
-// ★修正: FLOWSの中の 'evidence' を 'example' に変更
 const FLOWS = {
   area: ['assertion', 'reason', 'example', 'mini_conclusion'],
   logic_link: ['reason', 'example']
@@ -31,7 +30,6 @@ const THEMES = {
   techno: { bg: 'bg-[#0f172a]', text: 'text-slate-100', headerBg: 'bg-[#1e293b]/90 border-b border-white/5', cardBg: 'bg-[#1e293b]' }
 };
 
-// ★修正: CARD_TYPESのキーを 'evidence' から 'example' に変更
 const CARD_TYPES = {
   assertion: { label: "Assertion", labelJP: "主張 (A)", icon: ShieldCheck, color: "text-blue-200", border: "border-blue-500", bg: "bg-gradient-to-br from-blue-600 to-blue-800" },
   reason:    { label: "Reason",    labelJP: "理由 (R)",    icon: ArrowUpCircle, color: "text-green-200", border: "border-green-500", bg: "bg-gradient-to-br from-green-600 to-green-800" },
@@ -44,34 +42,31 @@ const CARD_TYPES = {
 
 const FONT_SIZES = { normal: 'text-base', large: 'text-xl', xlarge: 'text-2xl' };
 
-const RuleBook = ({ onClose }) => {
-  const [isJp, setIsJp] = useState(false);
-  return (
-    <div className="fixed inset-0 z-[200] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4" onClick={onClose}>
-      <div className="bg-[#1e293b] border border-white/10 w-full max-w-2xl rounded-2xl shadow-2xl p-8 max-h-[90vh] overflow-y-auto relative" onClick={e => e.stopPropagation()}>
-        <div className="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
-          <h2 className="text-3xl font-black text-white flex items-center gap-2"><HelpCircle/> {isJp ? "遊び方" : "How to Play"}</h2>
-          <div className="flex gap-4">
-            <button onClick={() => setIsJp(!isJp)} className="px-3 py-1 rounded bg-blue-600/20 text-blue-400 font-bold border border-blue-500/30">{isJp ? "EN" : "日本語"}</button>
-            <button onClick={onClose} className="p-2 bg-white/10 rounded-full hover:bg-white/20 text-white"><X/></button>
-          </div>
-        </div>
-        {isJp ? (
-          <div className="space-y-6 text-slate-300">
-            <section><h3 className="text-xl font-bold text-blue-400 mb-2">1. 目的</h3><p>HPがなくなる前に、論理的な主張を組み立てて対戦相手を倒しましょう。</p></section>
-            <section><h3 className="text-xl font-bold text-green-400 mb-2">2. AREA構造 (AREA Battle)</h3><ul className="list-disc pl-5 space-y-2"><li><span className="text-blue-400 font-bold">A</span>ssertion: あなたの主張（まともな意見ならどれでもOK！）</li><li><span className="text-green-400 font-bold">R</span>eason: 主張に合った理由</li><li><span className="text-orange-400 font-bold">E</span>xample: 主張に合った具体例</li><li><span className="text-purple-400 font-bold">A</span>ssertion: 結論（まとめ）</li></ul></section>
-            <section><h3 className="text-xl font-bold text-red-400 mb-2">3. ダメージのルール</h3><ul className="space-y-2 text-sm"><li className="flex items-center gap-2"><AlertTriangle className="text-red-500 w-4 h-4"/> <strong>順番ミス:</strong> 大ダメージ (-50 HP)</li><li className="flex items-center gap-2"><Zap className="text-yellow-500 w-4 h-4"/> <strong>論理ミス:</strong> 小ダメージ (-25 HP) ※ふざけた意見や、途中で別の論点にすり替わった場合</li><li className="flex items-center gap-2"><Clock className="text-slate-400 w-4 h-4"/> <strong>時間切れ:</strong> 10秒ごとに -12.5 HP (※タイマーON時のみ)</li></ul></section>
-          </div>
-        ) : (
-          <div className="space-y-6 text-slate-300">
-            <section><h3 className="text-xl font-bold text-blue-400 mb-2">1. Objective</h3><p>Build a logical argument and defeat your opponent before your HP runs out.</p></section>
-            <section><h3 className="text-xl font-bold text-green-400 mb-2">2. The AREA Structure</h3><ul className="list-disc pl-5 space-y-2"><li><span className="text-blue-400 font-bold">A</span>ssertion: Your main point. (Choose any valid opinion!)</li><li><span className="text-green-400 font-bold">R</span>eason: Reason matching your assertion.</li><li><span className="text-orange-400 font-bold">E</span>xample: Examples or facts.</li><li><span className="text-purple-400 font-bold">A</span>ssertion: Summary.</li></ul></section>
-            <section><h3 className="text-xl font-bold text-red-400 mb-2">3. Damage Rules</h3><ul className="space-y-2 text-sm"><li className="flex items-center gap-2"><AlertTriangle className="text-red-500 w-4 h-4"/> <strong>Wrong Order:</strong> Large Damage (-50 HP).</li><li className="flex items-center gap-2"><Zap className="text-yellow-500 w-4 h-4"/> <strong>Logic Mismatch:</strong> Small Damage (-25 HP).</li><li className="flex items-center gap-2"><Clock className="text-slate-400 w-4 h-4"/> <strong>Time Penalty:</strong> -12.5 HP every 10 seconds. (If Timer is ON)</li></ul></section>
-          </div>
-        )}
-      </div>
-    </div>
-  );
+// Utility to grab all fake images for the distractors
+const getAllFakeImages = (topic) => {
+  const urls = new Set();
+  if (topic.deck) topic.deck.forEach(c => { if(c.group === 'fake' && c.image_url) urls.add(c.image_url); });
+  
+  const extractFromPhase = (phaseObj) => {
+    if(!phaseObj) return;
+    ['affirmative', 'negative'].forEach(stance => {
+      if(phaseObj[stance]) {
+        phaseObj[stance].forEach(item => {
+          if (item.options) {
+            item.options.forEach(o => { if(o.judgment === 'weak' && o.image_url) urls.add(o.image_url); });
+          } else if (item.judgment === 'weak' && item.image_url) {
+            urls.add(item.image_url); // For closing array
+          }
+        });
+      }
+    });
+  };
+
+  extractFromPhase(topic.crossExam);
+  extractFromPhase(topic.rebuttal);
+  extractFromPhase(topic.closing);
+
+  return Array.from(urls);
 };
 
 export default function App() {
@@ -79,16 +74,20 @@ export default function App() {
   const [selectedTopicId, setSelectedTopicId] = useState(null);
   const [userStance, setUserStance] = useState(null); 
   const [difficulty, setDifficulty] = useState(null);
+  
+  // New Settings
   const [timerEnabled, setTimerEnabled] = useState(true); 
+  const [imageMatchEnabled, setImageMatchEnabled] = useState(true);
+  const [battleRounds, setBattleRounds] = useState(3); // 1 to 6
   
   const [gameMode, setGameMode] = useState('area'); 
   const [langMode, setLangMode] = useState('en'); 
   const [fontSize, setFontSize] = useState('normal'); 
 
   const [setupStep, setSetupStep] = useState(1);
-  const [setupHelpStep, setSetupHelpStep] = useState(null);
   const [showRules, setShowRules] = useState(false);
 
+  // Game State
   const [playerHP, setPlayerHP] = useState(MAX_HP);
   const [opponentHP, setOpponentHP] = useState(MAX_HP);
   const [gameState, setGameState] = useState('start'); 
@@ -100,8 +99,15 @@ export default function App() {
   const [isDrillMode, setIsDrillMode] = useState(false);
   const [rivalCard, setRivalCard] = useState(null); 
   const [particles, setParticles] = useState([]);
-  const [shake, setShake] = useState(false);
   const [activeLogicGroup, setActiveLogicGroup] = useState(null);
+
+  // Battle Logic States
+  const [battlePlan, setBattlePlan] = useState([]);
+  const [currentRoundIndex, setCurrentRoundIndex] = useState(0);
+
+  // Image Match States
+  const [pendingCard, setPendingCard] = useState(null);
+  const [imageHand, setImageHand] = useState([]);
 
   const [sidePanelPos, setSidePanelPos] = useState('right'); 
   const [sidePanelWidth, setSidePanelWidth] = useState(30); 
@@ -124,7 +130,8 @@ export default function App() {
       return;
     }
 
-    if (gameState !== 'construct' && gameState !== 'cross_exam' && gameState !== 'rebuttal_defense') {
+    const activeTimerStates = ['construct', 'cross_exam', 'rebuttal_defense', 'construct_image', 'cross_exam_image', 'rebuttal_defense_image', 'closing', 'closing_image'];
+    if (!activeTimerStates.includes(gameState)) {
       clearInterval(timerIntervalRef.current);
       return;
     }
@@ -213,25 +220,34 @@ export default function App() {
     setFeedback(null); setTimeProgress(0); startTimeRef.current = Date.now(); 
     
     const currentTopic = topics.find(t => t.id === selectedTopicId) || topics[0];
-    let myStanceCards = currentTopic.deck.filter(c => c.stance === userStance);
     
-    // ★修正: logic_link モードの場合も evidence ではなく example で抽出
+    // Setup AREA Deck
+    let myStanceCards = currentTopic.deck.filter(c => c.stance === userStance);
     if (gameMode === 'logic_link') {
        myStanceCards = myStanceCards.filter(c => c.type === 'reason' || c.type === 'example');
     }
-    if (myStanceCards.length === 0) {
-        alert("No appropriate cards found for this mode/stance!");
-        return;
-    }
-
     const validCards = myStanceCards.filter(c => c.group !== 'fake');
     const fakeCardsAll = myStanceCards.filter(c => c.group === 'fake');
     const noiseCount = DIFFICULTIES[difficulty].fakeCount || 4;
     const noiseCards = fakeCardsAll.sort(() => Math.random() - 0.5).slice(0, Math.max(0, noiseCount));
-    const deck = [...validCards, ...noiseCards].sort(() => Math.random() - 0.5);
+    setHand([...validCards, ...noiseCards].sort(() => Math.random() - 0.5));
     
-    setHand(deck);
-    setActiveLogicGroup(null); 
+    // Setup Battle Plan (Loops)
+    const cxList = currentTopic.crossExam?.[userStance] || [];
+    const rebList = currentTopic.rebuttal?.[userStance] || [];
+    
+    const plan = [];
+    const shuffledCx = [...cxList].sort(() => Math.random() - 0.5);
+    const shuffledReb = [...rebList].sort(() => Math.random() - 0.5);
+    
+    for(let i=0; i < battleRounds; i++) {
+        plan.push({
+           cx: shuffledCx[i % Math.max(1, shuffledCx.length)],
+           reb: shuffledReb[i % Math.max(1, shuffledReb.length)]
+        });
+    }
+    setBattlePlan(plan);
+    setCurrentRoundIndex(0);
   };
 
   const goHome = () => {
@@ -254,127 +270,172 @@ export default function App() {
     if (newTower.length === 0) setActiveLogicGroup(null);
   };
 
-  const triggerCrossExam = () => {
-    if (gameMode === 'logic_link') { setGameState('result'); return; }
-    const currentTopic = topics.find(t => t.id === selectedTopicId) || topics[0];
-    const q = currentTopic.crossExam?.question;
-    if (q) {
+  // --- Phase Triggers ---
+  const triggerCrossExam = (roundIdx = currentRoundIndex) => {
+    if (gameMode === 'logic_link' || roundIdx >= battlePlan.length) { 
+        triggerClosingPhase(); 
+        return; 
+    }
+    const currentData = battlePlan[roundIdx];
+    if (currentData && currentData.cx) {
       setGameState('cross_exam');
-      setRivalCard({ id: 'rival_q', text: typeof q.text === 'object' ? q.text[difficulty] : q.text, textJP: q.textJP, type: 'answer', isQuestion: true });
-      setHand(setupBattlePhase(currentTopic.crossExam.options));
-    } else triggerRebuttalPhase();
+      setRivalCard({ ...currentData.cx.question, type: 'answer', isQuestion: true });
+      setHand(setupBattlePhase(currentData.cx.options));
+    } else {
+      triggerRebuttalPhase(roundIdx);
+    }
   };
 
-  const triggerRebuttalPhase = () => {
-    const currentTopic = topics.find(t => t.id === selectedTopicId) || topics[0];
-    setGameState('rebuttal_intro'); setRivalCard(null);
+  const triggerRebuttalPhase = (roundIdx = currentRoundIndex) => {
+    const currentData = battlePlan[roundIdx];
+    setGameState('rebuttal_intro'); setRivalCard(null); setHand([]);
     setTimeout(() => {
       setGameState('rebuttal_attack');
-      const atk = currentTopic.rebuttal?.attack;
-      if (atk) {
-        setRivalCard({ id: 'rival_atk', text: typeof atk.text === 'object' ? atk.text[difficulty] : atk.text, textJP: atk.textJP, type: 'attack', damage: atk.damage || 15 });
+      if (currentData && currentData.reb) {
+        setRivalCard({ ...currentData.reb, type: 'attack' });
         if(timerEnabled) takeDamage(DAMAGE_TICK, "Opponent Attack!");
-        setTimeout(() => { setGameState('rebuttal_defense'); setHand(setupBattlePhase(currentTopic.rebuttal.options)); }, 3000);
-      } else triggerClosingPhase();
+        setTimeout(() => { 
+            setGameState('rebuttal_defense'); 
+            setHand(setupBattlePhase(currentData.reb.options)); 
+        }, 3000);
+      } else {
+        nextRound(roundIdx);
+      }
     }, 2000);
+  };
+
+  const nextRound = (currentIdx) => {
+      const nextIdx = currentIdx + 1;
+      setCurrentRoundIndex(nextIdx);
+      if (nextIdx < battlePlan.length) {
+          triggerCrossExam(nextIdx);
+      } else {
+          triggerClosingPhase();
+      }
   };
 
   const triggerClosingPhase = () => {
     const currentTopic = topics.find(t => t.id === selectedTopicId) || topics[0];
     setGameState('closing'); setRivalCard(null);
-    if(currentTopic.closing?.options) setHand(setupBattlePhase(currentTopic.closing.options));
+    const closingOptions = currentTopic.closing?.[userStance];
+    if(closingOptions) setHand(setupBattlePhase(closingOptions));
     else setTimeout(() => setGameState('result'), 1500);
+  };
+
+  // --- Action Handlers ---
+  const launchImageMatch = (card, baseState) => {
+      setPendingCard(card);
+      const currentTopic = topics.find(t => t.id === selectedTopicId) || topics[0];
+      const allFakes = getAllFakeImages(currentTopic);
+      const randomFakes = allFakes.filter(url => url !== card.image_url).sort(() => Math.random() - 0.5).slice(0, 3);
+      
+      const grid = [...randomFakes];
+      if (card.image_url) grid.push(card.image_url);
+      
+      setImageHand(grid.sort(() => Math.random() - 0.5));
+      setGameState(baseState + '_image');
+      startTimeRef.current = Date.now(); setTimeProgress(0);
+  };
+
+  const finalizeCardSuccess = (card, baseState) => {
+      const newTower = [...tower, { ...card, judgment: 'perfect' }];
+      setTower(newTower);
+      setHand(gameState.startsWith('construct') ? hand.filter(c => c.id !== card.id) : []);
+
+      if (baseState === 'construct') {
+          const expectedFlow = FLOWS[gameMode] || FLOWS.area;
+          if (newTower.length >= expectedFlow.length) {
+              setFeedback({ msg: "PERFECT COMPLETE!", type: 'success', judgment: 'perfect' });
+              triggerExplosion(30, 'bg-blue-400');
+              setTimeout(() => triggerCrossExam(currentRoundIndex), 1500);
+          } else {
+              setGameState('construct');
+          }
+      } else if (baseState === 'cross_exam') {
+          setFeedback({ msg: "NICE COUNTER!", type: 'success', judgment: 'perfect' });
+          setTimeout(() => triggerRebuttalPhase(currentRoundIndex), 1500);
+      } else if (baseState === 'rebuttal_defense') {
+          setFeedback({ msg: "NICE COUNTER!", type: 'success', judgment: 'perfect' });
+          setTimeout(() => nextRound(currentRoundIndex), 1500);
+      } else if (baseState === 'closing') {
+          setFeedback({ msg: "DEBATE FINISHED!", type: 'success', judgment: 'perfect' });
+          setTimeout(() => setGameState('result'), 1500);
+      }
   };
 
   const handleCardSelect = (card) => {
     startTimeRef.current = Date.now(); setTimeProgress(0);
-    let judgment = 'weak'; let nextPhaseTrigger = null;
+    const baseState = gameState.replace('_image', '');
 
-    if (gameState === 'construct') {
+    if (baseState === 'construct') {
       const currentStepIndex = tower.length;
       const expectedFlow = FLOWS[gameMode] || FLOWS.area;
       const expectedType = expectedFlow[currentStepIndex];
       const cardType = card.type === 'mini_conclusion' ? 'mini_conclusion' : card.type;
 
       if (cardType !== expectedType) { takeDamage(DAMAGE_BIG, "Wrong Structure!"); return; }
-      
       if (currentStepIndex === 0) {
-        if (card.group === 'fake') {
-            takeDamage(DAMAGE_SMALL, "Weak Argument!");
-        } else {
-            judgment = 'correct';
-            setActiveLogicGroup(card.group); 
-        }
+        if (card.group === 'fake') { takeDamage(DAMAGE_SMALL, "Weak Argument!"); return; } 
+        else { setActiveLogicGroup(card.group); }
       } else {
-        if (card.group !== activeLogicGroup) {
-            takeDamage(DAMAGE_SMALL, "Logic Mismatch!");
-        } else { 
-            judgment = 'perfect'; 
-            setScore(prev => prev + 100); 
-            damageOpponent(25); 
-        }
+        if (card.group !== activeLogicGroup) { takeDamage(DAMAGE_SMALL, "Logic Mismatch!"); return; } 
       }
-
-      const newTower = [...tower, { ...card, judgment }];
-      setTower(newTower); setHand(hand.filter(c => c.id !== card.id));
       
-      if (newTower.length >= expectedFlow.length) {
-        setFeedback({ msg: "PERFECT COMPLETE!", type: 'success', judgment: 'perfect' });
-        setTimeout(() => setFeedback(null), 1500); 
-        triggerExplosion(30, 'bg-blue-400');
-        nextPhaseTrigger = () => setTimeout(triggerCrossExam, 1500);
+      setScore(prev => prev + 100); damageOpponent(25);
+      
+      if (imageMatchEnabled && card.image_url) {
+          launchImageMatch(card, baseState);
+      } else {
+          finalizeCardSuccess(card, baseState);
       }
-    } else {
-        setHand([]); 
-        if (card.judgment === 'weak') { takeDamage(DAMAGE_SMALL, "Weak Argument!"); judgment = 'weak'; } 
-        else { setScore(prev => prev + 50); damageOpponent(20); judgment = 'perfect'; setFeedback({ msg: "NICE COUNTER!", type: 'success', judgment: 'perfect' }); setTimeout(() => setFeedback(null), 1500); }
-        
-        const newTower = [...tower, { ...card, judgment }];
-        setTower(newTower);
 
-        if (gameState === 'cross_exam') nextPhaseTrigger = () => setTimeout(triggerRebuttalPhase, 1500);
-        else if (gameState === 'rebuttal_defense') nextPhaseTrigger = () => setTimeout(triggerClosingPhase, 1500);
-        else if (gameState === 'closing') nextPhaseTrigger = () => setTimeout(() => setGameState('result'), 1500);
+    } else { // Battle Phases
+        if (card.judgment === 'weak') { 
+            takeDamage(DAMAGE_SMALL, "Weak Argument!"); 
+            setHand([]);
+            const newTower = [...tower, { ...card, judgment: 'weak' }];
+            setTower(newTower);
+            
+            if (baseState === 'cross_exam') setTimeout(() => triggerRebuttalPhase(currentRoundIndex), 1500);
+            else if (baseState === 'rebuttal_defense') setTimeout(() => nextRound(currentRoundIndex), 1500);
+            else if (baseState === 'closing') setTimeout(() => setGameState('result'), 1500);
+        } else { 
+            setScore(prev => prev + 50); damageOpponent(20); 
+            if (imageMatchEnabled && card.image_url) {
+                launchImageMatch(card, baseState);
+            } else {
+                finalizeCardSuccess(card, baseState);
+            }
+        }
     }
-    if (nextPhaseTrigger) nextPhaseTrigger();
+  };
+
+  const handleImageSelect = (url) => {
+      startTimeRef.current = Date.now(); setTimeProgress(0);
+      if (url === pendingCard.image_url) {
+          setScore(prev => prev + 50);
+          setFeedback({ msg: "IMAGE MATCH!", type: 'success', judgment: 'perfect' });
+          setTimeout(() => setFeedback(null), 1000);
+          const baseState = gameState.replace('_image', '');
+          finalizeCardSuccess(pendingCard, baseState);
+      } else {
+          takeDamage(DAMAGE_SMALL, "Wrong Image!");
+      }
   };
 
   const getVisibleHand = () => {
+    if (gameState.endsWith('_image')) return [];
     if (gameState !== 'construct') return hand; 
     const expectedFlow = FLOWS[gameMode] || FLOWS.area;
     const currentStepIndex = tower.length;
     if (currentStepIndex >= expectedFlow.length) return hand;
     const expectedType = expectedFlow[currentStepIndex];
-    
-    return hand.filter(card => {
-      const cardType = card.type === 'mini_conclusion' ? 'mini_conclusion' : card.type;
-      return cardType === expectedType;
-    });
+    return hand.filter(card => (card.type === 'mini_conclusion' ? 'mini_conclusion' : card.type) === expectedType);
   };
 
   const visibleHand = getVisibleHand();
   const currentTopic = topics.find(t => t.id === selectedTopicId) || topics[0];
   const theme = THEMES.techno;
-
-  const getNextInstruction = () => {
-      const expectedFlow = FLOWS[gameMode] || FLOWS.area;
-      const step = tower.length;
-      if (step >= expectedFlow.length) return "Completed!";
-      const nextType = expectedFlow[step];
-      const typeInfo = CARD_TYPES[nextType];
-      return (
-          <div className="flex flex-col items-center animate-pulse">
-              <span className="text-sm text-slate-400 mb-1 font-bold tracking-widest">NEXT BLOCK</span>
-              <div className={`relative px-8 py-3 rounded-xl border-2 shadow-[0_0_30px_rgba(0,0,0,0.5)] flex items-center gap-3 ${typeInfo.bg} ${typeInfo.border} text-white`}>
-                  {React.createElement(typeInfo.icon, { size: 24 })}
-                  <span className="text-2xl font-black">{langMode === 'ja' || showJapanese ? typeInfo.labelJP : typeInfo.label}</span>
-              </div>
-              <div className="mt-4 w-64 h-16 border-4 border-dashed border-white/20 rounded-xl flex items-center justify-center">
-                  <Plus className="text-white/20 w-8 h-8"/>
-              </div>
-          </div>
-      );
-  };
 
   const isTopicSelected = selectedTopicId !== null;
   const isStanceSelected = userStance !== null;
@@ -411,7 +472,7 @@ export default function App() {
                             <div className={`w-3 h-3 rounded-full transition-colors ${setupStep >= 3 ? 'bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)]' : 'bg-slate-700'}`}/>
                          </div>
 
-                         <button onClick={() => setSetupHelpStep(setupStep)} className="text-blue-400 hover:text-blue-300 flex items-center gap-1 transition-colors w-20 justify-end font-bold">
+                         <button onClick={() => setShowRules(true)} className="text-blue-400 hover:text-blue-300 flex items-center gap-1 transition-colors w-20 justify-end font-bold">
                              <HelpCircle className="w-6 h-6"/> Help
                          </button>
                      </div>
@@ -455,36 +516,47 @@ export default function App() {
                                          </div>
                                      </div>
 
-                                     <div className="flex flex-col gap-5 shrink-0 overflow-y-auto custom-scrollbar pr-2">
-                                         <div className={`bg-slate-950/50 p-4 md:p-5 rounded-2xl transition-all duration-300 ${!isTopicSelected ? 'opacity-30 pointer-events-none border border-white/5' : (!isStanceSelected ? 'ring-4 ring-green-500 ring-opacity-70 animate-pulse border-transparent' : 'border border-white/10')}`}>
+                                     <div className="flex flex-col gap-4 shrink-0 overflow-y-auto custom-scrollbar pr-2">
+                                         <div className={`bg-slate-950/50 p-4 rounded-2xl transition-all duration-300 ${!isTopicSelected ? 'opacity-30 pointer-events-none border border-white/5' : (!isStanceSelected ? 'ring-4 ring-green-500 ring-opacity-70 animate-pulse border-transparent' : 'border border-white/10')}`}>
                                              <h3 className="text-sm font-bold text-green-400 mb-3 uppercase tracking-widest border-b border-white/10 pb-2">Your Stance</h3>
                                              <div className="flex gap-3">
-                                                 <button onClick={() => setUserStance('affirmative')} className={`flex-1 py-4 md:py-5 rounded-xl font-black text-lg border-2 transition-all ${userStance === 'affirmative' ? 'bg-blue-600 border-blue-400 text-white' : 'bg-slate-800 border-slate-600 text-slate-500 hover:bg-slate-700'}`}>{langMode === 'ja' ? '肯定側' : 'AFFIRMATIVE'}</button>
-                                                 <button onClick={() => setUserStance('negative')} className={`flex-1 py-4 md:py-5 rounded-xl font-black text-lg border-2 transition-all ${userStance === 'negative' ? 'bg-red-600 border-red-400 text-white' : 'bg-slate-800 border-slate-600 text-slate-500 hover:bg-slate-700'}`}>{langMode === 'ja' ? '否定側' : 'NEGATIVE'}</button>
+                                                 <button onClick={() => setUserStance('affirmative')} className={`flex-1 py-3 rounded-xl font-black text-lg border-2 transition-all ${userStance === 'affirmative' ? 'bg-blue-600 border-blue-400 text-white' : 'bg-slate-800 border-slate-600 text-slate-500 hover:bg-slate-700'}`}>{langMode === 'ja' ? '肯定側' : 'AFFIRMATIVE'}</button>
+                                                 <button onClick={() => setUserStance('negative')} className={`flex-1 py-3 rounded-xl font-black text-lg border-2 transition-all ${userStance === 'negative' ? 'bg-red-600 border-red-400 text-white' : 'bg-slate-800 border-slate-600 text-slate-500 hover:bg-slate-700'}`}>{langMode === 'ja' ? '否定側' : 'NEGATIVE'}</button>
                                              </div>
                                          </div>
 
-                                         <div className={`bg-slate-950/50 p-4 md:p-5 rounded-2xl transition-all duration-300 ${!isStanceSelected ? 'opacity-30 pointer-events-none border border-white/5' : (!isDifficultySelected ? 'ring-4 ring-yellow-500 ring-opacity-70 animate-pulse border-transparent' : 'border border-white/10')}`}>
+                                         <div className={`bg-slate-950/50 p-4 rounded-2xl transition-all duration-300 ${!isStanceSelected ? 'opacity-30 pointer-events-none border border-white/5' : (!isDifficultySelected ? 'ring-4 ring-yellow-500 ring-opacity-70 animate-pulse border-transparent' : 'border border-white/10')}`}>
                                              <h3 className="text-sm font-bold text-yellow-400 mb-3 uppercase tracking-widest border-b border-white/10 pb-2">Difficulty</h3>
-                                             <div className="flex flex-wrap gap-2 md:gap-3">
+                                             <div className="flex gap-2">
                                                  {Object.keys(DIFFICULTIES).map(d => (
-                                                     <button key={d} onClick={() => setDifficulty(d)} className={`flex-1 py-3 px-2 rounded-lg border-2 font-bold transition-all ${difficulty === d ? 'bg-yellow-600 border-yellow-400 text-white' : 'bg-slate-800 border-slate-600 text-slate-500 hover:bg-slate-700'}`}>{DIFFICULTIES[d].label}</button>
+                                                     <button key={d} onClick={() => setDifficulty(d)} className={`flex-1 py-2 rounded-lg border-2 font-bold transition-all ${difficulty === d ? 'bg-yellow-600 border-yellow-400 text-white' : 'bg-slate-800 border-slate-600 text-slate-500 hover:bg-slate-700'}`}>{DIFFICULTIES[d].label}</button>
                                                  ))}
                                              </div>
                                          </div>
 
-                                         <div className={`bg-slate-950/50 p-4 md:p-5 rounded-2xl transition-all duration-300 border border-white/10 ${!isDifficultySelected ? 'opacity-30 pointer-events-none' : ''}`}>
-                                             <div className="flex justify-between items-center">
-                                                 <h3 className="text-sm font-bold text-pink-400 uppercase tracking-widest flex items-center gap-2">
-                                                     <Clock className="w-4 h-4"/> Time Limit
-                                                 </h3>
-                                                 <button onClick={() => setTimerEnabled(!timerEnabled)} className={`w-14 h-7 flex items-center rounded-full p-1 cursor-pointer transition-colors ${timerEnabled ? 'bg-pink-600' : 'bg-slate-600'}`}>
-                                                     <div className={`bg-white w-5 h-5 rounded-full shadow-md transform transition-transform ${timerEnabled ? 'translate-x-7' : 'translate-x-0'}`}></div>
-                                                 </button>
+                                         <div className={`bg-slate-950/50 p-4 rounded-2xl transition-all duration-300 border border-white/10 ${!isDifficultySelected ? 'opacity-30 pointer-events-none' : ''}`}>
+                                             <h3 className="text-sm font-bold text-cyan-400 mb-3 uppercase tracking-widest border-b border-white/10 pb-2">Game Modifiers</h3>
+                                             <div className="space-y-4">
+                                                 <div className="flex justify-between items-center">
+                                                     <span className="font-bold flex items-center gap-2"><ImageIcon className="w-5 h-5"/> Image Match</span>
+                                                     <button onClick={() => setImageMatchEnabled(!imageMatchEnabled)} className={`w-14 h-7 flex items-center rounded-full p-1 transition-colors ${imageMatchEnabled ? 'bg-cyan-600' : 'bg-slate-600'}`}>
+                                                         <div className={`bg-white w-5 h-5 rounded-full transform transition-transform ${imageMatchEnabled ? 'translate-x-7' : 'translate-x-0'}`}></div>
+                                                     </button>
+                                                 </div>
+                                                 <div className="flex justify-between items-center">
+                                                     <span className="font-bold flex items-center gap-2"><Clock className="w-5 h-5"/> Time Limit</span>
+                                                     <button onClick={() => setTimerEnabled(!timerEnabled)} className={`w-14 h-7 flex items-center rounded-full p-1 transition-colors ${timerEnabled ? 'bg-pink-600' : 'bg-slate-600'}`}>
+                                                         <div className={`bg-white w-5 h-5 rounded-full transform transition-transform ${timerEnabled ? 'translate-x-7' : 'translate-x-0'}`}></div>
+                                                     </button>
+                                                 </div>
+                                                 <div>
+                                                     <div className="flex justify-between font-bold mb-2">
+                                                         <span className="flex items-center gap-2"><Swords className="w-5 h-5"/> Battle Rounds</span>
+                                                         <span className="text-cyan-400">{battleRounds} Rounds</span>
+                                                     </div>
+                                                     <input type="range" min="1" max="6" value={battleRounds} onChange={(e) => setBattleRounds(Number(e.target.value))} className="w-full accent-cyan-500" />
+                                                 </div>
                                              </div>
-                                             <p className="text-xs text-slate-400 mt-2">
-                                                 {timerEnabled ? 'ON: 時間制限ありの緊張感バトル' : 'OFF: 時間制限なしでゆっくり考える'}
-                                             </p>
                                          </div>
                                      </div>
                                  </div>
@@ -505,20 +577,6 @@ export default function App() {
                      <button onClick={() => setFontSize(prev => prev === 'normal' ? 'large' : prev === 'large' ? 'xlarge' : 'normal')} className="hover:text-white flex items-center gap-2"><Type className="w-5 h-5"/> Text Size</button>
                  </div>
              </div>
-
-             {setupHelpStep && (
-                <div className="fixed inset-0 z-[200] bg-black/80 flex items-center justify-center p-4 animate-in fade-in zoom-in-95" onClick={() => setSetupHelpStep(null)}>
-                   <div className="bg-slate-800 p-8 rounded-3xl max-w-md w-full border border-white/20 shadow-2xl" onClick={e => e.stopPropagation()}>
-                      <h3 className="text-3xl font-black text-blue-400 mb-4 flex items-center gap-2"><HelpCircle/> Step {setupHelpStep} Guide</h3>
-                      <div className="text-slate-200 mb-8 text-lg leading-relaxed whitespace-pre-line">
-                         {setupHelpStep === 1 && "使用する言語を選びます。\n\n・English: 英語学習用の標準モードです。\n・日本語: 全てが日本語になり、国語の論理練習に使えます。"}
-                         {setupHelpStep === 2 && "遊び方を選びます。\n\n・AREA Battle: 4枚のカードを正しい論理の順番で組み立てて敵と戦います。\n・Logic Link: 理由と具体例の2枚だけを繋ぐ短時間モードです。\n・Review Mode: バトルなしで、各テーマの模範解答をじっくり読むことができます。"}
-                         {setupHelpStep === 3 && "最後に、ディベートのテーマ、あなたの立場（肯定/否定）、敵の強さを選びます。\n光っている場所を順番に選んでいくと、BATTLE STARTボタンが現れます！"}
-                      </div>
-                      <button onClick={() => setSetupHelpStep(null)} className="w-full py-4 bg-blue-600 rounded-xl font-bold text-white hover:bg-blue-500 text-xl transition-colors">Got it!</button>
-                   </div>
-                </div>
-             )}
           </div>
       )}
 
@@ -544,12 +602,15 @@ export default function App() {
                   <span className={`text-xs md:text-sm px-3 py-1 rounded-md uppercase tracking-wider font-bold shadow-lg ${userStance === 'affirmative' ? 'bg-blue-600 border border-blue-400' : 'bg-red-600 border border-red-400'}`}>
                      {userStance === 'affirmative' ? (langMode === 'ja' ? '肯定' : 'AFFIRMATIVE') : (langMode === 'ja' ? '否定' : 'NEGATIVE')}
                   </span>
+                  {battleRounds > 1 && (gameState.includes('cross') || gameState.includes('rebuttal')) && (
+                     <span className="text-xs px-2 py-1 rounded-md bg-purple-600 border border-purple-400 ml-2">ROUND {currentRoundIndex + 1}/{battleRounds}</span>
+                  )}
                 </span>
                 {showJapanese && langMode !== 'ja' && <span className="text-sm text-slate-400 mt-1 truncate">{currentTopic.titleJP}</span>}
             </div>
           </div>
 
-          {timerEnabled && (gameState === 'construct' || gameState === 'cross_exam' || gameState === 'rebuttal_defense') && (
+          {timerEnabled && ['construct', 'cross_exam', 'rebuttal_defense', 'construct_image', 'cross_exam_image', 'rebuttal_defense_image', 'closing', 'closing_image'].includes(gameState) && (
               <div className="absolute left-1/2 -translate-x-1/2 top-4 md:top-6 flex flex-col items-center w-32 md:w-48 bg-slate-900/50 px-4 py-2 rounded-xl border border-white/10 backdrop-blur-md shadow-lg">
                   <div className="text-[10px] md:text-xs font-bold text-pink-400 uppercase tracking-widest mb-1 md:mb-2 flex items-center gap-1"><Clock className="w-3 h-3 md:w-4 md:h-4"/> Time Limit</div>
                   <div className="w-full h-2 md:h-3 bg-slate-900 rounded-full overflow-hidden border border-slate-600 shadow-inner">
@@ -591,34 +652,64 @@ export default function App() {
                   </div>
               )}
 
+              {/* Rival Attack / Question Area */}
               {rivalCard && (
-                 <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 w-full max-w-2xl px-4 animate-in slide-in-from-top-4">
-                   <div className={`p-4 md:p-6 rounded-2xl shadow-2xl border-4 flex gap-4 md:gap-6 ${rivalCard.type === 'attack' ? 'bg-rose-950/90 border-rose-500' : 'bg-teal-950/90 border-teal-500'}`}>
-                      <div className={`shrink-0 p-3 md:p-4 rounded-full h-fit border-2 border-white/20 ${rivalCard.type === 'attack' ? 'bg-rose-600' : 'bg-teal-600'}`}>
-                          {rivalCard.type === 'attack' ? <Swords className="w-6 h-6 md:w-8 md:h-8 text-white"/> : <MessageCircleQuestion className="w-6 h-6 md:w-8 md:h-8 text-white"/>}
-                      </div>
-                      <div>
-                        <div className="font-black opacity-60 text-xs md:text-sm uppercase tracking-widest mb-1">{rivalCard.type === 'attack' ? "Opponent Attack!" : "Question"}</div>
-                        {langMode === 'ja' ? <div className="text-lg md:text-2xl font-bold">{rivalCard.textJP}</div> : (
-                            <><div className="text-lg md:text-2xl font-bold"><SmartText text={typeof rivalCard.text === 'object' ? rivalCard.text[difficulty] : rivalCard.text} vocabList={currentTopic.vocabulary} /></div>{showJapanese && <div className="mt-2 opacity-80 text-sm border-t border-white/20 pt-1">{rivalCard.textJP}</div>}</>
-                        )}
+                 <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 w-full max-w-3xl px-4 animate-in slide-in-from-top-4">
+                   <div className={`p-4 md:p-6 rounded-2xl shadow-2xl border-4 flex flex-col md:flex-row gap-4 md:gap-6 ${rivalCard.type === 'attack' ? 'bg-rose-950/95 border-rose-500' : 'bg-teal-950/95 border-teal-500'}`}>
+                      {rivalCard.image_url && (
+                          <div className="shrink-0">
+                              <img src={rivalCard.image_url} className="w-full md:w-32 h-32 object-cover rounded-xl border-2 border-white/20 shadow-md" alt="Rival" />
+                          </div>
+                      )}
+                      <div className="flex gap-4">
+                          <div className={`shrink-0 p-3 md:p-4 rounded-full h-fit border-2 border-white/20 ${rivalCard.type === 'attack' ? 'bg-rose-600' : 'bg-teal-600'}`}>
+                              {rivalCard.type === 'attack' ? <Swords className="w-6 h-6 md:w-8 md:h-8 text-white"/> : <MessageCircleQuestion className="w-6 h-6 md:w-8 md:h-8 text-white"/>}
+                          </div>
+                          <div>
+                            <div className="font-black opacity-60 text-xs md:text-sm uppercase tracking-widest mb-1">{rivalCard.type === 'attack' ? "Opponent Attack!" : "Question"}</div>
+                            {langMode === 'ja' ? <div className="text-lg md:text-2xl font-bold leading-relaxed">{rivalCard.textJP}</div> : (
+                                <><div className="text-lg md:text-xl font-bold leading-relaxed"><SmartText text={typeof rivalCard.text === 'object' ? rivalCard.text[difficulty] : rivalCard.text} vocabList={currentTopic.vocabulary} /></div>{showJapanese && <div className="mt-2 opacity-80 text-sm border-t border-white/20 pt-1">{rivalCard.textJP}</div>}</>
+                            )}
+                          </div>
                       </div>
                    </div>
                  </div>
               )}
 
-              <div ref={scrollRef} className="flex-1 w-full overflow-y-auto p-4 flex flex-col items-center gap-4 scroll-smooth pb-20 z-10">
-                  {tower.map((block) => {
-                      const typeStyle = CARD_TYPES[block.type];
+              {/* Prompt for Image Match */}
+              {gameState.endsWith('_image') && pendingCard && (
+                 <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 w-full max-w-3xl px-4 animate-in slide-in-from-top-4">
+                     <div className="bg-cyan-950/95 border-4 border-cyan-500 p-4 md:p-6 rounded-2xl shadow-2xl text-center">
+                         <div className="flex items-center justify-center gap-2 text-cyan-400 font-black tracking-widest uppercase mb-2">
+                             <ImageIcon className="w-6 h-6"/> Select Matching Image
+                         </div>
+                         <div className="text-lg md:text-xl font-bold text-white bg-black/40 p-4 rounded-xl border border-white/10">
+                            {langMode === 'ja' ? pendingCard.textJP : (typeof pendingCard.text === 'object' ? pendingCard.text[difficulty] : pendingCard.text)}
+                         </div>
+                     </div>
+                 </div>
+              )}
+
+              {/* Tower / Log Area */}
+              <div ref={scrollRef} className="flex-1 w-full overflow-y-auto p-4 flex flex-col items-center gap-4 scroll-smooth pb-20 z-10 pt-48">
+                  {tower.map((block, idx) => {
+                      const typeStyle = CARD_TYPES[block.type] || CARD_TYPES.reason;
                       return (
-                      <div key={block.id} className="relative w-full max-w-3xl animate-in slide-in-from-bottom-4">
-                          <div className={`p-4 md:p-5 rounded-xl border-l-8 backdrop-blur-md shadow-lg flex gap-4 items-center ${block.judgment === 'weak' ? 'border-yellow-500/50 bg-yellow-900/10' : `border-${typeStyle.color.split('-')[1]}-500 bg-slate-900/90`}`}>
-                              <div className={`p-2 md:p-3 rounded-xl bg-black/40 border border-white/5 ${typeStyle.color}`}>{React.createElement(typeStyle.icon, { size: 20 })}</div>
-                              <div className="flex-1">
-                                  <div className={`text-[10px] md:text-xs font-black uppercase tracking-widest mb-1 opacity-70 ${typeStyle.color}`}>{langMode === 'ja' ? typeStyle.labelJP : typeStyle.label}</div>
-                                  {langMode === 'ja' ? <div className="font-bold text-white text-base md:text-lg leading-relaxed">{block.textJP}</div> : (
-                                      <><div className="font-bold leading-relaxed text-slate-100 text-base md:text-lg"><SmartText text={typeof block.text === 'object' ? block.text[difficulty] : block.text} vocabList={currentTopic.vocabulary} /></div>{showJapanese && <div className="mt-1 text-slate-400 text-xs md:text-sm border-t border-white/10 pt-1">{block.textJP}</div>}</>
-                                  )}
+                      <div key={block.id + idx} className="relative w-full max-w-3xl animate-in slide-in-from-bottom-4">
+                          <div className={`p-4 md:p-5 rounded-xl border-l-8 backdrop-blur-md shadow-lg flex flex-col md:flex-row gap-4 items-start md:items-center ${block.judgment === 'weak' ? 'border-yellow-500/50 bg-yellow-900/40' : `border-${typeStyle.color.split('-')[1]}-500 bg-slate-900/90`}`}>
+                              {block.image_url && (
+                                  <div className="shrink-0 w-full md:w-32 h-32 rounded-lg overflow-hidden border border-white/20 shadow-md">
+                                      <img src={block.image_url} className="w-full h-full object-cover" alt="Card Visual" />
+                                  </div>
+                              )}
+                              <div className="flex-1 flex gap-4 w-full">
+                                  <div className={`shrink-0 p-2 md:p-3 rounded-xl bg-black/40 border border-white/5 h-fit ${typeStyle.color}`}>{React.createElement(typeStyle.icon, { size: 20 })}</div>
+                                  <div className="flex-1">
+                                      <div className={`text-[10px] md:text-xs font-black uppercase tracking-widest mb-1 opacity-70 ${typeStyle.color}`}>{langMode === 'ja' ? typeStyle.labelJP : typeStyle.label}</div>
+                                      {langMode === 'ja' ? <div className="font-bold text-white text-base md:text-lg leading-relaxed">{block.textJP}</div> : (
+                                          <><div className="font-bold leading-relaxed text-slate-100 text-base md:text-lg"><SmartText text={typeof block.text === 'object' ? block.text[difficulty] : block.text} vocabList={currentTopic.vocabulary} /></div>{showJapanese && <div className="mt-1 text-slate-400 text-xs md:text-sm border-t border-white/10 pt-1">{block.textJP}</div>}</>
+                                      )}
+                                  </div>
                               </div>
                           </div>
                       </div>
@@ -629,32 +720,54 @@ export default function App() {
 
           <div className="w-4 bg-slate-900 border-x border-white/10 cursor-col-resize hover:bg-blue-900/30 flex items-center justify-center z-20" onMouseDown={() => isResizing.current = true} onTouchStart={() => isResizing.current = true}><GripVertical className="w-4 h-4 text-slate-600"/></div>
 
-          <div className="flex flex-col bg-[#1e293b] border-l border-white/10 shadow-2xl z-20" style={{ width: `${sidePanelWidth}%`, minWidth: '250px' }}>
+          {/* Right/Left Control Panel */}
+          <div className="flex flex-col bg-[#1e293b] border-l border-white/10 shadow-2xl z-20" style={{ width: `${sidePanelWidth}%`, minWidth: '300px' }}>
               <div className="p-3 border-b border-white/10 flex justify-between items-center bg-slate-900/50">
-                  <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">Hand</div>
+                  <div className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                      {gameState.endsWith('_image') ? <ImageIcon className="w-4 h-4"/> : <Lightbulb className="w-4 h-4"/>} 
+                      {gameState.endsWith('_image') ? "Select Image" : "Hand"}
+                  </div>
                   <div className="flex gap-1">
                       <button onClick={() => setSidePanelPos(prev => prev === 'left' ? 'right' : 'left')} className="p-1 hover:bg-white/10 rounded"><MoveHorizontal className="w-4 h-4 text-slate-400"/></button>
                       {gameState === 'construct' && <button onClick={handleUndo} className="p-1 hover:bg-white/10 rounded flex items-center text-xs font-bold text-slate-300 disabled:opacity-30" disabled={tower.length === 0}><Undo2 className="w-4 h-4"/></button>}
                   </div>
               </div>
+              
               <div className="flex-1 overflow-y-auto p-3 space-y-3">
-                  {visibleHand.map((card) => {
-                      const type = CARD_TYPES[card.type] || CARD_TYPES.reason;
-                      return (
-                          <button key={card.id} onClick={() => handleCardSelect(card)} className={`w-full relative overflow-hidden group text-left p-4 rounded-xl border transition-all duration-200 hover:-translate-y-1 hover:shadow-lg active:scale-[0.98] ${type.bg} border-white/20 hover:border-white/50 animate-in fade-in zoom-in-95`}>
-                              <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"/>
-                              <div className="flex justify-between items-start mb-2 relative z-10">
-                                  <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded bg-black/40 border border-white/10 text-white`}>{langMode === 'ja' || showJapanese ? type.labelJP : type.label}</span>
-                                  {React.createElement(type.icon, { className: "w-4 h-4 text-white opacity-80" })}
-                              </div>
-                              <div className="relative z-10">
-                                  {langMode === 'ja' ? <div className="font-bold text-white text-sm md:text-base drop-shadow-md">{card.textJP}</div> : (
-                                      <><div className="font-bold text-white leading-snug text-sm md:text-base drop-shadow-md"><SmartText text={typeof card.text === 'object' ? card.text[difficulty] : card.text} vocabList={currentTopic.vocabulary} /></div>{showJapanese && <div className="mt-2 pt-1 border-t border-white/20 text-white/70 text-xs">{card.textJP}</div>}</>
+                  {gameState.endsWith('_image') ? (
+                      // Image Match Grid
+                      <div className="grid grid-cols-2 gap-3 h-full pb-10">
+                          {imageHand.map((url, idx) => (
+                              <button key={idx} onClick={() => handleImageSelect(url)} className="relative border-4 border-white/10 rounded-xl overflow-hidden hover:border-cyan-400 transition-all hover:scale-105 active:scale-95 shadow-lg group aspect-square">
+                                  <div className="absolute inset-0 bg-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none"/>
+                                  {url ? (
+                                     <img src={url} className="w-full h-full object-cover" alt="Choice" />
+                                  ) : (
+                                     <div className="w-full h-full bg-slate-800 flex items-center justify-center text-slate-500 font-bold">No Image</div>
                                   )}
-                              </div>
-                          </button>
-                      );
-                  })}
+                              </button>
+                          ))}
+                      </div>
+                  ) : (
+                      // Standard Text Hand
+                      visibleHand.map((card) => {
+                          const type = CARD_TYPES[card.type] || CARD_TYPES.reason;
+                          return (
+                              <button key={card.id} onClick={() => handleCardSelect(card)} className={`w-full relative overflow-hidden group text-left p-4 rounded-xl border transition-all duration-200 hover:-translate-y-1 hover:shadow-lg active:scale-[0.98] ${type.bg} border-white/20 hover:border-white/50 animate-in fade-in zoom-in-95`}>
+                                  <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"/>
+                                  <div className="flex justify-between items-start mb-2 relative z-10">
+                                      <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded bg-black/40 border border-white/10 text-white`}>{langMode === 'ja' || showJapanese ? type.labelJP : type.label}</span>
+                                      {React.createElement(type.icon, { className: "w-4 h-4 text-white opacity-80" })}
+                                  </div>
+                                  <div className="relative z-10">
+                                      {langMode === 'ja' ? <div className="font-bold text-white text-sm md:text-base drop-shadow-md">{card.textJP}</div> : (
+                                          <><div className="font-bold text-white leading-snug text-sm md:text-base drop-shadow-md"><SmartText text={typeof card.text === 'object' ? card.text[difficulty] : card.text} vocabList={currentTopic.vocabulary} /></div>{showJapanese && <div className="mt-2 pt-1 border-t border-white/20 text-white/70 text-xs">{card.textJP}</div>}</>
+                                      )}
+                                  </div>
+                              </button>
+                          );
+                      })
+                  )}
               </div>
           </div>
         </div>
@@ -683,7 +796,7 @@ export default function App() {
                        correctCards.sort((a, b) => order[a.type] - order[b.type]);
 
                        return (
-                           <div className="w-full max-w-4xl bg-slate-900/80 rounded-2xl p-6 border border-white/10 mb-10 shadow-2xl">
+                           <div className="w-full max-w-5xl bg-slate-900/80 rounded-2xl p-6 border border-white/10 mb-10 shadow-2xl">
                                <h3 className="text-xl md:text-2xl font-black text-green-400 mb-6 flex items-center justify-center gap-2 border-b border-white/10 pb-4">
                                    <CheckCircle2 className="w-6 h-6"/> Model Answer (模範解答)
                                </h3>
@@ -691,19 +804,26 @@ export default function App() {
                                    {correctCards.map(card => {
                                        const typeStyle = CARD_TYPES[card.type] || CARD_TYPES.reason;
                                        return (
-                                           <div key={card.id} className="flex flex-col md:flex-row gap-3 p-4 bg-slate-800/50 rounded-xl border border-white/5 items-start md:items-center text-left">
-                                               <div className={`shrink-0 text-[10px] md:text-xs font-black uppercase px-2 py-1 rounded bg-black/40 border border-white/10 ${typeStyle.color} w-24 text-center`}>
-                                                   {langMode === 'ja' ? typeStyle.labelJP : typeStyle.label}
-                                               </div>
-                                               <div className="flex-1">
-                                                   {langMode === 'ja' ? (
-                                                       <div className="font-bold text-white text-sm md:text-base leading-relaxed">{card.textJP}</div>
-                                                   ) : (
-                                                       <>
-                                                           <div className="font-bold text-white text-sm md:text-base leading-relaxed"><SmartText text={typeof card.text === 'object' ? card.text[difficulty] : card.text} vocabList={currentTopic.vocabulary} /></div>
-                                                           {showJapanese && <div className="mt-1 text-slate-400 text-xs">{card.textJP}</div>}
-                                                       </>
-                                                   )}
+                                           <div key={card.id} className="flex flex-col md:flex-row gap-4 p-4 bg-slate-800/50 rounded-xl border border-white/5 items-start md:items-center text-left">
+                                               {card.image_url && (
+                                                   <div className="shrink-0 w-full md:w-32 h-32 rounded-lg overflow-hidden border border-white/10 shadow-md">
+                                                       <img src={card.image_url} className="w-full h-full object-cover" />
+                                                   </div>
+                                               )}
+                                               <div className="flex gap-4 flex-1 w-full items-center">
+                                                   <div className={`shrink-0 text-[10px] md:text-xs font-black uppercase px-2 py-1 rounded bg-black/40 border border-white/10 ${typeStyle.color} w-24 text-center`}>
+                                                       {langMode === 'ja' ? typeStyle.labelJP : typeStyle.label}
+                                                   </div>
+                                                   <div className="flex-1">
+                                                       {langMode === 'ja' ? (
+                                                           <div className="font-bold text-white text-sm md:text-base leading-relaxed">{card.textJP}</div>
+                                                       ) : (
+                                                           <>
+                                                               <div className="font-bold text-white text-sm md:text-base leading-relaxed"><SmartText text={typeof card.text === 'object' ? card.text[difficulty] : card.text} vocabList={currentTopic.vocabulary} /></div>
+                                                               {showJapanese && <div className="mt-1 text-slate-400 text-xs">{card.textJP}</div>}
+                                                           </>
+                                                       )}
+                                                   </div>
                                                </div>
                                            </div>
                                        );
