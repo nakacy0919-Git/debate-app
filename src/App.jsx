@@ -42,11 +42,9 @@ const CARD_TYPES = {
 
 const FONT_SIZES = { normal: 'text-base', large: 'text-xl', xlarge: 'text-2xl' };
 
-// Utility to grab all fake images for the distractors
 const getAllFakeImages = (topic) => {
   const urls = new Set();
   if (topic.deck) topic.deck.forEach(c => { if(c.group === 'fake' && c.image_url) urls.add(c.image_url); });
-  
   const extractFromPhase = (phaseObj) => {
     if(!phaseObj) return;
     ['affirmative', 'negative'].forEach(stance => {
@@ -55,17 +53,15 @@ const getAllFakeImages = (topic) => {
           if (item.options) {
             item.options.forEach(o => { if(o.judgment === 'weak' && o.image_url) urls.add(o.image_url); });
           } else if (item.judgment === 'weak' && item.image_url) {
-            urls.add(item.image_url); // For closing array
+            urls.add(item.image_url);
           }
         });
       }
     });
   };
-
   extractFromPhase(topic.crossExam);
   extractFromPhase(topic.rebuttal);
   extractFromPhase(topic.closing);
-
   return Array.from(urls);
 };
 
@@ -75,10 +71,9 @@ export default function App() {
   const [userStance, setUserStance] = useState(null); 
   const [difficulty, setDifficulty] = useState(null);
   
-  // New Settings
   const [timerEnabled, setTimerEnabled] = useState(true); 
   const [imageMatchEnabled, setImageMatchEnabled] = useState(true);
-  const [battleRounds, setBattleRounds] = useState(3); // 1 to 6
+  const [battleRounds, setBattleRounds] = useState(3);
   
   const [gameMode, setGameMode] = useState('area'); 
   const [langMode, setLangMode] = useState('en'); 
@@ -87,7 +82,6 @@ export default function App() {
   const [setupStep, setSetupStep] = useState(1);
   const [showRules, setShowRules] = useState(false);
 
-  // Game State
   const [playerHP, setPlayerHP] = useState(MAX_HP);
   const [opponentHP, setOpponentHP] = useState(MAX_HP);
   const [gameState, setGameState] = useState('start'); 
@@ -101,11 +95,9 @@ export default function App() {
   const [particles, setParticles] = useState([]);
   const [activeLogicGroup, setActiveLogicGroup] = useState(null);
 
-  // Battle Logic States
   const [battlePlan, setBattlePlan] = useState([]);
   const [currentRoundIndex, setCurrentRoundIndex] = useState(0);
 
-  // Image Match States
   const [pendingCard, setPendingCard] = useState(null);
   const [imageHand, setImageHand] = useState([]);
 
@@ -129,13 +121,11 @@ export default function App() {
       clearInterval(timerIntervalRef.current);
       return;
     }
-
     const activeTimerStates = ['construct', 'cross_exam', 'rebuttal_defense', 'construct_image', 'cross_exam_image', 'rebuttal_defense_image', 'closing', 'closing_image'];
     if (!activeTimerStates.includes(gameState)) {
       clearInterval(timerIntervalRef.current);
       return;
     }
-
     startTimeRef.current = Date.now();
     timerIntervalRef.current = setInterval(() => {
       const elapsed = Date.now() - startTimeRef.current;
@@ -150,7 +140,6 @@ export default function App() {
         setTimeout(() => setFeedback(null), 1500); 
       }
     }, 100);
-
     return () => clearInterval(timerIntervalRef.current);
   }, [gameState, timerEnabled]); 
 
@@ -177,10 +166,11 @@ export default function App() {
     if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   }, [tower]);
 
+  const [shake, setShake] = useState(false);
+
   const takeDamage = (amount, reason = "") => {
     setPlayerHP(prev => Math.max(0, prev - amount));
-    setShake(true); 
-    setTimeout(() => setShake(false), 300);
+    setShake(true); setTimeout(() => setShake(false), 300);
     setFeedback({ msg: `-${amount} HP (${reason})`, type: 'damage', judgment: 'weak' });
     setTimeout(() => setFeedback(null), 1500); 
   };
@@ -211,79 +201,54 @@ export default function App() {
   };
 
   const initGame = () => {
-    if (gameMode === 'review') {
-       setGameState('review');
-       return;
-    }
+    if (gameMode === 'review') { setGameState('review'); return; }
     setTower([]); setPlayerHP(MAX_HP); setOpponentHP(MAX_HP); setScore(0);
     setActiveLogicGroup(null); setRivalCard(null); setGameState('construct');
     setFeedback(null); setTimeProgress(0); startTimeRef.current = Date.now(); 
     
     const currentTopic = topics.find(t => t.id === selectedTopicId) || topics[0];
-    
-    // Setup AREA Deck
     let myStanceCards = currentTopic.deck.filter(c => c.stance === userStance);
-    if (gameMode === 'logic_link') {
-       myStanceCards = myStanceCards.filter(c => c.type === 'reason' || c.type === 'example');
-    }
+    if (gameMode === 'logic_link') myStanceCards = myStanceCards.filter(c => c.type === 'reason' || c.type === 'example');
+    
     const validCards = myStanceCards.filter(c => c.group !== 'fake');
     const fakeCardsAll = myStanceCards.filter(c => c.group === 'fake');
     const noiseCount = DIFFICULTIES[difficulty].fakeCount || 4;
     const noiseCards = fakeCardsAll.sort(() => Math.random() - 0.5).slice(0, Math.max(0, noiseCount));
     setHand([...validCards, ...noiseCards].sort(() => Math.random() - 0.5));
     
-    // Setup Battle Plan (Loops)
     const cxList = currentTopic.crossExam?.[userStance] || [];
     const rebList = currentTopic.rebuttal?.[userStance] || [];
-    
     const plan = [];
     const shuffledCx = [...cxList].sort(() => Math.random() - 0.5);
     const shuffledReb = [...rebList].sort(() => Math.random() - 0.5);
     
     for(let i=0; i < battleRounds; i++) {
-        plan.push({
-           cx: shuffledCx[i % Math.max(1, shuffledCx.length)],
-           reb: shuffledReb[i % Math.max(1, shuffledReb.length)]
-        });
+        plan.push({ cx: shuffledCx[i % Math.max(1, shuffledCx.length)], reb: shuffledReb[i % Math.max(1, shuffledReb.length)] });
     }
-    setBattlePlan(plan);
-    setCurrentRoundIndex(0);
+    setBattlePlan(plan); setCurrentRoundIndex(0);
   };
 
   const goHome = () => {
-    setGameState('start');
-    setSetupStep(1); 
-    setSelectedTopicId(null);
-    setUserStance(null);
-    setDifficulty(null);
-    setPlayerHP(MAX_HP);
-    setTower([]);
-    setIsDrillMode(false);
+    setGameState('start'); setSetupStep(1); setSelectedTopicId(null);
+    setUserStance(null); setDifficulty(null); setPlayerHP(MAX_HP); setTower([]); setIsDrillMode(false);
   };
 
   const handleUndo = () => {
     if (tower.length === 0) return;
     const newTower = [...tower];
     const removedCard = newTower.pop();
-    setTower(newTower);
-    setHand(prev => [...prev, removedCard]);
+    setTower(newTower); setHand(prev => [...prev, removedCard]);
     if (newTower.length === 0) setActiveLogicGroup(null);
   };
 
-  // --- Phase Triggers ---
   const triggerCrossExam = (roundIdx = currentRoundIndex) => {
-    if (gameMode === 'logic_link' || roundIdx >= battlePlan.length) { 
-        triggerClosingPhase(); 
-        return; 
-    }
+    if (gameMode === 'logic_link' || roundIdx >= battlePlan.length) { triggerClosingPhase(); return; }
     const currentData = battlePlan[roundIdx];
     if (currentData && currentData.cx) {
       setGameState('cross_exam');
       setRivalCard({ ...currentData.cx.question, type: 'answer', isQuestion: true });
       setHand(setupBattlePhase(currentData.cx.options));
-    } else {
-      triggerRebuttalPhase(roundIdx);
-    }
+    } else { triggerRebuttalPhase(roundIdx); }
   };
 
   const triggerRebuttalPhase = (roundIdx = currentRoundIndex) => {
@@ -294,24 +259,16 @@ export default function App() {
       if (currentData && currentData.reb) {
         setRivalCard({ ...currentData.reb, type: 'attack' });
         if(timerEnabled) takeDamage(DAMAGE_TICK, "Opponent Attack!");
-        setTimeout(() => { 
-            setGameState('rebuttal_defense'); 
-            setHand(setupBattlePhase(currentData.reb.options)); 
-        }, 3000);
-      } else {
-        nextRound(roundIdx);
-      }
+        setTimeout(() => { setGameState('rebuttal_defense'); setHand(setupBattlePhase(currentData.reb.options)); }, 3000);
+      } else { nextRound(roundIdx); }
     }, 2000);
   };
 
   const nextRound = (currentIdx) => {
       const nextIdx = currentIdx + 1;
       setCurrentRoundIndex(nextIdx);
-      if (nextIdx < battlePlan.length) {
-          triggerCrossExam(nextIdx);
-      } else {
-          triggerClosingPhase();
-      }
+      if (nextIdx < battlePlan.length) triggerCrossExam(nextIdx);
+      else triggerClosingPhase();
   };
 
   const triggerClosingPhase = () => {
@@ -322,21 +279,19 @@ export default function App() {
     else setTimeout(() => setGameState('result'), 1500);
   };
 
-  // --- Action Handlers ---
   const launchImageMatch = (card, baseState) => {
       setPendingCard(card);
       const currentTopic = topics.find(t => t.id === selectedTopicId) || topics[0];
       const allFakes = getAllFakeImages(currentTopic);
       const randomFakes = allFakes.filter(url => url !== card.image_url).sort(() => Math.random() - 0.5).slice(0, 3);
-      
       const grid = [...randomFakes];
       if (card.image_url) grid.push(card.image_url);
-      
       setImageHand(grid.sort(() => Math.random() - 0.5));
       setGameState(baseState + '_image');
       startTimeRef.current = Date.now(); setTimeProgress(0);
   };
 
+  // ✅ 修正ポイント2: メッセージが消えないバグを修正
   const finalizeCardSuccess = (card, baseState) => {
       const newTower = [...tower, { ...card, judgment: 'perfect' }];
       setTower(newTower);
@@ -346,6 +301,7 @@ export default function App() {
           const expectedFlow = FLOWS[gameMode] || FLOWS.area;
           if (newTower.length >= expectedFlow.length) {
               setFeedback({ msg: "PERFECT COMPLETE!", type: 'success', judgment: 'perfect' });
+              setTimeout(() => setFeedback(null), 1500); // 確実に追加
               triggerExplosion(30, 'bg-blue-400');
               setTimeout(() => triggerCrossExam(currentRoundIndex), 1500);
           } else {
@@ -353,12 +309,15 @@ export default function App() {
           }
       } else if (baseState === 'cross_exam') {
           setFeedback({ msg: "NICE COUNTER!", type: 'success', judgment: 'perfect' });
+          setTimeout(() => setFeedback(null), 1500); // 確実に追加
           setTimeout(() => triggerRebuttalPhase(currentRoundIndex), 1500);
       } else if (baseState === 'rebuttal_defense') {
           setFeedback({ msg: "NICE COUNTER!", type: 'success', judgment: 'perfect' });
+          setTimeout(() => setFeedback(null), 1500); // 確実に追加
           setTimeout(() => nextRound(currentRoundIndex), 1500);
       } else if (baseState === 'closing') {
           setFeedback({ msg: "DEBATE FINISHED!", type: 'success', judgment: 'perfect' });
+          setTimeout(() => setFeedback(null), 1500); // 確実に追加
           setTimeout(() => setGameState('result'), 1500);
       }
   };
@@ -382,14 +341,10 @@ export default function App() {
       }
       
       setScore(prev => prev + 100); damageOpponent(25);
-      
-      if (imageMatchEnabled && card.image_url) {
-          launchImageMatch(card, baseState);
-      } else {
-          finalizeCardSuccess(card, baseState);
-      }
+      if (imageMatchEnabled && card.image_url) launchImageMatch(card, baseState);
+      else finalizeCardSuccess(card, baseState);
 
-    } else { // Battle Phases
+    } else { 
         if (card.judgment === 'weak') { 
             takeDamage(DAMAGE_SMALL, "Weak Argument!"); 
             setHand([]);
@@ -401,11 +356,8 @@ export default function App() {
             else if (baseState === 'closing') setTimeout(() => setGameState('result'), 1500);
         } else { 
             setScore(prev => prev + 50); damageOpponent(20); 
-            if (imageMatchEnabled && card.image_url) {
-                launchImageMatch(card, baseState);
-            } else {
-                finalizeCardSuccess(card, baseState);
-            }
+            if (imageMatchEnabled && card.image_url) launchImageMatch(card, baseState);
+            else finalizeCardSuccess(card, baseState);
         }
     }
   };
@@ -453,13 +405,14 @@ export default function App() {
           <div className="absolute inset-0 z-50 flex flex-col items-center justify-center p-4 md:p-6 bg-gradient-to-br from-[#0f172a] via-[#1e1b4b] to-[#0f172a] animate-gradient-xy overflow-hidden">
              <div className="text-center w-full max-w-5xl flex flex-col items-center h-full max-h-[850px]">
                  
-                 <h1 className="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 tracking-tighter drop-shadow-2xl mb-6 shrink-0 mt-4">
+                 <h1 className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 tracking-tighter drop-shadow-2xl mb-4 shrink-0 mt-2">
                     DEBATE BATTLE
                  </h1>
 
-                 <div className="bg-slate-900/80 backdrop-blur-xl p-6 md:p-8 rounded-3xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative w-full flex-1 flex flex-col min-h-0 overflow-hidden">
+                 {/* ✅ 修正ポイント1: UIの窮屈さを改善 */}
+                 <div className="bg-slate-900/80 backdrop-blur-xl p-4 md:p-6 rounded-3xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative w-full flex-1 flex flex-col min-h-0 overflow-hidden">
                      
-                     <div className="flex justify-between items-center mb-6 pb-4 border-b border-white/10 shrink-0">
+                     <div className="flex justify-between items-center mb-4 pb-3 border-b border-white/10 shrink-0">
                          {setupStep > 1 ? (
                              <button onClick={() => setSetupStep(prev => prev - 1)} className="flex items-center gap-1 text-slate-400 hover:text-white transition-colors font-bold">
                                  <ChevronLeft className="w-6 h-6"/> Back
@@ -473,85 +426,85 @@ export default function App() {
                          </div>
 
                          <button onClick={() => setShowRules(true)} className="text-blue-400 hover:text-blue-300 flex items-center gap-1 transition-colors w-20 justify-end font-bold">
-                             <HelpCircle className="w-6 h-6"/> Help
+                             <HelpCircle className="w-5 h-5"/> Help
                          </button>
                      </div>
 
                      <div className="flex-1 flex flex-col justify-center w-full min-h-0">
                          {setupStep === 1 && (
                              <div className="animate-in fade-in slide-in-from-right-8 duration-500 w-full max-w-2xl mx-auto">
-                                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 text-center tracking-widest uppercase">1. Language</h2>
-                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                     <button onClick={() => { setLangMode('en'); setSetupStep(2); }} className={`p-8 md:p-10 rounded-2xl border-4 text-2xl md:text-3xl font-black transition-all hover:scale-105 ${langMode === 'en' ? 'bg-pink-600 border-pink-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}>English</button>
-                                     <button onClick={() => { setLangMode('ja'); setSetupStep(2); }} className={`p-8 md:p-10 rounded-2xl border-4 text-2xl md:text-3xl font-black transition-all hover:scale-105 ${langMode === 'ja' ? 'bg-pink-600 border-pink-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}>日本語</button>
+                                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center tracking-widest uppercase">1. Language</h2>
+                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                     <button onClick={() => { setLangMode('en'); setSetupStep(2); }} className={`p-6 md:p-8 rounded-2xl border-4 text-xl md:text-2xl font-black transition-all hover:scale-105 ${langMode === 'en' ? 'bg-pink-600 border-pink-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}>English</button>
+                                     <button onClick={() => { setLangMode('ja'); setSetupStep(2); }} className={`p-6 md:p-8 rounded-2xl border-4 text-xl md:text-2xl font-black transition-all hover:scale-105 ${langMode === 'ja' ? 'bg-pink-600 border-pink-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}>日本語</button>
                                  </div>
                              </div>
                          )}
 
                          {setupStep === 2 && (
                              <div className="animate-in fade-in slide-in-from-right-8 duration-500 w-full max-w-2xl mx-auto">
-                                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 text-center tracking-widest uppercase">2. Game Mode</h2>
-                                 <div className="flex flex-col gap-5">
-                                     <button onClick={() => { setGameMode('area'); setSetupStep(3); }} className={`p-5 md:p-6 rounded-2xl border-4 text-xl md:text-2xl font-bold transition-all hover:scale-105 ${gameMode === 'area' ? 'bg-purple-600 border-purple-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}>AREA Battle (Standard)</button>
-                                     <button onClick={() => { setGameMode('logic_link'); setSetupStep(3); }} className={`p-5 md:p-6 rounded-2xl border-4 text-xl md:text-2xl font-bold transition-all hover:scale-105 ${gameMode === 'logic_link' ? 'bg-purple-600 border-purple-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}>Logic Link (Reason → Example)</button>
-                                     <button onClick={() => { setGameMode('review'); setSetupStep(3); }} className={`p-5 md:p-6 rounded-2xl border-4 text-xl md:text-2xl font-bold flex items-center justify-center gap-3 transition-all hover:scale-105 ${gameMode === 'review' ? 'bg-teal-600 border-teal-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}><BookOpen className="w-6 h-6"/> Review Mode</button>
+                                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center tracking-widest uppercase">2. Game Mode</h2>
+                                 <div className="flex flex-col gap-4">
+                                     <button onClick={() => { setGameMode('area'); setSetupStep(3); }} className={`p-4 md:p-5 rounded-2xl border-4 text-lg md:text-xl font-bold transition-all hover:scale-105 ${gameMode === 'area' ? 'bg-purple-600 border-purple-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}>AREA Battle (Standard)</button>
+                                     <button onClick={() => { setGameMode('logic_link'); setSetupStep(3); }} className={`p-4 md:p-5 rounded-2xl border-4 text-lg md:text-xl font-bold transition-all hover:scale-105 ${gameMode === 'logic_link' ? 'bg-purple-600 border-purple-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}>Logic Link (Reason → Example)</button>
+                                     <button onClick={() => { setGameMode('review'); setSetupStep(3); }} className={`p-4 md:p-5 rounded-2xl border-4 text-lg md:text-xl font-bold flex items-center justify-center gap-3 transition-all hover:scale-105 ${gameMode === 'review' ? 'bg-teal-600 border-teal-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}><BookOpen className="w-5 h-5"/> Review Mode</button>
                                  </div>
                              </div>
                          )}
 
                          {setupStep === 3 && (
                              <div className="animate-in fade-in slide-in-from-right-8 duration-500 w-full flex flex-col h-full min-h-0">
-                                 <h2 className="text-xl md:text-2xl font-bold text-white mb-6 text-center tracking-widest uppercase shrink-0">3. Final Settings</h2>
+                                 <h2 className="text-lg md:text-xl font-bold text-white mb-4 text-center tracking-widest uppercase shrink-0">3. Final Settings</h2>
                                  
-                                 <div className="grid md:grid-cols-2 gap-6 text-left flex-1 min-h-0">
-                                     <div className={`bg-slate-950/50 p-4 md:p-5 rounded-2xl flex flex-col h-full min-h-0 transition-all duration-300 ${!isTopicSelected ? 'ring-4 ring-cyan-500 ring-opacity-70 animate-pulse border-transparent' : 'border border-white/10'}`}>
-                                         <h3 className="text-sm font-bold text-blue-400 mb-3 uppercase tracking-widest border-b border-white/10 pb-2 shrink-0">Topic</h3>
-                                         <div className="space-y-3 overflow-y-auto pr-2 custom-scrollbar flex-1">
+                                 <div className="grid md:grid-cols-2 gap-4 md:gap-6 text-left flex-1 min-h-0">
+                                     <div className={`bg-slate-950/50 p-3 md:p-4 rounded-2xl flex flex-col h-full min-h-0 transition-all duration-300 ${!isTopicSelected ? 'ring-4 ring-cyan-500 ring-opacity-70 animate-pulse border-transparent' : 'border border-white/10'}`}>
+                                         <h3 className="text-xs font-bold text-blue-400 mb-2 uppercase tracking-widest border-b border-white/10 pb-1 shrink-0">Topic</h3>
+                                         <div className="space-y-2 overflow-y-auto pr-2 custom-scrollbar flex-1">
                                              {topics.map(t => (
-                                                 <button key={t.id} onClick={() => setSelectedTopicId(t.id)} className={`w-full text-left p-4 rounded-xl border transition-all ${selectedTopicId === t.id ? 'bg-blue-600 border-blue-400 text-white shadow-lg' : 'bg-slate-800 border-slate-700 text-slate-400 hover:bg-slate-700'}`}>
-                                                     <div className="font-bold text-lg md:text-xl leading-tight">{langMode === 'ja' ? t.titleJP : t.title}</div>
-                                                     {langMode === 'en' && <div className="text-sm md:text-base opacity-60 mt-1">{t.titleJP}</div>}
+                                                 <button key={t.id} onClick={() => setSelectedTopicId(t.id)} className={`w-full text-left p-3 rounded-xl border transition-all ${selectedTopicId === t.id ? 'bg-blue-600 border-blue-400 text-white shadow-lg' : 'bg-slate-800 border-slate-700 text-slate-400 hover:bg-slate-700'}`}>
+                                                     <div className="font-bold text-base md:text-lg leading-tight">{langMode === 'ja' ? t.titleJP : t.title}</div>
+                                                     {langMode === 'en' && <div className="text-xs md:text-sm opacity-60 mt-1">{t.titleJP}</div>}
                                                  </button>
                                              ))}
                                          </div>
                                      </div>
 
-                                     <div className="flex flex-col gap-4 shrink-0 overflow-y-auto custom-scrollbar pr-2">
-                                         <div className={`bg-slate-950/50 p-4 rounded-2xl transition-all duration-300 ${!isTopicSelected ? 'opacity-30 pointer-events-none border border-white/5' : (!isStanceSelected ? 'ring-4 ring-green-500 ring-opacity-70 animate-pulse border-transparent' : 'border border-white/10')}`}>
-                                             <h3 className="text-sm font-bold text-green-400 mb-3 uppercase tracking-widest border-b border-white/10 pb-2">Your Stance</h3>
-                                             <div className="flex gap-3">
-                                                 <button onClick={() => setUserStance('affirmative')} className={`flex-1 py-3 rounded-xl font-black text-lg border-2 transition-all ${userStance === 'affirmative' ? 'bg-blue-600 border-blue-400 text-white' : 'bg-slate-800 border-slate-600 text-slate-500 hover:bg-slate-700'}`}>{langMode === 'ja' ? '肯定側' : 'AFFIRMATIVE'}</button>
-                                                 <button onClick={() => setUserStance('negative')} className={`flex-1 py-3 rounded-xl font-black text-lg border-2 transition-all ${userStance === 'negative' ? 'bg-red-600 border-red-400 text-white' : 'bg-slate-800 border-slate-600 text-slate-500 hover:bg-slate-700'}`}>{langMode === 'ja' ? '否定側' : 'NEGATIVE'}</button>
+                                     <div className="flex flex-col gap-3 md:gap-4 shrink-0 overflow-y-auto custom-scrollbar pr-2">
+                                         <div className={`bg-slate-950/50 p-3 md:p-4 rounded-2xl transition-all duration-300 ${!isTopicSelected ? 'opacity-30 pointer-events-none border border-white/5' : (!isStanceSelected ? 'ring-4 ring-green-500 ring-opacity-70 animate-pulse border-transparent' : 'border border-white/10')}`}>
+                                             <h3 className="text-xs font-bold text-green-400 mb-2 uppercase tracking-widest border-b border-white/10 pb-1">Your Stance</h3>
+                                             <div className="flex gap-2">
+                                                 <button onClick={() => setUserStance('affirmative')} className={`flex-1 py-2 md:py-3 rounded-xl font-black text-sm md:text-base border-2 transition-all ${userStance === 'affirmative' ? 'bg-blue-600 border-blue-400 text-white' : 'bg-slate-800 border-slate-600 text-slate-500 hover:bg-slate-700'}`}>{langMode === 'ja' ? '肯定側' : 'AFFIRMATIVE'}</button>
+                                                 <button onClick={() => setUserStance('negative')} className={`flex-1 py-2 md:py-3 rounded-xl font-black text-sm md:text-base border-2 transition-all ${userStance === 'negative' ? 'bg-red-600 border-red-400 text-white' : 'bg-slate-800 border-slate-600 text-slate-500 hover:bg-slate-700'}`}>{langMode === 'ja' ? '否定側' : 'NEGATIVE'}</button>
                                              </div>
                                          </div>
 
-                                         <div className={`bg-slate-950/50 p-4 rounded-2xl transition-all duration-300 ${!isStanceSelected ? 'opacity-30 pointer-events-none border border-white/5' : (!isDifficultySelected ? 'ring-4 ring-yellow-500 ring-opacity-70 animate-pulse border-transparent' : 'border border-white/10')}`}>
-                                             <h3 className="text-sm font-bold text-yellow-400 mb-3 uppercase tracking-widest border-b border-white/10 pb-2">Difficulty</h3>
+                                         <div className={`bg-slate-950/50 p-3 md:p-4 rounded-2xl transition-all duration-300 ${!isStanceSelected ? 'opacity-30 pointer-events-none border border-white/5' : (!isDifficultySelected ? 'ring-4 ring-yellow-500 ring-opacity-70 animate-pulse border-transparent' : 'border border-white/10')}`}>
+                                             <h3 className="text-xs font-bold text-yellow-400 mb-2 uppercase tracking-widest border-b border-white/10 pb-1">Difficulty</h3>
                                              <div className="flex gap-2">
                                                  {Object.keys(DIFFICULTIES).map(d => (
-                                                     <button key={d} onClick={() => setDifficulty(d)} className={`flex-1 py-2 rounded-lg border-2 font-bold transition-all ${difficulty === d ? 'bg-yellow-600 border-yellow-400 text-white' : 'bg-slate-800 border-slate-600 text-slate-500 hover:bg-slate-700'}`}>{DIFFICULTIES[d].label}</button>
+                                                     <button key={d} onClick={() => setDifficulty(d)} className={`flex-1 py-2 rounded-lg border-2 font-bold text-sm transition-all ${difficulty === d ? 'bg-yellow-600 border-yellow-400 text-white' : 'bg-slate-800 border-slate-600 text-slate-500 hover:bg-slate-700'}`}>{DIFFICULTIES[d].label}</button>
                                                  ))}
                                              </div>
                                          </div>
 
-                                         <div className={`bg-slate-950/50 p-4 rounded-2xl transition-all duration-300 border border-white/10 ${!isDifficultySelected ? 'opacity-30 pointer-events-none' : ''}`}>
-                                             <h3 className="text-sm font-bold text-cyan-400 mb-3 uppercase tracking-widest border-b border-white/10 pb-2">Game Modifiers</h3>
-                                             <div className="space-y-4">
+                                         <div className={`bg-slate-950/50 p-3 md:p-4 rounded-2xl transition-all duration-300 border border-white/10 ${!isDifficultySelected ? 'opacity-30 pointer-events-none' : ''}`}>
+                                             <h3 className="text-xs font-bold text-cyan-400 mb-2 uppercase tracking-widest border-b border-white/10 pb-1">Game Modifiers</h3>
+                                             <div className="space-y-3">
                                                  <div className="flex justify-between items-center">
-                                                     <span className="font-bold flex items-center gap-2"><ImageIcon className="w-5 h-5"/> Image Match</span>
-                                                     <button onClick={() => setImageMatchEnabled(!imageMatchEnabled)} className={`w-14 h-7 flex items-center rounded-full p-1 transition-colors ${imageMatchEnabled ? 'bg-cyan-600' : 'bg-slate-600'}`}>
-                                                         <div className={`bg-white w-5 h-5 rounded-full transform transition-transform ${imageMatchEnabled ? 'translate-x-7' : 'translate-x-0'}`}></div>
+                                                     <span className="font-bold text-sm flex items-center gap-2"><ImageIcon className="w-4 h-4"/> Image Match</span>
+                                                     <button onClick={() => setImageMatchEnabled(!imageMatchEnabled)} className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors ${imageMatchEnabled ? 'bg-cyan-600' : 'bg-slate-600'}`}>
+                                                         <div className={`bg-white w-4 h-4 rounded-full transform transition-transform ${imageMatchEnabled ? 'translate-x-6' : 'translate-x-0'}`}></div>
                                                      </button>
                                                  </div>
                                                  <div className="flex justify-between items-center">
-                                                     <span className="font-bold flex items-center gap-2"><Clock className="w-5 h-5"/> Time Limit</span>
-                                                     <button onClick={() => setTimerEnabled(!timerEnabled)} className={`w-14 h-7 flex items-center rounded-full p-1 transition-colors ${timerEnabled ? 'bg-pink-600' : 'bg-slate-600'}`}>
-                                                         <div className={`bg-white w-5 h-5 rounded-full transform transition-transform ${timerEnabled ? 'translate-x-7' : 'translate-x-0'}`}></div>
+                                                     <span className="font-bold text-sm flex items-center gap-2"><Clock className="w-4 h-4"/> Time Limit</span>
+                                                     <button onClick={() => setTimerEnabled(!timerEnabled)} className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors ${timerEnabled ? 'bg-pink-600' : 'bg-slate-600'}`}>
+                                                         <div className={`bg-white w-4 h-4 rounded-full transform transition-transform ${timerEnabled ? 'translate-x-6' : 'translate-x-0'}`}></div>
                                                      </button>
                                                  </div>
                                                  <div>
-                                                     <div className="flex justify-between font-bold mb-2">
-                                                         <span className="flex items-center gap-2"><Swords className="w-5 h-5"/> Battle Rounds</span>
+                                                     <div className="flex justify-between font-bold mb-1 text-sm">
+                                                         <span className="flex items-center gap-2"><Swords className="w-4 h-4"/> Battle Rounds</span>
                                                          <span className="text-cyan-400">{battleRounds} Rounds</span>
                                                      </div>
                                                      <input type="range" min="1" max="6" value={battleRounds} onChange={(e) => setBattleRounds(Number(e.target.value))} className="w-full accent-cyan-500" />
@@ -562,8 +515,8 @@ export default function App() {
                                  </div>
 
                                  {canStart && (
-                                    <button onClick={initGame} className="w-full mt-6 py-4 md:py-5 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full font-black text-2xl md:text-3xl hover:shadow-[0_0_40px_rgba(34,211,238,0.6)] transition-all hover:scale-[1.02] border border-white/20 text-white flex justify-center items-center gap-3 shrink-0 animate-in zoom-in duration-300">
-                                        {gameMode === 'review' ? <BookOpen/> : <Play className="fill-current"/>} 
+                                    <button onClick={initGame} className="w-full mt-4 py-3 md:py-4 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full font-black text-xl md:text-2xl hover:shadow-[0_0_40px_rgba(34,211,238,0.6)] transition-all hover:scale-[1.02] border border-white/20 text-white flex justify-center items-center gap-3 shrink-0 animate-in zoom-in duration-300">
+                                        {gameMode === 'review' ? <BookOpen className="w-6 h-6"/> : <Play className="fill-current w-6 h-6"/>} 
                                         {gameMode === 'review' ? 'ENTER REVIEW' : 'BATTLE START'}
                                     </button>
                                  )}
@@ -572,9 +525,9 @@ export default function App() {
                      </div>
                  </div>
                  
-                 <div className="flex justify-center gap-8 text-base text-slate-400 font-mono mt-6 shrink-0">
-                     <button onClick={() => setIsDrillMode(true)} className="hover:text-white flex items-center gap-2"><BrainCircuit className="w-5 h-5"/> Vocab Quiz</button>
-                     <button onClick={() => setFontSize(prev => prev === 'normal' ? 'large' : prev === 'large' ? 'xlarge' : 'normal')} className="hover:text-white flex items-center gap-2"><Type className="w-5 h-5"/> Text Size</button>
+                 <div className="flex justify-center gap-8 text-sm md:text-base text-slate-400 font-mono mt-4 shrink-0">
+                     <button onClick={() => setIsDrillMode(true)} className="hover:text-white flex items-center gap-2"><BrainCircuit className="w-4 h-4 md:w-5 md:h-5"/> Vocab Quiz</button>
+                     <button onClick={() => setFontSize(prev => prev === 'normal' ? 'large' : prev === 'large' ? 'xlarge' : 'normal')} className="hover:text-white flex items-center gap-2"><Type className="w-4 h-4 md:w-5 md:h-5"/> Text Size</button>
                  </div>
              </div>
           </div>
@@ -661,13 +614,13 @@ export default function App() {
                               <img src={rivalCard.image_url} className="w-full md:w-32 h-32 object-cover rounded-xl border-2 border-white/20 shadow-md" alt="Rival" />
                           </div>
                       )}
-                      <div className="flex gap-4">
+                      <div className="flex gap-4 w-full">
                           <div className={`shrink-0 p-3 md:p-4 rounded-full h-fit border-2 border-white/20 ${rivalCard.type === 'attack' ? 'bg-rose-600' : 'bg-teal-600'}`}>
                               {rivalCard.type === 'attack' ? <Swords className="w-6 h-6 md:w-8 md:h-8 text-white"/> : <MessageCircleQuestion className="w-6 h-6 md:w-8 md:h-8 text-white"/>}
                           </div>
-                          <div>
+                          <div className="flex-1">
                             <div className="font-black opacity-60 text-xs md:text-sm uppercase tracking-widest mb-1">{rivalCard.type === 'attack' ? "Opponent Attack!" : "Question"}</div>
-                            {langMode === 'ja' ? <div className="text-lg md:text-2xl font-bold leading-relaxed">{rivalCard.textJP}</div> : (
+                            {langMode === 'ja' ? <div className="text-lg md:text-xl font-bold leading-relaxed">{rivalCard.textJP}</div> : (
                                 <><div className="text-lg md:text-xl font-bold leading-relaxed"><SmartText text={typeof rivalCard.text === 'object' ? rivalCard.text[difficulty] : rivalCard.text} vocabList={currentTopic.vocabulary} /></div>{showJapanese && <div className="mt-2 opacity-80 text-sm border-t border-white/20 pt-1">{rivalCard.textJP}</div>}</>
                             )}
                           </div>
@@ -735,7 +688,6 @@ export default function App() {
               
               <div className="flex-1 overflow-y-auto p-3 space-y-3">
                   {gameState.endsWith('_image') ? (
-                      // Image Match Grid
                       <div className="grid grid-cols-2 gap-3 h-full pb-10">
                           {imageHand.map((url, idx) => (
                               <button key={idx} onClick={() => handleImageSelect(url)} className="relative border-4 border-white/10 rounded-xl overflow-hidden hover:border-cyan-400 transition-all hover:scale-105 active:scale-95 shadow-lg group aspect-square">
@@ -749,7 +701,6 @@ export default function App() {
                           ))}
                       </div>
                   ) : (
-                      // Standard Text Hand
                       visibleHand.map((card) => {
                           const type = CARD_TYPES[card.type] || CARD_TYPES.reason;
                           return (
