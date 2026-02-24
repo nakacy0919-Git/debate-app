@@ -402,8 +402,13 @@ export default function App() {
       
       {/* --- Start Screen --- */}
       {gameState === 'start' && !isDrillMode && (
-          <div className="absolute inset-0 z-50 flex flex-col items-center justify-center p-4 md:p-6 bg-gradient-to-br from-[#0f172a] via-[#1e1b4b] to-[#0f172a] animate-gradient-xy overflow-hidden">
-             <div className="text-center w-full max-w-5xl flex flex-col items-center h-full max-h-[850px]">
+          <div className="absolute inset-0 z-50 flex flex-col items-center justify-center p-4 md:p-6 bg-black overflow-hidden">
+             {/* ユーザー設定の背景画像 */}
+             <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60" style={{ backgroundImage: "url('/images/background.webp')" }}></div>
+             {/* 文字の視認性を保つための薄いグラデーションフィルター */}
+             <div className="absolute inset-0 bg-gradient-to-br from-[#0f172a]/80 via-[#1e1b4b]/70 to-[#0f172a]/80 animate-gradient-xy mix-blend-overlay pointer-events-none"></div>
+             
+             <div className="text-center w-full max-w-5xl flex flex-col items-center h-full max-h-[850px] relative z-10">
                  
                  <h1 className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 tracking-tighter drop-shadow-2xl mb-4 shrink-0 mt-2">
                     DEBATE BATTLE
@@ -690,7 +695,7 @@ export default function App() {
                   {gameState.endsWith('_image') ? (
                       <div className="grid grid-cols-2 gap-3 h-full pb-10">
                           {imageHand.map((url, idx) => (
-                              <button key={idx} onClick={() => handleImageSelect(url)} className="relative border-4 border-white/10 rounded-xl overflow-hidden hover:border-cyan-400 transition-all hover:scale-105 active:scale-95 shadow-lg group aspect-square">
+                              <button key={idx} onClick={() => handleImageSelect(url)} className="relative border-4 border-white/10 rounded-xl overflow-hidden hover:border-cyan-400 transition-all hover:scale-105 active:scale-95 shadow-lg group aspect-video">
                                   <div className="absolute inset-0 bg-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none"/>
                                   {url ? (
                                      <img src={url} className="w-full h-full object-cover" alt="Choice" />
