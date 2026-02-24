@@ -415,7 +415,7 @@ export default function App() {
                  </h1>
 
                  {/* ✅ 修正ポイント1: UIの窮屈さを改善 */}
-                 <div className="bg-slate-900/80 backdrop-blur-xl p-4 md:p-6 rounded-3xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative w-full flex-1 flex flex-col min-h-0 overflow-hidden">
+                   <div className="bg-slate-900/40 backdrop-blur-md p-4 md:p-6 rounded-3xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative w-full flex-1 flex flex-col min-h-0 overflow-hidden">
                      
                      <div className="flex justify-between items-center mb-4 pb-3 border-b border-white/10 shrink-0">
                          {setupStep > 1 ? (
