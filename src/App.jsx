@@ -588,8 +588,13 @@ export default function App() {
       {/* --- Main Game Layout --- */}
       {gameState !== 'start' && gameState !== 'gameover' && gameState !== 'result' && (
         <div className={`flex-1 flex overflow-hidden relative ${sidePanelPos === 'left' ? 'flex-row-reverse' : 'flex-row'}`}>
-          <div className="flex-1 flex flex-col relative overflow-hidden bg-[#0f172a]/50">
-              <div className="absolute inset-0 z-0 opacity-20 pointer-events-none mix-blend-overlay"><img src={currentTopic.image_url} className="w-full h-full object-cover" /></div>
+          
+          {/* ✅ プレイ画面の全体背景（透明度15%でゲームの邪魔にならないように） */}
+          <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15 pointer-events-none z-0" style={{ backgroundImage: "url('/images/background.webp')" }}></div>
+
+          <div className="flex-1 flex flex-col relative overflow-hidden bg-[#0f172a]/60 z-10">
+              {/* トピック独自の画像もうっすらと重ねる */}
+              <div className="absolute inset-0 z-0 opacity-10 pointer-events-none mix-blend-overlay"><img src={currentTopic.image_url} className="w-full h-full object-cover" /></div>
               
               {gameState === 'construct' && (
                   <div className="shrink-0 py-4 flex justify-center z-10 bg-gradient-to-b from-[#0f172a] to-transparent">
