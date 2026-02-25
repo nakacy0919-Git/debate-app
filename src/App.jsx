@@ -67,10 +67,11 @@ export default function App() {
       {showRules && <RuleBook onClose={() => { playSound('click'); setShowRules(false); }} />}
       {isDrillMode && <VocabDrill vocabList={currentTopic?.vocabulary || []} onClose={() => { playSound('click'); game.setIsDrillMode(false); }} />}
 
-      <ResultScreen 
+     <ResultScreen 
         gameState={gameState} score={game.score} activeLogicGroup={game.activeLogicGroup}
         currentTopic={currentTopic} userStance={userStance} langMode={langMode}
         difficulty={game.difficulty} showJapanese={showJapanese} goHome={() => { playSound('click'); goHome(); }}
+        mistakes={game.mistakes} // 💡 これを追加！
       />
 
       {/* 爆発エフェクトとフィードバック */}

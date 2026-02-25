@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react';
 import { getAllTopics } from '../utils/dataLoader';
 import { MAX_HP, DAMAGE_BIG, DAMAGE_SMALL, DAMAGE_TICK, TIME_LIMIT_SEC, DIFFICULTIES, FLOWS } from '../constants';
 
-// ダミー画像を抽出するヘルパー関数
 const getAllFakeImages = (topic) => {
   const urls = new Set();
   if (topic.deck) topic.deck.forEach(c => { if(c.group === 'fake' && c.image_url) urls.add(c.image_url); });
@@ -61,6 +60,9 @@ export const useGameLogic = (playSound) => {
   const [shake, setShake] = useState(false);
   const [showSuccessOverlay, setShowSuccessOverlay] = useState(false);
   const [shakingCardId, setShakingCardId] = useState(null);
+  
+  // 💡 追加：間違えたカードを保存する箱
+  const [mistakes, setMistakes] = useState([]);
   
   const timerIntervalRef = useRef(null);
   const startTimeRef = useRef(Date.now()); 
@@ -140,6 +142,7 @@ export const useGameLogic = (playSound) => {
     setTower([]); setPlayerHP(MAX_HP); setOpponentHP(MAX_HP); setScore(0);
     setActiveLogicGroup(null); setRivalCard(null); setGameState('construct');
     setFeedback(null); setTimeProgress(0); startTimeRef.current = Date.now(); 
+    setMistakes([]); // 💡 毎ゲーム開始時にリセット
     
     const currentTopic = topics.find(t => t.id === selectedTopicId) || topics[0];
     let myStanceCards = currentTopic.deck.filter(c => c.stance === userStance);
@@ -246,18 +249,32 @@ export const useGameLogic = (playSound) => {
       }
   };
 
+  // 💡 修正：間違えたカードを `mistakes` に保存する処理を追加
   const handleCardSelect = (card) => {
     startTimeRef.current = Date.now(); setTimeProgress(0);
     const baseState = gameState.replace('_image', '');
+
     if (baseState === 'construct') {
       const expectedFlow = FLOWS[gameMode] || FLOWS.area;
       const expectedType = expectedFlow[tower.length];
       const cardType = card.type === 'mini_conclusion' ? 'mini_conclusion' : card.type;
       if (cardType !== expectedType) { takeDamage(DAMAGE_BIG, "Wrong Structure!", card.id); return; }
       if (tower.length === 0) {
-        if (card.group === 'fake') { takeDamage(DAMAGE_SMALL, "Weak Argument!", card.id); return; } else { setActiveLogicGroup(card.group); }
+        if (card.group === 'fake') { 
+            takeDamage(DAMAGE_SMALL, "Weak Argument!", card.id); 
+            if (!mistakes.find(m => m.id === card.id)) {
+                setMistakes(prev => [...prev, { ...card, reasonStr: "論点が不明確、または感情的で根拠に欠ける意見です。" }]);
+            }
+            return; 
+        } else { setActiveLogicGroup(card.group); }
       } else {
-        if (card.group !== activeLogicGroup) { takeDamage(DAMAGE_SMALL, "Logic Mismatch!", card.id); return; } 
+        if (card.group !== activeLogicGroup) { 
+            takeDamage(DAMAGE_SMALL, "Logic Mismatch!", card.id); 
+            if (!mistakes.find(m => m.id === card.id)) {
+                setMistakes(prev => [...prev, { ...card, reasonStr: "直前に選んだカードと論点(話題)がズレています。" }]);
+            }
+            return; 
+        } 
       }
       setScore(prev => prev + 100); damageOpponent(25);
       if (imageMatchEnabled && card.image_url) launchImageMatch(card, baseState); else finalizeCardSuccess(card, baseState);
@@ -265,6 +282,11 @@ export const useGameLogic = (playSound) => {
         if (card.judgment === 'weak') { 
             takeDamage(DAMAGE_SMALL, "Weak Argument!", card.id); setHand([]);
             setTower([...tower, { ...card, judgment: 'weak' }]);
+            
+            if (!mistakes.find(m => m.id === card.id)) {
+                setMistakes(prev => [...prev, { ...card, reasonStr: "相手の主張を論理的に覆すための反論として不十分です。" }]);
+            }
+
             setTimeout(() => {
                 if (baseState === 'cross_exam') triggerRebuttalPhase(currentRoundIndex);
                 else if (baseState === 'rebuttal_defense') nextRound(currentRoundIndex);
@@ -292,7 +314,6 @@ export const useGameLogic = (playSound) => {
     return hand.filter(card => (card.type === 'mini_conclusion' ? 'mini_conclusion' : card.type) === expectedFlow[tower.length]);
   };
 
-  // 算出データ
   const currentTopic = topics.find(t => t.id === selectedTopicId) || topics[0];
   const isTopicSelected = selectedTopicId !== null;
   const isStanceSelected = userStance !== null;
@@ -308,7 +329,8 @@ export const useGameLogic = (playSound) => {
     showJapanese, setShowJapanese, isDrillMode, setIsDrillMode, rivalCard, particles, activeLogicGroup,
     pendingCard, imageHand, sidePanelPos, setSidePanelPos, sidePanelWidth, timeProgress, shake,
     showSuccessOverlay, shakingCardId, currentRoundIndex, isResizing, scrollRef, currentTopic, canStart, visibleHand,
-    isTopicSelected, isStanceSelected, isDifficultySelected, // 🚨この行を追加しました！
+    isTopicSelected, isStanceSelected, isDifficultySelected,
+    mistakes, // 💡 追加：戻り値に mistakes を含める
     initGame, goHome, handleUndo, handleCardSelect, handleImageSelect
   };
 };
