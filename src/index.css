@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+//* --- index.css の一番下に追加 --- */
+
+/* 正解時の大きな〇のアニメーション */
+@keyframes pop-in-out {
+  0% { opacity: 0; transform: scale(0.5); }
+  20% { opacity: 1; transform: scale(1.1); }
+  30% { transform: scale(1.0); }
+  80% { opacity: 1; transform: scale(1.0); }
+  100% { opacity: 0; transform: scale(0.9); }
+}
+.animate-pop-in-out {
+  animation: pop-in-out 0.8s ease-in-out forwards;
+}
+
+/* 不正解時のカード揺れアニメーション */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  15% { transform: translateX(-10px); }
+  30% { transform: translateX(8px); }
+  45% { transform: translateX(-6px); }
+  60% { transform: translateX(4px); }
+  75% { transform: translateX(-2px); }
+}
+.animate-shake {
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}

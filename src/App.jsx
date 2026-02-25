@@ -105,6 +105,12 @@ export default function App() {
   const [sidePanelWidth, setSidePanelWidth] = useState(30); 
   const [timeProgress, setTimeProgress] = useState(0); 
   
+  const [shake, setShake] = useState(false);
+  
+  // 🌟追加：〇×アニメーション用のState
+  const [showSuccessOverlay, setShowSuccessOverlay] = useState(false);
+  const [shakingCardId, setShakingCardId] = useState(null);
+  
   const timerIntervalRef = useRef(null);
   const startTimeRef = useRef(Date.now()); 
   const isResizing = useRef(false);
@@ -134,10 +140,7 @@ export default function App() {
       
       if (progress >= 100) {
         startTimeRef.current = Date.now(); 
-        setPlayerHP(prev => Math.max(0, prev - DAMAGE_TICK));
-        setShake(true); setTimeout(() => setShake(false), 300);
-        setFeedback({ msg: `-${DAMAGE_TICK} HP (Time Penalty)`, type: 'damage', judgment: 'weak' });
-        setTimeout(() => setFeedback(null), 1500); 
+        takeDamage(DAMAGE_TICK, "Time Penalty");
       }
     }, 100);
     return () => clearInterval(timerIntervalRef.current);
@@ -166,13 +169,17 @@ export default function App() {
     if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   }, [tower]);
 
-  const [shake, setShake] = useState(false);
-
-  const takeDamage = (amount, reason = "") => {
+  // 🌟修正：不正解時にカードを揺らす機能を追加
+  const takeDamage = (amount, reason = "", cardId = null) => {
     setPlayerHP(prev => Math.max(0, prev - amount));
     setShake(true); setTimeout(() => setShake(false), 300);
     setFeedback({ msg: `-${amount} HP (${reason})`, type: 'damage', judgment: 'weak' });
     setTimeout(() => setFeedback(null), 1500); 
+
+    if (cardId) {
+      setShakingCardId(cardId);
+      setTimeout(() => setShakingCardId(null), 500);
+    }
   };
 
   const damageOpponent = (amount) => {
@@ -251,16 +258,15 @@ export default function App() {
     } else { triggerRebuttalPhase(roundIdx); }
   };
 
+  // 🌟修正：テンポアップ（切り替え0.5秒、待機0.8秒へ短縮）
   const triggerRebuttalPhase = (roundIdx = currentRoundIndex) => {
     const currentData = battlePlan[roundIdx];
     setGameState('rebuttal_intro'); setRivalCard(null); setHand([]);
-    // 切り替え演出を2秒(2000)から0.5秒(500)に短縮
     setTimeout(() => {
       setGameState('rebuttal_attack');
       if (currentData && currentData.reb) {
         setRivalCard({ ...currentData.reb, type: 'attack' });
         if(timerEnabled) takeDamage(DAMAGE_TICK, "Opponent Attack!");
-        // 相手の攻撃から自分の手札が出るまでを3秒(3000)から0.8秒(800)に短縮
         setTimeout(() => { setGameState('rebuttal_defense'); setHand(setupBattlePhase(currentData.reb.options)); }, 800);
       } else { nextRound(roundIdx); }
     }, 500);
@@ -293,18 +299,22 @@ export default function App() {
       startTimeRef.current = Date.now(); setTimeProgress(0);
   };
 
+  // 🌟修正：正解アニメーション（巨大な〇）の発火とテンポアップ
   const finalizeCardSuccess = (card, baseState) => {
       const newTower = [...tower, { ...card, judgment: 'perfect' }];
       setTower(newTower);
       setHand(gameState.startsWith('construct') ? hand.filter(c => c.id !== card.id) : []);
 
+      setShowSuccessOverlay(true);
+      setTimeout(() => setShowSuccessOverlay(false), 800); 
+
       if (baseState === 'construct') {
           const expectedFlow = FLOWS[gameMode] || FLOWS.area;
           if (newTower.length >= expectedFlow.length) {
               setFeedback({ msg: "PERFECT COMPLETE!", type: 'success', judgment: 'perfect' });
-              setTimeout(() => setFeedback(null), 800); // 1.5秒から0.8秒へ短縮
+              setTimeout(() => setFeedback(null), 800);
               triggerExplosion(30, 'bg-blue-400');
-              setTimeout(() => triggerCrossExam(currentRoundIndex), 800); // すぐ次へ
+              setTimeout(() => triggerCrossExam(currentRoundIndex), 800);
           } else {
               setGameState('construct');
           }
@@ -318,11 +328,11 @@ export default function App() {
           setTimeout(() => nextRound(currentRoundIndex), 800);
       } else if (baseState === 'closing') {
           setFeedback({ msg: "DEBATE FINISHED!", type: 'success', judgment: 'perfect' });
-          setTimeout(() => setFeedback(null), 1500); // 終了時だけは余韻を残すため1.5秒のまま
+          setTimeout(() => setFeedback(null), 1500);
           setTimeout(() => setGameState('result'), 1500);
       }
   };
-  
+
   const handleCardSelect = (card) => {
     startTimeRef.current = Date.now(); setTimeProgress(0);
     const baseState = gameState.replace('_image', '');
@@ -333,12 +343,12 @@ export default function App() {
       const expectedType = expectedFlow[currentStepIndex];
       const cardType = card.type === 'mini_conclusion' ? 'mini_conclusion' : card.type;
 
-      if (cardType !== expectedType) { takeDamage(DAMAGE_BIG, "Wrong Structure!"); return; }
+      if (cardType !== expectedType) { takeDamage(DAMAGE_BIG, "Wrong Structure!", card.id); return; }
       if (currentStepIndex === 0) {
-        if (card.group === 'fake') { takeDamage(DAMAGE_SMALL, "Weak Argument!"); return; } 
+        if (card.group === 'fake') { takeDamage(DAMAGE_SMALL, "Weak Argument!", card.id); return; } 
         else { setActiveLogicGroup(card.group); }
       } else {
-        if (card.group !== activeLogicGroup) { takeDamage(DAMAGE_SMALL, "Logic Mismatch!"); return; } 
+        if (card.group !== activeLogicGroup) { takeDamage(DAMAGE_SMALL, "Logic Mismatch!", card.id); return; } 
       }
       
       setScore(prev => prev + 100); damageOpponent(25);
@@ -347,7 +357,7 @@ export default function App() {
 
     } else { 
         if (card.judgment === 'weak') { 
-            takeDamage(DAMAGE_SMALL, "Weak Argument!"); 
+            takeDamage(DAMAGE_SMALL, "Weak Argument!", card.id); 
             setHand([]);
             const newTower = [...tower, { ...card, judgment: 'weak' }];
             setTower(newTower);
@@ -367,12 +377,10 @@ export default function App() {
       startTimeRef.current = Date.now(); setTimeProgress(0);
       if (url === pendingCard.image_url) {
           setScore(prev => prev + 50);
-          setFeedback({ msg: "IMAGE MATCH!", type: 'success', judgment: 'perfect' });
-          setTimeout(() => setFeedback(null), 1000);
           const baseState = gameState.replace('_image', '');
           finalizeCardSuccess(pendingCard, baseState);
       } else {
-          takeDamage(DAMAGE_SMALL, "Wrong Image!");
+          takeDamage(DAMAGE_SMALL, "Wrong Image!", url);
       }
   };
 
@@ -399,28 +407,36 @@ export default function App() {
   if (gameState === 'review') return <ReviewMode topic={currentTopic} onClose={goHome} showJapanese={showJapanese} langMode={langMode} difficulty={difficulty || 'easy'} />;
 
   return (
-    <div className={`h-screen w-full ${theme.bg} ${theme.text} font-sans flex flex-col overflow-hidden ${FONT_SIZES[fontSize]}`}>
+    <div className={`h-screen w-full ${theme.bg} ${theme.text} font-sans flex flex-col overflow-hidden ${FONT_SIZES[fontSize]} ${shake ? 'animate-shake' : ''}`}>
+      
+      {/* 🌟追加：正解時の巨大な緑の〇オーバーレイ */}
+      {showSuccessOverlay && (
+        <div className="fixed inset-0 z-[200] flex items-center justify-center pointer-events-none animate-pop-in-out">
+          <div className="w-48 h-48 md:w-72 md:h-72 bg-gradient-to-br from-green-400 via-emerald-500 to-teal-600 rounded-full flex items-center justify-center shadow-[0_0_80px_rgba(16,185,129,0.8)] border-4 border-white/40 backdrop-blur-md relative">
+            <div className="absolute inset-0 rounded-full bg-white/20 animate-pulse"></div>
+            <CheckCircle2 className="w-32 h-32 md:w-48 md:h-48 text-white drop-shadow-2xl" strokeWidth={3} />
+          </div>
+        </div>
+      )}
       
       {/* --- Start Screen --- */}
       {gameState === 'start' && !isDrillMode && (
           <div className="absolute inset-0 z-50 flex flex-col items-center justify-center p-4 md:p-6 bg-black overflow-hidden">
-             {/* ユーザー設定の背景画像 */}
+             {/* 🌟ユーザー設定の背景画像 */}
              <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60" style={{ backgroundImage: "url('/images/background.webp')" }}></div>
-             {/* 文字の視認性を保つための薄いグラデーションフィルター */}
              <div className="absolute inset-0 bg-gradient-to-br from-[#0f172a]/80 via-[#1e1b4b]/70 to-[#0f172a]/80 animate-gradient-xy mix-blend-overlay pointer-events-none"></div>
              
              <div className="text-center w-full max-w-5xl flex flex-col items-center h-full max-h-[850px] relative z-10">
-                 
                  <h1 className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 tracking-tighter drop-shadow-2xl mb-4 shrink-0 mt-2">
                     DEBATE BATTLE
                  </h1>
 
-                 {/* ✅ 修正ポイント1: UIの窮屈さを改善 */}
-                   <div className="bg-slate-900/40 backdrop-blur-md p-4 md:p-6 rounded-3xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative w-full flex-1 flex flex-col min-h-0 overflow-hidden">
+                 {/* 🌟中央パネルを半透明(40%)にして背景を透かす */}
+                 <div className="bg-slate-900/40 backdrop-blur-md p-4 md:p-6 rounded-3xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative w-full flex-1 flex flex-col min-h-0 overflow-hidden">
                      
                      <div className="flex justify-between items-center mb-4 pb-3 border-b border-white/10 shrink-0">
                          {setupStep > 1 ? (
-                             <button onClick={() => setSetupStep(prev => prev - 1)} className="flex items-center gap-1 text-slate-400 hover:text-white transition-colors font-bold">
+                             <button onClick={() => setSetupStep(prev => prev - 1)} className="flex items-center gap-1 text-slate-300 hover:text-white transition-colors font-bold">
                                  <ChevronLeft className="w-6 h-6"/> Back
                              </button>
                          ) : <div className="w-20"></div>}
@@ -431,7 +447,7 @@ export default function App() {
                             <div className={`w-3 h-3 rounded-full transition-colors ${setupStep >= 3 ? 'bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)]' : 'bg-slate-700'}`}/>
                          </div>
 
-                         <button onClick={() => setShowRules(true)} className="text-blue-400 hover:text-blue-300 flex items-center gap-1 transition-colors w-20 justify-end font-bold">
+                         <button onClick={() => setShowRules(true)} className="text-blue-400 hover:text-blue-300 flex items-center gap-1 transition-colors w-20 justify-end font-bold drop-shadow-md">
                              <HelpCircle className="w-5 h-5"/> Help
                          </button>
                      </div>
@@ -439,35 +455,35 @@ export default function App() {
                      <div className="flex-1 flex flex-col justify-center w-full min-h-0">
                          {setupStep === 1 && (
                              <div className="animate-in fade-in slide-in-from-right-8 duration-500 w-full max-w-2xl mx-auto">
-                                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center tracking-widest uppercase">1. Language</h2>
+                                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center tracking-widest uppercase drop-shadow-md">1. Language</h2>
                                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                     <button onClick={() => { setLangMode('en'); setSetupStep(2); }} className={`p-6 md:p-8 rounded-2xl border-4 text-xl md:text-2xl font-black transition-all hover:scale-105 ${langMode === 'en' ? 'bg-pink-600 border-pink-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}>English</button>
-                                     <button onClick={() => { setLangMode('ja'); setSetupStep(2); }} className={`p-6 md:p-8 rounded-2xl border-4 text-xl md:text-2xl font-black transition-all hover:scale-105 ${langMode === 'ja' ? 'bg-pink-600 border-pink-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}>日本語</button>
+                                     <button onClick={() => { setLangMode('en'); setSetupStep(2); }} className={`p-6 md:p-8 rounded-2xl border-4 text-xl md:text-2xl font-black transition-all hover:scale-105 backdrop-blur-sm ${langMode === 'en' ? 'bg-pink-600/90 border-pink-400 text-white shadow-[0_0_30px_rgba(219,39,119,0.5)]' : 'bg-slate-800/80 border-slate-500 text-slate-300'}`}>English</button>
+                                     <button onClick={() => { setLangMode('ja'); setSetupStep(2); }} className={`p-6 md:p-8 rounded-2xl border-4 text-xl md:text-2xl font-black transition-all hover:scale-105 backdrop-blur-sm ${langMode === 'ja' ? 'bg-pink-600/90 border-pink-400 text-white shadow-[0_0_30px_rgba(219,39,119,0.5)]' : 'bg-slate-800/80 border-slate-500 text-slate-300'}`}>日本語</button>
                                  </div>
                              </div>
                          )}
 
                          {setupStep === 2 && (
                              <div className="animate-in fade-in slide-in-from-right-8 duration-500 w-full max-w-2xl mx-auto">
-                                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center tracking-widest uppercase">2. Game Mode</h2>
+                                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center tracking-widest uppercase drop-shadow-md">2. Game Mode</h2>
                                  <div className="flex flex-col gap-4">
-                                     <button onClick={() => { setGameMode('area'); setSetupStep(3); }} className={`p-4 md:p-5 rounded-2xl border-4 text-lg md:text-xl font-bold transition-all hover:scale-105 ${gameMode === 'area' ? 'bg-purple-600 border-purple-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}>AREA Battle (Standard)</button>
-                                     <button onClick={() => { setGameMode('logic_link'); setSetupStep(3); }} className={`p-4 md:p-5 rounded-2xl border-4 text-lg md:text-xl font-bold transition-all hover:scale-105 ${gameMode === 'logic_link' ? 'bg-purple-600 border-purple-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}>Logic Link (Reason → Example)</button>
-                                     <button onClick={() => { setGameMode('review'); setSetupStep(3); }} className={`p-4 md:p-5 rounded-2xl border-4 text-lg md:text-xl font-bold flex items-center justify-center gap-3 transition-all hover:scale-105 ${gameMode === 'review' ? 'bg-teal-600 border-teal-400 text-white shadow-lg' : 'bg-slate-800 border-slate-600 text-slate-400'}`}><BookOpen className="w-5 h-5"/> Review Mode</button>
+                                     <button onClick={() => { setGameMode('area'); setSetupStep(3); }} className={`p-4 md:p-5 rounded-2xl border-4 text-lg md:text-xl font-bold transition-all hover:scale-105 backdrop-blur-sm ${gameMode === 'area' ? 'bg-purple-600/90 border-purple-400 text-white shadow-[0_0_30px_rgba(147,51,234,0.5)]' : 'bg-slate-800/80 border-slate-500 text-slate-300'}`}>AREA Battle (Standard)</button>
+                                     <button onClick={() => { setGameMode('logic_link'); setSetupStep(3); }} className={`p-4 md:p-5 rounded-2xl border-4 text-lg md:text-xl font-bold transition-all hover:scale-105 backdrop-blur-sm ${gameMode === 'logic_link' ? 'bg-purple-600/90 border-purple-400 text-white shadow-[0_0_30px_rgba(147,51,234,0.5)]' : 'bg-slate-800/80 border-slate-500 text-slate-300'}`}>Logic Link (Reason → Example)</button>
+                                     <button onClick={() => { setGameMode('review'); setSetupStep(3); }} className={`p-4 md:p-5 rounded-2xl border-4 text-lg md:text-xl font-bold flex items-center justify-center gap-3 transition-all hover:scale-105 backdrop-blur-sm ${gameMode === 'review' ? 'bg-teal-600/90 border-teal-400 text-white shadow-[0_0_30px_rgba(13,148,136,0.5)]' : 'bg-slate-800/80 border-slate-500 text-slate-300'}`}><BookOpen className="w-5 h-5"/> Review Mode</button>
                                  </div>
                              </div>
                          )}
 
                          {setupStep === 3 && (
                              <div className="animate-in fade-in slide-in-from-right-8 duration-500 w-full flex flex-col h-full min-h-0">
-                                 <h2 className="text-lg md:text-xl font-bold text-white mb-4 text-center tracking-widest uppercase shrink-0">3. Final Settings</h2>
+                                 <h2 className="text-lg md:text-xl font-bold text-white mb-4 text-center tracking-widest uppercase shrink-0 drop-shadow-md">3. Final Settings</h2>
                                  
                                  <div className="grid md:grid-cols-2 gap-4 md:gap-6 text-left flex-1 min-h-0">
-                                     <div className={`bg-slate-950/50 p-3 md:p-4 rounded-2xl flex flex-col h-full min-h-0 transition-all duration-300 ${!isTopicSelected ? 'ring-4 ring-cyan-500 ring-opacity-70 animate-pulse border-transparent' : 'border border-white/10'}`}>
-                                         <h3 className="text-xs font-bold text-blue-400 mb-2 uppercase tracking-widest border-b border-white/10 pb-1 shrink-0">Topic</h3>
+                                     <div className={`bg-slate-950/70 backdrop-blur-md p-3 md:p-4 rounded-2xl flex flex-col h-full min-h-0 transition-all duration-300 ${!isTopicSelected ? 'ring-4 ring-cyan-500 ring-opacity-70 animate-pulse border-transparent' : 'border border-white/20 shadow-lg'}`}>
+                                         <h3 className="text-xs font-bold text-blue-400 mb-2 uppercase tracking-widest border-b border-white/20 pb-1 shrink-0 drop-shadow-md">Topic</h3>
                                          <div className="space-y-2 overflow-y-auto pr-2 custom-scrollbar flex-1">
                                              {topics.map(t => (
-                                                 <button key={t.id} onClick={() => setSelectedTopicId(t.id)} className={`w-full text-left p-3 rounded-xl border transition-all ${selectedTopicId === t.id ? 'bg-blue-600 border-blue-400 text-white shadow-lg' : 'bg-slate-800 border-slate-700 text-slate-400 hover:bg-slate-700'}`}>
+                                                 <button key={t.id} onClick={() => setSelectedTopicId(t.id)} className={`w-full text-left p-3 rounded-xl border transition-all ${selectedTopicId === t.id ? 'bg-blue-600/90 border-blue-400 text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]' : 'bg-slate-800/80 border-slate-600 text-slate-300 hover:bg-slate-700'}`}>
                                                      <div className="font-bold text-base md:text-lg leading-tight">{langMode === 'ja' ? t.titleJP : t.title}</div>
                                                      {langMode === 'en' && <div className="text-xs md:text-sm opacity-60 mt-1">{t.titleJP}</div>}
                                                  </button>
@@ -476,40 +492,40 @@ export default function App() {
                                      </div>
 
                                      <div className="flex flex-col gap-3 md:gap-4 shrink-0 overflow-y-auto custom-scrollbar pr-2">
-                                         <div className={`bg-slate-950/50 p-3 md:p-4 rounded-2xl transition-all duration-300 ${!isTopicSelected ? 'opacity-30 pointer-events-none border border-white/5' : (!isStanceSelected ? 'ring-4 ring-green-500 ring-opacity-70 animate-pulse border-transparent' : 'border border-white/10')}`}>
-                                             <h3 className="text-xs font-bold text-green-400 mb-2 uppercase tracking-widest border-b border-white/10 pb-1">Your Stance</h3>
+                                         <div className={`bg-slate-950/70 backdrop-blur-md p-3 md:p-4 rounded-2xl transition-all duration-300 ${!isTopicSelected ? 'opacity-30 pointer-events-none border border-white/5' : (!isStanceSelected ? 'ring-4 ring-green-500 ring-opacity-70 animate-pulse border-transparent' : 'border border-white/20 shadow-lg')}`}>
+                                             <h3 className="text-xs font-bold text-green-400 mb-2 uppercase tracking-widest border-b border-white/20 pb-1 drop-shadow-md">Your Stance</h3>
                                              <div className="flex gap-2">
-                                                 <button onClick={() => setUserStance('affirmative')} className={`flex-1 py-2 md:py-3 rounded-xl font-black text-sm md:text-base border-2 transition-all ${userStance === 'affirmative' ? 'bg-blue-600 border-blue-400 text-white' : 'bg-slate-800 border-slate-600 text-slate-500 hover:bg-slate-700'}`}>{langMode === 'ja' ? '肯定側' : 'AFFIRMATIVE'}</button>
-                                                 <button onClick={() => setUserStance('negative')} className={`flex-1 py-2 md:py-3 rounded-xl font-black text-sm md:text-base border-2 transition-all ${userStance === 'negative' ? 'bg-red-600 border-red-400 text-white' : 'bg-slate-800 border-slate-600 text-slate-500 hover:bg-slate-700'}`}>{langMode === 'ja' ? '否定側' : 'NEGATIVE'}</button>
+                                                 <button onClick={() => setUserStance('affirmative')} className={`flex-1 py-2 md:py-3 rounded-xl font-black text-sm md:text-base border-2 transition-all ${userStance === 'affirmative' ? 'bg-blue-600 border-blue-400 text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]' : 'bg-slate-800/80 border-slate-600 text-slate-400 hover:bg-slate-700'}`}>{langMode === 'ja' ? '肯定側' : 'AFFIRMATIVE'}</button>
+                                                 <button onClick={() => setUserStance('negative')} className={`flex-1 py-2 md:py-3 rounded-xl font-black text-sm md:text-base border-2 transition-all ${userStance === 'negative' ? 'bg-red-600 border-red-400 text-white shadow-[0_0_15px_rgba(220,38,38,0.5)]' : 'bg-slate-800/80 border-slate-600 text-slate-400 hover:bg-slate-700'}`}>{langMode === 'ja' ? '否定側' : 'NEGATIVE'}</button>
                                              </div>
                                          </div>
 
-                                         <div className={`bg-slate-950/50 p-3 md:p-4 rounded-2xl transition-all duration-300 ${!isStanceSelected ? 'opacity-30 pointer-events-none border border-white/5' : (!isDifficultySelected ? 'ring-4 ring-yellow-500 ring-opacity-70 animate-pulse border-transparent' : 'border border-white/10')}`}>
-                                             <h3 className="text-xs font-bold text-yellow-400 mb-2 uppercase tracking-widest border-b border-white/10 pb-1">Difficulty</h3>
+                                         <div className={`bg-slate-950/70 backdrop-blur-md p-3 md:p-4 rounded-2xl transition-all duration-300 ${!isStanceSelected ? 'opacity-30 pointer-events-none border border-white/5' : (!isDifficultySelected ? 'ring-4 ring-yellow-500 ring-opacity-70 animate-pulse border-transparent' : 'border border-white/20 shadow-lg')}`}>
+                                             <h3 className="text-xs font-bold text-yellow-400 mb-2 uppercase tracking-widest border-b border-white/20 pb-1 drop-shadow-md">Difficulty</h3>
                                              <div className="flex gap-2">
                                                  {Object.keys(DIFFICULTIES).map(d => (
-                                                     <button key={d} onClick={() => setDifficulty(d)} className={`flex-1 py-2 rounded-lg border-2 font-bold text-sm transition-all ${difficulty === d ? 'bg-yellow-600 border-yellow-400 text-white' : 'bg-slate-800 border-slate-600 text-slate-500 hover:bg-slate-700'}`}>{DIFFICULTIES[d].label}</button>
+                                                     <button key={d} onClick={() => setDifficulty(d)} className={`flex-1 py-2 rounded-lg border-2 font-bold text-sm transition-all ${difficulty === d ? 'bg-yellow-600 border-yellow-400 text-white shadow-[0_0_15px_rgba(202,138,4,0.5)]' : 'bg-slate-800/80 border-slate-600 text-slate-400 hover:bg-slate-700'}`}>{DIFFICULTIES[d].label}</button>
                                                  ))}
                                              </div>
                                          </div>
 
-                                         <div className={`bg-slate-950/50 p-3 md:p-4 rounded-2xl transition-all duration-300 border border-white/10 ${!isDifficultySelected ? 'opacity-30 pointer-events-none' : ''}`}>
-                                             <h3 className="text-xs font-bold text-cyan-400 mb-2 uppercase tracking-widest border-b border-white/10 pb-1">Game Modifiers</h3>
+                                         <div className={`bg-slate-950/70 backdrop-blur-md p-3 md:p-4 rounded-2xl transition-all duration-300 border border-white/20 shadow-lg ${!isDifficultySelected ? 'opacity-30 pointer-events-none' : ''}`}>
+                                             <h3 className="text-xs font-bold text-cyan-400 mb-2 uppercase tracking-widest border-b border-white/20 pb-1 drop-shadow-md">Game Modifiers</h3>
                                              <div className="space-y-3">
-                                                 <div className="flex justify-between items-center">
+                                                 <div className="flex justify-between items-center text-slate-200">
                                                      <span className="font-bold text-sm flex items-center gap-2"><ImageIcon className="w-4 h-4"/> Image Match</span>
-                                                     <button onClick={() => setImageMatchEnabled(!imageMatchEnabled)} className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors ${imageMatchEnabled ? 'bg-cyan-600' : 'bg-slate-600'}`}>
-                                                         <div className={`bg-white w-4 h-4 rounded-full transform transition-transform ${imageMatchEnabled ? 'translate-x-6' : 'translate-x-0'}`}></div>
+                                                     <button onClick={() => setImageMatchEnabled(!imageMatchEnabled)} className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors ${imageMatchEnabled ? 'bg-cyan-500' : 'bg-slate-600'}`}>
+                                                         <div className={`bg-white w-4 h-4 rounded-full transform transition-transform shadow-md ${imageMatchEnabled ? 'translate-x-6' : 'translate-x-0'}`}></div>
                                                      </button>
                                                  </div>
-                                                 <div className="flex justify-between items-center">
+                                                 <div className="flex justify-between items-center text-slate-200">
                                                      <span className="font-bold text-sm flex items-center gap-2"><Clock className="w-4 h-4"/> Time Limit</span>
-                                                     <button onClick={() => setTimerEnabled(!timerEnabled)} className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors ${timerEnabled ? 'bg-pink-600' : 'bg-slate-600'}`}>
-                                                         <div className={`bg-white w-4 h-4 rounded-full transform transition-transform ${timerEnabled ? 'translate-x-6' : 'translate-x-0'}`}></div>
+                                                     <button onClick={() => setTimerEnabled(!timerEnabled)} className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors ${timerEnabled ? 'bg-pink-500' : 'bg-slate-600'}`}>
+                                                         <div className={`bg-white w-4 h-4 rounded-full transform transition-transform shadow-md ${timerEnabled ? 'translate-x-6' : 'translate-x-0'}`}></div>
                                                      </button>
                                                  </div>
                                                  <div>
-                                                     <div className="flex justify-between font-bold mb-1 text-sm">
+                                                     <div className="flex justify-between font-bold mb-1 text-sm text-slate-200">
                                                          <span className="flex items-center gap-2"><Swords className="w-4 h-4"/> Battle Rounds</span>
                                                          <span className="text-cyan-400">{battleRounds} Rounds</span>
                                                      </div>
@@ -521,7 +537,7 @@ export default function App() {
                                  </div>
 
                                  {canStart && (
-                                    <button onClick={initGame} className="w-full mt-4 py-3 md:py-4 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full font-black text-xl md:text-2xl hover:shadow-[0_0_40px_rgba(34,211,238,0.6)] transition-all hover:scale-[1.02] border border-white/20 text-white flex justify-center items-center gap-3 shrink-0 animate-in zoom-in duration-300">
+                                    <button onClick={initGame} className="w-full mt-4 py-3 md:py-4 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full font-black text-xl md:text-2xl hover:shadow-[0_0_40px_rgba(34,211,238,0.8)] transition-all hover:scale-[1.02] border border-white/30 text-white flex justify-center items-center gap-3 shrink-0 animate-in zoom-in duration-300">
                                         {gameMode === 'review' ? <BookOpen className="w-6 h-6"/> : <Play className="fill-current w-6 h-6"/>} 
                                         {gameMode === 'review' ? 'ENTER REVIEW' : 'BATTLE START'}
                                     </button>
@@ -531,15 +547,15 @@ export default function App() {
                      </div>
                  </div>
                  
-                 <div className="flex justify-center gap-8 text-sm md:text-base text-slate-400 font-mono mt-4 shrink-0">
-                     <button onClick={() => setIsDrillMode(true)} className="hover:text-white flex items-center gap-2"><BrainCircuit className="w-4 h-4 md:w-5 md:h-5"/> Vocab Quiz</button>
-                     <button onClick={() => setFontSize(prev => prev === 'normal' ? 'large' : prev === 'large' ? 'xlarge' : 'normal')} className="hover:text-white flex items-center gap-2"><Type className="w-4 h-4 md:w-5 md:h-5"/> Text Size</button>
+                 <div className="flex justify-center gap-8 text-sm md:text-base text-slate-300 font-mono mt-4 shrink-0 bg-slate-900/40 backdrop-blur-sm px-6 py-2 rounded-full border border-white/10 shadow-lg">
+                     <button onClick={() => setIsDrillMode(true)} className="hover:text-white flex items-center gap-2 font-bold"><BrainCircuit className="w-4 h-4 md:w-5 md:h-5"/> Vocab Quiz</button>
+                     <button onClick={() => setFontSize(prev => prev === 'normal' ? 'large' : prev === 'large' ? 'xlarge' : 'normal')} className="hover:text-white flex items-center gap-2 font-bold"><Type className="w-4 h-4 md:w-5 md:h-5"/> Text Size</button>
                  </div>
              </div>
           </div>
       )}
 
-    {/* --- Game Header --- */}
+      {/* --- Game Header --- */}
       {gameState !== 'start' && (
         <header className={`shrink-0 ${theme.headerBg} z-30 px-6 py-3 flex justify-between items-center shadow-xl min-h-[5rem] md:min-h-[6rem]`}>
           <div className="flex items-center gap-4 flex-1 min-w-0">
@@ -570,7 +586,7 @@ export default function App() {
           </div>
 
           <div className="flex items-center gap-2 md:gap-4 shrink-0 pl-4">
-            {/* ✅ タイマーをここに移動して重なりを防止 */}
+            {/* 🌟タイマー位置調整 */}
             {timerEnabled && ['construct', 'cross_exam', 'rebuttal_defense', 'construct_image', 'cross_exam_image', 'rebuttal_defense_image', 'closing', 'closing_image'].includes(gameState) && (
                 <div className="flex flex-col items-center w-20 md:w-32 bg-slate-900/50 px-2 py-1 md:py-2 rounded-lg border border-white/10 backdrop-blur-md shadow-inner mr-1 md:mr-2">
                     <div className="text-[9px] md:text-[10px] font-bold text-pink-400 uppercase tracking-widest mb-1 flex items-center gap-1"><Clock className="w-3 h-3"/> Time</div>
@@ -590,11 +606,10 @@ export default function App() {
       {gameState !== 'start' && gameState !== 'gameover' && gameState !== 'result' && (
         <div className={`flex-1 flex overflow-hidden relative ${sidePanelPos === 'left' ? 'flex-row-reverse' : 'flex-row'}`}>
           
-          {/* ✅ プレイ画面の全体背景（透明度15%でゲームの邪魔にならないように） */}
+          {/* 🌟プレイ画面の全体背景(透明度15%) */}
           <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15 pointer-events-none z-0" style={{ backgroundImage: "url('/images/background.webp')" }}></div>
 
           <div className="flex-1 flex flex-col relative overflow-hidden bg-[#0f172a]/60 z-10">
-              {/* トピック独自の画像もうっすらと重ねる */}
               <div className="absolute inset-0 z-0 opacity-10 pointer-events-none mix-blend-overlay"><img src={currentTopic.image_url} className="w-full h-full object-cover" /></div>
               
               {gameState === 'construct' && (
@@ -605,7 +620,7 @@ export default function App() {
                       const typeInfo = CARD_TYPES[expectedFlow[tower.length]];
                       return (
                           <div className="flex flex-col items-center animate-pulse">
-                              <span className="text-sm text-slate-400 mb-1 font-bold tracking-widest">NEXT BLOCK</span>
+                              <span className="text-sm text-slate-400 mb-1 font-bold tracking-widest drop-shadow-md">NEXT BLOCK</span>
                               <div className={`relative px-6 py-2 rounded-xl border-2 shadow-[0_0_30px_rgba(0,0,0,0.5)] flex items-center gap-3 ${typeInfo.bg} ${typeInfo.border} text-white`}>
                                   {React.createElement(typeInfo.icon, { size: 20 })}
                                   <span className="text-xl font-black">{langMode === 'ja' || showJapanese ? typeInfo.labelJP : typeInfo.label}</span>
@@ -619,20 +634,20 @@ export default function App() {
               {/* Rival Attack / Question Area */}
               {rivalCard && (
                  <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 w-full max-w-3xl px-4 animate-in slide-in-from-top-4">
-                   <div className={`p-4 md:p-6 rounded-2xl shadow-2xl border-4 flex flex-col md:flex-row gap-4 md:gap-6 ${rivalCard.type === 'attack' ? 'bg-rose-950/95 border-rose-500' : 'bg-teal-950/95 border-teal-500'}`}>
+                   <div className={`p-4 md:p-6 rounded-2xl shadow-2xl border-4 flex flex-col md:flex-row gap-4 md:gap-6 backdrop-blur-md ${rivalCard.type === 'attack' ? 'bg-rose-950/90 border-rose-500' : 'bg-teal-950/90 border-teal-500'}`}>
                       {rivalCard.image_url && (
                           <div className="shrink-0">
                               <img src={rivalCard.image_url} className="w-full md:w-32 h-32 object-cover rounded-xl border-2 border-white/20 shadow-md" alt="Rival" />
                           </div>
                       )}
                       <div className="flex gap-4 w-full">
-                          <div className={`shrink-0 p-3 md:p-4 rounded-full h-fit border-2 border-white/20 ${rivalCard.type === 'attack' ? 'bg-rose-600' : 'bg-teal-600'}`}>
+                          <div className={`shrink-0 p-3 md:p-4 rounded-full h-fit border-2 border-white/20 shadow-lg ${rivalCard.type === 'attack' ? 'bg-rose-600' : 'bg-teal-600'}`}>
                               {rivalCard.type === 'attack' ? <Swords className="w-6 h-6 md:w-8 md:h-8 text-white"/> : <MessageCircleQuestion className="w-6 h-6 md:w-8 md:h-8 text-white"/>}
                           </div>
                           <div className="flex-1">
-                            <div className="font-black opacity-60 text-xs md:text-sm uppercase tracking-widest mb-1">{rivalCard.type === 'attack' ? "Opponent Attack!" : "Question"}</div>
-                            {langMode === 'ja' ? <div className="text-lg md:text-xl font-bold leading-relaxed">{rivalCard.textJP}</div> : (
-                                <><div className="text-lg md:text-xl font-bold leading-relaxed"><SmartText text={typeof rivalCard.text === 'object' ? rivalCard.text[difficulty] : rivalCard.text} vocabList={currentTopic.vocabulary} /></div>{showJapanese && <div className="mt-2 opacity-80 text-sm border-t border-white/20 pt-1">{rivalCard.textJP}</div>}</>
+                            <div className="font-black opacity-80 text-xs md:text-sm uppercase tracking-widest mb-1 text-white">{rivalCard.type === 'attack' ? "Opponent Attack!" : "Question"}</div>
+                            {langMode === 'ja' ? <div className="text-lg md:text-xl font-bold leading-relaxed text-white drop-shadow-md">{rivalCard.textJP}</div> : (
+                                <><div className="text-lg md:text-xl font-bold leading-relaxed text-white drop-shadow-md"><SmartText text={typeof rivalCard.text === 'object' ? rivalCard.text[difficulty] : rivalCard.text} vocabList={currentTopic.vocabulary} /></div>{showJapanese && <div className="mt-2 opacity-80 text-sm border-t border-white/20 pt-1 text-slate-200">{rivalCard.textJP}</div>}</>
                             )}
                           </div>
                       </div>
@@ -643,11 +658,11 @@ export default function App() {
               {/* Prompt for Image Match */}
               {gameState.endsWith('_image') && pendingCard && (
                  <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 w-full max-w-3xl px-4 animate-in slide-in-from-top-4">
-                     <div className="bg-cyan-950/95 border-4 border-cyan-500 p-4 md:p-6 rounded-2xl shadow-2xl text-center">
-                         <div className="flex items-center justify-center gap-2 text-cyan-400 font-black tracking-widest uppercase mb-2">
+                     <div className="bg-cyan-950/90 backdrop-blur-md border-4 border-cyan-500 p-4 md:p-6 rounded-2xl shadow-2xl text-center">
+                         <div className="flex items-center justify-center gap-2 text-cyan-400 font-black tracking-widest uppercase mb-2 drop-shadow-md">
                              <ImageIcon className="w-6 h-6"/> Select Matching Image
                          </div>
-                         <div className="text-lg md:text-xl font-bold text-white bg-black/40 p-4 rounded-xl border border-white/10">
+                         <div className="text-lg md:text-xl font-bold text-white bg-black/50 p-4 rounded-xl border border-white/10 shadow-inner">
                             {langMode === 'ja' ? pendingCard.textJP : (typeof pendingCard.text === 'object' ? pendingCard.text[difficulty] : pendingCard.text)}
                          </div>
                      </div>
@@ -660,18 +675,18 @@ export default function App() {
                       const typeStyle = CARD_TYPES[block.type] || CARD_TYPES.reason;
                       return (
                       <div key={block.id + idx} className="relative w-full max-w-3xl animate-in slide-in-from-bottom-4">
-                          <div className={`p-4 md:p-5 rounded-xl border-l-8 backdrop-blur-md shadow-lg flex flex-col md:flex-row gap-4 items-start md:items-center ${block.judgment === 'weak' ? 'border-yellow-500/50 bg-yellow-900/40' : `border-${typeStyle.color.split('-')[1]}-500 bg-slate-900/90`}`}>
+                          <div className={`p-4 md:p-5 rounded-xl border-l-8 backdrop-blur-md shadow-lg flex flex-col md:flex-row gap-4 items-start md:items-center ${block.judgment === 'weak' ? 'border-yellow-500/50 bg-yellow-900/40' : `border-${typeStyle.color.split('-')[1]}-500 bg-slate-900/80`}`}>
                               {block.image_url && (
-                                  <div className="shrink-0 w-full md:w-32 h-32 rounded-lg overflow-hidden border border-white/20 shadow-md">
+                                  <div className="shrink-0 w-full md:w-32 h-32 rounded-lg overflow-hidden border border-white/20 shadow-md bg-black">
                                       <img src={block.image_url} className="w-full h-full object-cover" alt="Card Visual" />
                                   </div>
                               )}
                               <div className="flex-1 flex gap-4 w-full">
-                                  <div className={`shrink-0 p-2 md:p-3 rounded-xl bg-black/40 border border-white/5 h-fit ${typeStyle.color}`}>{React.createElement(typeStyle.icon, { size: 20 })}</div>
+                                  <div className={`shrink-0 p-2 md:p-3 rounded-xl bg-black/50 border border-white/10 shadow-inner h-fit ${typeStyle.color}`}>{React.createElement(typeStyle.icon, { size: 20 })}</div>
                                   <div className="flex-1">
-                                      <div className={`text-[10px] md:text-xs font-black uppercase tracking-widest mb-1 opacity-70 ${typeStyle.color}`}>{langMode === 'ja' ? typeStyle.labelJP : typeStyle.label}</div>
-                                      {langMode === 'ja' ? <div className="font-bold text-white text-base md:text-lg leading-relaxed">{block.textJP}</div> : (
-                                          <><div className="font-bold leading-relaxed text-slate-100 text-base md:text-lg"><SmartText text={typeof block.text === 'object' ? block.text[difficulty] : block.text} vocabList={currentTopic.vocabulary} /></div>{showJapanese && <div className="mt-1 text-slate-400 text-xs md:text-sm border-t border-white/10 pt-1">{block.textJP}</div>}</>
+                                      <div className={`text-[10px] md:text-xs font-black uppercase tracking-widest mb-1 opacity-90 drop-shadow-md ${typeStyle.color}`}>{langMode === 'ja' ? typeStyle.labelJP : typeStyle.label}</div>
+                                      {langMode === 'ja' ? <div className="font-bold text-white text-base md:text-lg leading-relaxed drop-shadow-md">{block.textJP}</div> : (
+                                          <><div className="font-bold leading-relaxed text-slate-100 text-base md:text-lg drop-shadow-md"><SmartText text={typeof block.text === 'object' ? block.text[difficulty] : block.text} vocabList={currentTopic.vocabulary} /></div>{showJapanese && <div className="mt-1 text-slate-300 text-xs md:text-sm border-t border-white/10 pt-1">{block.textJP}</div>}</>
                                       )}
                                   </div>
                               </div>
@@ -682,48 +697,56 @@ export default function App() {
               </div>
           </div>
 
-          <div className="w-4 bg-slate-900 border-x border-white/10 cursor-col-resize hover:bg-blue-900/30 flex items-center justify-center z-20" onMouseDown={() => isResizing.current = true} onTouchStart={() => isResizing.current = true}><GripVertical className="w-4 h-4 text-slate-600"/></div>
+          <div className="w-4 bg-slate-900/80 border-x border-white/10 cursor-col-resize hover:bg-blue-900/50 flex items-center justify-center z-20 backdrop-blur-md" onMouseDown={() => isResizing.current = true} onTouchStart={() => isResizing.current = true}><GripVertical className="w-4 h-4 text-slate-500"/></div>
 
           {/* Right/Left Control Panel */}
-          <div className="flex flex-col bg-[#1e293b] border-l border-white/10 shadow-2xl z-20" style={{ width: `${sidePanelWidth}%`, minWidth: '300px' }}>
-              <div className="p-3 border-b border-white/10 flex justify-between items-center bg-slate-900/50">
-                  <div className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+          {/* 🌟右側手札パネルを半透明のすりガラスに */}
+          <div className="flex flex-col bg-[#1e293b]/80 backdrop-blur-md border-l border-white/10 shadow-2xl z-20" style={{ width: `${sidePanelWidth}%`, minWidth: '300px' }}>
+              <div className="p-3 border-b border-white/10 flex justify-between items-center bg-slate-900/60 shadow-inner">
+                  <div className="text-xs font-bold text-slate-300 uppercase tracking-widest flex items-center gap-2 drop-shadow-md">
                       {gameState.endsWith('_image') ? <ImageIcon className="w-4 h-4"/> : <Lightbulb className="w-4 h-4"/>} 
                       {gameState.endsWith('_image') ? "Select Image" : "Hand"}
                   </div>
                   <div className="flex gap-1">
-                      <button onClick={() => setSidePanelPos(prev => prev === 'left' ? 'right' : 'left')} className="p-1 hover:bg-white/10 rounded"><MoveHorizontal className="w-4 h-4 text-slate-400"/></button>
-                      {gameState === 'construct' && <button onClick={handleUndo} className="p-1 hover:bg-white/10 rounded flex items-center text-xs font-bold text-slate-300 disabled:opacity-30" disabled={tower.length === 0}><Undo2 className="w-4 h-4"/></button>}
+                      <button onClick={() => setSidePanelPos(prev => prev === 'left' ? 'right' : 'left')} className="p-1 hover:bg-white/20 rounded text-white transition-colors"><MoveHorizontal className="w-4 h-4"/></button>
+                      {gameState === 'construct' && <button onClick={handleUndo} className="p-1 hover:bg-white/20 rounded flex items-center text-xs font-bold text-white transition-colors disabled:opacity-30" disabled={tower.length === 0}><Undo2 className="w-4 h-4"/></button>}
                   </div>
               </div>
               
-              <div className="flex-1 overflow-y-auto p-3 space-y-3">
+              <div className="flex-1 overflow-y-auto p-3 space-y-3 custom-scrollbar">
                   {gameState.endsWith('_image') ? (
-                      <div className="grid grid-cols-2 gap-3 h-full pb-10">
-                          {imageHand.map((url, idx) => (
-                              <button key={idx} onClick={() => handleImageSelect(url)} className="relative border-4 border-white/10 rounded-xl overflow-hidden hover:border-cyan-400 transition-all hover:scale-105 active:scale-95 shadow-lg group aspect-video">
-                                  <div className="absolute inset-0 bg-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none"/>
-                                  {url ? (
-                                     <img src={url} className="w-full h-full object-cover" alt="Choice" />
-                                  ) : (
-                                     <div className="w-full h-full bg-slate-800 flex items-center justify-center text-slate-500 font-bold">No Image</div>
-                                  )}
-                              </button>
-                          ))}
+                      <div className="grid grid-cols-1 gap-3 h-full pb-10">
+                          {/* 🌟画像選択肢を16:9に変更 & 揺れるクラス追加 */}
+                          {imageHand.map((url, idx) => {
+                              const shakeClass = url === shakingCardId ? 'animate-shake ring-4 ring-red-500' : 'border-white/20';
+                              return (
+                                <button key={idx} onClick={() => handleImageSelect(url)} className={`relative border-4 rounded-xl overflow-hidden hover:border-cyan-400 transition-all hover:scale-105 active:scale-95 shadow-lg group aspect-video ${shakeClass}`}>
+                                    <div className="absolute inset-0 bg-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none"/>
+                                    {url ? (
+                                       <img src={url} className="w-full h-full object-cover" alt="Choice" />
+                                    ) : (
+                                       <div className="w-full h-full bg-slate-800 flex items-center justify-center text-slate-500 font-bold">No Image</div>
+                                    )}
+                                </button>
+                              );
+                          })}
                       </div>
                   ) : (
                       visibleHand.map((card) => {
                           const type = CARD_TYPES[card.type] || CARD_TYPES.reason;
+                          // 🌟修正：間違えたカードだけ揺らすクラス(animate-shakeと赤色エフェクト)
+                          const shakeClass = card.id === shakingCardId ? 'animate-shake ring-4 ring-red-500 bg-red-900/60' : '';
+
                           return (
-                              <button key={card.id} onClick={() => handleCardSelect(card)} className={`w-full relative overflow-hidden group text-left p-4 rounded-xl border transition-all duration-200 hover:-translate-y-1 hover:shadow-lg active:scale-[0.98] ${type.bg} border-white/20 hover:border-white/50 animate-in fade-in zoom-in-95`}>
+                              <button key={card.id} onClick={() => handleCardSelect(card)} className={`w-full relative overflow-hidden group text-left p-4 rounded-xl border transition-all duration-200 hover:-translate-y-1 hover:shadow-lg active:scale-[0.98] ${type.bg} border-white/20 hover:border-white/50 animate-in fade-in zoom-in-95 shadow-md ${shakeClass}`}>
                                   <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"/>
                                   <div className="flex justify-between items-start mb-2 relative z-10">
-                                      <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded bg-black/40 border border-white/10 text-white`}>{langMode === 'ja' || showJapanese ? type.labelJP : type.label}</span>
-                                      {React.createElement(type.icon, { className: "w-4 h-4 text-white opacity-80" })}
+                                      <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded bg-black/50 border border-white/10 text-white shadow-inner`}>{langMode === 'ja' || showJapanese ? type.labelJP : type.label}</span>
+                                      {React.createElement(type.icon, { className: "w-4 h-4 text-white opacity-90 drop-shadow-md" })}
                                   </div>
                                   <div className="relative z-10">
-                                      {langMode === 'ja' ? <div className="font-bold text-white text-sm md:text-base drop-shadow-md">{card.textJP}</div> : (
-                                          <><div className="font-bold text-white leading-snug text-sm md:text-base drop-shadow-md"><SmartText text={typeof card.text === 'object' ? card.text[difficulty] : card.text} vocabList={currentTopic.vocabulary} /></div>{showJapanese && <div className="mt-2 pt-1 border-t border-white/20 text-white/70 text-xs">{card.textJP}</div>}</>
+                                      {langMode === 'ja' ? <div className="font-bold text-white text-sm md:text-base drop-shadow-md leading-relaxed">{card.textJP}</div> : (
+                                          <><div className="font-bold text-white leading-relaxed text-sm md:text-base drop-shadow-md"><SmartText text={typeof card.text === 'object' ? card.text[difficulty] : card.text} vocabList={currentTopic.vocabulary} /></div>{showJapanese && <div className="mt-2 pt-2 border-t border-white/20 text-slate-200 text-xs">{card.textJP}</div>}</>
                                       )}
                                   </div>
                               </button>
@@ -744,7 +767,7 @@ export default function App() {
                <h2 className={`text-6xl md:text-8xl font-black text-white mb-2 mt-10 tracking-tighter drop-shadow-lg ${gameState === 'gameover' ? 'text-red-400' : 'text-cyan-400'}`}>
                    {gameState === 'gameover' ? 'DEFEAT' : 'VICTORY'}
                </h2>
-               <div className="text-2xl font-mono text-white/80 mb-8 bg-black/30 px-6 py-2 rounded-full border border-white/10">Score: {score}</div>
+               <div className="text-2xl font-mono text-white/90 mb-8 bg-black/40 px-6 py-2 rounded-full border border-white/20 shadow-inner">Score: {score}</div>
                
                {(() => {
                    let targetGroup = activeLogicGroup;
@@ -758,31 +781,31 @@ export default function App() {
                        correctCards.sort((a, b) => order[a.type] - order[b.type]);
 
                        return (
-                           <div className="w-full max-w-5xl bg-slate-900/80 rounded-2xl p-6 border border-white/10 mb-10 shadow-2xl">
-                               <h3 className="text-xl md:text-2xl font-black text-green-400 mb-6 flex items-center justify-center gap-2 border-b border-white/10 pb-4">
+                           <div className="w-full max-w-5xl bg-slate-900/80 rounded-2xl p-6 border border-white/20 mb-10 shadow-2xl backdrop-blur-md">
+                               <h3 className="text-xl md:text-2xl font-black text-green-400 mb-6 flex items-center justify-center gap-2 border-b border-white/20 pb-4 drop-shadow-md">
                                    <CheckCircle2 className="w-6 h-6"/> Model Answer (模範解答)
                                </h3>
                                <div className="grid gap-3">
                                    {correctCards.map(card => {
                                        const typeStyle = CARD_TYPES[card.type] || CARD_TYPES.reason;
                                        return (
-                                           <div key={card.id} className="flex flex-col md:flex-row gap-4 p-4 bg-slate-800/50 rounded-xl border border-white/5 items-start md:items-center text-left">
+                                           <div key={card.id} className="flex flex-col md:flex-row gap-4 p-4 bg-slate-800/60 rounded-xl border border-white/10 items-start md:items-center text-left shadow-md">
                                                {card.image_url && (
-                                                   <div className="shrink-0 w-full md:w-32 h-32 rounded-lg overflow-hidden border border-white/10 shadow-md">
+                                                   <div className="shrink-0 w-full md:w-32 h-32 rounded-lg overflow-hidden border border-white/20 shadow-lg bg-black">
                                                        <img src={card.image_url} className="w-full h-full object-cover" />
                                                    </div>
                                                )}
                                                <div className="flex gap-4 flex-1 w-full items-center">
-                                                   <div className={`shrink-0 text-[10px] md:text-xs font-black uppercase px-2 py-1 rounded bg-black/40 border border-white/10 ${typeStyle.color} w-24 text-center`}>
+                                                   <div className={`shrink-0 text-[10px] md:text-xs font-black uppercase px-2 py-1 rounded bg-black/50 border border-white/10 shadow-inner ${typeStyle.color} w-24 text-center drop-shadow-md`}>
                                                        {langMode === 'ja' ? typeStyle.labelJP : typeStyle.label}
                                                    </div>
                                                    <div className="flex-1">
                                                        {langMode === 'ja' ? (
-                                                           <div className="font-bold text-white text-sm md:text-base leading-relaxed">{card.textJP}</div>
+                                                           <div className="font-bold text-white text-sm md:text-base leading-relaxed drop-shadow-md">{card.textJP}</div>
                                                        ) : (
                                                            <>
-                                                               <div className="font-bold text-white text-sm md:text-base leading-relaxed"><SmartText text={typeof card.text === 'object' ? card.text[difficulty] : card.text} vocabList={currentTopic.vocabulary} /></div>
-                                                               {showJapanese && <div className="mt-1 text-slate-400 text-xs">{card.textJP}</div>}
+                                                               <div className="font-bold text-white text-sm md:text-base leading-relaxed drop-shadow-md"><SmartText text={typeof card.text === 'object' ? card.text[difficulty] : card.text} vocabList={currentTopic.vocabulary} /></div>
+                                                               {showJapanese && <div className="mt-1 text-slate-300 text-xs">{card.textJP}</div>}
                                                            </>
                                                        )}
                                                    </div>
@@ -797,20 +820,20 @@ export default function App() {
                    return null;
                })()}
 
-               <button onClick={goHome} className="px-12 py-5 bg-white text-slate-900 rounded-full font-black text-xl md:text-2xl hover:scale-105 transition-transform shadow-[0_0_40px_rgba(255,255,255,0.3)] mb-10">
+               <button onClick={goHome} className="px-12 py-5 bg-white text-slate-900 rounded-full font-black text-xl md:text-2xl hover:scale-105 transition-transform shadow-[0_0_50px_rgba(255,255,255,0.4)] mb-10">
                    PLAY AGAIN
                </button>
            </div>
       )}
 
       <div className="absolute inset-0 pointer-events-none z-[100] overflow-hidden">
-          {particles.map((p) => (<div key={p.id} className={`absolute rounded-full ${p.color} animate-particle`} style={{ left: `${p.x}%`, top: `${p.y}%`, width: `${10 * p.scale}px`, height: `${10 * p.scale}px`, '--tx': `${p.tx}px`, '--ty': `${p.ty}px` }} />))}
+          {particles.map((p) => (<div key={p.id} className={`absolute rounded-full ${p.color} animate-particle shadow-lg`} style={{ left: `${p.x}%`, top: `${p.y}%`, width: `${10 * p.scale}px`, height: `${10 * p.scale}px`, '--tx': `${p.tx}px`, '--ty': `${p.ty}px` }} />))}
       </div>
       
       {feedback && (
-         <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[120] pointer-events-none w-full flex justify-center">
-            <div className={`px-10 py-6 rounded-xl backdrop-blur-md text-white font-black text-2xl md:text-3xl shadow-[0_0_50px_rgba(0,0,0,0.8)] animate-in zoom-in flex items-center gap-4 ${feedback.type === 'damage' ? 'bg-red-600/90 border-2 border-red-400' : 'bg-blue-600/90 border-2 border-blue-400'}`}>
-               {feedback.type === 'damage' ? <AlertTriangle className="w-8 h-8 md:w-10 md:h-10"/> : <CheckCircle2 className="w-8 h-8 md:w-10 md:h-10"/>}<span>{feedback.msg}</span>
+         <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[150] pointer-events-none w-full flex justify-center">
+            <div className={`px-10 py-6 rounded-xl backdrop-blur-md text-white font-black text-2xl md:text-3xl shadow-[0_0_50px_rgba(0,0,0,0.8)] animate-in zoom-in flex items-center gap-4 ${feedback.type === 'damage' ? 'bg-red-600/90 border-4 border-red-400' : 'bg-blue-600/90 border-4 border-blue-400'}`}>
+               {feedback.type === 'damage' ? <AlertTriangle className="w-8 h-8 md:w-10 md:h-10 drop-shadow-md"/> : <CheckCircle2 className="w-8 h-8 md:w-10 md:h-10 drop-shadow-md"/>}<span className="drop-shadow-md">{feedback.msg}</span>
             </div>
          </div>
       )}
@@ -824,9 +847,43 @@ export default function App() {
           background-size: 400% 400%;
           animation: gradient-xy 15s ease infinite;
         }
-        @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
-        .animate-shake { animation: shake 0.3s cubic-bezier(.36,.07,.19,.97) both; }
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; } .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; border-radius: 3px; } .custom-scrollbar::-webkit-scrollbar-track { background: #1e293b; }
+        
+        /* 🌟画面全体の揺れ */
+        @keyframes shake-screen { 
+            0%,100%{transform:translateX(0)} 
+            25%{transform:translateX(-5px)} 
+            75%{transform:translateX(5px)} 
+        }
+        .animate-shake { animation: shake-screen 0.3s cubic-bezier(.36,.07,.19,.97) both; }
+        
+        /* 🌟正解時の巨大な〇アニメーション */
+        @keyframes pop-in-out {
+          0% { opacity: 0; transform: scale(0.3); }
+          20% { opacity: 1; transform: scale(1.1); }
+          30% { transform: scale(1.0); }
+          80% { opacity: 1; transform: scale(1.0); }
+          100% { opacity: 0; transform: scale(0.8); }
+        }
+        .animate-pop-in-out {
+          animation: pop-in-out 0.8s ease-in-out forwards;
+        }
+
+        /* 🌟不正解時のカード単体の揺れアニメーション */
+        @keyframes shake-card {
+          0%, 100% { transform: translateX(0); }
+          15% { transform: translateX(-12px); }
+          30% { transform: translateX(10px); }
+          45% { transform: translateX(-8px); }
+          60% { transform: translateX(6px); }
+          75% { transform: translateX(-4px); }
+        }
+        .animate-shake.ring-4 {
+          animation: shake-card 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; } 
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; border-radius: 3px; } 
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(30,41,59,0.5); }
       `}</style>
     </div>
   );
