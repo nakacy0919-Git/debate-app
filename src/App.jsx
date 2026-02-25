@@ -254,14 +254,16 @@ export default function App() {
   const triggerRebuttalPhase = (roundIdx = currentRoundIndex) => {
     const currentData = battlePlan[roundIdx];
     setGameState('rebuttal_intro'); setRivalCard(null); setHand([]);
+    // 切り替え演出を2秒(2000)から0.5秒(500)に短縮
     setTimeout(() => {
       setGameState('rebuttal_attack');
       if (currentData && currentData.reb) {
         setRivalCard({ ...currentData.reb, type: 'attack' });
         if(timerEnabled) takeDamage(DAMAGE_TICK, "Opponent Attack!");
-        setTimeout(() => { setGameState('rebuttal_defense'); setHand(setupBattlePhase(currentData.reb.options)); }, 3000);
+        // 相手の攻撃から自分の手札が出るまでを3秒(3000)から0.8秒(800)に短縮
+        setTimeout(() => { setGameState('rebuttal_defense'); setHand(setupBattlePhase(currentData.reb.options)); }, 800);
       } else { nextRound(roundIdx); }
-    }, 2000);
+    }, 500);
   };
 
   const nextRound = (currentIdx) => {
@@ -291,7 +293,6 @@ export default function App() {
       startTimeRef.current = Date.now(); setTimeProgress(0);
   };
 
-  // ✅ 修正ポイント2: メッセージが消えないバグを修正
   const finalizeCardSuccess = (card, baseState) => {
       const newTower = [...tower, { ...card, judgment: 'perfect' }];
       setTower(newTower);
@@ -301,27 +302,27 @@ export default function App() {
           const expectedFlow = FLOWS[gameMode] || FLOWS.area;
           if (newTower.length >= expectedFlow.length) {
               setFeedback({ msg: "PERFECT COMPLETE!", type: 'success', judgment: 'perfect' });
-              setTimeout(() => setFeedback(null), 1500); // 確実に追加
+              setTimeout(() => setFeedback(null), 800); // 1.5秒から0.8秒へ短縮
               triggerExplosion(30, 'bg-blue-400');
-              setTimeout(() => triggerCrossExam(currentRoundIndex), 1500);
+              setTimeout(() => triggerCrossExam(currentRoundIndex), 800); // すぐ次へ
           } else {
               setGameState('construct');
           }
       } else if (baseState === 'cross_exam') {
           setFeedback({ msg: "NICE COUNTER!", type: 'success', judgment: 'perfect' });
-          setTimeout(() => setFeedback(null), 1500); // 確実に追加
-          setTimeout(() => triggerRebuttalPhase(currentRoundIndex), 1500);
+          setTimeout(() => setFeedback(null), 800);
+          setTimeout(() => triggerRebuttalPhase(currentRoundIndex), 800);
       } else if (baseState === 'rebuttal_defense') {
           setFeedback({ msg: "NICE COUNTER!", type: 'success', judgment: 'perfect' });
-          setTimeout(() => setFeedback(null), 1500); // 確実に追加
-          setTimeout(() => nextRound(currentRoundIndex), 1500);
+          setTimeout(() => setFeedback(null), 800);
+          setTimeout(() => nextRound(currentRoundIndex), 800);
       } else if (baseState === 'closing') {
           setFeedback({ msg: "DEBATE FINISHED!", type: 'success', judgment: 'perfect' });
-          setTimeout(() => setFeedback(null), 1500); // 確実に追加
+          setTimeout(() => setFeedback(null), 1500); // 終了時だけは余韻を残すため1.5秒のまま
           setTimeout(() => setGameState('result'), 1500);
       }
   };
-
+  
   const handleCardSelect = (card) => {
     startTimeRef.current = Date.now(); setTimeProgress(0);
     const baseState = gameState.replace('_image', '');
