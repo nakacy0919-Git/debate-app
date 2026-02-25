@@ -715,12 +715,12 @@ export default function App() {
               
               <div className="flex-1 overflow-y-auto p-3 space-y-3 custom-scrollbar">
                   {gameState.endsWith('_image') ? (
-                      <div className="grid grid-cols-1 gap-3 h-full pb-10">
-                          {/* 🌟画像選択肢を16:9に変更 & 揺れるクラス追加 */}
+                      <div className="flex flex-col items-center gap-3 h-full pb-10 overflow-y-auto">
+                          {/* 🌟画像選択肢を1列に並べ、最大幅を220pxに制限して綺麗に収める */}
                           {imageHand.map((url, idx) => {
                               const shakeClass = url === shakingCardId ? 'animate-shake ring-4 ring-red-500' : 'border-white/20';
                               return (
-                                <button key={idx} onClick={() => handleImageSelect(url)} className={`relative border-4 rounded-xl overflow-hidden hover:border-cyan-400 transition-all hover:scale-105 active:scale-95 shadow-lg group aspect-video ${shakeClass}`}>
+                                <button key={idx} onClick={() => handleImageSelect(url)} className={`relative w-[90%] max-w-[220px] shrink-0 border-4 rounded-xl overflow-hidden hover:border-cyan-400 transition-all hover:scale-105 active:scale-95 shadow-lg group aspect-video ${shakeClass}`}>
                                     <div className="absolute inset-0 bg-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none"/>
                                     {url ? (
                                        <img src={url} className="w-full h-full object-cover" alt="Choice" />
