@@ -65,6 +65,13 @@ const getAllFakeImages = (topic) => {
   return Array.from(urls);
 };
 
+// 🎵 効果音を再生するヘルパー関数
+const playSound = (soundName) => {
+  const audio = new Audio(`/sounds/${soundName}.mp3`);
+  audio.volume = 0.5; 
+  audio.play().catch(e => console.log("Audio play failed:", e));
+};
+
 export default function App() {
   const [topics, setTopics] = useState([]);
   const [selectedTopicId, setSelectedTopicId] = useState(null);
@@ -106,8 +113,6 @@ export default function App() {
   const [timeProgress, setTimeProgress] = useState(0); 
   
   const [shake, setShake] = useState(false);
-  
-  // 🌟追加：〇×アニメーション用のState
   const [showSuccessOverlay, setShowSuccessOverlay] = useState(false);
   const [shakingCardId, setShakingCardId] = useState(null);
   
@@ -146,8 +151,12 @@ export default function App() {
     return () => clearInterval(timerIntervalRef.current);
   }, [gameState, timerEnabled]); 
 
+  // 🎵 ゲームオーバー判定＆敗北音（ファイル名を 'gameover' に変更）
   useEffect(() => {
-    if (playerHP <= 0 && gameState !== 'gameover') setGameState('gameover');
+    if (playerHP <= 0 && gameState !== 'gameover') {
+      playSound('gameover');
+      setGameState('gameover');
+    }
   }, [playerHP]);
 
   useEffect(() => {
@@ -169,8 +178,8 @@ export default function App() {
     if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   }, [tower]);
 
-  // 🌟修正：不正解時にカードを揺らす機能を追加
   const takeDamage = (amount, reason = "", cardId = null) => {
+    playSound('wrong'); 
     setPlayerHP(prev => Math.max(0, prev - amount));
     setShake(true); setTimeout(() => setShake(false), 300);
     setFeedback({ msg: `-${amount} HP (${reason})`, type: 'damage', judgment: 'weak' });
@@ -258,7 +267,6 @@ export default function App() {
     } else { triggerRebuttalPhase(roundIdx); }
   };
 
-  // 🌟修正：テンポアップ（切り替え0.5秒、待機0.8秒へ短縮）
   const triggerRebuttalPhase = (roundIdx = currentRoundIndex) => {
     const currentData = battlePlan[roundIdx];
     setGameState('rebuttal_intro'); setRivalCard(null); setHand([]);
@@ -299,7 +307,7 @@ export default function App() {
       startTimeRef.current = Date.now(); setTimeProgress(0);
   };
 
-  // 🌟修正：正解アニメーション（巨大な〇）の発火とテンポアップ
+  // 🎵 終了時の音を 'clear' に変更
   const finalizeCardSuccess = (card, baseState) => {
       const newTower = [...tower, { ...card, judgment: 'perfect' }];
       setTower(newTower);
@@ -307,6 +315,12 @@ export default function App() {
 
       setShowSuccessOverlay(true);
       setTimeout(() => setShowSuccessOverlay(false), 800); 
+
+      if (baseState === 'closing') {
+        playSound('clear'); // ファイル名を clear に変更
+      } else {
+        playSound('correct');
+      }
 
       if (baseState === 'construct') {
           const expectedFlow = FLOWS[gameMode] || FLOWS.area;
@@ -404,12 +418,11 @@ export default function App() {
   const canStart = isTopicSelected && isStanceSelected && isDifficultySelected;
 
   if (topics.length === 0) return <div className="h-screen flex items-center justify-center bg-[#09090b] text-white">Loading...</div>;
-  if (gameState === 'review') return <ReviewMode topic={currentTopic} onClose={goHome} showJapanese={showJapanese} langMode={langMode} difficulty={difficulty || 'easy'} />;
+  if (gameState === 'review') return <ReviewMode topic={currentTopic} onClose={() => { playSound('click'); goHome(); }} showJapanese={showJapanese} langMode={langMode} difficulty={difficulty || 'easy'} />;
 
   return (
     <div className={`h-screen w-full ${theme.bg} ${theme.text} font-sans flex flex-col overflow-hidden ${FONT_SIZES[fontSize]} ${shake ? 'animate-shake' : ''}`}>
       
-      {/* 🌟追加：正解時の巨大な緑の〇オーバーレイ */}
       {showSuccessOverlay && (
         <div className="fixed inset-0 z-[200] flex items-center justify-center pointer-events-none animate-pop-in-out">
           <div className="w-48 h-48 md:w-72 md:h-72 bg-gradient-to-br from-green-400 via-emerald-500 to-teal-600 rounded-full flex items-center justify-center shadow-[0_0_80px_rgba(16,185,129,0.8)] border-4 border-white/40 backdrop-blur-md relative">
@@ -422,7 +435,6 @@ export default function App() {
       {/* --- Start Screen --- */}
       {gameState === 'start' && !isDrillMode && (
           <div className="absolute inset-0 z-50 flex flex-col items-center justify-center p-4 md:p-6 bg-black overflow-hidden">
-             {/* 🌟ユーザー設定の背景画像 */}
              <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60" style={{ backgroundImage: "url('/images/background.webp')" }}></div>
              <div className="absolute inset-0 bg-gradient-to-br from-[#0f172a]/80 via-[#1e1b4b]/70 to-[#0f172a]/80 animate-gradient-xy mix-blend-overlay pointer-events-none"></div>
              
@@ -431,12 +443,11 @@ export default function App() {
                     DEBATE BATTLE
                  </h1>
 
-                 {/* 🌟中央パネルを半透明(40%)にして背景を透かす */}
                  <div className="bg-slate-900/40 backdrop-blur-md p-4 md:p-6 rounded-3xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative w-full flex-1 flex flex-col min-h-0 overflow-hidden">
                      
                      <div className="flex justify-between items-center mb-4 pb-3 border-b border-white/10 shrink-0">
                          {setupStep > 1 ? (
-                             <button onClick={() => setSetupStep(prev => prev - 1)} className="flex items-center gap-1 text-slate-300 hover:text-white transition-colors font-bold">
+                             <button onClick={() => { playSound('click'); setSetupStep(prev => prev - 1); }} className="flex items-center gap-1 text-slate-300 hover:text-white transition-colors font-bold">
                                  <ChevronLeft className="w-6 h-6"/> Back
                              </button>
                          ) : <div className="w-20"></div>}
@@ -447,7 +458,7 @@ export default function App() {
                             <div className={`w-3 h-3 rounded-full transition-colors ${setupStep >= 3 ? 'bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)]' : 'bg-slate-700'}`}/>
                          </div>
 
-                         <button onClick={() => setShowRules(true)} className="text-blue-400 hover:text-blue-300 flex items-center gap-1 transition-colors w-20 justify-end font-bold drop-shadow-md">
+                         <button onClick={() => { playSound('click'); setShowRules(true); }} className="text-blue-400 hover:text-blue-300 flex items-center gap-1 transition-colors w-20 justify-end font-bold drop-shadow-md">
                              <HelpCircle className="w-5 h-5"/> Help
                          </button>
                      </div>
@@ -457,8 +468,9 @@ export default function App() {
                              <div className="animate-in fade-in slide-in-from-right-8 duration-500 w-full max-w-2xl mx-auto">
                                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center tracking-widest uppercase drop-shadow-md">1. Language</h2>
                                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                     <button onClick={() => { setLangMode('en'); setSetupStep(2); }} className={`p-6 md:p-8 rounded-2xl border-4 text-xl md:text-2xl font-black transition-all hover:scale-105 backdrop-blur-sm ${langMode === 'en' ? 'bg-pink-600/90 border-pink-400 text-white shadow-[0_0_30px_rgba(219,39,119,0.5)]' : 'bg-slate-800/80 border-slate-500 text-slate-300'}`}>English</button>
-                                     <button onClick={() => { setLangMode('ja'); setSetupStep(2); }} className={`p-6 md:p-8 rounded-2xl border-4 text-xl md:text-2xl font-black transition-all hover:scale-105 backdrop-blur-sm ${langMode === 'ja' ? 'bg-pink-600/90 border-pink-400 text-white shadow-[0_0_30px_rgba(219,39,119,0.5)]' : 'bg-slate-800/80 border-slate-500 text-slate-300'}`}>日本語</button>
+                                     {/* 🎵 クリック音追加 */}
+                                     <button onClick={() => { playSound('click'); setLangMode('en'); setSetupStep(2); }} className={`p-6 md:p-8 rounded-2xl border-4 text-xl md:text-2xl font-black transition-all hover:scale-105 backdrop-blur-sm ${langMode === 'en' ? 'bg-pink-600/90 border-pink-400 text-white shadow-[0_0_30px_rgba(219,39,119,0.5)]' : 'bg-slate-800/80 border-slate-500 text-slate-300'}`}>English</button>
+                                     <button onClick={() => { playSound('click'); setLangMode('ja'); setSetupStep(2); }} className={`p-6 md:p-8 rounded-2xl border-4 text-xl md:text-2xl font-black transition-all hover:scale-105 backdrop-blur-sm ${langMode === 'ja' ? 'bg-pink-600/90 border-pink-400 text-white shadow-[0_0_30px_rgba(219,39,119,0.5)]' : 'bg-slate-800/80 border-slate-500 text-slate-300'}`}>日本語</button>
                                  </div>
                              </div>
                          )}
@@ -467,9 +479,9 @@ export default function App() {
                              <div className="animate-in fade-in slide-in-from-right-8 duration-500 w-full max-w-2xl mx-auto">
                                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center tracking-widest uppercase drop-shadow-md">2. Game Mode</h2>
                                  <div className="flex flex-col gap-4">
-                                     <button onClick={() => { setGameMode('area'); setSetupStep(3); }} className={`p-4 md:p-5 rounded-2xl border-4 text-lg md:text-xl font-bold transition-all hover:scale-105 backdrop-blur-sm ${gameMode === 'area' ? 'bg-purple-600/90 border-purple-400 text-white shadow-[0_0_30px_rgba(147,51,234,0.5)]' : 'bg-slate-800/80 border-slate-500 text-slate-300'}`}>AREA Battle (Standard)</button>
-                                     <button onClick={() => { setGameMode('logic_link'); setSetupStep(3); }} className={`p-4 md:p-5 rounded-2xl border-4 text-lg md:text-xl font-bold transition-all hover:scale-105 backdrop-blur-sm ${gameMode === 'logic_link' ? 'bg-purple-600/90 border-purple-400 text-white shadow-[0_0_30px_rgba(147,51,234,0.5)]' : 'bg-slate-800/80 border-slate-500 text-slate-300'}`}>Logic Link (Reason → Example)</button>
-                                     <button onClick={() => { setGameMode('review'); setSetupStep(3); }} className={`p-4 md:p-5 rounded-2xl border-4 text-lg md:text-xl font-bold flex items-center justify-center gap-3 transition-all hover:scale-105 backdrop-blur-sm ${gameMode === 'review' ? 'bg-teal-600/90 border-teal-400 text-white shadow-[0_0_30px_rgba(13,148,136,0.5)]' : 'bg-slate-800/80 border-slate-500 text-slate-300'}`}><BookOpen className="w-5 h-5"/> Review Mode</button>
+                                     <button onClick={() => { playSound('click'); setGameMode('area'); setSetupStep(3); }} className={`p-4 md:p-5 rounded-2xl border-4 text-lg md:text-xl font-bold transition-all hover:scale-105 backdrop-blur-sm ${gameMode === 'area' ? 'bg-purple-600/90 border-purple-400 text-white shadow-[0_0_30px_rgba(147,51,234,0.5)]' : 'bg-slate-800/80 border-slate-500 text-slate-300'}`}>AREA Battle (Standard)</button>
+                                     <button onClick={() => { playSound('click'); setGameMode('logic_link'); setSetupStep(3); }} className={`p-4 md:p-5 rounded-2xl border-4 text-lg md:text-xl font-bold transition-all hover:scale-105 backdrop-blur-sm ${gameMode === 'logic_link' ? 'bg-purple-600/90 border-purple-400 text-white shadow-[0_0_30px_rgba(147,51,234,0.5)]' : 'bg-slate-800/80 border-slate-500 text-slate-300'}`}>Logic Link (Reason → Example)</button>
+                                     <button onClick={() => { playSound('click'); setGameMode('review'); setSetupStep(3); }} className={`p-4 md:p-5 rounded-2xl border-4 text-lg md:text-xl font-bold flex items-center justify-center gap-3 transition-all hover:scale-105 backdrop-blur-sm ${gameMode === 'review' ? 'bg-teal-600/90 border-teal-400 text-white shadow-[0_0_30px_rgba(13,148,136,0.5)]' : 'bg-slate-800/80 border-slate-500 text-slate-300'}`}><BookOpen className="w-5 h-5"/> Review Mode</button>
                                  </div>
                              </div>
                          )}
@@ -483,7 +495,7 @@ export default function App() {
                                          <h3 className="text-xs font-bold text-blue-400 mb-2 uppercase tracking-widest border-b border-white/20 pb-1 shrink-0 drop-shadow-md">Topic</h3>
                                          <div className="space-y-2 overflow-y-auto pr-2 custom-scrollbar flex-1">
                                              {topics.map(t => (
-                                                 <button key={t.id} onClick={() => setSelectedTopicId(t.id)} className={`w-full text-left p-3 rounded-xl border transition-all ${selectedTopicId === t.id ? 'bg-blue-600/90 border-blue-400 text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]' : 'bg-slate-800/80 border-slate-600 text-slate-300 hover:bg-slate-700'}`}>
+                                                 <button key={t.id} onClick={() => { playSound('click'); setSelectedTopicId(t.id); }} className={`w-full text-left p-3 rounded-xl border transition-all ${selectedTopicId === t.id ? 'bg-blue-600/90 border-blue-400 text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]' : 'bg-slate-800/80 border-slate-600 text-slate-300 hover:bg-slate-700'}`}>
                                                      <div className="font-bold text-base md:text-lg leading-tight">{langMode === 'ja' ? t.titleJP : t.title}</div>
                                                      {langMode === 'en' && <div className="text-xs md:text-sm opacity-60 mt-1">{t.titleJP}</div>}
                                                  </button>
@@ -495,8 +507,8 @@ export default function App() {
                                          <div className={`bg-slate-950/70 backdrop-blur-md p-3 md:p-4 rounded-2xl transition-all duration-300 ${!isTopicSelected ? 'opacity-30 pointer-events-none border border-white/5' : (!isStanceSelected ? 'ring-4 ring-green-500 ring-opacity-70 animate-pulse border-transparent' : 'border border-white/20 shadow-lg')}`}>
                                              <h3 className="text-xs font-bold text-green-400 mb-2 uppercase tracking-widest border-b border-white/20 pb-1 drop-shadow-md">Your Stance</h3>
                                              <div className="flex gap-2">
-                                                 <button onClick={() => setUserStance('affirmative')} className={`flex-1 py-2 md:py-3 rounded-xl font-black text-sm md:text-base border-2 transition-all ${userStance === 'affirmative' ? 'bg-blue-600 border-blue-400 text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]' : 'bg-slate-800/80 border-slate-600 text-slate-400 hover:bg-slate-700'}`}>{langMode === 'ja' ? '肯定側' : 'AFFIRMATIVE'}</button>
-                                                 <button onClick={() => setUserStance('negative')} className={`flex-1 py-2 md:py-3 rounded-xl font-black text-sm md:text-base border-2 transition-all ${userStance === 'negative' ? 'bg-red-600 border-red-400 text-white shadow-[0_0_15px_rgba(220,38,38,0.5)]' : 'bg-slate-800/80 border-slate-600 text-slate-400 hover:bg-slate-700'}`}>{langMode === 'ja' ? '否定側' : 'NEGATIVE'}</button>
+                                                 <button onClick={() => { playSound('click'); setUserStance('affirmative'); }} className={`flex-1 py-2 md:py-3 rounded-xl font-black text-sm md:text-base border-2 transition-all ${userStance === 'affirmative' ? 'bg-blue-600 border-blue-400 text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]' : 'bg-slate-800/80 border-slate-600 text-slate-400 hover:bg-slate-700'}`}>{langMode === 'ja' ? '肯定側' : 'AFFIRMATIVE'}</button>
+                                                 <button onClick={() => { playSound('click'); setUserStance('negative'); }} className={`flex-1 py-2 md:py-3 rounded-xl font-black text-sm md:text-base border-2 transition-all ${userStance === 'negative' ? 'bg-red-600 border-red-400 text-white shadow-[0_0_15px_rgba(220,38,38,0.5)]' : 'bg-slate-800/80 border-slate-600 text-slate-400 hover:bg-slate-700'}`}>{langMode === 'ja' ? '否定側' : 'NEGATIVE'}</button>
                                              </div>
                                          </div>
 
@@ -504,7 +516,7 @@ export default function App() {
                                              <h3 className="text-xs font-bold text-yellow-400 mb-2 uppercase tracking-widest border-b border-white/20 pb-1 drop-shadow-md">Difficulty</h3>
                                              <div className="flex gap-2">
                                                  {Object.keys(DIFFICULTIES).map(d => (
-                                                     <button key={d} onClick={() => setDifficulty(d)} className={`flex-1 py-2 rounded-lg border-2 font-bold text-sm transition-all ${difficulty === d ? 'bg-yellow-600 border-yellow-400 text-white shadow-[0_0_15px_rgba(202,138,4,0.5)]' : 'bg-slate-800/80 border-slate-600 text-slate-400 hover:bg-slate-700'}`}>{DIFFICULTIES[d].label}</button>
+                                                     <button key={d} onClick={() => { playSound('click'); setDifficulty(d); }} className={`flex-1 py-2 rounded-lg border-2 font-bold text-sm transition-all ${difficulty === d ? 'bg-yellow-600 border-yellow-400 text-white shadow-[0_0_15px_rgba(202,138,4,0.5)]' : 'bg-slate-800/80 border-slate-600 text-slate-400 hover:bg-slate-700'}`}>{DIFFICULTIES[d].label}</button>
                                                  ))}
                                              </div>
                                          </div>
@@ -514,13 +526,13 @@ export default function App() {
                                              <div className="space-y-3">
                                                  <div className="flex justify-between items-center text-slate-200">
                                                      <span className="font-bold text-sm flex items-center gap-2"><ImageIcon className="w-4 h-4"/> Image Match</span>
-                                                     <button onClick={() => setImageMatchEnabled(!imageMatchEnabled)} className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors ${imageMatchEnabled ? 'bg-cyan-500' : 'bg-slate-600'}`}>
+                                                     <button onClick={() => { playSound('click'); setImageMatchEnabled(!imageMatchEnabled); }} className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors ${imageMatchEnabled ? 'bg-cyan-500' : 'bg-slate-600'}`}>
                                                          <div className={`bg-white w-4 h-4 rounded-full transform transition-transform shadow-md ${imageMatchEnabled ? 'translate-x-6' : 'translate-x-0'}`}></div>
                                                      </button>
                                                  </div>
                                                  <div className="flex justify-between items-center text-slate-200">
                                                      <span className="font-bold text-sm flex items-center gap-2"><Clock className="w-4 h-4"/> Time Limit</span>
-                                                     <button onClick={() => setTimerEnabled(!timerEnabled)} className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors ${timerEnabled ? 'bg-pink-500' : 'bg-slate-600'}`}>
+                                                     <button onClick={() => { playSound('click'); setTimerEnabled(!timerEnabled); }} className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors ${timerEnabled ? 'bg-pink-500' : 'bg-slate-600'}`}>
                                                          <div className={`bg-white w-4 h-4 rounded-full transform transition-transform shadow-md ${timerEnabled ? 'translate-x-6' : 'translate-x-0'}`}></div>
                                                      </button>
                                                  </div>
@@ -537,7 +549,7 @@ export default function App() {
                                  </div>
 
                                  {canStart && (
-                                    <button onClick={initGame} className="w-full mt-4 py-3 md:py-4 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full font-black text-xl md:text-2xl hover:shadow-[0_0_40px_rgba(34,211,238,0.8)] transition-all hover:scale-[1.02] border border-white/30 text-white flex justify-center items-center gap-3 shrink-0 animate-in zoom-in duration-300">
+                                    <button onClick={() => { playSound('click'); initGame(); }} className="w-full mt-4 py-3 md:py-4 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full font-black text-xl md:text-2xl hover:shadow-[0_0_40px_rgba(34,211,238,0.8)] transition-all hover:scale-[1.02] border border-white/30 text-white flex justify-center items-center gap-3 shrink-0 animate-in zoom-in duration-300">
                                         {gameMode === 'review' ? <BookOpen className="w-6 h-6"/> : <Play className="fill-current w-6 h-6"/>} 
                                         {gameMode === 'review' ? 'ENTER REVIEW' : 'BATTLE START'}
                                     </button>
@@ -548,8 +560,8 @@ export default function App() {
                  </div>
                  
                  <div className="flex justify-center gap-8 text-sm md:text-base text-slate-300 font-mono mt-4 shrink-0 bg-slate-900/40 backdrop-blur-sm px-6 py-2 rounded-full border border-white/10 shadow-lg">
-                     <button onClick={() => setIsDrillMode(true)} className="hover:text-white flex items-center gap-2 font-bold"><BrainCircuit className="w-4 h-4 md:w-5 md:h-5"/> Vocab Quiz</button>
-                     <button onClick={() => setFontSize(prev => prev === 'normal' ? 'large' : prev === 'large' ? 'xlarge' : 'normal')} className="hover:text-white flex items-center gap-2 font-bold"><Type className="w-4 h-4 md:w-5 md:h-5"/> Text Size</button>
+                     <button onClick={() => { playSound('click'); setIsDrillMode(true); }} className="hover:text-white flex items-center gap-2 font-bold"><BrainCircuit className="w-4 h-4 md:w-5 md:h-5"/> Vocab Quiz</button>
+                     <button onClick={() => { playSound('click'); setFontSize(prev => prev === 'normal' ? 'large' : prev === 'large' ? 'xlarge' : 'normal'); }} className="hover:text-white flex items-center gap-2 font-bold"><Type className="w-4 h-4 md:w-5 md:h-5"/> Text Size</button>
                  </div>
              </div>
           </div>
@@ -559,7 +571,7 @@ export default function App() {
       {gameState !== 'start' && (
         <header className={`shrink-0 ${theme.headerBg} z-30 px-6 py-3 flex justify-between items-center shadow-xl min-h-[5rem] md:min-h-[6rem]`}>
           <div className="flex items-center gap-4 flex-1 min-w-0">
-            <button onClick={goHome} className="p-3 rounded-full hover:bg-white/10 transition-colors bg-white/5 border border-white/10"><Home className="w-6 h-6 md:w-8 md:h-8"/></button>
+            <button onClick={() => { playSound('click'); goHome(); }} className="p-3 rounded-full hover:bg-white/10 transition-colors bg-white/5 border border-white/10"><Home className="w-6 h-6 md:w-8 md:h-8"/></button>
             
             <div className="flex-1 max-w-[150px] md:max-w-[250px] mx-2 md:mx-4 shrink-0">
                 <div className="flex justify-between text-xs md:text-sm font-black uppercase mb-1 md:mb-2 opacity-90">
@@ -586,7 +598,6 @@ export default function App() {
           </div>
 
           <div className="flex items-center gap-2 md:gap-4 shrink-0 pl-4">
-            {/* 🌟タイマー位置調整 */}
             {timerEnabled && ['construct', 'cross_exam', 'rebuttal_defense', 'construct_image', 'cross_exam_image', 'rebuttal_defense_image', 'closing', 'closing_image'].includes(gameState) && (
                 <div className="flex flex-col items-center w-20 md:w-32 bg-slate-900/50 px-2 py-1 md:py-2 rounded-lg border border-white/10 backdrop-blur-md shadow-inner mr-1 md:mr-2">
                     <div className="text-[9px] md:text-[10px] font-bold text-pink-400 uppercase tracking-widest mb-1 flex items-center gap-1"><Clock className="w-3 h-3"/> Time</div>
@@ -595,9 +606,9 @@ export default function App() {
                     </div>
                 </div>
             )}
-            <button onClick={() => setFontSize(prev => prev === 'normal' ? 'large' : prev === 'large' ? 'xlarge' : 'normal')} className="p-2 md:p-3 hover:bg-white/10 rounded-full text-slate-300 transition-colors bg-white/5 border border-white/10" title="Text Size"><Type className="w-5 h-5 md:w-6 md:h-6"/></button>
-            <button onClick={() => setShowRules(true)} className="p-2 md:p-3 hover:bg-white/10 rounded-full text-blue-400 transition-colors bg-white/5 border border-white/10"><HelpCircle className="w-5 h-5 md:w-6 md:h-6"/></button>
-            {langMode !== 'ja' && <button onClick={() => setShowJapanese(!showJapanese)} className={`w-10 h-10 md:w-12 md:h-12 rounded-full border-2 flex items-center justify-center font-black text-sm md:text-base shadow-lg transition-colors ${showJapanese ? 'bg-blue-600 border-blue-400 text-white' : 'bg-slate-800 border-slate-500 text-slate-300'}`}>JP</button>}
+            <button onClick={() => { playSound('click'); setFontSize(prev => prev === 'normal' ? 'large' : prev === 'large' ? 'xlarge' : 'normal'); }} className="p-2 md:p-3 hover:bg-white/10 rounded-full text-slate-300 transition-colors bg-white/5 border border-white/10" title="Text Size"><Type className="w-5 h-5 md:w-6 md:h-6"/></button>
+            <button onClick={() => { playSound('click'); setShowRules(true); }} className="p-2 md:p-3 hover:bg-white/10 rounded-full text-blue-400 transition-colors bg-white/5 border border-white/10"><HelpCircle className="w-5 h-5 md:w-6 md:h-6"/></button>
+            {langMode !== 'ja' && <button onClick={() => { playSound('click'); setShowJapanese(!showJapanese); }} className={`w-10 h-10 md:w-12 md:h-12 rounded-full border-2 flex items-center justify-center font-black text-sm md:text-base shadow-lg transition-colors ${showJapanese ? 'bg-blue-600 border-blue-400 text-white' : 'bg-slate-800 border-slate-500 text-slate-300'}`}>JP</button>}
           </div>
         </header>
       )}
@@ -606,7 +617,6 @@ export default function App() {
       {gameState !== 'start' && gameState !== 'gameover' && gameState !== 'result' && (
         <div className={`flex-1 flex overflow-hidden relative ${sidePanelPos === 'left' ? 'flex-row-reverse' : 'flex-row'}`}>
           
-          {/* 🌟プレイ画面の全体背景(透明度15%) */}
           <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15 pointer-events-none z-0" style={{ backgroundImage: "url('/images/background.webp')" }}></div>
 
           <div className="flex-1 flex flex-col relative overflow-hidden bg-[#0f172a]/60 z-10">
@@ -700,7 +710,6 @@ export default function App() {
           <div className="w-4 bg-slate-900/80 border-x border-white/10 cursor-col-resize hover:bg-blue-900/50 flex items-center justify-center z-20 backdrop-blur-md" onMouseDown={() => isResizing.current = true} onTouchStart={() => isResizing.current = true}><GripVertical className="w-4 h-4 text-slate-500"/></div>
 
           {/* Right/Left Control Panel */}
-          {/* 🌟右側手札パネルを半透明のすりガラスに */}
           <div className="flex flex-col bg-[#1e293b]/80 backdrop-blur-md border-l border-white/10 shadow-2xl z-20" style={{ width: `${sidePanelWidth}%`, minWidth: '300px' }}>
               <div className="p-3 border-b border-white/10 flex justify-between items-center bg-slate-900/60 shadow-inner">
                   <div className="text-xs font-bold text-slate-300 uppercase tracking-widest flex items-center gap-2 drop-shadow-md">
@@ -708,15 +717,14 @@ export default function App() {
                       {gameState.endsWith('_image') ? "Select Image" : "Hand"}
                   </div>
                   <div className="flex gap-1">
-                      <button onClick={() => setSidePanelPos(prev => prev === 'left' ? 'right' : 'left')} className="p-1 hover:bg-white/20 rounded text-white transition-colors"><MoveHorizontal className="w-4 h-4"/></button>
-                      {gameState === 'construct' && <button onClick={handleUndo} className="p-1 hover:bg-white/20 rounded flex items-center text-xs font-bold text-white transition-colors disabled:opacity-30" disabled={tower.length === 0}><Undo2 className="w-4 h-4"/></button>}
+                      <button onClick={() => { playSound('click'); setSidePanelPos(prev => prev === 'left' ? 'right' : 'left'); }} className="p-1 hover:bg-white/20 rounded text-white transition-colors"><MoveHorizontal className="w-4 h-4"/></button>
+                      {gameState === 'construct' && <button onClick={() => { playSound('click'); handleUndo(); }} className="p-1 hover:bg-white/20 rounded flex items-center text-xs font-bold text-white transition-colors disabled:opacity-30" disabled={tower.length === 0}><Undo2 className="w-4 h-4"/></button>}
                   </div>
               </div>
               
               <div className="flex-1 overflow-y-auto p-3 space-y-3 custom-scrollbar">
                   {gameState.endsWith('_image') ? (
                       <div className="flex flex-col items-center gap-3 h-full pb-10 overflow-y-auto">
-                          {/* 🌟画像選択肢を1列に並べ、最大幅を220pxに制限して綺麗に収める */}
                           {imageHand.map((url, idx) => {
                               const shakeClass = url === shakingCardId ? 'animate-shake ring-4 ring-red-500' : 'border-white/20';
                               return (
@@ -734,7 +742,6 @@ export default function App() {
                   ) : (
                       visibleHand.map((card) => {
                           const type = CARD_TYPES[card.type] || CARD_TYPES.reason;
-                          // 🌟修正：間違えたカードだけ揺らすクラス(animate-shakeと赤色エフェクト)
                           const shakeClass = card.id === shakingCardId ? 'animate-shake ring-4 ring-red-500 bg-red-900/60' : '';
 
                           return (
@@ -758,8 +765,8 @@ export default function App() {
         </div>
       )}
 
-      {showRules && <RuleBook onClose={() => setShowRules(false)} />}
-      {isDrillMode && <VocabDrill vocabList={currentTopic?.vocabulary || []} onClose={() => setIsDrillMode(false)} />}
+      {showRules && <RuleBook onClose={() => { playSound('click'); setShowRules(false); }} />}
+      {isDrillMode && <VocabDrill vocabList={currentTopic?.vocabulary || []} onClose={() => { playSound('click'); setIsDrillMode(false); }} />}
 
       {/* --- Result / Game Over Screens --- */}
       {(gameState === 'gameover' || gameState === 'result') && (
@@ -820,7 +827,7 @@ export default function App() {
                    return null;
                })()}
 
-               <button onClick={goHome} className="px-12 py-5 bg-white text-slate-900 rounded-full font-black text-xl md:text-2xl hover:scale-105 transition-transform shadow-[0_0_50px_rgba(255,255,255,0.4)] mb-10">
+               <button onClick={() => { playSound('click'); goHome(); }} className="px-12 py-5 bg-white text-slate-900 rounded-full font-black text-xl md:text-2xl hover:scale-105 transition-transform shadow-[0_0_50px_rgba(255,255,255,0.4)] mb-10">
                    PLAY AGAIN
                </button>
            </div>
@@ -848,7 +855,6 @@ export default function App() {
           animation: gradient-xy 15s ease infinite;
         }
         
-        /* 🌟画面全体の揺れ */
         @keyframes shake-screen { 
             0%,100%{transform:translateX(0)} 
             25%{transform:translateX(-5px)} 
@@ -856,7 +862,6 @@ export default function App() {
         }
         .animate-shake { animation: shake-screen 0.3s cubic-bezier(.36,.07,.19,.97) both; }
         
-        /* 🌟正解時の巨大な〇アニメーション */
         @keyframes pop-in-out {
           0% { opacity: 0; transform: scale(0.3); }
           20% { opacity: 1; transform: scale(1.1); }
@@ -868,7 +873,6 @@ export default function App() {
           animation: pop-in-out 0.8s ease-in-out forwards;
         }
 
-        /* 🌟不正解時のカード単体の揺れアニメーション */
         @keyframes shake-card {
           0%, 100% { transform: translateX(0); }
           15% { transform: translateX(-12px); }
