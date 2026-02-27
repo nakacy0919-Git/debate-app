@@ -1,133 +1,151 @@
 import React, { useState, useEffect } from 'react';
-import { Volume2, CheckCircle2, XCircle, ArrowRight, X, Trophy } from 'lucide-react';
+import { X, CheckCircle2, AlertTriangle, BrainCircuit, Play, Volume2 } from 'lucide-react';
 
-export const VocabDrill = ({ vocabList, onClose }) => {
+export function VocabDrill({ topics, onClose, playSound, ttsVoiceType }) {
+  const [quizState, setQuizState] = useState('select_topic'); 
+  const [selectedTopic, setSelectedTopic] = useState(null);
+  const [questions, setQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [options, setOptions] = useState([]);
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [score, setScore] = useState(0);
-  const [finished, setFinished] = useState(false);
+  const [feedback, setFeedback] = useState(null);
 
-  // ランダムに出題順をシャッフル
-  const [shuffledList] = useState(() => [...vocabList].sort(() => Math.random() - 0.5));
-  const currentWord = shuffledList[currentIndex];
-
-  // 音声読み上げ機能 (Web Speech API)
-  const playAudio = (text) => {
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'en-US'; // 英語に設定
-    utterance.rate = 0.9; // 少しゆっくりめに
-    window.speechSynthesis.speak(utterance);
-  };
-
-  // 4択の選択肢を生成
-  useEffect(() => {
-    if (finished || !currentWord) return;
-    
-    const wrongAnswers = vocabList
-      .filter(v => v.meaning !== currentWord.meaning)
-      .sort(() => Math.random() - 0.5)
-      .slice(0, 3)
-      .map(v => v.meaning);
+  // 🗣️ 音声読み上げロジック（男女の声の判別）
+  const speakWord = (wordText) => {
+      const utterance = new SpeechSynthesisUtterance(wordText);
+      utterance.lang = 'en-US';
+      const voices = window.speechSynthesis.getVoices().filter(v => v.lang.startsWith('en'));
       
-    // 正解と不正解を混ぜてシャッフル
-    const choices = [currentWord.meaning, ...wrongAnswers].sort(() => Math.random() - 0.5);
-    setOptions(choices);
-    setSelectedAnswer(null);
-
-    // 問題が出た時に自動で発音（設定でオフにすることも可能ですが今回はオン）
-    playAudio(currentWord.word);
-  }, [currentIndex, currentWord, finished, vocabList]);
-
-  const handleSelect = (answer) => {
-    if (selectedAnswer) return; // すでに選んでいたら無視
-    setSelectedAnswer(answer);
-    if (answer === currentWord.meaning) setScore(prev => prev + 1);
+      if (voices.length > 0) {
+          if (ttsVoiceType === 'male') {
+              utterance.voice = voices.find(v => v.name.toLowerCase().includes('male') || v.name.toLowerCase().includes('guy') || v.name.toLowerCase().includes('david')) || voices[0];
+          } else {
+              utterance.voice = voices.find(v => v.name.toLowerCase().includes('female') || v.name.toLowerCase().includes('girl') || v.name.toLowerCase().includes('zira')) || voices[0];
+          }
+      }
+      window.speechSynthesis.speak(utterance);
   };
 
-  const handleNext = () => {
-    if (currentIndex < shuffledList.length - 1) {
-      setCurrentIndex(prev => prev + 1);
-    } else {
-      setFinished(true);
+  const startQuiz = (topic) => {
+    playSound('click');
+    const vocab = topic.vocabulary || [];
+    if (vocab.length < 4) {
+        alert("このトピックには十分な単語データがありません。"); return;
     }
+
+    const shuffledVocab = [...vocab].sort(() => Math.random() - 0.5).slice(0, 10);
+    const generatedQuestions = shuffledVocab.map(correctWord => {
+      const others = vocab.filter(v => v.word !== correctWord.word).sort(() => Math.random() - 0.5).slice(0, 3);
+      const options = [correctWord, ...others].sort(() => Math.random() - 0.5);
+      return { answer: correctWord, options };
+    });
+
+    setSelectedTopic(topic);
+    setQuestions(generatedQuestions);
+    setCurrentIndex(0);
+    setScore(0);
+    setQuizState('playing');
+    
+    // 最初の単語を読み上げ
+    setTimeout(() => speakWord(generatedQuestions[0].answer.word), 500);
   };
 
-  if (finished) {
-    return (
-      <div className="absolute inset-0 z-[150] bg-[#0f172a]/95 backdrop-blur-md flex items-center justify-center p-6 animate-in fade-in">
-        <div className="bg-[#1e293b] text-white p-8 rounded-3xl shadow-2xl text-center max-w-md w-full border border-white/10">
-            <Trophy className="w-20 h-20 text-yellow-400 mx-auto mb-4 animate-bounce" />
-            <h2 className="text-4xl font-black mb-2">Training Complete!</h2>
-            <p className="text-xl text-slate-300 mb-8">Score: {score} / {vocabList.length}</p>
-            <button onClick={onClose} className="w-full bg-blue-600 py-4 rounded-xl font-bold text-xl hover:bg-blue-500 transition-colors shadow-lg">
-              Back to Game
-            </button>
-        </div>
-      </div>
-    );
-  }
+  const handleAnswer = (selectedWord) => {
+    const isCorrect = selectedWord.word === questions[currentIndex].answer.word;
+    if (isCorrect) {
+      playSound('correct'); setScore(prev => prev + 1); setFeedback('correct');
+    } else {
+      playSound('wrong'); setFeedback('wrong');
+    }
+
+    setTimeout(() => {
+      setFeedback(null);
+      if (currentIndex + 1 < questions.length) {
+        setCurrentIndex(prev => prev + 1);
+        // 次の問題に進んだら自動で読み上げ
+        speakWord(questions[currentIndex + 1].answer.word);
+      } else {
+        playSound('clear'); setQuizState('result');
+      }
+    }, 1000);
+  };
 
   return (
-    <div className="absolute inset-0 z-[150] bg-[#0f172a]/90 backdrop-blur-sm flex flex-col items-center justify-center p-4">
-      <div className="w-full max-w-lg bg-[#1e293b] rounded-3xl shadow-2xl overflow-hidden flex flex-col border border-white/10">
-        
-        {/* Header */}
-        <div className="p-4 flex justify-between items-center bg-slate-900/50 border-b border-white/10">
-          <span className="font-bold text-blue-400 uppercase tracking-widest text-sm">Vocabulary Quiz</span>
-          <div className="flex items-center gap-4">
-             <span className="text-sm font-mono text-slate-400">{currentIndex + 1} / {shuffledList.length}</span>
-             <button onClick={onClose} className="text-slate-400 hover:text-white"><X /></button>
-          </div>
-        </div>
-
-        {/* Word Area */}
-        <div className="p-8 text-center bg-gradient-to-b from-slate-800 to-[#1e293b]">
-           <div className="flex justify-center items-center gap-4 mb-2">
-             <h3 className="text-5xl font-black text-white capitalize">{currentWord?.word}</h3>
-             <button onClick={() => playAudio(currentWord?.word)} className="p-3 bg-blue-600/20 text-blue-400 rounded-full hover:bg-blue-600/40 transition-colors">
-               <Volume2 className="w-6 h-6" />
-             </button>
-           </div>
-        </div>
-
-        {/* Options */}
-        <div className="p-6 grid grid-cols-1 gap-3 flex-1">
-           {options.map((opt, i) => {
-             let btnClass = "bg-slate-800 border-slate-600 text-slate-200 hover:bg-slate-700 hover:border-slate-500";
-             if (selectedAnswer) {
-               if (opt === currentWord.meaning) btnClass = "bg-green-600/20 border-green-500 text-green-400"; // 正解の色
-               else if (opt === selectedAnswer) btnClass = "bg-red-600/20 border-red-500 text-red-400"; // 間違えた選択肢の色
-               else btnClass = "bg-slate-800 border-slate-700 text-slate-600 opacity-50"; // その他
-             }
-
-             return (
-               <button 
-                 key={i} 
-                 onClick={() => handleSelect(opt)}
-                 disabled={!!selectedAnswer}
-                 className={`w-full p-4 rounded-xl border-2 font-bold text-lg text-left transition-all flex justify-between items-center ${btnClass}`}
-               >
-                 {opt}
-                 {selectedAnswer && opt === currentWord.meaning && <CheckCircle2 className="w-6 h-6" />}
-                 {selectedAnswer && opt === selectedAnswer && opt !== currentWord.meaning && <XCircle className="w-6 h-6" />}
-               </button>
-             );
-           })}
-        </div>
-
-        {/* Footer (Next Button) */}
-        {selectedAnswer && (
-          <div className="p-4 bg-slate-900/50 border-t border-white/10 animate-in slide-in-from-bottom-2">
-            <button 
-              onClick={handleNext}
-              className="w-full py-4 bg-blue-600 text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-blue-500 transition-colors"
-            >
-              {currentIndex < shuffledList.length - 1 ? 'Next Word' : 'See Results'} <ArrowRight className="w-5 h-5" />
-            </button>
-          </div>
-        )}
+    <div className="absolute inset-0 z-[200] bg-[#0f172a]/95 backdrop-blur-md flex flex-col items-center p-6 animate-in fade-in overflow-y-auto">
+      <div className="w-full max-w-3xl flex justify-between items-center mb-8">
+        <h2 className="text-2xl md:text-3xl font-black text-cyan-400 flex items-center gap-3 drop-shadow-lg">
+            <BrainCircuit className="w-8 h-8" /> VOCABULARY QUIZ
+        </h2>
+        <button onClick={() => { playSound('click'); onClose(); }} className="p-3 bg-slate-800 rounded-full hover:bg-slate-700 text-white transition-colors border border-white/20">
+          <X className="w-6 h-6" />
+        </button>
       </div>
+
+      {quizState === 'select_topic' && (
+        <div className="w-full max-w-2xl bg-slate-900/80 p-6 md:p-8 rounded-3xl border border-white/10 shadow-2xl">
+            <h3 className="text-xl font-bold text-white mb-6 text-center border-b border-white/10 pb-4">練習するトピックを選んでください</h3>
+            <div className="space-y-3 max-h-[60vh] overflow-y-auto custom-scrollbar pr-2">
+                {topics.map(topic => (
+                    <button key={topic.id} onClick={() => startQuiz(topic)} className="w-full flex items-center justify-between p-4 bg-slate-800 hover:bg-blue-600 rounded-xl border border-white/10 transition-all group">
+                        <div className="text-left">
+                            <div className="font-bold text-white text-lg">{topic.title}</div>
+                            <div className="text-sm text-slate-400 group-hover:text-blue-200">{topic.titleJP}</div>
+                        </div>
+                        <Play className="text-cyan-400 group-hover:text-white w-6 h-6" />
+                    </button>
+                ))}
+            </div>
+        </div>
+      )}
+
+      {quizState === 'playing' && questions.length > 0 && (
+        <div className="w-full max-w-2xl bg-slate-900/80 p-6 md:p-10 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden">
+            {feedback && (
+                <div className={`absolute inset-0 z-10 flex items-center justify-center backdrop-blur-sm animate-in zoom-in ${feedback === 'correct' ? 'bg-green-500/20' : 'bg-red-500/20'}`}>
+                    {feedback === 'correct' ? <CheckCircle2 className="w-32 h-32 text-green-400 drop-shadow-lg"/> : <AlertTriangle className="w-32 h-32 text-red-400 drop-shadow-lg"/>}
+                </div>
+            )}
+            
+            <div className="flex justify-between items-center text-sm font-bold text-slate-400 mb-8 tracking-widest uppercase border-b border-white/10 pb-4">
+                <span>{selectedTopic.title}</span>
+                <span>Question {currentIndex + 1} / {questions.length}</span>
+            </div>
+            
+            <div className="text-center mb-10 flex flex-col items-center">
+                <div className="text-sm text-cyan-400 font-bold mb-3">この単語の意味は？</div>
+                <div className="flex items-center gap-4">
+                    <div className="text-4xl md:text-5xl font-black text-white tracking-wider drop-shadow-md">
+                        {questions[currentIndex].answer.word}
+                    </div>
+                    {/* 🗣️ もう一度聞くためのスピーカーボタン */}
+                    <button onClick={() => speakWord(questions[currentIndex].answer.word)} className="p-3 bg-purple-600 hover:bg-purple-500 rounded-full text-white shadow-lg transition-transform hover:scale-110">
+                        <Volume2 className="w-6 h-6"/>
+                    </button>
+                </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {questions[currentIndex].options.map((opt, i) => (
+                    <button key={i} disabled={feedback !== null} onClick={() => handleAnswer(opt)} className="p-4 bg-slate-800 border-2 border-slate-600 rounded-xl text-white font-bold text-lg hover:border-cyan-400 hover:bg-slate-700 transition-all disabled:opacity-50">
+                        {opt.meaning}
+                    </button>
+                ))}
+            </div>
+        </div>
+      )}
+
+      {quizState === 'result' && (
+        <div className="w-full max-w-2xl bg-slate-900/80 p-8 rounded-3xl border border-white/10 shadow-2xl text-center animate-in slide-in-from-bottom-8">
+            <h3 className="text-3xl font-black text-white mb-2">QUIZ FINISHED!</h3>
+            <div className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 mb-8 drop-shadow-lg">
+                {score} / {questions.length}
+            </div>
+            <p className="text-lg text-slate-300 mb-8">よく頑張りました！ディベート本番でもこの単語を使ってみましょう。</p>
+            <div className="flex justify-center gap-4">
+                <button onClick={() => setQuizState('select_topic')} className="px-8 py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-full font-bold transition-colors">別のトピックを選ぶ</button>
+                <button onClick={() => { playSound('click'); onClose(); }} className="px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-bold transition-colors shadow-lg shadow-blue-500/50">終了する</button>
+            </div>
+        </div>
+      )}
     </div>
   );
-};
+}

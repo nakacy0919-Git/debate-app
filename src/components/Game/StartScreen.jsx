@@ -1,13 +1,11 @@
-import React from 'react';
-import { Play, BrainCircuit, Type, HelpCircle, BookOpen, ChevronLeft, Image as ImageIcon, Clock, Swords, Bell } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Play, BrainCircuit, Type, HelpCircle, BookOpen, ChevronLeft, Image as ImageIcon, Clock, Swords, Bell, Bot, Settings, X, Volume2, Music, Speech, Trophy, Medal, Globe2, MapPin } from 'lucide-react';
 import { DIFFICULTIES } from '../../constants';
 
-// 🌟 ニュースのデータを定義（あとで自由に追加・変更できます）
 const NEWS_ITEMS = [
-  { id: 1, date: '2026.02.26', tag: 'UPDATE', color: 'bg-blue-500', text: 'サウンド機能と各種アニメーションを追加し、テンポを大幅に改善しました！' },
-  { id: 2, date: '2026.02.25', tag: 'NEW', color: 'bg-green-500', text: '「AREA Battle」と「Logic Link」の2つのゲームモードが選択可能になりました。' },
-  { id: 3, date: '2026.02.23', tag: 'INFO', color: 'bg-purple-500', text: 'アプリのデザインをサイバーパンク風のリッチなUIにリニューアルしました。' },
-  { id: 4, date: '2026.02.20', tag: 'RELEASE', color: 'bg-pink-500', text: 'ディベートバトルアプリのベータ版を公開しました！' },
+  { id: 1, date: '2026.02.27', tag: 'UPDATE', color: 'bg-yellow-500', text: 'スコアランキング機能を実装！君のディベート力を世界に示そう！' },
+  { id: 2, date: '2026.02.26', tag: 'UPDATE', color: 'bg-blue-500', text: 'Vocab Quizが大幅進化！テーマを選んで4択クイズができるようになりました。' },
+  { id: 3, date: '2026.02.25', tag: 'NEW', color: 'bg-green-500', text: '画面のレイアウトを調整し、画像が大きく見やすくなりました。' },
 ];
 
 export function StartScreen({ game, playSound }) {
@@ -16,8 +14,70 @@ export function StartScreen({ game, playSound }) {
     gameMode, setGameMode, isTopicSelected, topics, selectedTopicId, setSelectedTopicId,
     isStanceSelected, userStance, setUserStance, isDifficultySelected, difficulty, setDifficulty,
     imageMatchEnabled, setImageMatchEnabled, timerEnabled, setTimerEnabled,
-    battleRounds, setBattleRounds, canStart, initGame, setIsDrillMode, setFontSize, setShowRules
+    battleRounds, setBattleRounds, canStart, initGame, setIsDrillMode, setFontSize, setShowRules,
+    bgmTrack, setBgmTrack, bgmEnabled, setBgmEnabled, ttsVoiceType, setTtsVoiceType, sfxEnabled, setSfxEnabled,
+    playerName, setPlayerName, playerLocation, setPlayerLocation, // 🌍 追加
+    leaderboard, fetchLeaderboard 
   } = game;
+
+  const [showSettings, setShowSettings] = useState(false);
+  const [showLeaderboard, setShowLeaderboard] = useState(false); 
+  const [isPlayingPreview, setIsPlayingPreview] = useState(false);
+  const previewAudioRef = useRef(null);
+
+  const fullText = "やあ！僕はディベート・ボット！\n正しい論理を組み立てて、相手からの反論を論破するバトルゲームだよ！\n初めての人は右上の「Help」でルールを確認してね！";
+  const [botText, setBotText] = useState("");
+
+  useEffect(() => {
+    if (gameState !== 'start') return;
+    let i = 0;
+    setBotText("");
+    const timer = setInterval(() => {
+        setBotText(fullText.slice(0, i));
+        i++;
+        if (i > fullText.length) clearInterval(timer);
+    }, 50); 
+    return () => clearInterval(timer);
+  }, [gameState]);
+
+  const togglePreview = () => {
+    if (isPlayingPreview) {
+        previewAudioRef.current?.pause();
+        setIsPlayingPreview(false);
+    } else {
+        if (previewAudioRef.current) previewAudioRef.current.pause();
+        previewAudioRef.current = new Audio(`/audio/${bgmTrack}.mp3`);
+        previewAudioRef.current.play();
+        setIsPlayingPreview(true);
+    }
+  };
+
+  const handleBgmChange = (e) => {
+    setBgmTrack(e.target.value);
+    if (previewAudioRef.current) {
+        previewAudioRef.current.pause();
+        setIsPlayingPreview(false);
+    }
+  };
+
+  const closeSettings = () => {
+      playSound('click');
+      if (previewAudioRef.current) previewAudioRef.current.pause();
+      setIsPlayingPreview(false);
+      setShowSettings(false);
+  };
+
+  const handleNextStep1 = (lang) => {
+      playSound('click');
+      setLangMode(lang);
+      setSetupStep(2);
+  };
+
+  const handleOpenLeaderboard = async () => {
+      playSound('click');
+      setShowLeaderboard(true);
+      await fetchLeaderboard(selectedTopicId, difficulty);
+  };
 
   if (gameState !== 'start' || isDrillMode) return null;
 
@@ -26,35 +86,142 @@ export function StartScreen({ game, playSound }) {
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60" style={{ backgroundImage: "url('/images/background.webp')" }}></div>
         <div className="absolute inset-0 bg-gradient-to-br from-[#0f172a]/80 via-[#1e1b4b]/70 to-[#0f172a]/80 animate-gradient-xy mix-blend-overlay pointer-events-none"></div>
         
-        <div className="text-center w-full max-w-6xl flex flex-col items-center h-full max-h-[850px] relative z-10">
+        <div className="absolute top-4 left-4 md:top-6 md:left-6 flex items-start gap-3 md:gap-4 z-50">
+            <div className="relative shrink-0">
+                <div className="absolute inset-0 bg-cyan-400 rounded-full blur-md opacity-60 animate-pulse"></div>
+                <div className="bg-gradient-to-br from-blue-500 to-blue-700 p-2 md:p-3 rounded-full border-2 border-cyan-200 shadow-xl relative z-10">
+                    <Bot className="text-white w-6 h-6 md:w-8 md:h-8" />
+                </div>
+            </div>
+            <div className="relative bg-white/95 backdrop-blur-md text-slate-800 text-xs md:text-sm font-bold p-3 md:p-4 rounded-2xl rounded-tl-none shadow-2xl max-w-[220px] md:max-w-[340px] border-l-4 border-cyan-500">
+                <div className="whitespace-pre-wrap leading-relaxed">{botText}<span className="inline-block w-1.5 h-3 md:w-2 md:h-4 bg-cyan-500 ml-1 animate-pulse align-middle"></span></div>
+            </div>
+        </div>
+
+        <div className="absolute top-4 right-4 md:top-8 md:right-8 flex gap-3 z-50">
+            {setupStep === 3 && isTopicSelected && isDifficultySelected && (
+                <button onClick={handleOpenLeaderboard} className="p-3 bg-yellow-600/90 rounded-full border-2 border-yellow-300 text-white hover:bg-yellow-500 hover:scale-110 transition-all shadow-[0_0_15px_rgba(234,179,8,0.6)] animate-pulse" title="Leaderboard">
+                    <Trophy className="w-6 h-6 md:w-8 md:h-8" />
+                </button>
+            )}
+            <button onClick={() => { playSound('click'); setShowSettings(true); }} className="p-3 bg-slate-800/80 rounded-full border border-white/20 text-slate-300 hover:text-white hover:bg-slate-700 hover:scale-110 transition-all shadow-lg" title="Settings">
+                <Settings className="w-6 h-6 md:w-8 md:h-8" />
+            </button>
+        </div>
+
+        {showLeaderboard && (
+            <div className="absolute inset-0 z-[100] bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm animate-in zoom-in">
+                <div className="bg-slate-900 border-2 border-yellow-500 rounded-3xl p-6 md:p-8 w-full max-w-md text-white relative shadow-[0_0_50px_rgba(234,179,8,0.4)] max-h-[80vh] flex flex-col">
+                    <button onClick={() => { playSound('click'); setShowLeaderboard(false); }} className="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800 p-2 rounded-full"><X className="w-5 h-5"/></button>
+                    <h3 className="text-2xl font-black mb-2 text-center text-yellow-400 flex items-center justify-center gap-2"><Trophy/> LEADERBOARD</h3>
+                    <div className="text-center text-sm text-slate-400 mb-6 border-b border-white/10 pb-4">
+                        {topics.find(t=>t.id===selectedTopicId)?.title} / <span className="uppercase text-cyan-400">{difficulty}</span>
+                    </div>
+                    
+                    <div className="flex-1 overflow-y-auto custom-scrollbar pr-2 space-y-2">
+                        {leaderboard.length === 0 ? (
+                            <div className="text-center text-slate-500 py-10 font-bold">まだ記録がありません。<br/>最初のチャンピオンになろう！</div>
+                        ) : (
+                            leaderboard.map((record, index) => {
+                                return (
+                                    <div key={record.id} className={`flex items-center justify-between p-3 rounded-xl border ${index === 0 ? 'bg-yellow-900/50 border-yellow-500 text-yellow-300' : index === 1 ? 'bg-slate-800/80 border-slate-400 text-slate-300' : index === 2 ? 'bg-orange-950/50 border-orange-700 text-orange-400' : 'bg-slate-800/40 border-white/5 text-slate-400'}`}>
+                                        <div className="flex items-center gap-3">
+                                            <div className="font-black text-lg w-6">{index + 1}</div>
+                                            <div className="flex flex-col">
+                                                <div className="font-bold truncate max-w-[120px]">{record.name}</div>
+                                                {/* 🌍 修正：ロケーション（自由入力）を表示 */}
+                                                <div className="text-[10px] text-slate-400 flex items-center gap-0.5"><MapPin size={10}/> {record.location || record.country || 'Earth'}</div>
+                                            </div>
+                                        </div>
+                                        <div className="text-right">
+                                            <div className="font-black text-xl">{record.score.toLocaleString()}</div>
+                                            <div className="text-[10px] opacity-60">{record.date}</div>
+                                        </div>
+                                    </div>
+                                );
+                            })
+                        )}
+                    </div>
+                </div>
+            </div>
+        )}
+
+        {showSettings && (
+            <div className="absolute inset-0 z-[100] bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm animate-in zoom-in">
+                <div className="bg-slate-900 border-2 border-cyan-500 rounded-3xl p-6 md:p-8 w-full max-w-md text-white relative shadow-[0_0_50px_rgba(6,182,212,0.5)]">
+                    <button onClick={closeSettings} className="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800 p-2 rounded-full"><X className="w-5 h-5"/></button>
+                    <h3 className="text-2xl font-black mb-6 text-center text-cyan-400 flex items-center justify-center gap-2 border-b border-white/10 pb-4"><Settings/> SETTINGS</h3>
+                    
+                    <div className="space-y-4">
+                        <div className="flex justify-between items-center bg-slate-800/80 p-4 rounded-2xl border border-white/5">
+                            <div className="flex items-center gap-3 font-bold text-lg"><Volume2 className="text-pink-400 w-5 h-5"/> SFX (効果音)</div>
+                            <button onClick={() => { playSound('click'); setSfxEnabled(!sfxEnabled); }} className={`w-14 h-8 rounded-full transition-colors flex items-center px-1 shadow-inner ${sfxEnabled ? 'bg-cyan-500' : 'bg-slate-600'}`}>
+                                <div className={`w-6 h-6 bg-white rounded-full transition-transform shadow-md ${sfxEnabled ? 'translate-x-6' : 'translate-x-0'}`}/>
+                            </button>
+                        </div>
+                        
+                        <div className="bg-slate-800/80 p-4 rounded-2xl border border-white/5 space-y-3">
+                            <div className="flex justify-between items-center">
+                                <div className="flex items-center gap-3 font-bold text-lg"><Music className="text-blue-400 w-5 h-5"/> BGM (音楽)</div>
+                                <button onClick={() => { playSound('click'); setBgmEnabled(!bgmEnabled); }} className={`w-14 h-8 rounded-full transition-colors flex items-center px-1 shadow-inner ${bgmEnabled ? 'bg-cyan-500' : 'bg-slate-600'}`}>
+                                    <div className={`w-6 h-6 bg-white rounded-full transition-transform shadow-md ${bgmEnabled ? 'translate-x-6' : 'translate-x-0'}`}/>
+                                </button>
+                            </div>
+                            <div className={`flex items-center gap-2 ${!bgmEnabled ? 'opacity-30 pointer-events-none' : ''}`}>
+                                <select value={bgmTrack} onChange={handleBgmChange} className="flex-1 bg-slate-700 text-white font-bold p-2 rounded-lg outline-none border border-slate-500">
+                                    <option value="bgm1">Track 1 (Cyberpunk)</option>
+                                    <option value="bgm2">Track 2 (Epic Battle)</option>
+                                    <option value="bgm3">Track 3 (Chill Lo-Fi)</option>
+                                    <option value="bgm4">Track 4 (Tense Debate)</option>
+                                    <option value="bgm5">Track 5 (Victory March)</option>
+                                </select>
+                                <button onClick={togglePreview} className="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg font-bold text-sm transition-colors whitespace-nowrap">
+                                    {isPlayingPreview ? 'STOP' : 'TEST'}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="flex justify-between items-center bg-slate-800/80 p-4 rounded-2xl border border-white/5">
+                            <div className="flex items-center gap-3 font-bold text-lg"><Speech className="text-purple-400 w-5 h-5"/> Vocab Voice</div>
+                            <div className="flex gap-2">
+                                <button onClick={() => { playSound('click'); setTtsVoiceType('female'); }} className={`px-4 py-1.5 rounded-lg font-bold text-sm transition-colors ${ttsVoiceType === 'female' ? 'bg-purple-600 text-white border border-purple-400' : 'bg-slate-700 text-slate-400 hover:text-white'}`}>Female</button>
+                                <button onClick={() => { playSound('click'); setTtsVoiceType('male'); }} className={`px-4 py-1.5 rounded-lg font-bold text-sm transition-colors ${ttsVoiceType === 'male' ? 'bg-purple-600 text-white border border-purple-400' : 'bg-slate-700 text-slate-400 hover:text-white'}`}>Male</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button onClick={closeSettings} className="w-full mt-6 bg-gradient-to-r from-blue-600 to-cyan-500 py-3 rounded-xl font-black text-lg hover:scale-105 transition-transform">CLOSE</button>
+                </div>
+            </div>
+        )}
+
+        <div className="text-center w-full max-w-6xl flex flex-col items-center h-full max-h-[850px] relative z-10 pt-32 md:pt-28 pb-4">
             <h1 className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 tracking-tighter drop-shadow-2xl mb-4 shrink-0 mt-2">
             DEBATE BATTLE
             </h1>
 
-            {/* 🌟 2カラム（左右）レイアウトに変更 */}
-            <div className="w-full flex flex-col lg:flex-row gap-4 md:gap-6 flex-1 min-h-0 overflow-y-auto lg:overflow-hidden custom-scrollbar pb-2 lg:pb-0">
+            <div className="w-full flex flex-col lg:flex-row gap-4 md:gap-6 flex-1 min-h-0 overflow-y-auto lg:overflow-hidden custom-scrollbar pb-2 lg:pb-0 justify-center">
                 
-                {/* 📰 左側：NEWSパネル */}
-                <div className="order-2 lg:order-1 lg:w-[32%] bg-slate-900/40 backdrop-blur-md p-4 md:p-5 rounded-3xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] flex flex-col shrink-0 overflow-hidden relative min-h-[300px] lg:min-h-0">
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 to-blue-500"></div>
-                    <h2 className="text-lg md:text-xl font-black text-white mb-3 md:mb-4 flex items-center gap-2 border-b border-white/20 pb-2 drop-shadow-md">
-                        <Bell className="w-5 h-5 text-yellow-400 fill-current animate-pulse" /> NEWS & UPDATES
-                    </h2>
-                    <div className="flex-1 overflow-y-auto custom-scrollbar space-y-3 pr-2 text-left">
-                        {NEWS_ITEMS.map(news => (
-                            <div key={news.id} className="bg-slate-800/60 p-3 rounded-xl border border-white/5 hover:border-white/20 transition-colors shadow-md">
-                                <div className="flex items-center gap-2 mb-2">
-                                    <span className={`text-[10px] font-black px-2 py-0.5 rounded text-white shadow-inner ${news.color}`}>{news.tag}</span>
-                                    <span className="text-xs text-slate-400 font-mono tracking-wider">{news.date}</span>
+                {setupStep === 1 && (
+                    <div className="order-2 lg:order-1 lg:w-[35%] bg-slate-900/40 backdrop-blur-md p-4 md:p-5 rounded-3xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] flex flex-col shrink-0 overflow-hidden relative min-h-[300px] lg:min-h-0 animate-in slide-in-from-left-8">
+                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 to-blue-500"></div>
+                        <h2 className="text-lg md:text-xl font-black text-white mb-3 md:mb-4 flex items-center gap-2 border-b border-white/20 pb-2 drop-shadow-md">
+                            <Bell className="w-5 h-5 text-yellow-400 fill-current animate-pulse" /> NEWS & UPDATES
+                        </h2>
+                        <div className="flex-1 overflow-y-auto custom-scrollbar space-y-3 pr-2 text-left">
+                            {NEWS_ITEMS.map(news => (
+                                <div key={news.id} className="bg-slate-800/60 p-3 rounded-xl border border-white/5 hover:border-white/20 transition-colors shadow-md">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <span className={`text-[10px] font-black px-2 py-0.5 rounded text-white shadow-inner ${news.color}`}>{news.tag}</span>
+                                        <span className="text-xs text-slate-400 font-mono tracking-wider">{news.date}</span>
+                                    </div>
+                                    <p className="text-sm text-slate-200 leading-relaxed">{news.text}</p>
                                 </div>
-                                <p className="text-sm text-slate-200 leading-relaxed">{news.text}</p>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
-                </div>
+                )}
 
-                {/* ⚙️ 右側：既存のメイン設定パネル */}
-                <div className="order-1 lg:order-2 lg:w-[68%] bg-slate-900/40 backdrop-blur-md p-4 md:p-6 rounded-3xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative flex flex-col min-h-[450px] lg:min-h-0 overflow-hidden">
+                <div className={`order-1 lg:order-2 bg-slate-900/40 backdrop-blur-md p-4 md:p-6 rounded-3xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative flex flex-col min-h-[450px] lg:min-h-0 overflow-hidden transition-all duration-500 ${setupStep === 1 ? 'lg:w-[65%]' : 'w-full max-w-4xl mx-auto'}`}>
                     <div className="flex justify-between items-center mb-4 pb-3 border-b border-white/10 shrink-0">
                         {setupStep > 1 ? (
                             <button onClick={() => { playSound('click'); setSetupStep(prev => prev - 1); }} className="flex items-center gap-1 text-slate-300 hover:text-white transition-colors font-bold">
@@ -76,10 +243,36 @@ export function StartScreen({ game, playSound }) {
                     <div className="flex-1 flex flex-col justify-center w-full min-h-0">
                         {setupStep === 1 && (
                             <div className="animate-in fade-in slide-in-from-right-8 duration-500 w-full max-w-2xl mx-auto">
-                                <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center tracking-widest uppercase drop-shadow-md">1. Language</h2>
+                                <div className="mb-8 space-y-3">
+                                    <h3 className="text-cyan-400 font-black mb-3 tracking-widest flex justify-center items-center gap-2"><Globe2/> PLAYER PROFILE</h3>
+                                    
+                                    {/* 🌍 修正：名前とLocationの2段の自由入力テキストボックスに変更 */}
+                                    <input 
+                                        type="text" 
+                                        value={playerName} 
+                                        onChange={(e) => setPlayerName(e.target.value)}
+                                        placeholder="Player Name (空欄は匿名)"
+                                        className="w-full bg-slate-900/80 border-2 border-slate-500 rounded-xl p-4 text-white text-xl font-bold text-center focus:border-cyan-400 focus:ring-4 focus:ring-cyan-500/30 outline-none transition-all"
+                                        maxLength={15}
+                                    />
+                                    <div className="relative">
+                                        <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-6 h-6" />
+                                        <input 
+                                            type="text" 
+                                            value={playerLocation} 
+                                            onChange={(e) => setPlayerLocation(e.target.value)}
+                                            placeholder="City or Country (例: Tokyo, Japan)"
+                                            className="w-full bg-slate-900/80 border-2 border-slate-500 rounded-xl py-3 pl-12 pr-4 text-white text-lg font-bold focus:border-cyan-400 focus:ring-4 focus:ring-cyan-500/30 outline-none transition-all"
+                                            maxLength={20}
+                                        />
+                                    </div>
+                                </div>
+                                
+                                <h2 className="text-xl md:text-2xl font-bold text-white mb-2 text-center tracking-widest uppercase drop-shadow-md border-t border-white/10 pt-6">1. Language</h2>
+                                <p className="text-cyan-300 font-bold mb-4 text-sm drop-shadow-md text-center">どちらの言語で Debate Battle Game を楽しみますか？</p>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <button onClick={() => { playSound('click'); setLangMode('en'); setSetupStep(2); }} className={`p-6 md:p-8 rounded-2xl border-4 text-xl md:text-2xl font-black transition-all hover:scale-105 backdrop-blur-sm ${langMode === 'en' ? 'bg-pink-600/90 border-pink-400 text-white shadow-[0_0_30px_rgba(219,39,119,0.5)]' : 'bg-slate-800/80 border-slate-500 text-slate-300'}`}>English</button>
-                                    <button onClick={() => { playSound('click'); setLangMode('ja'); setSetupStep(2); }} className={`p-6 md:p-8 rounded-2xl border-4 text-xl md:text-2xl font-black transition-all hover:scale-105 backdrop-blur-sm ${langMode === 'ja' ? 'bg-pink-600/90 border-pink-400 text-white shadow-[0_0_30px_rgba(219,39,119,0.5)]' : 'bg-slate-800/80 border-slate-500 text-slate-300'}`}>日本語</button>
+                                    <button onClick={() => handleNextStep1('en')} className={`p-4 md:p-6 rounded-2xl border-4 text-xl md:text-2xl font-black transition-all hover:scale-105 backdrop-blur-sm ${langMode === 'en' ? 'bg-pink-600/90 border-pink-400 text-white shadow-[0_0_30px_rgba(219,39,119,0.5)]' : 'bg-slate-800/80 border-slate-500 text-slate-300'}`}>English</button>
+                                    <button onClick={() => handleNextStep1('ja')} className={`p-4 md:p-6 rounded-2xl border-4 text-xl md:text-2xl font-black transition-all hover:scale-105 backdrop-blur-sm ${langMode === 'ja' ? 'bg-pink-600/90 border-pink-400 text-white shadow-[0_0_30px_rgba(219,39,119,0.5)]' : 'bg-slate-800/80 border-slate-500 text-slate-300'}`}>日本語</button>
                                 </div>
                             </div>
                         )}
@@ -169,7 +362,6 @@ export function StartScreen({ game, playSound }) {
                 </div>
             </div>
             
-            {/* 画面下のメニューボタン */}
             <div className="flex justify-center gap-8 text-sm md:text-base text-slate-300 font-mono mt-4 shrink-0 bg-slate-900/40 backdrop-blur-sm px-6 py-2 rounded-full border border-white/10 shadow-lg">
                 <button onClick={() => { playSound('click'); setIsDrillMode(true); }} className="hover:text-white flex items-center gap-2 font-bold"><BrainCircuit className="w-4 h-4 md:w-5 md:h-5"/> Vocab Quiz</button>
                 <button onClick={() => { playSound('click'); setFontSize(prev => prev === 'normal' ? 'large' : prev === 'large' ? 'xlarge' : 'normal'); }} className="hover:text-white flex items-center gap-2 font-bold"><Type className="w-4 h-4 md:w-5 md:h-5"/> Text Size</button>

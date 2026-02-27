@@ -1,5 +1,5 @@
-import React from 'react';
-import { CheckCircle2, AlertTriangle } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
+import { CheckCircle2, AlertTriangle, Flame } from 'lucide-react';
 
 import { useSound } from './hooks/useSound';
 import { useGameLogic } from './hooks/useGameLogic';
@@ -23,10 +23,29 @@ export default function App() {
     topics, gameState, isDrillMode, currentTopic, showRules, showSuccessOverlay,
     shake, fontSize, feedback, particles, goHome,
     playerHP, langMode, userStance, battleRounds, currentRoundIndex,
-    showJapanese, timerEnabled, timeProgress, setFontSize, setShowRules, setShowJapanese
+    showJapanese, timerEnabled, timeProgress, setFontSize, setShowRules, setShowJapanese,
+    bgmEnabled, bgmTrack, ttsVoiceType, combo, floatingTexts 
   } = game;
 
   const theme = THEMES.techno;
+  
+  const bgmRef = useRef(null);
+  useEffect(() => {
+    const isPlayingGame = gameState !== 'start' && gameState !== 'gameover' && gameState !== 'result' && !isDrillMode;
+    
+    if (bgmEnabled && isPlayingGame) {
+        if (!bgmRef.current) {
+            bgmRef.current = new Audio(`/audio/${bgmTrack}.mp3`);
+            bgmRef.current.loop = true;
+        }
+        bgmRef.current.play().catch(e => console.log("BGM Play Error:", e));
+    } else {
+        if (bgmRef.current) {
+            bgmRef.current.pause();
+            bgmRef.current.currentTime = 0; 
+        }
+    }
+  }, [gameState, bgmEnabled, bgmTrack, isDrillMode]);
 
   if (topics.length === 0) return <div className="h-screen flex items-center justify-center bg-[#09090b] text-white">Loading...</div>;
   if (gameState === 'review') return <ReviewMode topic={currentTopic} onClose={() => { playSound('click'); goHome(); }} showJapanese={showJapanese} langMode={langMode} difficulty={game.difficulty || 'easy'} />;
@@ -43,7 +62,15 @@ export default function App() {
         </div>
       )}
 
-      {/* 各画面のコンポーネントを配置 */}
+      <div className="absolute inset-0 pointer-events-none z-[300] overflow-hidden">
+          {floatingTexts.map(t => (
+              <div key={t.id} className="absolute flex flex-col items-center animate-float-up drop-shadow-[0_0_10px_rgba(34,211,238,1)]" style={{ left: `${t.x}%`, top: `${t.y}%` }}>
+                  {t.comboStr && <div className="text-orange-400 font-black text-sm md:text-base flex items-center gap-1 mb-1"><Flame className="w-4 h-4"/>{t.comboStr}</div>}
+                  <div className="text-cyan-300 font-black text-3xl md:text-5xl">{t.text}</div>
+              </div>
+          ))}
+      </div>
+
       <StartScreen game={game} playSound={playSound} />
 
       {gameState !== 'start' && (
@@ -54,6 +81,7 @@ export default function App() {
           currentRoundIndex={currentRoundIndex} showJapanese={showJapanese}
           timerEnabled={timerEnabled} timeProgress={timeProgress} setFontSize={setFontSize}
           setShowRules={setShowRules} setShowJapanese={setShowJapanese} playSound={playSound}
+          combo={combo} score={game.score} 
         />
       )}
 
@@ -65,16 +93,17 @@ export default function App() {
       )}
 
       {showRules && <RuleBook onClose={() => { playSound('click'); setShowRules(false); }} />}
-      {isDrillMode && <VocabDrill vocabList={currentTopic?.vocabulary || []} onClose={() => { playSound('click'); game.setIsDrillMode(false); }} />}
+      {isDrillMode && <VocabDrill topics={topics} onClose={() => { playSound('click'); game.setIsDrillMode(false); }} playSound={playSound} ttsVoiceType={ttsVoiceType} />}
 
-     <ResultScreen 
+      <ResultScreen 
         gameState={gameState} score={game.score} activeLogicGroup={game.activeLogicGroup}
         currentTopic={currentTopic} userStance={userStance} langMode={langMode}
         difficulty={game.difficulty} showJapanese={showJapanese} goHome={() => { playSound('click'); goHome(); }}
-        mistakes={game.mistakes} // 💡 これを追加！
+        mistakes={game.mistakes} fontSize={fontSize} setFontSize={setFontSize} setShowJapanese={setShowJapanese} playSound={playSound}
+        scoreDetails={game.scoreDetails} maxCombo={game.maxCombo} 
+        leaderboard={game.leaderboard} // 🏆 修正：ランキングデータを渡す
       />
 
-      {/* 爆発エフェクトとフィードバック */}
       <div className="absolute inset-0 pointer-events-none z-[100] overflow-hidden">
           {particles.map((p) => (<div key={p.id} className={`absolute rounded-full ${p.color} animate-particle shadow-lg`} style={{ left: `${p.x}%`, top: `${p.y}%`, width: `${10 * p.scale}px`, height: `${10 * p.scale}px`, '--tx': `${p.tx}px`, '--ty': `${p.ty}px` }} />))}
       </div>
@@ -96,6 +125,14 @@ export default function App() {
         .animate-pop-in-out { animation: pop-in-out 0.8s ease-in-out forwards; }
         @keyframes shake-card { 0%, 100% { transform: translateX(0); } 15% { transform: translateX(-12px); } 30% { transform: translateX(10px); } 45% { transform: translateX(-8px); } 60% { transform: translateX(6px); } 75% { transform: translateX(-4px); } }
         .animate-shake.ring-4 { animation: shake-card 0.5s cubic-bezier(.36,.07,.19,.97) both; }
+        
+        @keyframes float-up { 
+            0% { opacity: 0; transform: translateY(20px) scale(0.8); } 
+            20% { opacity: 1; transform: translateY(0) scale(1.2); } 
+            100% { opacity: 0; transform: translateY(-80px) scale(1); } 
+        }
+        .animate-float-up { animation: float-up 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        
         .custom-scrollbar::-webkit-scrollbar { width: 6px; } 
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; border-radius: 3px; } 
         .custom-scrollbar::-webkit-scrollbar-track { background: rgba(30,41,59,0.5); }
