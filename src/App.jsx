@@ -85,8 +85,9 @@ export default function App() {
         />
       )}
 
+      {/* 💡 修正: クラスに `game-core-layout` を追加してスマホ用の制御を可能にしました */}
       {gameState !== 'start' && gameState !== 'gameover' && gameState !== 'result' && (
-        <div className={`flex-1 flex overflow-hidden relative ${game.sidePanelPos === 'left' ? 'flex-row-reverse' : 'flex-row'}`}>
+        <div className={`flex-1 flex overflow-hidden relative game-core-layout ${game.sidePanelPos === 'left' ? 'flex-row-reverse' : 'flex-row'}`}>
           <BattleBoard game={game} />
           <HandPanel game={game} playSound={playSound} />
         </div>
@@ -101,7 +102,7 @@ export default function App() {
         difficulty={game.difficulty} showJapanese={showJapanese} goHome={() => { playSound('click'); goHome(); }}
         mistakes={game.mistakes} fontSize={fontSize} setFontSize={setFontSize} setShowJapanese={setShowJapanese} playSound={playSound}
         scoreDetails={game.scoreDetails} maxCombo={game.maxCombo} 
-        leaderboard={game.leaderboard} // 🏆 修正：ランキングデータを渡す
+        leaderboard={game.leaderboard} 
       />
 
       <div className="absolute inset-0 pointer-events-none z-[100] overflow-hidden">
@@ -133,9 +134,62 @@ export default function App() {
         }
         .animate-float-up { animation: float-up 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
         
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; } 
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; } 
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; border-radius: 3px; } 
         .custom-scrollbar::-webkit-scrollbar-track { background: rgba(30,41,59,0.5); }
+
+        /* 📱 魔法のレスポンシブCSS：スマホ・タブレット(iPad縦)の時に自動でレイアウトを最適化 */
+        @media (max-width: 1024px) {
+            .game-core-layout {
+                flex-direction: column !important;
+            }
+            /* バトル盤（上部） */
+            .game-core-layout > div:first-of-type {
+                width: 100% !important;
+                height: 55% !important;
+                border-left: none !important;
+                border-right: none !important;
+            }
+            /* 手札パネル（下部） */
+            .game-core-layout > div:last-of-type {
+                width: 100% !important;
+                height: 45% !important;
+                border-top: 3px solid rgba(6, 182, 212, 0.6) !important;
+                border-left: none !important;
+                border-right: none !important;
+            }
+            /* サイズ調整バーを非表示 */
+            .game-core-layout [class*="cursor-col-resize"] {
+                display: none !important;
+            }
+            /* 手札のカードを横スクロールにする */
+            .game-core-layout > div:last-of-type [class*="overflow-y-auto"] {
+                display: flex !important;
+                flex-direction: row !important;
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
+                padding-bottom: 10px !important;
+            }
+            .game-core-layout > div:last-of-type [class*="overflow-y-auto"] > div {
+                min-width: 280px !important;
+                max-width: 300px !important;
+                margin-right: 15px !important;
+                margin-bottom: 0 !important;
+                flex-shrink: 0 !important;
+            }
+            /* 画像選択クイズも横並びにする */
+            .game-core-layout > div:last-of-type [class*="grid-cols-2"] {
+                display: flex !important;
+                flex-direction: row !important;
+                overflow-x: auto !important;
+                gap: 15px !important;
+                padding-bottom: 10px !important;
+            }
+            .game-core-layout > div:last-of-type [class*="grid-cols-2"] > button {
+                min-width: 240px !important;
+                flex-shrink: 0 !important;
+            }
+        }
       `}</style>
     </div>
   );
