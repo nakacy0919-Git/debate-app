@@ -27,6 +27,11 @@ const getAllFakeImages = (topic) => {
   return Array.from(urls);
 };
 
+const getRandomFakeUrl = () => {
+    const randomNum = Math.floor(Math.random() * 100) + 1;
+    return `/images/fake_${randomNum}.webp`;
+};
+
 export const useGameLogic = (playSound) => {
   const [topics, setTopics] = useState([]);
   const [selectedTopicId, setSelectedTopicId] = useState(null);
@@ -38,6 +43,8 @@ export const useGameLogic = (playSound) => {
   const [gameMode, setGameMode] = useState('area'); 
   const [langMode, setLangMode] = useState('en'); 
   const [fontSize, setFontSize] = useState('normal'); 
+  const [imageSize, setImageSize] = useState('normal'); 
+
   const [setupStep, setSetupStep] = useState(1);
   const [showRules, setShowRules] = useState(false);
   const [playerHP, setPlayerHP] = useState(MAX_HP);
@@ -74,9 +81,8 @@ export const useGameLogic = (playSound) => {
   const [floatingTexts, setFloatingTexts] = useState([]);
   const [scoreDetails, setScoreDetails] = useState({ base: 0, timeBonus: 0, comboBonus: 0, perfect: 0 });
 
-  const [playerName, setPlayerName] = useState(localStorage.getItem('debate_playerName') || '');
-  // 🌍 修正：国旗コードから自由入力の Location に変更
-  const [playerLocation, setPlayerLocation] = useState(localStorage.getItem('debate_playerLocation') || '');
+  const [playerName, setPlayerName] = useState('');
+  const [playerLocation, setPlayerLocation] = useState('');
   const [leaderboard, setLeaderboard] = useState([]);
   
   const timerIntervalRef = useRef(null);
@@ -87,7 +93,6 @@ export const useGameLogic = (playSound) => {
 
   useEffect(() => { setTopics(getAllTopics()); }, []);
 
-  // 🌍 修正：名前とLocationが変更されたらブラウザに記憶
   useEffect(() => {
       localStorage.setItem('debate_playerName', playerName);
       localStorage.setItem('debate_playerLocation', playerLocation);
@@ -114,7 +119,6 @@ export const useGameLogic = (playSound) => {
           if (gameState === 'result' && selectedTopicId && difficulty && gameMode !== 'review') {
               try {
                   const collectionPath = `leaderboards/${selectedTopicId}_${difficulty}/scores`;
-                  // 🌍 修正：Firebaseにlocationを保存する
                   await addDoc(collection(db, collectionPath), {
                       name: playerName || 'Anonymous',
                       location: playerLocation || 'Earth',
@@ -130,100 +134,109 @@ export const useGameLogic = (playSound) => {
       saveScoreToFirebase();
   }, [gameState]);
 
-  useEffect(() => {
-    if (!timerEnabled) { setTimeProgress(0); clearInterval(timerIntervalRef.current); return; }
-    const activeTimerStates = ['construct', 'cross_exam', 'rebuttal_defense', 'construct_image', 'cross_exam_image', 'rebuttal_defense_image', 'closing', 'closing_image'];
-    if (!activeTimerStates.includes(gameState)) { clearInterval(timerIntervalRef.current); return; }
-    startTimeRef.current = Date.now();
-    timerIntervalRef.current = setInterval(() => {
-      const elapsed = Date.now() - startTimeRef.current;
-      const progress = Math.min((elapsed / (TIME_LIMIT_SEC * 1000)) * 100, 100);
-      setTimeProgress(progress);
-      if (progress >= 100) { startTimeRef.current = Date.now(); takeDamage(DAMAGE_TICK, "Time Penalty"); }
-    }, 100);
-    return () => clearInterval(timerIntervalRef.current);
-  }, [gameState, timerEnabled]); 
-
-  useEffect(() => {
-    const handleMove = (e) => {
-      if (!isResizing.current) return;
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const widthPercent = sidePanelPos === 'right' ? ((window.innerWidth - clientX) / window.innerWidth) * 100 : (clientX / window.innerWidth) * 100;
-      setSidePanelWidth(Math.max(20, Math.min(50, widthPercent)));
-    };
-    const handleUp = () => isResizing.current = false;
-    window.addEventListener('mousemove', handleMove); window.addEventListener('mouseup', handleUp);
-    window.addEventListener('touchmove', handleMove); window.addEventListener('touchend', handleUp);
-    return () => { window.removeEventListener('mousemove', handleMove); window.removeEventListener('mouseup', handleUp); window.removeEventListener('touchmove', handleMove); window.removeEventListener('touchend', handleUp); };
-  }, [sidePanelPos]);
-
-  useEffect(() => { if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight; }, [tower]);
-
-  const addScore = (basePoint) => {
-    const timeBns = timerEnabled ? Math.max(0, 50 - Math.floor(timeProgress / 2)) : 0;
-    const currentCombo = combo + 1;
-    setCombo(currentCombo);
-    if (currentCombo > maxCombo) setMaxCombo(currentCombo);
-    const comboMultiplier = 1.0 + (currentCombo - 1) * 0.1; 
-    const diffMultiplier = difficulty === 'hard' ? 2.0 : difficulty === 'medium' ? 1.5 : 1.0;
-
-    const rawScore = basePoint + timeBns;
-    const comboExtra = rawScore * (comboMultiplier - 1.0);
-    const totalGained = Math.floor((rawScore + comboExtra) * diffMultiplier);
-
-    setScore(prev => prev + totalGained);
-    setScoreDetails(prev => ({
-        base: prev.base + Math.floor(basePoint * diffMultiplier),
-        timeBonus: prev.timeBonus + Math.floor(timeBns * diffMultiplier),
-        comboBonus: prev.comboBonus + Math.floor(comboExtra * diffMultiplier),
-        perfect: prev.perfect
-    }));
-
-    const newText = {
-        id: Date.now(),
-        text: `+${totalGained}`,
-        comboStr: currentCombo > 1 ? `${currentCombo} COMBO!` : null,
-        x: 40 + Math.random() * 20,
-        y: 40 + Math.random() * 20
-    };
-    setFloatingTexts(prev => [...prev, newText]);
-    setTimeout(() => { setFloatingTexts(prev => prev.filter(t => t.id !== newText.id)); }, 1200);
+  const triggerExplosion = (count, colorClass, cardId = null) => {
+      const newParticles = Array.from({ length: count }).map((_, i) => ({
+          id: Date.now() + i,
+          x: cardId ? 50 : Math.random() * 100,
+          y: cardId ? 50 : Math.random() * 100,
+          tx: (Math.random() - 0.5) * 200,
+          ty: (Math.random() - 0.5) * 200,
+          scale: Math.random() * 1.5 + 0.5,
+          color: colorClass
+      }));
+      setParticles(newParticles);
+      setTimeout(() => setParticles([]), 800);
   };
 
-  const takeDamage = (amount, reason = "", cardId = null) => {
-    playSound('wrong'); 
-    const newHP = Math.max(0, playerHPRef.current - amount);
-    playerHPRef.current = newHP;
-    setPlayerHP(newHP);
-    setCombo(0); 
-    setShake(true); setTimeout(() => setShake(false), 300);
-    setFeedback({ msg: `-${amount} HP (${reason})`, type: 'damage', judgment: 'weak' });
-    setTimeout(() => setFeedback(null), 1500); 
-    if (cardId) { setShakingCardId(cardId); setTimeout(() => setShakingCardId(null), 500); }
-
-    if (newHP <= 0) {
-        playSound('gameover');
-        setGameState('gameover');
-    }
+  const takeDamage = (amount, reasonStr, cardId = null) => {
+      playSound('damage');
+      setShake(true); setTimeout(() => setShake(false), 300);
+      setCombo(0); 
+      if (cardId) { setShakingCardId(cardId); setTimeout(() => setShakingCardId(null), 500); }
+      triggerExplosion(20, 'bg-red-500', cardId);
+      setFeedback({ msg: reasonStr, type: 'damage' });
+      setTimeout(() => setFeedback(null), 800);
+      
+      setPlayerHP(prev => {
+          const newHP = Math.max(0, prev - amount);
+          playerHPRef.current = newHP;
+          if (newHP <= 0) setGameState('gameover');
+          return newHP;
+      });
   };
 
   const damageOpponent = (amount) => {
-    setOpponentHP(prev => Math.max(0, prev - amount));
-    triggerExplosion(10, 'bg-red-500');
+      setOpponentHP(prev => Math.max(0, prev - amount));
+      triggerExplosion(15, 'bg-orange-400');
   };
 
-  const triggerExplosion = (count = 15, color = 'bg-yellow-400') => {
-    const newParticles = Array.from({ length: count }).map((_, i) => ({
-      id: Date.now() + i, x: 50 + (Math.random() - 0.5) * 40, y: 40 + (Math.random() - 0.5) * 20, tx: (Math.random() - 0.5) * 200, ty: (Math.random() - 0.5) * 200, scale: Math.random() * 1.5, color
-    }));
-    setParticles(prev => [...prev, ...newParticles]);
-    setTimeout(() => setParticles(prev => prev.filter(p => !newParticles.find(np => np.id === p.id))), 1000);
+  const addScore = (basePoints) => {
+      const timeElapsed = (Date.now() - startTimeRef.current) / 1000;
+      const timeBonusObj = Math.max(0, Math.floor((TIME_LIMIT_SEC - timeElapsed) * 10));
+      
+      const diffMultiplier = difficulty === 'hard' ? 2 : difficulty === 'medium' ? 1.5 : 1;
+      const newCombo = combo + 1;
+      setCombo(newCombo);
+      setMaxCombo(prev => Math.max(prev, newCombo));
+
+      const currentComboBonus = newCombo > 1 ? newCombo * 10 * diffMultiplier : 0;
+      const totalAdd = Math.floor((basePoints + timeBonusObj + currentComboBonus) * diffMultiplier);
+
+      setScore(prev => prev + totalAdd);
+      setScoreDetails(prev => ({
+          ...prev,
+          base: prev.base + Math.floor(basePoints * diffMultiplier),
+          timeBonus: prev.timeBonus + Math.floor(timeBonusObj * diffMultiplier),
+          comboBonus: prev.comboBonus + Math.floor(currentComboBonus)
+      }));
+
+      const comboStr = newCombo >= 2 ? `${newCombo} COMBO!` : null;
+      const newText = { id: Date.now(), text: `+${totalAdd}`, x: 50 + (Math.random()*20-10), y: 40 + (Math.random()*20-10), comboStr };
+      setFloatingTexts(prev => [...prev, newText]);
+      setTimeout(() => { setFloatingTexts(prev => prev.filter(t => t.id !== newText.id)); }, 1200);
+  };
+
+  useEffect(() => {
+      if (!timerEnabled || gameState === 'start' || gameState === 'gameover' || gameState === 'result' || gameState === 'review') {
+          if (timerIntervalRef.current) clearInterval(timerIntervalRef.current);
+          return;
+      }
+
+      timerIntervalRef.current = setInterval(() => {
+          if (playerHPRef.current <= 0) {
+              clearInterval(timerIntervalRef.current);
+              return;
+          }
+          const elapsed = (Date.now() - startTimeRef.current) / 1000;
+          const progress = (elapsed / TIME_LIMIT_SEC) * 100;
+          setTimeProgress(progress);
+          
+          if (progress >= 100) {
+              takeDamage(DAMAGE_TICK, "Time is running out!");
+              startTimeRef.current = Date.now();
+              setTimeProgress(0);
+          }
+      }, 100);
+
+      return () => clearInterval(timerIntervalRef.current);
+  }, [gameState, timerEnabled]);
+
+  const localizeCard = (card, diff) => {
+      if (!card) return card;
+      return {
+          ...card,
+          textJP: typeof card.textJP === 'object' && diff ? card.textJP[diff] : card.textJP
+      };
   };
 
   const setupBattlePhase = (options) => {
     if (!options || options.length === 0) return [];
     const corrects = options.filter(o => o.judgment === 'correct' || o.judgment === 'perfect');
-    const weaks = options.filter(o => o.judgment === 'weak');
+    const weaks = options.filter(o => o.judgment === 'weak').map(o => ({
+        ...o,
+        image_url: getRandomFakeUrl() 
+    }));
+    
     const targetCount = DIFFICULTIES[difficulty].battleOptions || 4;
     const selectedCorrect = corrects.sort(() => Math.random() - 0.5).slice(0, 1);
     const neededWeaks = targetCount - selectedCorrect.length;
@@ -245,10 +258,16 @@ export const useGameLogic = (playSound) => {
     if (gameMode === 'logic_link') myStanceCards = myStanceCards.filter(c => c.type === 'reason' || c.type === 'example');
     
     const validCards = myStanceCards.filter(c => c.group !== 'fake');
-    const fakeCardsAll = myStanceCards.filter(c => c.group === 'fake');
+    const fakeCardsAll = myStanceCards.filter(c => c.group === 'fake').map(c => ({
+        ...c,
+        image_url: getRandomFakeUrl()
+    }));
+    
     const noiseCount = DIFFICULTIES[difficulty].fakeCount || 4;
     const noiseCards = fakeCardsAll.sort(() => Math.random() - 0.5).slice(0, Math.max(0, noiseCount));
-    setHand([...validCards, ...noiseCards].sort(() => Math.random() - 0.5));
+    
+    const finalHand = [...validCards, ...noiseCards].map(c => localizeCard(c, difficulty));
+    setHand(finalHand.sort(() => Math.random() - 0.5));
     
     const cxList = currentTopic.crossExam?.[userStance] || [];
     const rebList = currentTopic.rebuttal?.[userStance] || [];
@@ -280,8 +299,10 @@ export const useGameLogic = (playSound) => {
     if (gameMode === 'logic_link' || roundIdx >= battlePlan.length) { triggerClosingPhase(); return; }
     const currentData = battlePlan[roundIdx];
     if (currentData && currentData.cx) {
-      setGameState('cross_exam'); setRivalCard({ ...currentData.cx.question, type: 'answer', isQuestion: true });
-      setHand(setupBattlePhase(currentData.cx.options));
+      setGameState('cross_exam'); 
+      setRivalCard(localizeCard({ ...currentData.cx.question, type: 'answer', isQuestion: true }, difficulty));
+      const processedOptions = currentData.cx.options.map(o => localizeCard(o, difficulty));
+      setHand(setupBattlePhase(processedOptions));
     } else { triggerRebuttalPhase(roundIdx); }
   };
 
@@ -292,11 +313,13 @@ export const useGameLogic = (playSound) => {
       if (playerHPRef.current <= 0) return; 
       setGameState('rebuttal_attack');
       if (currentData && currentData.reb) {
-        setRivalCard({ ...currentData.reb, type: 'attack' });
+        setRivalCard(localizeCard({ ...currentData.reb, type: 'attack' }, difficulty));
         if(timerEnabled) takeDamage(DAMAGE_TICK, "Opponent Attack!");
         setTimeout(() => { 
             if (playerHPRef.current <= 0) return; 
-            setGameState('rebuttal_defense'); setHand(setupBattlePhase(currentData.reb.options)); 
+            setGameState('rebuttal_defense'); 
+            const processedOptions = currentData.reb.options.map(o => localizeCard(o, difficulty));
+            setHand(setupBattlePhase(processedOptions)); 
         }, 800);
       } else { nextRound(roundIdx); }
     }, 500);
@@ -312,7 +335,10 @@ export const useGameLogic = (playSound) => {
     const currentTopic = topics.find(t => t.id === selectedTopicId) || topics[0];
     setGameState('closing'); setRivalCard(null);
     const closingOptions = currentTopic.closing?.[userStance];
-    if(closingOptions) setHand(setupBattlePhase(closingOptions));
+    if(closingOptions) {
+        const processedOptions = closingOptions.map(o => localizeCard(o, difficulty));
+        setHand(setupBattlePhase(processedOptions));
+    }
     else setTimeout(() => {
         if (playerHPRef.current <= 0) return;
         setGameState('result');
@@ -357,11 +383,18 @@ export const useGameLogic = (playSound) => {
               }, 800);
           } else { setGameState('construct'); }
       } else if (baseState === 'cross_exam' || baseState === 'rebuttal_defense') {
+          
+          // 💡 激突と粉砕のド派手な演出を追加！
+          setShake(true); setTimeout(() => setShake(false), 400); // 画面を揺らす
+          triggerExplosion(40, 'bg-blue-400'); // 大爆発
+          playSound('damage'); // 激突音としてダメージ音を鳴らす
+
           setFeedback({ msg: "NICE COUNTER!", type: 'success', judgment: 'perfect' }); setTimeout(() => setFeedback(null), 800);
           setTimeout(() => {
               if (playerHPRef.current <= 0) return; 
               baseState === 'cross_exam' ? triggerRebuttalPhase(currentRoundIndex) : nextRound(currentRoundIndex);
           }, 800);
+
       } else if (baseState === 'closing') {
           if (playerHPRef.current === MAX_HP && mistakes.length === 0) {
               const diffMulti = difficulty === 'hard' ? 2 : difficulty === 'medium' ? 1.5 : 1;
@@ -440,9 +473,15 @@ export const useGameLogic = (playSound) => {
   const getVisibleHand = () => {
     if (gameState.endsWith('_image')) return [];
     if (gameState !== 'construct') return hand; 
+    
     const expectedFlow = FLOWS[gameMode] || FLOWS.area;
     if (tower.length >= expectedFlow.length) return hand;
-    return hand.filter(card => (card.type === 'mini_conclusion' ? 'mini_conclusion' : card.type) === expectedFlow[tower.length]);
+    
+    const expectedType = expectedFlow[tower.length];
+    return hand.filter(card => {
+        const actualType = card.type === 'mini_conclusion' ? 'mini_conclusion' : card.type;
+        return actualType === expectedType || card.group === 'fake';
+    });
   };
 
   const currentTopic = topics.find(t => t.id === selectedTopicId) || topics[0];
@@ -455,15 +494,17 @@ export const useGameLogic = (playSound) => {
   return {
     topics, selectedTopicId, setSelectedTopicId, userStance, setUserStance, difficulty, setDifficulty,
     timerEnabled, setTimerEnabled, imageMatchEnabled, setImageMatchEnabled, battleRounds, setBattleRounds,
-    gameMode, setGameMode, langMode, setLangMode, fontSize, setFontSize, setupStep, setSetupStep,
+    gameMode, setGameMode, langMode, setLangMode, fontSize, setFontSize, 
+    imageSize, setImageSize,
+    setupStep, setSetupStep,
     showRules, setShowRules, playerHP, opponentHP, gameState, setGameState, tower, hand, score, feedback,
     showJapanese, setShowJapanese, isDrillMode, setIsDrillMode, rivalCard, particles, activeLogicGroup,
-    pendingCard, imageHand, sidePanelPos, setSidePanelPos, sidePanelWidth, timeProgress, shake,
+    pendingCard, imageHand, sidePanelPos, setSidePanelPos, sidePanelWidth, setSidePanelWidth, timeProgress, shake,
     showSuccessOverlay, shakingCardId, currentRoundIndex, isResizing, scrollRef, currentTopic, canStart, visibleHand,
     isTopicSelected, isStanceSelected, isDifficultySelected, mistakes,
     bgmTrack, setBgmTrack, bgmEnabled, setBgmEnabled, ttsVoiceType, setTtsVoiceType, sfxEnabled, setSfxEnabled,
     combo, maxCombo, floatingTexts, scoreDetails,
-    playerName, setPlayerName, playerLocation, setPlayerLocation, leaderboard, fetchLeaderboard, // 🌍
+    playerName, setPlayerName, playerLocation, setPlayerLocation, leaderboard, fetchLeaderboard, 
     initGame, goHome, handleUndo, handleCardSelect, handleImageSelect
   };
 };

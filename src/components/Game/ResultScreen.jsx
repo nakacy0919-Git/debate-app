@@ -30,6 +30,11 @@ export function ResultScreen({
 
   const isNewRecord = leaderboard.length > 0 && leaderboard[0].score === score;
 
+  const getLocalizedJP = (cardObj) => {
+      if (!cardObj.textJP) return "";
+      return typeof cardObj.textJP === 'object' ? cardObj.textJP[difficulty] : cardObj.textJP;
+  };
+
   return (
     <div className={`absolute inset-0 z-50 flex flex-col items-center p-4 md:p-6 backdrop-blur-3xl animate-in fade-in overflow-y-auto custom-scrollbar ${gameState === 'gameover' ? 'bg-red-950/95' : 'bg-[#0f172a]/95'}`}>
         
@@ -103,7 +108,6 @@ export function ResultScreen({
                                     <div className={`font-black text-xl w-8 text-center ${isCurrentPlay ? 'text-yellow-300' : ''}`}>{index + 1}</div>
                                     <div className="flex flex-col">
                                         <div className={`font-bold text-lg md:text-xl truncate max-w-[150px] md:max-w-[200px] ${isCurrentPlay ? 'text-white' : ''}`}>{record.name}</div>
-                                        {/* 🌍 修正：ロケーション（自由入力）を表示 */}
                                         <div className={`text-xs flex items-center gap-1 mt-0.5 ${isCurrentPlay ? 'text-yellow-200' : 'text-slate-400'}`}>
                                             <MapPin size={10}/> {record.location || record.country || 'Earth'}
                                         </div>
@@ -135,17 +139,25 @@ export function ResultScreen({
                                         <img src={card.image_url} className="w-full h-full object-cover" alt="Model" />
                                     </div>
                                 )}
-                                <div className="flex gap-4 flex-1 w-full h-auto flex-col justify-center">
-                                    <div className={`shrink-0 text-xs md:text-sm font-black uppercase px-3 py-1 rounded bg-black/50 border border-white/10 shadow-inner w-fit drop-shadow-md ${typeStyle.color}`}>
+                                <div className="flex-1 w-full flex flex-col justify-center">
+                                    <div className={`shrink-0 text-xs md:text-sm font-black uppercase px-3 py-1 rounded bg-black/50 border border-white/10 shadow-inner w-fit mb-4 ${typeStyle.color}`}>
                                         {langMode === 'ja' ? typeStyle.labelJP : typeStyle.label}
                                     </div>
                                     <div className="flex-1 w-full">
                                         {langMode === 'ja' ? (
-                                            <div className={`font-bold text-white leading-normal md:leading-relaxed drop-shadow-md ${textBaseClass}`}>{card.textJP}</div>
+                                            <div className={`font-bold text-white leading-normal md:leading-relaxed drop-shadow-md ${textBaseClass}`}>
+                                                {getLocalizedJP(card)}
+                                            </div>
                                         ) : (
                                             <>
-                                                <div className={`font-bold text-white leading-normal md:leading-relaxed drop-shadow-md ${textBaseClass}`}><SmartText text={typeof card.text === 'object' ? card.text[difficulty] : card.text} vocabList={currentTopic.vocabulary} /></div>
-                                                {showJapanese && <div className={`mt-2 text-slate-300 border-t border-white/10 pt-2 ${jpTextClass}`}>{card.textJP}</div>}
+                                                <div className={`font-bold text-white leading-normal md:leading-relaxed drop-shadow-md ${textBaseClass}`}>
+                                                    <SmartText text={typeof card.text === 'object' ? card.text[difficulty] : card.text} vocabList={currentTopic.vocabulary} />
+                                                </div>
+                                                {showJapanese && (
+                                                    <div className={`mt-2 text-slate-300 border-t border-white/10 pt-2 ${jpTextClass}`}>
+                                                        {getLocalizedJP(card)}
+                                                    </div>
+                                                )}
                                             </>
                                         )}
                                     </div>
@@ -180,7 +192,7 @@ export function ResultScreen({
                                             {langMode === 'ja' ? typeStyle.labelJP : typeStyle.label}
                                         </div>
                                         <div className={`font-bold text-slate-300 leading-normal md:leading-relaxed line-through opacity-80 ${textBaseClass}`}>
-                                            {langMode === 'ja' ? card.textJP : (typeof card.text === 'object' ? card.text[difficulty] : card.text)}
+                                            {langMode === 'ja' ? getLocalizedJP(card) : (typeof card.text === 'object' ? card.text[difficulty] : card.text)}
                                         </div>
                                     </div>
                                 </div>

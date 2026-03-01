@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Play, BrainCircuit, Type, HelpCircle, BookOpen, ChevronLeft, Image as ImageIcon, Clock, Swords, Bell, Bot, Settings, X, Volume2, Music, Speech, Trophy, Medal, MapPin, MessageSquareText, Check } from 'lucide-react';
 import { DIFFICULTIES } from '../../constants';
 
-// 📰 ニュースリスト
 const NEWS_ITEMS = [
   { id: 1, date: '2026.02.27', tag: 'UPDATE', color: 'bg-yellow-500', text: 'スコアランキング機能を実装！君のディベート力を世界に示そう！' },
   { id: 2, date: '2026.02.26', tag: 'UPDATE', color: 'bg-blue-500', text: 'Vocab Quizが大幅進化！テーマを選んで4択クイズができるようになりました。' },
@@ -26,16 +25,12 @@ export function StartScreen({ game, playSound }) {
   const [isPlayingPreview, setIsPlayingPreview] = useState(false);
   const previewAudioRef = useRef(null);
 
-  // 🤖 ボットのメッセージ管理
   const [showBotMessage, setShowBotMessage] = useState(false);
   const [botText, setBotText] = useState("");
   const fullText = "やあ！僕はディベート・ボット！\n正しい論理を組み立てて、相手からの反論を論破するバトルゲームだよ！\n初めての人は右上の「Help」でルールを確認してね！";
 
-  // 🔔 ニュースの管理（LINE風未読バッジ）
   const [showNews, setShowNews] = useState(false);
   const [unreadNewsCount, setUnreadNewsCount] = useState(NEWS_ITEMS.length);
-
-  // 🕵️ 匿名プレイ管理
   const [isAnonymous, setIsAnonymous] = useState(false);
 
   const handleBotClick = () => {
@@ -89,7 +84,6 @@ export function StartScreen({ game, playSound }) {
       setShowSettings(false);
   };
 
-  // 🚀 ステップ遷移ハンドラー
   const handleLangSelect = (lang) => {
       playSound('click');
       setLangMode(lang);
@@ -120,39 +114,35 @@ export function StartScreen({ game, playSound }) {
   if (gameState !== 'start' || isDrillMode) return null;
 
   return (
-    <div className="absolute inset-0 z-50 flex flex-col items-center justify-center p-4 md:p-6 bg-black overflow-hidden">
-        <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60" style={{ backgroundImage: "url('/images/background.webp')" }}></div>
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0f172a]/80 via-[#1e1b4b]/70 to-[#0f172a]/80 animate-gradient-xy mix-blend-overlay pointer-events-none"></div>
+    <div className="absolute inset-0 z-50 flex flex-col items-center justify-center p-4 md:p-6 bg-transparent overflow-hidden">
         
-        {/* 🤖 ボット＆ニュースアイコン エリア */}
-        <div className="absolute top-4 left-4 md:top-6 md:left-6 flex items-start gap-3 md:gap-4 z-50">
-            {/* ボットアイコン */}
-            <button onClick={handleBotClick} className="relative shrink-0 hover:scale-110 transition-transform group outline-none focus:outline-none" title="ボットのメッセージを聞く">
-                <div className="absolute inset-0 bg-cyan-400 rounded-full blur-md opacity-60 animate-pulse group-hover:opacity-100"></div>
-                <div className="absolute -inset-1 border-2 border-cyan-400 rounded-full animate-ping opacity-40"></div>
-                <div className="bg-gradient-to-br from-blue-500 to-blue-700 p-2 md:p-3 rounded-full border-2 border-cyan-200 shadow-xl relative z-10 flex items-center justify-center">
-                    <Bot className="text-white w-6 h-6 md:w-8 md:h-8" />
-                    <MessageSquareText className="absolute -top-1 -right-1 w-4 h-4 text-yellow-300 drop-shadow-md animate-bounce" />
-                </div>
-            </button>
+        {setupStep === 1 && (
+            <div className="absolute top-4 left-4 md:top-6 md:left-6 flex items-start gap-3 md:gap-4 z-50 animate-in fade-in">
+                <button onClick={handleBotClick} className="relative shrink-0 hover:scale-110 transition-transform group outline-none focus:outline-none" title="ボットのメッセージを聞く">
+                    <div className="absolute inset-0 bg-cyan-400 rounded-full blur-md opacity-60 animate-pulse group-hover:opacity-100"></div>
+                    <div className="absolute -inset-1 border-2 border-cyan-400 rounded-full animate-ping opacity-40"></div>
+                    <div className="bg-gradient-to-br from-blue-500 to-blue-700 p-2 md:p-3 rounded-full border-2 border-cyan-200 shadow-xl relative z-10 flex items-center justify-center">
+                        <Bot className="text-white w-6 h-6 md:w-8 md:h-8" />
+                        <MessageSquareText className="absolute -top-1 -right-1 w-4 h-4 text-yellow-300 drop-shadow-md animate-bounce" />
+                    </div>
+                </button>
 
-            {/* 🔔 ニュース（通知）アイコン */}
-            <button onClick={handleNewsClick} className="relative shrink-0 p-2 md:p-3 bg-slate-800/90 rounded-full border border-white/20 text-slate-300 hover:text-white hover:bg-slate-700 hover:scale-110 transition-all shadow-lg outline-none focus:outline-none mt-0.5" title="News & Updates">
-                <Bell className="w-5 h-5 md:w-7 md:h-7" />
-                {unreadNewsCount > 0 && (
-                    <div className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[10px] md:text-xs font-black w-5 h-5 md:w-6 md:h-6 flex items-center justify-center rounded-full border-2 border-slate-900 animate-bounce shadow-lg">
-                        {unreadNewsCount}
+                <button onClick={handleNewsClick} className="relative shrink-0 p-2 md:p-3 bg-slate-800/90 rounded-full border border-white/20 text-slate-300 hover:text-white hover:bg-slate-700 hover:scale-110 transition-all shadow-lg outline-none focus:outline-none mt-0.5" title="News & Updates">
+                    <Bell className="w-5 h-5 md:w-7 md:h-7" />
+                    {unreadNewsCount > 0 && (
+                        <div className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[10px] md:text-xs font-black w-5 h-5 md:w-6 md:h-6 flex items-center justify-center rounded-full border-2 border-slate-900 animate-bounce shadow-lg">
+                            {unreadNewsCount}
+                        </div>
+                    )}
+                </button>
+
+                {showBotMessage && (
+                    <div className="relative bg-white/95 backdrop-blur-md text-slate-800 text-xs md:text-sm font-bold p-3 md:p-4 rounded-2xl rounded-tl-none shadow-2xl max-w-[200px] md:max-w-[300px] border-l-4 border-cyan-500 animate-in fade-in zoom-in-75 slide-in-from-left-4 duration-300 mt-1">
+                        <div className="whitespace-pre-wrap leading-relaxed">{botText}<span className="inline-block w-1.5 h-3 md:w-2 md:h-4 bg-cyan-500 ml-1 animate-pulse align-middle"></span></div>
                     </div>
                 )}
-            </button>
-
-            {/* ボットの吹き出し */}
-            {showBotMessage && (
-                <div className="relative bg-white/95 backdrop-blur-md text-slate-800 text-xs md:text-sm font-bold p-3 md:p-4 rounded-2xl rounded-tl-none shadow-2xl max-w-[200px] md:max-w-[300px] border-l-4 border-cyan-500 animate-in fade-in zoom-in-75 slide-in-from-left-4 duration-300 mt-1">
-                    <div className="whitespace-pre-wrap leading-relaxed">{botText}<span className="inline-block w-1.5 h-3 md:w-2 md:h-4 bg-cyan-500 ml-1 animate-pulse align-middle"></span></div>
-                </div>
-            )}
-        </div>
+            </div>
+        )}
 
         <div className="absolute top-4 right-4 md:top-8 md:right-8 flex gap-3 z-50">
             {setupStep === 4 && isTopicSelected && isDifficultySelected && (
@@ -165,7 +155,6 @@ export function StartScreen({ game, playSound }) {
             </button>
         </div>
 
-        {/* 📰 ニュース・モーダル画面 */}
         {showNews && (
             <div className="absolute inset-0 z-[100] bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm animate-in zoom-in">
                 <div className="bg-slate-900 border-2 border-blue-500 rounded-3xl p-6 md:p-8 w-full max-w-md text-white relative shadow-[0_0_50px_rgba(59,130,246,0.4)] max-h-[80vh] flex flex-col">
@@ -187,7 +176,6 @@ export function StartScreen({ game, playSound }) {
             </div>
         )}
 
-        {/* 🏆 リーダーボード */}
         {showLeaderboard && (
             <div className="absolute inset-0 z-[100] bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm animate-in zoom-in">
                 <div className="bg-slate-900 border-2 border-yellow-500 rounded-3xl p-6 md:p-8 w-full max-w-md text-white relative shadow-[0_0_50px_rgba(234,179,8,0.4)] max-h-[80vh] flex flex-col">
@@ -196,7 +184,6 @@ export function StartScreen({ game, playSound }) {
                     <div className="text-center text-sm text-slate-400 mb-6 border-b border-white/10 pb-4">
                         {topics.find(t=>t.id===selectedTopicId)?.title} / <span className="uppercase text-cyan-400">{difficulty}</span>
                     </div>
-                    
                     <div className="flex-1 overflow-y-auto custom-scrollbar pr-2 space-y-2">
                         {leaderboard.length === 0 ? (
                             <div className="text-center text-slate-500 py-10 font-bold">まだ記録がありません。<br/>最初のチャンピオンになろう！</div>
@@ -224,7 +211,6 @@ export function StartScreen({ game, playSound }) {
             </div>
         )}
 
-        {/* ⚙️ 設定 */}
         {showSettings && (
             <div className="absolute inset-0 z-[100] bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm animate-in zoom-in">
                 <div className="bg-slate-900 border-2 border-cyan-500 rounded-3xl p-6 md:p-8 w-full max-w-md text-white relative shadow-[0_0_50px_rgba(6,182,212,0.5)]">
@@ -273,13 +259,16 @@ export function StartScreen({ game, playSound }) {
             </div>
         )}
 
-        <div className="text-center w-full max-w-6xl flex flex-col items-center h-full max-h-[850px] relative z-10 pt-32 md:pt-28 pb-4">
-            <h1 className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 tracking-tighter drop-shadow-2xl mb-4 shrink-0 mt-2">
-            DEBATE BATTLE
-            </h1>
+        <div className={`text-center w-full flex flex-col items-center h-full max-h-[900px] relative z-10 pb-4 transition-all duration-500 ${setupStep === 1 ? 'max-w-6xl pt-32 md:pt-28' : 'max-w-7xl pt-20 md:pt-16'}`}>
+            
+            {setupStep === 1 && (
+                <h1 className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 tracking-tighter drop-shadow-2xl mb-4 shrink-0 mt-2 animate-in fade-in">
+                DEBATE BATTLE
+                </h1>
+            )}
 
             <div className="w-full flex-1 flex flex-col justify-center items-center min-h-0 custom-scrollbar pb-2 lg:pb-0">
-                <div className="bg-slate-900/40 backdrop-blur-md p-4 md:p-6 rounded-3xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative flex flex-col min-h-[450px] lg:min-h-0 overflow-hidden transition-all duration-500 w-full max-w-4xl">
+                <div className={`bg-slate-900/40 backdrop-blur-md p-4 md:p-6 rounded-3xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative flex flex-col min-h-[450px] lg:min-h-0 overflow-hidden transition-all duration-500 w-full ${setupStep >= 3 ? 'max-w-5xl h-full' : 'max-w-4xl'}`}>
                     
                     <div className="flex justify-between items-center mb-4 pb-3 border-b border-white/10 shrink-0">
                         {setupStep > 1 ? (
@@ -302,7 +291,6 @@ export function StartScreen({ game, playSound }) {
 
                     <div className="flex-1 flex flex-col justify-center w-full min-h-0">
                         
-                        {/* ✨ Step 1 */}
                         {setupStep === 1 && (
                             <div className="animate-warp w-full max-w-2xl mx-auto">
                                 <h2 className="text-2xl md:text-3xl font-black text-white mb-2 text-center tracking-widest uppercase drop-shadow-md">1. Language</h2>
@@ -314,12 +302,10 @@ export function StartScreen({ game, playSound }) {
                             </div>
                         )}
 
-                        {/* ✨ Step 2: Player Profile (匿名プレイ対応) */}
                         {setupStep === 2 && (
                             <div className="animate-warp w-full max-w-2xl mx-auto flex flex-col items-center">
                                 <h2 className="text-2xl md:text-3xl font-black text-white mb-6 text-center tracking-widest uppercase drop-shadow-md border-b border-white/10 pb-4 w-full">2. Player Profile</h2>
                                 
-                                {/* 🕵️ 匿名プレイのトグル */}
                                 <div className="w-full max-w-md mb-6">
                                     <label className="flex items-center justify-center gap-3 cursor-pointer group bg-slate-800/50 p-4 rounded-xl border border-white/10 hover:bg-slate-700/50 transition-all">
                                         <div className={`w-6 h-6 rounded border-2 flex items-center justify-center transition-colors ${isAnonymous ? 'bg-cyan-500 border-cyan-400' : 'bg-transparent border-slate-400 group-hover:border-cyan-400'}`}>
@@ -330,16 +316,16 @@ export function StartScreen({ game, playSound }) {
                                     </label>
                                 </div>
 
-                                {/* 📝 入力フォーム (匿名時はグレーアウト) */}
                                 <div className={`w-full max-w-md space-y-4 mb-8 transition-all duration-300 ${isAnonymous ? 'opacity-30 pointer-events-none grayscale' : 'opacity-100'}`}>
                                     <div className="relative">
                                         <Medal className="absolute left-4 top-1/2 -translate-y-1/2 text-cyan-400 w-6 h-6" />
+                                        {/* 💡 修正：placeholderの色を薄くし、指示を明確にして勘違いを防ぐ */}
                                         <input 
                                             type="text" 
                                             value={playerName} 
                                             onChange={(e) => setPlayerName(e.target.value)}
-                                            placeholder="Player Name"
-                                            className="w-full bg-slate-900/80 border-2 border-slate-500 rounded-xl py-4 pl-12 pr-4 text-white text-xl font-bold focus:border-cyan-400 focus:ring-4 focus:ring-cyan-500/30 outline-none transition-all shadow-inner"
+                                            placeholder="Enter your name..."
+                                            className="w-full bg-slate-900/80 border-2 border-slate-500 rounded-xl py-4 pl-12 pr-4 text-white text-xl font-bold placeholder-slate-400/70 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-500/30 outline-none transition-all shadow-inner"
                                             maxLength={15}
                                             disabled={isAnonymous}
                                         />
@@ -350,8 +336,8 @@ export function StartScreen({ game, playSound }) {
                                             type="text" 
                                             value={playerLocation} 
                                             onChange={(e) => setPlayerLocation(e.target.value)}
-                                            placeholder="City or Country (例: Okazaki, Japan)"
-                                            className="w-full bg-slate-900/80 border-2 border-slate-500 rounded-xl py-4 pl-12 pr-4 text-white text-lg font-bold focus:border-yellow-400 focus:ring-4 focus:ring-yellow-500/30 outline-none transition-all shadow-inner"
+                                            placeholder="City or Country (e.g. Okazaki)"
+                                            className="w-full bg-slate-900/80 border-2 border-slate-500 rounded-xl py-4 pl-12 pr-4 text-white text-lg font-bold placeholder-slate-400/70 focus:border-yellow-400 focus:ring-4 focus:ring-yellow-500/30 outline-none transition-all shadow-inner"
                                             maxLength={20}
                                             disabled={isAnonymous}
                                         />
@@ -364,9 +350,8 @@ export function StartScreen({ game, playSound }) {
                             </div>
                         )}
 
-                        {/* ✨ Step 3 */}
                         {setupStep === 3 && (
-                            <div className="animate-warp w-full max-w-2xl mx-auto">
+                            <div className="animate-warp w-full max-w-2xl mx-auto h-full flex flex-col justify-center">
                                 <h2 className="text-2xl md:text-3xl font-black text-white mb-6 text-center tracking-widest uppercase drop-shadow-md">3. Game Mode</h2>
                                 <div className="flex flex-col gap-4">
                                     <button onClick={() => handleModeSelect('area')} className={`p-4 md:p-5 rounded-2xl border-4 text-lg md:text-xl font-bold transition-all hover:scale-105 backdrop-blur-sm ${gameMode === 'area' ? 'bg-purple-600/90 border-purple-400 text-white shadow-[0_0_30px_rgba(147,51,234,0.5)]' : 'bg-slate-800/80 border-slate-500 text-slate-300 hover:bg-slate-700'}`}>AREA Battle (Standard)</button>
@@ -376,7 +361,6 @@ export function StartScreen({ game, playSound }) {
                             </div>
                         )}
 
-                        {/* ✨ Step 4 */}
                         {setupStep === 4 && (
                             <div className="animate-warp w-full flex flex-col h-full min-h-0">
                                 <h2 className="text-lg md:text-xl font-bold text-white mb-4 text-center tracking-widest uppercase shrink-0 drop-shadow-md">4. Final Settings</h2>

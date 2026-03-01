@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-//* --- index.css の一番下に追加 --- */
-
 /* 正解時の大きな〇のアニメーション */
 @keyframes pop-in-out {
   0% { opacity: 0; transform: scale(0.5); }
@@ -27,4 +25,13 @@
 }
 .animate-shake {
   animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+/* スコア加算時のフワッと消えるアニメーション */
+@keyframes float-up-fade {
+  0% { opacity: 0; transform: scale(0.5); }
+  20% { opacity: 1; transform: scale(1.1); }
+  30% { transform: scale(1.0); }
+  80% { opacity: 1; transform: scale(1.0); }
+  100% { opacity: 0; transform: scale(0.9); }
 }

@@ -1,88 +1,118 @@
-import React from 'react';
-import { Home, Globe2, BookOpen, Clock, Zap, Flame, Trophy } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Home, Type, Menu, X, Image as ImageIcon, Maximize2 } from 'lucide-react';
 import { MAX_HP } from '../../constants';
 
 export function GameHeader({
-  goHome, playerHP, langMode, currentTopic, userStance, battleRounds, gameState,
-  currentRoundIndex, showJapanese, timerEnabled, timeProgress, setFontSize, setShowRules, setShowJapanese, playSound,
-  combo, score // 💡 修正：scoreを受け取る
+  goHome, playerHP, langMode, currentTopic, userStance, battleRounds,
+  gameState, currentRoundIndex, showJapanese, timerEnabled, timeProgress,
+  setFontSize, setShowRules, setShowJapanese, playSound, combo, score,
+  imageSize, setImageSize // 💡 画像サイズ変更用
 }) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scorePop, setScorePop] = useState(false);
+
+  useEffect(() => {
+    setScorePop(true);
+    const timer = setTimeout(() => setScorePop(false), 300);
+    return () => clearTimeout(timer);
+  }, [score]);
+
   return (
-    <div className="bg-slate-900/90 backdrop-blur-md p-3 md:p-4 border-b border-white/10 flex justify-between items-center shadow-lg relative z-50">
+    <div className="bg-slate-900/90 border-b border-cyan-900/50 p-3 md:p-5 flex flex-col md:flex-row items-center justify-between gap-4 shrink-0 shadow-2xl relative z-40 backdrop-blur-md">
       
-      {/* 左ブロック：ホームボタン、HPバー、コンボ */}
-      <div className="flex items-center gap-3 md:gap-4 w-1/3">
-        <button onClick={goHome} className="p-2 bg-slate-800 rounded-full hover:bg-rose-600 text-white transition-colors border border-white/20 shadow-md shrink-0">
-          <Home size={20} />
+      <div className="flex items-center gap-4 w-full md:w-1/4">
+        <button onClick={goHome} className="p-2 md:p-3 bg-slate-800 hover:bg-rose-600 hover:text-white text-slate-300 rounded-xl transition-all shadow-md">
+          <Home className="w-5 h-5 md:w-6 md:h-6" />
         </button>
-        <div className="flex flex-col gap-1 w-full max-w-[200px]">
-          <div className="flex justify-between text-xs font-black text-white">
-            <span className="text-cyan-400">YOU</span>
+        <div className="flex-1 max-w-[200px]">
+          <div className="flex justify-between text-[10px] md:text-xs font-black text-cyan-400 mb-1 tracking-widest drop-shadow-md">
+            <span>YOU (HP)</span>
             <span>{playerHP} / {MAX_HP}</span>
           </div>
-          <div className="h-3 md:h-4 w-full bg-slate-800 rounded-full overflow-hidden border border-white/20 shadow-inner">
-            <div className={`h-full transition-all duration-300 ${playerHP > 60 ? 'bg-cyan-500 shadow-[0_0_10px_rgba(6,182,212,0.8)]' : playerHP > 30 ? 'bg-yellow-500' : 'bg-red-500 animate-pulse'}`} style={{ width: `${(playerHP / MAX_HP) * 100}%` }} />
-          </div>
-          
-          {/* 💡 修正②：コンボ表示をド派手＆巨大化！ */}
-          <div className="h-8 mt-1 flex items-center overflow-visible">
-              {combo > 1 && (
-                  <div className="flex items-center gap-1 md:gap-2 text-orange-400 font-black animate-in slide-in-from-left-4 fade-in duration-300 drop-shadow-[0_0_15px_rgba(249,115,22,1)] whitespace-nowrap">
-                      <Flame className="w-5 h-5 md:w-8 md:h-8 animate-pulse fill-current text-yellow-400" />
-                      <span className="text-lg md:text-2xl italic tracking-wider">{combo} COMBO!</span>
-                      <span className="text-xs md:text-sm ml-1 opacity-90 bg-orange-950/50 px-2 py-0.5 rounded-full border border-orange-500/50">x{(1.0 + (combo - 1) * 0.1).toFixed(1)}</span>
-                  </div>
-              )}
+          <div className="h-3 md:h-4 bg-slate-800 rounded-full overflow-hidden border border-white/10 shadow-inner">
+            <div 
+              className={`h-full transition-all duration-500 ease-out rounded-full shadow-[0_0_10px_rgba(0,0,0,0.5)] ${playerHP > 60 ? 'bg-gradient-to-r from-cyan-400 to-blue-500' : playerHP > 30 ? 'bg-gradient-to-r from-yellow-400 to-orange-500' : 'bg-gradient-to-r from-rose-500 to-red-600 animate-pulse'}`} 
+              style={{ width: `${(playerHP / MAX_HP) * 100}%` }}
+            />
           </div>
         </div>
       </div>
 
-      {/* 中央ブロック：テーマ、ラウンド、タイマー */}
-      <div className="flex flex-col items-center justify-center w-1/3">
-        <div className="text-xs md:text-sm font-black text-slate-400 flex items-center gap-2 tracking-widest uppercase mb-1 drop-shadow-md">
-          <Globe2 className="w-4 h-4 text-blue-400" /> {langMode === 'ja' ? currentTopic.titleJP : currentTopic.title}
-        </div>
-        <div className="flex items-center gap-3">
-          <div className={`px-3 py-1 rounded-full text-[10px] md:text-xs font-black shadow-inner border ${userStance === 'affirmative' ? 'bg-blue-900/50 text-blue-300 border-blue-500/50' : 'bg-red-900/50 text-red-300 border-red-500/50'}`}>
-            {userStance === 'affirmative' ? 'AFFIRMATIVE' : 'NEGATIVE'}
-          </div>
-          {gameState !== 'construct' && gameState !== 'construct_image' && gameState !== 'closing' && (
-             <div className="text-[10px] md:text-xs font-black text-yellow-400 bg-yellow-900/30 px-3 py-1 rounded-full border border-yellow-500/30">
-               ROUND {currentRoundIndex + 1} / {battleRounds}
-             </div>
-          )}
-          {gameState === 'closing' && (
-             <div className="text-[10px] md:text-xs font-black text-fuchsia-400 bg-fuchsia-900/30 px-3 py-1 rounded-full border border-fuchsia-500/30 flex items-center gap-1"><Zap size={12}/> FINAL</div>
-          )}
-        </div>
+      <div className="flex-1 flex flex-col items-center justify-center text-center w-full">
+        <h2 className="font-black text-lg md:text-2xl text-white tracking-tight drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] leading-tight">
+          {currentTopic.title}
+        </h2>
+        <h3 className="font-bold text-xs md:text-sm text-cyan-300 opacity-90 drop-shadow-md mt-1 mb-3">
+          {currentTopic.titleJP}
+        </h3>
         
-        {timerEnabled && (
-            <div className="w-full max-w-[250px] mt-2 flex items-center gap-2">
-                <Clock className={`w-3 h-3 md:w-4 md:h-4 shrink-0 ${timeProgress > 80 ? 'text-red-500 animate-pulse' : 'text-slate-400'}`}/>
-                <div className="h-1.5 flex-1 bg-slate-800 rounded-full overflow-hidden">
-                    <div className={`h-full transition-all duration-100 ${timeProgress > 80 ? 'bg-red-500' : 'bg-pink-500'}`} style={{ width: `${timeProgress}%` }}/>
-                </div>
-            </div>
+        <div className="flex gap-4 md:gap-6 bg-slate-950/50 px-4 py-1.5 rounded-full border border-white/5 shadow-inner">
+           <div className={`flex items-center gap-2 font-black text-xs md:text-sm tracking-widest px-4 py-1 rounded-full transition-all duration-500 ${userStance === 'affirmative' ? 'bg-blue-600 text-white shadow-[0_0_20px_rgba(59,130,246,0.8)] border border-blue-400 scale-105' : 'text-slate-500 opacity-50'}`}>
+              <div className={`w-2 h-2 rounded-full ${userStance === 'affirmative' ? 'bg-white animate-pulse' : 'bg-slate-700'}`} />
+              AFFIRMATIVE (肯定派)
+           </div>
+           <div className={`flex items-center gap-2 font-black text-xs md:text-sm tracking-widest px-4 py-1 rounded-full transition-all duration-500 ${userStance === 'negative' ? 'bg-red-600 text-white shadow-[0_0_20px_rgba(239,68,68,0.8)] border border-red-400 scale-105' : 'text-slate-500 opacity-50'}`}>
+              <div className={`w-2 h-2 rounded-full ${userStance === 'negative' ? 'bg-white animate-pulse' : 'bg-slate-700'}`} />
+              NEGATIVE (否定派)
+           </div>
+        </div>
+
+        {timerEnabled && gameState !== 'start' && gameState !== 'gameover' && gameState !== 'result' && (
+          <div className="w-full max-w-sm mt-3 relative h-1.5 md:h-2 bg-slate-800 rounded-full overflow-hidden">
+             <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-pink-500 to-rose-500 transition-all duration-100 ease-linear" style={{ width: `${timeProgress}%` }} />
+          </div>
         )}
       </div>
 
-      {/* 右ブロック：スコア常時表示、設定ボタン */}
-      <div className="flex gap-2 w-1/3 justify-end items-start md:items-center">
-        
-        {/* 💡 修正③：スコアを常時表示し、やる気を引き出す！ */}
-        <div className="flex flex-col items-end mr-2 md:mr-4 bg-slate-950/80 px-3 py-1 rounded-xl border border-cyan-500/40 shadow-[0_0_15px_rgba(6,182,212,0.3)]">
-            <span className="text-[9px] md:text-[10px] font-black text-cyan-400 tracking-widest uppercase mb-0.5 flex items-center gap-1">
-                <Trophy size={10}/> SCORE
-            </span>
-            <span className="text-lg md:text-2xl font-black text-white leading-none">
-                {score.toLocaleString()}
-            </span>
+      <div className="flex items-center justify-end gap-3 md:gap-4 w-full md:w-1/4">
+        <div className="flex flex-col items-end mr-2 bg-slate-950/60 px-4 py-1 rounded-xl border border-white/10 shadow-inner">
+          <span className="text-[10px] font-black text-yellow-500 tracking-widest flex items-center gap-1">
+             SCORE {combo > 1 && <span className="text-orange-400 text-[9px] bg-orange-950/80 px-1 rounded animate-pulse">{combo} COMBO!</span>}
+          </span>
+          <span className={`text-2xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-b from-yellow-200 to-yellow-500 drop-shadow-[0_0_15px_rgba(234,179,8,0.5)] transition-transform duration-300 ${scorePop ? 'scale-125' : 'scale-100'}`}>
+            {score.toLocaleString()}
+          </span>
         </div>
 
-        <div className="flex gap-2">
-            <button onClick={() => { playSound('click'); setShowJapanese(!showJapanese); }} className={`w-8 h-8 md:w-10 md:h-10 rounded-full border-2 flex items-center justify-center font-black text-xs md:text-sm transition-colors shadow-lg ${showJapanese ? 'bg-blue-600 border-blue-400 text-white' : 'bg-slate-800 border-slate-500 text-slate-300 hover:text-white'}`}>JP</button>
-            <button onClick={() => { playSound('click'); setFontSize(prev => prev === 'normal' ? 'large' : prev === 'large' ? 'xlarge' : 'normal'); }} className="w-8 h-8 md:w-10 md:h-10 bg-slate-800 rounded-full flex items-center justify-center border border-slate-500 text-slate-300 hover:text-white transition-colors shadow-lg font-bold text-xs md:text-sm">T</button>
-            <button onClick={() => { playSound('click'); setShowRules(true); }} className="w-8 h-8 md:w-10 md:h-10 bg-slate-800 rounded-full flex items-center justify-center border border-slate-500 text-slate-300 hover:text-white transition-colors shadow-lg"><BookOpen className="w-4 h-4 md:w-5 md:h-5" /></button>
+        <div className="hidden md:flex gap-2">
+            {/* 💡 わかりやすい「テキストサイズ変更」ボタン */}
+            <button onClick={() => { playSound('click'); setFontSize(prev => prev === 'normal' ? 'large' : prev === 'large' ? 'xlarge' : 'normal'); }} className="relative p-2 md:p-3 bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 rounded-full transition-colors border border-white/10 shadow-md group" title="テキストサイズ変更 (Text Size)">
+                <Type className="w-4 h-4 md:w-5 md:h-5" />
+                <Maximize2 className="w-2.5 h-2.5 md:w-3 md:h-3 absolute bottom-0 right-0 opacity-70 group-hover:opacity-100 drop-shadow-md text-cyan-400" />
+            </button>
+            {/* 💡 わかりやすい「画像サイズ変更」ボタン */}
+            <button onClick={() => { playSound('click'); setImageSize(prev => prev === 'normal' ? 'large' : prev === 'large' ? 'small' : 'normal'); }} className="relative p-2 md:p-3 bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 rounded-full transition-colors border border-white/10 shadow-md group" title="画像サイズ変更 (Image Size)">
+                <ImageIcon className="w-4 h-4 md:w-5 md:h-5" />
+                <Maximize2 className="w-2.5 h-2.5 md:w-3 md:h-3 absolute bottom-0 right-0 opacity-70 group-hover:opacity-100 drop-shadow-md text-pink-400" />
+            </button>
+            {langMode !== 'ja' && (
+                <button onClick={() => { playSound('click'); setShowJapanese(!showJapanese); }} className={`w-9 h-9 md:w-11 md:h-11 rounded-full border-2 flex items-center justify-center font-black text-xs md:text-sm shadow-md transition-colors ${showJapanese ? 'bg-blue-600 border-blue-400 text-white' : 'bg-slate-800 border-slate-500 text-slate-400 hover:text-white'}`}>
+                    JP
+                </button>
+            )}
+        </div>
+
+        {/* モバイル用メニュー */}
+        <div className="md:hidden relative">
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2 bg-slate-800 text-white rounded-lg">
+                {isMenuOpen ? <X className="w-6 h-6"/> : <Menu className="w-6 h-6"/>}
+            </button>
+            {isMenuOpen && (
+                <div className="absolute top-full right-0 mt-2 bg-slate-800 border border-slate-700 rounded-xl shadow-xl p-3 flex flex-col gap-3 z-50">
+                    <button onClick={() => { playSound('click'); setFontSize(prev => prev === 'normal' ? 'large' : prev === 'large' ? 'xlarge' : 'normal'); setIsMenuOpen(false); }} className="flex items-center gap-3 text-white font-bold whitespace-nowrap bg-slate-700 p-2 rounded-lg">
+                        <Type className="w-5 h-5 text-cyan-400" /> Text Size
+                    </button>
+                    <button onClick={() => { playSound('click'); setImageSize(prev => prev === 'normal' ? 'large' : prev === 'large' ? 'small' : 'normal'); setIsMenuOpen(false); }} className="flex items-center gap-3 text-white font-bold whitespace-nowrap bg-slate-700 p-2 rounded-lg">
+                        <ImageIcon className="w-5 h-5 text-pink-400" /> Image Size
+                    </button>
+                    {langMode !== 'ja' && (
+                        <button onClick={() => { playSound('click'); setShowJapanese(!showJapanese); setIsMenuOpen(false); }} className="flex items-center gap-3 text-white font-bold whitespace-nowrap bg-slate-700 p-2 rounded-lg">
+                           <div className={`w-6 h-6 rounded-full border flex items-center justify-center text-[10px] ${showJapanese ? 'bg-blue-600 border-blue-400' : 'bg-slate-700 border-slate-500'}`}>JP</div>
+                           Toggle Japanese
+                        </button>
+                    )}
+                </div>
+            )}
         </div>
       </div>
     </div>
