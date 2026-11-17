@@ -297,6 +297,27 @@ export const useGameLogic = (playSound) => {
     setTower([]); setIsDrillMode(false);
   };
 
+  // Return to the topic picker without forcing a fresh language and mode setup.
+  const goToSetup = () => {
+    cancelPending();
+    window.speechSynthesis?.cancel();
+    setFeedback(null);
+    setPendingCard(null);
+    setImageHand([]);
+    setShowSuccessOverlay(false);
+    setShake(false);
+    setShakingCardId(null);
+    setParticles([]);
+    setFloatingTexts([]);
+    setShowRules(false);
+    setTower([]);
+    setSelectedTopicId(null);
+    setActiveLogicGroup(null);
+    setIsDrillMode(false);
+    setSetupStep(3);
+    setGameState('start');
+  };
+
   const handleUndo = () => {
     if (gameState !== 'construct' || actionLocked.current || tower.length === 0) return;
     const newTower = [...tower];
@@ -529,7 +550,14 @@ export const useGameLogic = (playSound) => {
   const isTopicSelected = selectedTopicId !== null;
   const isStanceSelected = userStance !== null;
   const isDifficultySelected = difficulty !== null;
-  const canStart = topics.some(t => t.id === selectedTopicId) && ['affirmative', 'negative'].includes(userStance) && Object.hasOwn(DIFFICULTIES, difficulty) && ['area', 'logic_link', 'review'].includes(gameMode) && Number.isInteger(battleRounds) && battleRounds >= 1 && battleRounds <= 6;
+  const canStart = topics.some(t => t.id === selectedTopicId) && (
+    gameMode === 'review' || (
+      ['affirmative', 'negative'].includes(userStance) &&
+      Object.hasOwn(DIFFICULTIES, difficulty) &&
+      ['area', 'logic_link'].includes(gameMode) &&
+      Number.isInteger(battleRounds) && battleRounds >= 1 && battleRounds <= 6
+    )
+  );
   const visibleHand = getVisibleHand();
 
   return {
@@ -546,6 +574,6 @@ export const useGameLogic = (playSound) => {
     bgmTrack, setBgmTrack, bgmEnabled, setBgmEnabled, ttsVoiceType, setTtsVoiceType, sfxEnabled, setSfxEnabled,
     combo, maxCombo, floatingTexts, scoreDetails,
     storageNotice, playerName, setPlayerName, playerLocation, setPlayerLocation, leaderboard, fetchLeaderboard,
-    initGame, goHome, handleUndo, handleCardSelect, handleImageSelect
+    initGame, goHome, goToSetup, handleUndo, handleCardSelect, handleImageSelect
   };
 };
