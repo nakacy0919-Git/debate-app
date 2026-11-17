@@ -1,0 +1,446 @@
+{
+  "abroad": {
+    "aC": [
+      [
+        "Does an overseas trip cost too much for some families?",
+        "海外旅行は一部の家庭にとって高すぎませんか？",
+        "Schools can offer financial support or a less expensive overseas plan.",
+        "学校は費用補助や比較的安い海外プランを用意できます。"
+      ],
+      [
+        "Can students learn about other cultures without leaving Japan?",
+        "日本にいても異文化を学べるのではありませんか？",
+        "Yes, but meeting people in another country adds first-hand experience.",
+        "はい。ただ、現地で人と出会うことは直接体験ならではの学びになります。"
+      ]
+    ],
+    "nC": [
+      [
+        "Don't overseas trips help students understand other cultures?",
+        "海外旅行は異文化理解に役立つのではありませんか？",
+        "They can, but domestic trips can also offer meaningful cultural learning at a lower cost.",
+        "役立つことはありますが、国内旅行でもより低い費用で文化を学べます。"
+      ],
+      [
+        "Isn't speaking English abroad a valuable chance for students?",
+        "海外で英語を話すことは生徒にとって貴重な機会ではありませんか？",
+        "It is valuable, but we can arrange international exchanges without requiring an expensive trip.",
+        "価値はありますが、高額な旅行をしなくても国際交流の機会を作れます。"
+      ],
+      [
+        "Wouldn't students make unforgettable memories overseas?",
+        "海外なら忘れられない思い出が作れるのではありませんか？",
+        "Memories matter, but a school trip should also be accessible to every student.",
+        "思い出は大切ですが、修学旅行はすべての生徒が参加しやすいものであるべきです。"
+      ]
+    ],
+    "aR": [
+      [
+        "You say students can explore Japan, so why pay more to go overseas?",
+        "国内を探究できるのに、なぜ追加費用を払って海外へ行くのですか？",
+        "An overseas trip offers a different perspective that can complement learning about Japan.",
+        "海外旅行は、日本についての学びを補う新しい視点を与えてくれます。"
+      ],
+      [
+        "You claim travel abroad is stressful and difficult to organize.",
+        "海外旅行は負担が大きく手配も難しいという反論です。",
+        "Careful planning and student preparation can reduce those difficulties.",
+        "丁寧な計画と事前準備によって、そのような困難を減らせます。"
+      ]
+    ],
+    "nR": [
+      [
+        "But a trip abroad gives students real international experience!",
+        "でも海外旅行なら本物の国際経験ができます！",
+        "That benefit is real, yet schools must balance it against cost and equal participation.",
+        "その利点はありますが、学校は費用と参加の公平性とのバランスを考える必要があります。"
+      ],
+      [
+        "But students may become more confident using English abroad!",
+        "でも海外なら英語を使う自信がつくかもしれません！",
+        "Some may, but a short trip is not the only way to build confidence through conversation.",
+        "そうした生徒もいますが、短い旅行だけが会話への自信を育む方法ではありません。"
+      ],
+      [
+        "But visiting another country broadens students' horizons!",
+        "でも外国を訪れれば視野が広がります！",
+        "Learning is broader when we compare cultures, and meaningful comparisons can also happen on domestic trips.",
+        "文化を比較することで視野は広がり、国内旅行でも有意義な比較ができます。"
+      ]
+    ],
+    "nF": [
+      "In conclusion, school trips should prioritize equal access, reasonable costs, and meaningful learning in Japan.",
+      "結論として、修学旅行は参加の公平性、適切な費用、そして国内での充実した学びを優先すべきです。"
+    ],
+    "weak": [
+      [
+        "Every foreign country is exactly the same.",
+        "どの外国も全く同じです。",
+        "極端な一般化で、具体的な比較がありません。"
+      ],
+      [
+        "One student disliked a trip, so all school trips are useless.",
+        "一人が旅行を嫌がったので修学旅行は全部無意味です。",
+        "一人の体験だけから全体を結論づけています。"
+      ],
+      [
+        "Anyone who disagrees with me is ignorant.",
+        "反対する人はみんな無知です。",
+        "相手への攻撃であり、主張への反論ではありません。"
+      ],
+      [
+        "We do not need to consider any family's budget.",
+        "家庭の予算は一切考える必要がありません。",
+        "現実の制約を無視しています。"
+      ],
+      [
+        "Going abroad automatically makes everyone fluent in English.",
+        "海外へ行けば誰でも自動的に英語が流暢になります。",
+        "裏付けのない絶対的な主張です。"
+      ],
+      [
+        "Let's choose a destination only because I like its food.",
+        "私の好きな食べ物があるから行き先を決めましょう。",
+        "教育的な目的とのつながりが弱いです。"
+      ],
+      [
+        "My opinion is correct because I said it first.",
+        "先に発言した私の意見が正しいです。",
+        "発言順は根拠になりません。"
+      ]
+    ]
+  },
+  "convenience": {
+    "aC": [
+      [
+        "What about people who work late and need food?",
+        "遅くまで働く人が食べ物を買う必要がある場合はどうしますか？",
+        "Stores can extend evening hours or offer alternative services without staying open all night.",
+        "一晩中営業しなくても夕方の営業時間延長や別のサービスで対応できます。"
+      ],
+      [
+        "Wouldn't shorter opening hours hurt local shops?",
+        "営業時間を短くすると地域の店の売上が減りませんか？",
+        "Possibly, but lower operating costs and healthier staffing should also be considered.",
+        "その可能性はありますが、運営費の削減や従業員の健康も考えるべきです。"
+      ]
+    ],
+    "nC": [
+      [
+        "Isn't working all night harmful to employees' health?",
+        "夜通し働くことは従業員の健康に悪いのではありませんか？",
+        "Night work needs safeguards, but fair shifts and staffing are better than closing every store.",
+        "夜間労働への配慮は必要ですが、全店舗を閉めるより適切なシフトと人員配置が重要です。"
+      ],
+      [
+        "Wouldn't closing at night save electricity?",
+        "夜に閉店すれば電気を節約できるのではありませんか？",
+        "It can save power, but energy-efficient equipment may reduce usage while keeping essential services available.",
+        "節電にはなりますが、省エネ設備なら必要なサービスを保ちながら消費を減らせます。"
+      ],
+      [
+        "Can't customers buy everything before the store closes?",
+        "客は閉店前に必要な物を買えばよいのではありませんか？",
+        "Some people work irregular hours or face unexpected needs, so that is not always possible.",
+        "不規則な時間に働く人や急な用事がある人には、必ずしも可能ではありません。"
+      ]
+    ],
+    "aR": [
+      [
+        "People should decide their own work schedules rather than close stores.",
+        "店を閉めるより働き方は個人が決めるべきだという反論です。",
+        "Individual choice matters, but businesses still have a duty to create healthy working conditions.",
+        "個人の選択も大切ですが、企業にも健康的な労働環境を整える責任があります。"
+      ],
+      [
+        "New lighting technology can keep stores open using less energy.",
+        "新しい照明技術なら省エネで深夜営業できるという反論です。",
+        "Better technology helps, but staffing and operating costs still need to be evaluated.",
+        "技術の改善は役立ちますが、人員配置や運営費も検討する必要があります。"
+      ]
+    ],
+    "nR": [
+      [
+        "But we should put workers' health before convenience!",
+        "でも利便性より働く人の健康が大切です！",
+        "I agree health comes first; that is why safe staffing and limits on night shifts matter.",
+        "健康が優先という点には賛成です。だからこそ安全な人員配置と夜勤の制限が重要です。"
+      ],
+      [
+        "But keeping all those lights on wastes energy!",
+        "でも夜中の照明は電力の無駄です！",
+        "We can set strict energy-saving standards instead of requiring every location to close.",
+        "全店舗の閉店を義務付ける代わりに厳しい省エネ基準を設けられます。"
+      ],
+      [
+        "But other shops can provide these services during the day!",
+        "でもそのサービスは昼間に他店で受けられます！",
+        "Daytime services cannot meet every urgent need, especially for night-shift workers.",
+        "昼間のサービスでは、特に夜勤の人の急な需要をすべて満たせません。"
+      ]
+    ],
+    "nF": [
+      "Therefore, safe and efficient late-night stores should remain an option for communities that need them.",
+      "したがって、地域が必要とする場合には安全で効率的な深夜営業を選択肢として残すべきです。"
+    ],
+    "weak": [
+      [
+        "Every shop must be open every minute, no matter what.",
+        "どの店も何があっても常時営業すべきです。",
+        "極端な主張で条件を考えていません。"
+      ],
+      [
+        "Everyone should quit their job if they feel tired.",
+        "疲れた人は全員仕事を辞めるべきです。",
+        "解決策が極端で実用的ではありません。"
+      ],
+      [
+        "The electricity used by stores is always zero.",
+        "店の消費電力は常にゼロです。",
+        "確認できない事実と矛盾する主張です。"
+      ],
+      [
+        "I dislike shopping, so all stores must close.",
+        "買い物が嫌いだから全部の店を閉めるべきです。",
+        "個人の好みを一般的な政策の根拠にしています。"
+      ],
+      [
+        "The other team clearly hates all workers.",
+        "相手チームは従業員が嫌いに決まっています。",
+        "相手の立場を不当に決めつけています。"
+      ],
+      [
+        "One store was busy last night, so every store is always busy.",
+        "昨夜一店が混んだので全店いつも混んでいます。",
+        "一例だけで一般化しています。"
+      ],
+      [
+        "We need no evidence because my answer sounds right.",
+        "正しそうに聞こえるから証拠はいりません。",
+        "根拠を示していません。"
+      ]
+    ]
+  },
+  "zoos": {
+    "aC": [
+      [
+        "What happens to animals that cannot survive in the wild?",
+        "野生で生きられない動物はどうするのですか？",
+        "Rescue centers and suitable sanctuaries can care for animals that cannot be released.",
+        "野生復帰できない動物には救護施設や適切な保護区で対応できます。"
+      ],
+      [
+        "Don't zoos teach children to care about wildlife?",
+        "動物園は子どもに野生動物を大切にする心を教えるのではありませんか？",
+        "They can, but documentaries, wildlife programs, and sanctuaries can also teach respect.",
+        "その役割はありますが、映像教材や野生動物の学習、保護施設でも学べます。"
+      ]
+    ],
+    "nC": [
+      [
+        "Aren't captive animals stressed by small spaces?",
+        "狭い場所で飼育される動物はストレスを感じませんか？",
+        "Poor conditions are a problem, but strict welfare standards and larger habitats can improve care.",
+        "劣悪な環境は問題ですが、厳しい福祉基準と広い飼育環境によって改善できます。"
+      ],
+      [
+        "Why not protect animals only in wild habitats?",
+        "野生の生息地だけで動物を保護すればよいのではありませんか？",
+        "Habitat protection is vital, but rescue and carefully managed breeding can support some threatened species.",
+        "生息地の保護は不可欠ですが、救護や慎重な繁殖計画も一部の絶滅危惧種を支えます。"
+      ],
+      [
+        "Isn't watching animals in cages unfair to them?",
+        "動物をおりの中で見せるのは不公平ではありませんか？",
+        "It can be, so modern zoos must prioritize animal welfare rather than entertainment alone.",
+        "そうなる場合があります。だから現代の動物園は娯楽だけでなく動物福祉を優先すべきです。"
+      ]
+    ],
+    "aR": [
+      [
+        "Zoos fund conservation work that helps wild populations.",
+        "動物園は野生動物の保護活動に資金を出しているという反論です。",
+        "Conservation matters, but funding can also go directly to habitat protection and rescue projects.",
+        "保護活動は重要ですが、その資金を生息地の保全や救護活動に直接充てる方法もあります。"
+      ],
+      [
+        "Some animals live longer under human care.",
+        "人に保護されている動物は長く生きる場合があるという反論です。",
+        "Lifespan is important, yet freedom and species-specific behavior are also part of welfare.",
+        "寿命は重要ですが、自由やその動物らしい行動も福祉の一部です。"
+      ]
+    ],
+    "nR": [
+      [
+        "But animals should live freely in nature!",
+        "でも動物は自然の中で自由に暮らすべきです！",
+        "Freedom is valuable, but animals unable to return to nature may need lifelong expert care.",
+        "自由は大切ですが、自然に戻れない動物には専門家による生涯のケアが必要な場合があります。"
+      ],
+      [
+        "But zoo cages can make wild animals suffer!",
+        "でも動物園のおりは野生動物を苦しめます！",
+        "Bad enclosures should change; the solution can be enforceable welfare reform rather than closing every zoo.",
+        "悪い飼育環境は改善すべきであり、全園を閉じる代わりに実効性ある福祉改革が可能です。"
+      ],
+      [
+        "But protecting forests is more important than keeping zoos!",
+        "でも動物園より森林保護の方が大切です！",
+        "We can prioritize forests while allowing responsible zoos to support education and conservation.",
+        "森林保護を優先しつつ、責任ある動物園が教育と保護活動を支えることもできます。"
+      ]
+    ],
+    "nF": [
+      "In conclusion, responsible zoos should be improved, not abolished, because they can support rescue, education, and conservation.",
+      "結論として、救護・教育・保全に役立つ責任ある動物園は廃止ではなく改善すべきです。"
+    ],
+    "weak": [
+      [
+        "All animals are happiest in exactly the same environment.",
+        "すべての動物は全く同じ環境で一番幸せです。",
+        "種ごとの違いを無視しています。"
+      ],
+      [
+        "A single happy animal proves all zoos are perfect.",
+        "一頭が幸せなら全動物園が完璧です。",
+        "一例から全体を決めつけています。"
+      ],
+      [
+        "Animals never need expert care.",
+        "動物に専門的なケアは一切必要ありません。",
+        "支援が必要な動物の存在を無視しています。"
+      ],
+      [
+        "Every zoo visitor is a bad person.",
+        "動物園に来る人は全員悪い人です。",
+        "人への攻撃で主張への反論になっていません。"
+      ],
+      [
+        "Conservation does not require any evidence.",
+        "保護活動には根拠が一切いりません。",
+        "判断の根拠を示していません。"
+      ],
+      [
+        "I love cartoons, so real animals do not matter.",
+        "アニメが好きだから現実の動物はどうでもよいです。",
+        "論題との関連性がありません。"
+      ],
+      [
+        "We should choose the answer without discussing animal welfare.",
+        "動物福祉を話し合わずに答えを決めるべきです。",
+        "重要な評価基準を無視しています。"
+      ]
+    ]
+  },
+  "ebooks": {
+    "aC": [
+      [
+        "Don't long hours looking at screens tire our eyes?",
+        "長時間画面を見続けると目が疲れませんか？",
+        "We can change screen settings, take breaks, and choose devices designed for reading.",
+        "画面設定を調整し、休憩を取り、読書向けの端末を選ぶことができます。"
+      ],
+      [
+        "What if a student's tablet breaks or loses power?",
+        "生徒のタブレットが故障したり充電切れになったらどうしますか？",
+        "Schools can provide charging points, offline copies, and backup access.",
+        "学校は充電場所、オフラインの教材、予備の閲覧手段を用意できます。"
+      ]
+    ],
+    "nC": [
+      [
+        "Aren't e-books much lighter than carrying several paper books?",
+        "紙の本を何冊も持つより電子書籍は軽くありませんか？",
+        "They are, but light weight does not always outweigh reading comfort and reliable access.",
+        "確かに軽いですが、その利点が読書の快適さや確実な閲覧より重要とは限りません。"
+      ],
+      [
+        "Can't digital books help students change font size?",
+        "電子書籍なら文字サイズを変えられるのではありませんか？",
+        "That helps some readers, but paper books can still be the better choice for focused study.",
+        "それは役立ちますが、集中して学ぶには紙の本の方が適する場合もあります。"
+      ],
+      [
+        "Don't e-books reduce the amount of paper we use?",
+        "電子書籍は紙の使用量を減らせませんか？",
+        "They can, but devices also need manufacturing, electricity, and responsible recycling.",
+        "減らせますが、端末の製造や電力、適切なリサイクルも考える必要があります。"
+      ]
+    ],
+    "aR": [
+      [
+        "Screens distract students with messages and videos.",
+        "画面には通知や動画があり、生徒は気が散るという反論です。",
+        "Dedicated reading apps and notification settings can create a quiet reading environment.",
+        "専用読書アプリや通知設定で落ち着いて読める環境を作れます。"
+      ],
+      [
+        "Digital devices create electronic waste.",
+        "電子端末は電子ごみを生むという反論です。",
+        "That is a concern, so we should use devices longer and recycle them rather than reject digital reading entirely.",
+        "その懸念はあるので、デジタル読書を全否定するのでなく端末を長く使い回収すべきです。"
+      ]
+    ],
+    "nR": [
+      [
+        "But one small tablet can hold an entire library!",
+        "でも小さなタブレット一台に図書館ほどの本が入ります！",
+        "That is convenient, yet capacity does not guarantee concentration or better understanding.",
+        "それは便利ですが、保存冊数が多くても集中力や理解力が上がるとは限りません。"
+      ],
+      [
+        "But digital text can be searched instantly!",
+        "でも電子書籍なら単語をすぐ検索できます！",
+        "Search is useful, but readers can also build deep understanding through paper annotations and rereading.",
+        "検索は便利ですが、紙への書き込みや読み返しでも深い理解は築けます。"
+      ],
+      [
+        "But e-books can be downloaded anywhere!",
+        "でも電子書籍はどこでもダウンロードできます！",
+        "Access often depends on a device, power, and permissions; paper books remain available without them.",
+        "閲覧には端末、電力、利用権限が必要な場合があり、紙の本ならそれらなしで読めます。"
+      ]
+    ],
+    "nF": [
+      "Therefore, paper books remain valuable for focused, dependable reading, so e-books are not always the better choice.",
+      "したがって、紙の本は集中して確実に読むために重要であり、電子書籍が常に優れているわけではありません。"
+    ],
+    "weak": [
+      [
+        "Paper books and e-books are completely identical.",
+        "紙の本と電子書籍はあらゆる点で同じです。",
+        "比較すべき違いを無視しています。"
+      ],
+      [
+        "One battery lasted a week, so every device lasts forever.",
+        "一台の電池が一週間もったから全端末は永遠に動きます。",
+        "一例を極端に一般化しています。"
+      ],
+      [
+        "Reading on any screen automatically harms every person's eyes.",
+        "画面を読むと誰でも必ず目を悪くします。",
+        "個人差や使用条件を無視した断定です。"
+      ],
+      [
+        "People who prefer paper are behind the times.",
+        "紙を好む人は時代遅れです。",
+        "相手への決めつけで根拠になりません。"
+      ],
+      [
+        "All trees are saved whenever one digital book is opened.",
+        "電子書籍を一冊開けばすべての木が守られます。",
+        "環境への効果を誇張しています。"
+      ],
+      [
+        "No one should check how books affect learning.",
+        "読書が学習にどう影響するか調べるべきではありません。",
+        "学習効果という重要点を避けています。"
+      ],
+      [
+        "My favorite device is popular, so it must be best for everyone.",
+        "私の端末は人気だから全員に最適です。",
+        "人気だけでは適合性を説明できません。"
+      ]
+    ]
+  }
+}
