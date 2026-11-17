@@ -1,11 +1,11 @@
 import React from 'react';
-import { CheckCircle2, AlertTriangle, Lightbulb, Type, Flame, Trophy, Clock, Target, Star, Crown, MapPin } from 'lucide-react';
+import { CheckCircle2, AlertTriangle, Lightbulb, Type, Flame, Trophy, Clock, Target, Star, Crown } from 'lucide-react';
 import { CARD_TYPES } from '../../constants';
 import { SmartText } from '../UI/SmartText';
 
 export function ResultScreen({
   gameState, score, activeLogicGroup, currentTopic, userStance, 
-  langMode, difficulty, showJapanese, goHome, mistakes,
+  langMode, difficulty, showJapanese, onRetry, onChangeTopic, mistakes,
   fontSize, setFontSize, setShowJapanese, playSound,
   scoreDetails, maxCombo,
   leaderboard, storageNotice
@@ -49,14 +49,14 @@ export function ResultScreen({
             )}
         </div>
 
-        <h2 className={`text-6xl md:text-8xl font-black text-white mb-6 mt-16 md:mt-10 tracking-tighter drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] animate-in zoom-in-50 duration-500 ${gameState === 'gameover' ? 'text-red-400' : 'text-cyan-400'}`}>
-            {gameState === 'gameover' ? 'DEFEAT' : 'VICTORY'}
+        <h2 className={`text-4xl md:text-6xl font-black text-white mb-6 mt-16 md:mt-10 tracking-tighter drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] animate-in zoom-in-50 duration-500 ${gameState === 'gameover' ? 'text-red-400' : 'text-cyan-400'}`}>
+            {gameState === 'gameover' ? 'TRY AGAIN' : 'PRACTICE CLEAR'}
         </h2>
 
         <div className="w-full max-w-xl bg-slate-900/80 rounded-3xl p-6 md:p-8 border border-white/20 mb-10 shadow-2xl backdrop-blur-md animate-in slide-in-from-bottom-10 delay-200">
             <div className="flex items-center justify-center gap-3 mb-6 border-b border-white/10 pb-4">
                 <Trophy className="w-8 h-8 text-yellow-400" />
-                <h3 className="text-3xl font-black text-white tracking-widest">RESULT</h3>
+                <h3 className="text-2xl font-black text-white tracking-widest">SCORE BREAKDOWN</h3>
             </div>
             
             <div className="space-y-4 mb-6">
@@ -94,10 +94,10 @@ export function ResultScreen({
         </div>
 
         {gameState === 'result' && leaderboard.length > 0 && (
-            <div className="w-full max-w-3xl bg-slate-900/80 rounded-3xl p-6 md:p-8 border-2 border-yellow-500/50 mb-10 shadow-[0_0_30px_rgba(234,179,8,0.2)] backdrop-blur-md animate-in slide-in-from-bottom-10 delay-300">
-                <h3 className="text-2xl font-black text-yellow-400 mb-6 flex items-center justify-center gap-3 border-b border-white/10 pb-4 tracking-widest">
-                    <Crown className="w-8 h-8" /> LOCAL RECORDS <span className="text-sm text-slate-400 tracking-normal">({difficulty.toUpperCase()})</span>
-                </h3>
+            <details className="w-full max-w-3xl bg-slate-900/80 rounded-3xl p-4 md:p-6 border border-yellow-500/50 mb-6 shadow-lg backdrop-blur-md">
+                <summary className="text-lg font-black text-yellow-300 mb-3 cursor-pointer focus-visible:outline-cyan-400">
+                    LOCAL RECORDS / 記録を見る（{difficulty?.toUpperCase()}）
+                </summary>
                 <div className="space-y-3">
                     {leaderboard.map((record, index) => {
                         const isCurrentPlay = record.score === score && index === leaderboard.findIndex(r => r.score === score);
@@ -108,9 +108,7 @@ export function ResultScreen({
                                     <div className={`font-black text-xl w-8 text-center ${isCurrentPlay ? 'text-yellow-300' : ''}`}>{index + 1}</div>
                                     <div className="flex flex-col">
                                         <div className={`font-bold text-lg md:text-xl truncate max-w-[150px] md:max-w-[200px] ${isCurrentPlay ? 'text-white' : ''}`}>{record.name}</div>
-                                        <div className={`text-xs flex items-center gap-1 mt-0.5 ${isCurrentPlay ? 'text-yellow-200' : 'text-slate-400'}`}>
-                                            <MapPin size={10}/> {record.location || record.country || 'Earth'}
-                                        </div>
+                                        {record.location && <div className="text-xs mt-0.5 text-slate-400">{record.location}</div>}
                                     </div>
                                 </div>
                                 <div className="text-right">
@@ -121,16 +119,16 @@ export function ResultScreen({
                         );
                     })}
                 </div>
-            </div>
+            </details>
         )}
         
         <p className="max-w-3xl text-slate-300 text-center mb-6">この得点はカード選択の練習記録です。実際のディベート能力や主張の真偽を判定するものではありません。具体例は練習用で、統計・研究結果として引用する前に出典を確認してください。</p>
         {storageNotice && <p role="status" className="text-amber-300 mb-4">{storageNotice}</p>}
         {correctCards.length > 0 && (
-            <div className="w-full max-w-5xl bg-slate-900/80 rounded-2xl p-4 md:p-8 border border-white/20 mb-8 shadow-2xl backdrop-blur-md">
-                <h3 className="text-xl md:text-2xl font-black text-green-400 mb-6 flex items-center justify-center gap-2 border-b border-white/20 pb-4 drop-shadow-md">
-                    <CheckCircle2 className="w-6 h-6"/> Model Answer (模範解答)
-                </h3>
+            <details className="w-full max-w-5xl bg-slate-900/80 rounded-2xl p-4 md:p-6 border border-white/20 mb-6 shadow-xl backdrop-blur-md">
+                <summary className="text-lg md:text-xl font-extrabold text-green-300 mb-4 cursor-pointer focus-visible:outline-cyan-400">
+                  Model example / 主張の構成例を見る
+                </summary>
                 <div className="grid gap-4 md:gap-6">
                     {correctCards.map(card => {
                         const typeStyle = CARD_TYPES[card.type] || CARD_TYPES.reason;
@@ -168,7 +166,7 @@ export function ResultScreen({
                         );
                     })}
                 </div>
-            </div>
+            </details>
         )}
 
         {mistakes && mistakes.length > 0 && (
@@ -209,9 +207,14 @@ export function ResultScreen({
             </div>
         )}
 
-        <button onClick={goHome} className="px-12 py-5 bg-white text-slate-900 rounded-full font-black text-xl md:text-2xl hover:scale-105 transition-transform shadow-[0_0_50px_rgba(255,255,255,0.4)] mb-10">
-            PLAY AGAIN
-        </button>
+        <div className="flex flex-wrap justify-center items-center gap-3 mb-10">
+          <button onClick={onRetry} className="px-8 py-4 bg-cyan-500 text-slate-950 rounded-full font-black text-lg md:text-xl hover:bg-cyan-400 focus-visible:outline focus-visible:outline-4 focus-visible:outline-white">
+            {langMode === 'ja' ? '同じ条件でもう一度' : 'TRY AGAIN'}
+          </button>
+          <button onClick={onChangeTopic} className="px-8 py-4 bg-slate-700 text-white border border-white/20 rounded-full font-black text-lg hover:bg-slate-600 focus-visible:outline focus-visible:outline-4 focus-visible:outline-cyan-300">
+            {langMode === 'ja' ? 'テーマを変更' : 'CHANGE TOPIC'}
+          </button>
+        </div>
     </div>
   );
 }
