@@ -220,3 +220,38 @@ it('prevents repeated wrong image taps and allows correction after feedback', ()
   expect(hook.result.current.gameState).toBe('construct');
   expect(hook.result.current.tower).toHaveLength(1);
 });
+
+
+it('pauses active question timers while confirming an exit, then resumes fairly', () => {
+  const hook = prepare('homework', 'affirmative', 'easy', false, true);
+  const hp = hook.result.current.playerHP;
+  act(() => hook.result.current.pauseGame());
+  act(() => vi.advanceTimersByTime(65000));
+  expect(hook.result.current.playerHP).toBe(hp);
+  act(() => hook.result.current.resumeGame());
+  act(() => vi.advanceTimersByTime(10500));
+  expect(hook.result.current.playerHP).toBeLessThan(hp);
+});
+
+it('resets pause and current result identifiers on a fresh game', () => {
+  const hook = prepare('homework', 'affirmative', 'easy', false, true);
+  act(() => hook.result.current.pauseGame());
+  expect(hook.result.current.isPaused).toBe(true);
+  act(() => hook.result.current.goHome());
+  expect(hook.result.current.isPaused).toBe(false);
+  expect(hook.result.current.resultRecordId).toBe(null);
+  act(() => hook.result.current.setSelectedTopicId('homework'));
+  act(() => hook.result.current.initGame());
+  expect(hook.result.current.isPaused).toBe(false);
+  expect(hook.result.current.gameState).toBe('construct');
+});
+
+it('returns to topic picker with language and difficulty preserved', () => {
+  const hook = prepare('homework', 'negative', 'hard');
+  act(() => hook.result.current.goToSetup());
+  expect(hook.result.current.gameState).toBe('start');
+  expect(hook.result.current.setupStep).toBe(3);
+  expect(hook.result.current.selectedTopicId).toBe(null);
+  expect(hook.result.current.userStance).toBe('negative');
+  expect(hook.result.current.difficulty).toBe('hard');
+});
