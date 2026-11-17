@@ -432,23 +432,33 @@ export const useGameLogic = (playSound) => {
   const handleCardSelect = (card) => {
     if (actionLocked.current || !['construct', 'cross_exam', 'rebuttal_defense', 'closing'].includes(gameState) || !hand.includes(card)) return;
     const baseState = gameState;
+    // Lock immediately, including wrong selections. Otherwise rapid taps can
+    // deduct HP multiple times before the damage animation finishes.
+    actionLocked.current = true;
+    const retryAfterMistake = () => {
+      if (playerHPRef.current > 0) later(() => {
+        if (playerHPRef.current > 0) actionLocked.current = false;
+      }, 650);
+    };
 
     if (baseState === 'construct') {
       if (tower.length >= (FLOWS[gameMode] || FLOWS.area).length) return;
       const expectedFlow = FLOWS[gameMode] || FLOWS.area;
       const expectedType = expectedFlow[tower.length];
       const cardType = card.type === 'mini_conclusion' ? 'mini_conclusion' : card.type;
-      if (cardType !== expectedType) { takeDamage(DAMAGE_BIG, "Wrong Structure!", card.id); return; }
+      if (cardType !== expectedType) { takeDamage(DAMAGE_BIG, "Wrong Structure!", card.id); retryAfterMistake(); return; }
       if (tower.length === 0) {
         if (card.group === 'fake') { 
             takeDamage(DAMAGE_SMALL, "Weak Argument!", card.id); 
             if (!mistakes.find(m => m.id === card.id)) setMistakes(prev => [...prev, { ...card, reasonStr: "論点が不明確、または感情的で根拠に欠ける意見です。" }]);
+            retryAfterMistake();
             return; 
         } else { setActiveLogicGroup(card.group); }
       } else {
         if (card.group !== activeLogicGroup) { 
             takeDamage(DAMAGE_SMALL, "Logic Mismatch!", card.id); 
             if (!mistakes.find(m => m.id === card.id)) setMistakes(prev => [...prev, { ...card, reasonStr: "直前に選んだカードと論点(話題)がズレています。" }]);
+            retryAfterMistake();
             return; 
         } 
       }
@@ -485,14 +495,20 @@ export const useGameLogic = (playSound) => {
 
   const handleImageSelect = (url) => {
       if (actionLocked.current || !gameState.endsWith('_image') || !pendingCard || !imageHand.includes(url)) return;
+      // A wrong image must also lock the input during its feedback animation.
+      actionLocked.current = true;
       if (url === pendingCard.image_url) {
-          actionLocked.current = true;
           const imageKey = `image:${pendingCard.id}`;
           if (!gameState.startsWith('construct') || !awardedCards.current.has(imageKey)) {
               addScore(50); awardedCards.current.add(imageKey);
           }
           finalizeCardSuccess(pendingCard, gameState.replace('_image', ''));
-      } else { takeDamage(DAMAGE_SMALL, "Wrong Image!", url); }
+      } else {
+          takeDamage(DAMAGE_SMALL, "Wrong Image!", url);
+          if (playerHPRef.current > 0) later(() => {
+              if (playerHPRef.current > 0) actionLocked.current = false;
+          }, 650);
+      }
   };
 
   const getVisibleHand = () => {
