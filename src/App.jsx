@@ -119,6 +119,17 @@ export default function App() {
     setSidePanelWidth(next);
   };
 
+  useEffect(() => {
+    const landscapeTouch = window.matchMedia?.('(pointer: coarse) and (orientation: landscape) and (max-width: 1180px)');
+    if (!landscapeTouch) return;
+    const optimize = () => {
+      if (landscapeTouch.matches) setSidePanelWidth(width => width < 40 ? 42 : width);
+    };
+    optimize();
+    landscapeTouch.addEventListener?.('change', optimize);
+    return () => landscapeTouch.removeEventListener?.('change', optimize);
+  }, [setSidePanelWidth]);
+
   if (topics.length === 0) return <div className="h-screen flex items-center justify-center bg-[#09090b] text-white">Loading...</div>;
   if (gameState === 'review') return <ReviewMode topic={currentTopic} onClose={() => { playSound('click'); goHome(); }} showJapanese={showJapanese} langMode={langMode} difficulty={game.difficulty || 'easy'} />;
 
@@ -274,16 +285,18 @@ export default function App() {
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #64748b; }
         .custom-scrollbar::-webkit-scrollbar-track { background: rgba(15,23,42,0.8); }
 
-        .app-viewport { height: 100dvh; min-height: 0; }
+        .app-viewport { height: 100dvh; min-height: 0; padding-bottom: env(safe-area-inset-bottom, 0px); }
         .game-core-layout { min-height: 0; }
         .game-core-layout > div.flex-1 { min-width: 0; min-height: 0; }
         .game-hand-panel-container { min-height: 0; }
+        .app-viewport button { touch-action: manipulation; }
+        .game-header button:focus-visible { outline: 3px solid #67e8f9; outline-offset: 2px; }
         .game-hand-panel-container .custom-scrollbar,
         .game-core-layout .custom-scrollbar { overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
         .game-resizer:focus-visible { outline: 3px solid #67e8f9; outline-offset: -2px; }
         @media (pointer: coarse) {
           .game-resizer { min-width: 22px; }
-          .game-hand-panel-container button { min-height: 44px; }
+          .game-hand-panel-container button, .game-header button { min-height: 44px; }
           .game-hand-panel-container button:hover { transform: none; }
         }
         @media (prefers-reduced-motion: reduce) {
