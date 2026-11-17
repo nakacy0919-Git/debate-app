@@ -259,3 +259,18 @@ it('returns to topic picker with language and difficulty preserved', () => {
   expect(hook.result.current.userStance).toBe('negative');
   expect(hook.result.current.difficulty).toBe('hard');
 });
+
+
+it('replay starts a clean round without returning through onboarding', () => {
+  const hook = prepare('homework', 'negative', 'medium');
+  for (let step = 0; step < 40 && hook.result.current.gameState !== 'result'; step++) choose(hook);
+  expect(hook.result.current.gameState).toBe('result');
+  expect(hook.result.current.score).toBeGreaterThan(0);
+  act(() => hook.result.current.initGame());
+  expect(hook.result.current.gameState).toBe('construct');
+  expect(hook.result.current.score).toBe(0);
+  expect(hook.result.current.playerHP).toBe(100);
+  expect(hook.result.current.tower).toHaveLength(0);
+  expect(hook.result.current.currentRoundIndex).toBe(0);
+  expect(hook.result.current.resultRecordId).toBe(null);
+});
