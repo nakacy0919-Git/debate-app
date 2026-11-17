@@ -49,9 +49,12 @@ describe('tablet and touch controls', () => {
       imageSize: 'normal', fontSize: 'normal',
     };
     const cross = renderToStaticMarkup(<HandPanel game={game} playSound={noop} />);
-    expect(cross).toMatch(/title="一手戻る \(Undo\)"[^>]*disabled/);
+    const dom = document.createElement('div');
+    dom.innerHTML = cross;
+    expect(dom.querySelector('button[title="一手戻る (Undo)"]')?.disabled).toBe(true);
     const construct = renderToStaticMarkup(<HandPanel game={{ ...game, gameState: 'construct' }} playSound={noop} />);
-    expect(construct).not.toMatch(/title="一手戻る \(Undo\)"[^>]*disabled/);
+    dom.innerHTML = construct;
+    expect(dom.querySelector('button[title="一手戻る (Undo)"]')?.disabled).toBe(false);
   });
 
   it('uses smaller image tiles so choices fit side by side on a tablet', () => {
