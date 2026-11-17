@@ -51,74 +51,79 @@ export default function App() {
     return () => { audio.pause(); audio.currentTime = 0; bgmRef.current = null; };
   }, [gameState, bgmEnabled, bgmTrack, isDrillMode]);
 
-  // 💡 究極の超軽量リサイズ処理：ドラッグ中はReactを通さず直接幅を変え、フリーズを100%防ぐ
-  const startResizing = () => {
+  // Pointer Events handle Apple Pencil, touch, and mouse consistently.
+  // Ignore secondary touches, clamp widths, and commit React state only on release.
+  const activePointerId = useRef(null);
+  const oldUserSelect = useRef('');
+  const stopResizing = () => {
+    if (!isResizingRef.current) return;
+    isResizingRef.current = false;
+    activePointerId.current = null;
+    setIsDragging(false);
+    document.body.style.userSelect = oldUserSelect.current;
+    setSidePanelWidth(currentWidthRef.current);
+  };
+  const startResizing = (event) => {
+    if (activePointerId.current !== null || (event.pointerType === 'mouse' && event.button !== 0)) return;
+    activePointerId.current = event.pointerId;
+    oldUserSelect.current = document.body.style.userSelect;
+    document.body.style.userSelect = 'none';
+    currentWidthRef.current = game.sidePanelWidth;
     isResizingRef.current = true;
     setIsDragging(true);
-    document.body.style.userSelect = 'none'; // 文字選択を防ぐ
   };
 
   useEffect(() => {
-  const stopResizing = () => {
-    if (isResizingRef.current) {
-        isResizingRef.current = false;
-        setIsDragging(false);
-        document.body.style.userSelect = '';
-        // 最後に手を離した時だけ、Reactのデータを更新する（負荷ゼロ）
-        setSidePanelWidth(currentWidthRef.current);
-    }
-  };
+    currentWidthRef.current = game.sidePanelWidth;
+  }, [game.sidePanelWidth]);
 
-  const resize = (e) => {
-    if (!isResizingRef.current || !containerRef.current) return;
-    
-    let clientX = e.clientX;
-    if (e.touches && e.touches.length > 0) {
-        clientX = e.touches[0].clientX;
-    }
-    if (clientX === undefined) return;
-
-    const containerRect = containerRef.current.getBoundingClientRect();
-    let newWidthRatio;
-
-    if (sidePanelPos === 'left') {
-        newWidthRatio = ((clientX - containerRect.left) / containerRect.width) * 100;
-    } else {
-        newWidthRatio = ((containerRect.right - clientX) / containerRect.width) * 100;
-    }
-
-    if (newWidthRatio >= 25 && newWidthRatio <= 70) {
-        currentWidthRef.current = newWidthRatio;
-        // 💡 直接スタイルを書き換えることで、再描画の嵐（フリーズ）を完全回避
-        if (panelRef.current) {
-            panelRef.current.style.width = `${newWidthRatio}%`;
-        }
-    }
-  };
-
-  // マウスが画面のどこに行っても追跡する
-    window.addEventListener('mousemove', resize);
-    window.addEventListener('mouseup', stopResizing);
-    window.addEventListener('touchmove', resize, { passive: false });
-    window.addEventListener('touchend', stopResizing);
-    window.addEventListener('touchcancel', stopResizing);
-
+  useEffect(() => {
+    const resize = (event) => {
+      if (!isResizingRef.current || event.pointerId !== activePointerId.current || !containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      if (!rect.width) return;
+      const ratio = sidePanelPos === 'left'
+        ? ((event.clientX - rect.left) / rect.width) * 100
+        : ((rect.right - event.clientX) / rect.width) * 100;
+      const width = Math.max(25, Math.min(70, ratio));
+      currentWidthRef.current = width;
+      if (panelRef.current) panelRef.current.style.width = `${width}%`;
+    };
+    const finish = (event) => {
+      if (event.pointerId === activePointerId.current) stopResizing();
+    };
+    window.addEventListener('pointermove', resize);
+    window.addEventListener('pointerup', finish);
+    window.addEventListener('pointercancel', finish);
     return () => {
-      window.removeEventListener('mousemove', resize);
-      window.removeEventListener('mouseup', stopResizing);
-      window.removeEventListener('touchmove', resize);
-      window.removeEventListener('touchend', stopResizing);
-      window.removeEventListener('touchcancel', stopResizing);
-      document.body.style.userSelect = '';
+      window.removeEventListener('pointermove', resize);
+      window.removeEventListener('pointerup', finish);
+      window.removeEventListener('pointercancel', finish);
+      document.body.style.userSelect = oldUserSelect.current;
       isResizingRef.current = false;
     };
+  // setSidePanelWidth is stable, and the listeners only change when the panel side changes.
   }, [sidePanelPos, setSidePanelWidth, isResizingRef]);
+
+  const resizeWithKeyboard = (event) => {
+    const arrows = { ArrowLeft: -5, ArrowRight: 5 };
+    let next;
+    if (event.key === 'Home') next = 25;
+    else if (event.key === 'End') next = 70;
+    else if (Object.hasOwn(arrows, event.key)) {
+      next = currentWidthRef.current + arrows[event.key] * (sidePanelPos === 'left' ? 1 : -1);
+    } else return;
+    event.preventDefault();
+    next = Math.max(25, Math.min(70, next));
+    currentWidthRef.current = next;
+    setSidePanelWidth(next);
+  };
 
   if (topics.length === 0) return <div className="h-screen flex items-center justify-center bg-[#09090b] text-white">Loading...</div>;
   if (gameState === 'review') return <ReviewMode topic={currentTopic} onClose={() => { playSound('click'); goHome(); }} showJapanese={showJapanese} langMode={langMode} difficulty={game.difficulty || 'easy'} />;
 
   return (
-    <div className={`h-screen w-full ${theme.bg} ${theme.text} font-sans flex flex-col overflow-hidden relative ${FONT_SIZES[fontSize]} ${shake ? 'animate-shake' : ''}`}>
+    <div className={`h-screen w-full app-viewport ${theme.bg} ${theme.text} font-sans flex flex-col overflow-hidden relative ${FONT_SIZES[fontSize]} ${shake ? 'animate-shake' : ''}`}>
       
       <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40 z-0 pointer-events-none" style={{ backgroundImage: "url('/images/background.webp')" }}></div>
       <div className="absolute inset-0 bg-gradient-to-br from-[#0f172a]/90 via-[#1e1b4b]/80 to-[#0f172a]/90 z-0 pointer-events-none"></div>
@@ -174,8 +179,15 @@ export default function App() {
 
             <div 
                className={`w-3 md:w-4 bg-slate-900 border-x border-cyan-500/50 hover:bg-cyan-500 cursor-col-resize flex items-center justify-center transition-colors z-40 touch-none flex-shrink-0 game-resizer shadow-[0_0_20px_rgba(6,182,212,0.5)] ${isDragging ? 'bg-cyan-500 border-white' : ''}`}
-               onMouseDown={startResizing}
-               onTouchStart={startResizing}
+               role="separator"
+               aria-label="選択肢パネルの幅を調整"
+               aria-orientation="vertical"
+               aria-valuemin={25}
+               aria-valuemax={70}
+               aria-valuenow={Math.round(game.sidePanelWidth)}
+               tabIndex={0}
+               onPointerDown={startResizing}
+               onKeyDown={resizeWithKeyboard}
             >
                <div className="w-1 h-20 bg-white/80 rounded-full pointer-events-none" />
             </div>
@@ -262,7 +274,26 @@ export default function App() {
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #64748b; }
         .custom-scrollbar::-webkit-scrollbar-track { background: rgba(15,23,42,0.8); }
 
-        .game-hand-panel-container > div {
+        .app-viewport { height: 100dvh; min-height: 0; }
+        .game-core-layout { min-height: 0; }
+        .game-core-layout > div.flex-1 { min-width: 0; min-height: 0; }
+        .game-hand-panel-container { min-height: 0; }
+        .game-hand-panel-container .custom-scrollbar,
+        .game-core-layout .custom-scrollbar { overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+        .game-resizer:focus-visible { outline: 3px solid #67e8f9; outline-offset: -2px; }
+        @media (pointer: coarse) {
+          .game-resizer { min-width: 22px; }
+          .game-hand-panel-container button { min-height: 44px; }
+          .game-hand-panel-container button:hover { transform: none; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .app-viewport *, .app-viewport *::before, .app-viewport *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+          }
+        }
+                .game-hand-panel-container > div {
             max-width: 100% !important;
             margin-left: 0 !important;
             margin-right: 0 !important;
