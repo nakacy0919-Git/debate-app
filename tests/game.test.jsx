@@ -240,7 +240,11 @@ it('resets pause and current result identifiers on a fresh game', () => {
   act(() => hook.result.current.goHome());
   expect(hook.result.current.isPaused).toBe(false);
   expect(hook.result.current.resultRecordId).toBe(null);
-  act(() => hook.result.current.setSelectedTopicId('homework'));
+  act(() => {
+    hook.result.current.setSelectedTopicId('homework');
+    hook.result.current.setUserStance('affirmative');
+    hook.result.current.setDifficulty('easy');
+  });
   act(() => hook.result.current.initGame());
   expect(hook.result.current.isPaused).toBe(false);
   expect(hook.result.current.gameState).toBe('construct');
