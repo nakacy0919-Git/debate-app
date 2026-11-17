@@ -25,8 +25,8 @@ jobs:
       # Production uses prebuilt static assets. Keep production dependencies gated.
       - name: Production dependency security audit
         run: npm audit --omit=dev --audit-level=high
-      # GHSA-fc5q-39xc-vjpf currently has no patched upstream release.
-      # Keep its full-tree advisory visible without blocking lesson validation.
-      - name: Full dependency audit (reports unresolved dev-tool advisories)
-        run: npm audit --audit-level=high
-        continue-on-error: true
+      # Fail on any new advisory or production exposure. A temporary exception
+      # is limited to GHSA-fc5q-39xc-vjpf in dev-only dependencies, expiring
+      # 2026-12-18. This does not claim the upstream risk is fixed.
+      - name: Full dependency audit with explicit temporary exception
+        run: node scripts/security-audit.mjs
