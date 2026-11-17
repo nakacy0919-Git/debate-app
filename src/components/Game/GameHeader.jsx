@@ -4,10 +4,16 @@ import { MAX_HP } from '../../constants';
 
 export function GameHeader({
   goHome, playerHP, langMode, currentTopic, userStance,
-  gameState,  showJapanese, timerEnabled, timeProgress,
+  gameState, battleRounds, currentRoundIndex, showJapanese, timerEnabled, timeProgress,
   setFontSize,  setShowJapanese, playSound, combo, score,
    setImageSize // 💡 画像サイズ変更用
 }) {
+  const roundLabel = gameState === 'construct' || gameState === 'construct_image'
+    ? (langMode === 'ja' ? '主張構築' : 'ARGUMENT')
+    : gameState === 'closing'
+      ? (langMode === 'ja' ? '最終弁論' : 'FINAL')
+      : `ROUND ${Math.min(currentRoundIndex + 1, battleRounds)} / ${battleRounds}`;
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scorePop, setScorePop] = useState(false);
 
@@ -18,13 +24,13 @@ export function GameHeader({
   }, [score]);
 
   return (
-    <div className="bg-slate-900/90 border-b border-cyan-900/50 p-3 md:p-5 flex flex-col md:flex-row items-center justify-between gap-4 shrink-0 shadow-2xl relative z-40 backdrop-blur-md">
+    <div className="game-header bg-slate-900/90 border-b border-cyan-900/50 p-2 md:p-3 xl:p-5 flex flex-row flex-wrap md:flex-nowrap items-center justify-between gap-2 xl:gap-4 shrink-0 shadow-2xl relative z-40 backdrop-blur-md">
       
-      <div className="flex items-center gap-4 w-full md:w-1/4">
-        <button onClick={goHome} className="p-2 md:p-3 bg-slate-800 hover:bg-rose-600 hover:text-white text-slate-300 rounded-xl transition-all shadow-md">
+      <div className="flex items-center gap-2 xl:gap-4 w-auto md:w-[22%] shrink-0">
+        <button aria-label="ホームへ戻る" onClick={goHome} className="p-2 md:p-3 bg-slate-800 hover:bg-rose-600 hover:text-white text-slate-300 rounded-xl transition-all shadow-md">
           <Home className="w-5 h-5 md:w-6 md:h-6" />
         </button>
-        <div className="flex-1 max-w-[200px]">
+        <div className="flex-1 min-w-[78px] max-w-[200px]">
           <div className="flex justify-between text-[10px] md:text-xs font-black text-cyan-400 mb-1 tracking-widest drop-shadow-md">
             <span>YOU (HP)</span>
             <span>{playerHP} / {MAX_HP}</span>
@@ -38,23 +44,27 @@ export function GameHeader({
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center text-center w-full">
-        <h2 className="font-black text-lg md:text-2xl text-white tracking-tight drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] leading-tight">
+      <div className="order-3 md:order-none w-full md:w-auto md:min-w-0 flex-1 flex flex-col items-center justify-center text-center">
+        <h2 className="font-black text-sm md:text-base xl:text-2xl text-white tracking-tight drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] leading-tight">
           {currentTopic.title}
         </h2>
-        <h3 className="font-bold text-xs md:text-sm text-cyan-300 opacity-90 drop-shadow-md mt-1 mb-3">
+        <h3 className="font-bold text-[10px] md:text-xs xl:text-sm text-cyan-300 opacity-90 drop-shadow-md mt-0.5 mb-1 xl:mb-3">
           {currentTopic.titleJP}
         </h3>
         
-        <div className="flex gap-4 md:gap-6 bg-slate-950/50 px-4 py-1.5 rounded-full border border-white/5 shadow-inner">
-           <div className={`flex items-center gap-2 font-black text-xs md:text-sm tracking-widest px-4 py-1 rounded-full transition-all duration-500 ${userStance === 'affirmative' ? 'bg-blue-600 text-white shadow-[0_0_20px_rgba(59,130,246,0.8)] border border-blue-400 scale-105' : 'text-slate-500 opacity-50'}`}>
+        <div className="flex flex-wrap justify-center gap-1 xl:gap-5 bg-slate-950/50 px-2 py-1 rounded-full border border-white/5 shadow-inner">
+           <div className={`flex items-center gap-2 font-black text-[10px] xl:text-sm tracking-wider px-2 xl:px-4 py-1 rounded-full transition-all duration-500 ${userStance === 'affirmative' ? 'bg-blue-600 text-white shadow-[0_0_20px_rgba(59,130,246,0.8)] border border-blue-400 scale-105' : 'text-slate-500 opacity-50'}`}>
               <div className={`w-2 h-2 rounded-full ${userStance === 'affirmative' ? 'bg-white animate-pulse' : 'bg-slate-700'}`} />
               AFFIRMATIVE (肯定派)
            </div>
-           <div className={`flex items-center gap-2 font-black text-xs md:text-sm tracking-widest px-4 py-1 rounded-full transition-all duration-500 ${userStance === 'negative' ? 'bg-red-600 text-white shadow-[0_0_20px_rgba(239,68,68,0.8)] border border-red-400 scale-105' : 'text-slate-500 opacity-50'}`}>
+           <div className={`flex items-center gap-2 font-black text-[10px] xl:text-sm tracking-wider px-2 xl:px-4 py-1 rounded-full transition-all duration-500 ${userStance === 'negative' ? 'bg-red-600 text-white shadow-[0_0_20px_rgba(239,68,68,0.8)] border border-red-400 scale-105' : 'text-slate-500 opacity-50'}`}>
               <div className={`w-2 h-2 rounded-full ${userStance === 'negative' ? 'bg-white animate-pulse' : 'bg-slate-700'}`} />
               NEGATIVE (否定派)
            </div>
+        </div>
+
+        <div role="status" aria-live="polite" className="mt-1 text-[11px] xl:text-sm text-amber-200 font-extrabold tracking-widest">
+          {roundLabel}
         </div>
 
         {timerEnabled && gameState !== 'start' && gameState !== 'gameover' && gameState !== 'result' && (
@@ -64,17 +74,17 @@ export function GameHeader({
         )}
       </div>
 
-      <div className="flex items-center justify-end gap-3 md:gap-4 w-full md:w-1/4">
-        <div className="flex flex-col items-end mr-2 bg-slate-950/60 px-4 py-1 rounded-xl border border-white/10 shadow-inner">
+      <div className="flex items-center justify-end gap-2 xl:gap-4 w-auto md:w-[22%] shrink-0">
+        <div className="flex flex-col items-end mr-0 bg-slate-950/60 px-2 xl:px-4 py-1 rounded-xl border border-white/10 shadow-inner">
           <span className="text-[10px] font-black text-yellow-500 tracking-widest flex items-center gap-1">
              SCORE {combo > 1 && <span className="text-orange-400 text-[9px] bg-orange-950/80 px-1 rounded animate-pulse">{combo} COMBO!</span>}
           </span>
-          <span className={`text-2xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-b from-yellow-200 to-yellow-500 drop-shadow-[0_0_15px_rgba(234,179,8,0.5)] transition-transform duration-300 ${scorePop ? 'scale-125' : 'scale-100'}`}>
+          <span className={`text-lg md:text-2xl xl:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-b from-yellow-200 to-yellow-500 drop-shadow-[0_0_15px_rgba(234,179,8,0.5)] transition-transform duration-300 ${scorePop ? 'scale-125' : 'scale-100'}`}>
             {score.toLocaleString()}
           </span>
         </div>
 
-        <div className="hidden md:flex gap-2">
+        <div className="hidden lg:flex gap-1 xl:gap-2">
             {/* 💡 わかりやすい「テキストサイズ変更」ボタン */}
             <button onClick={() => { playSound('click'); setFontSize(prev => prev === 'normal' ? 'large' : prev === 'large' ? 'xlarge' : 'normal'); }} className="relative p-2 md:p-3 bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 rounded-full transition-colors border border-white/10 shadow-md group" title="テキストサイズ変更 (Text Size)">
                 <Type className="w-4 h-4 md:w-5 md:h-5" />
@@ -93,8 +103,8 @@ export function GameHeader({
         </div>
 
         {/* モバイル用メニュー */}
-        <div className="md:hidden relative">
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2 bg-slate-800 text-white rounded-lg">
+        <div className="lg:hidden relative">
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="表示設定メニュー" className="p-2 bg-slate-800 text-white rounded-lg">
                 {isMenuOpen ? <X className="w-6 h-6"/> : <Menu className="w-6 h-6"/>}
             </button>
             {isMenuOpen && (
