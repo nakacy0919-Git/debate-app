@@ -52,3 +52,17 @@ Firebaseのクライアント設定値は公開される前提の識別情報で
 - Hardの選択肢数に満たない古い問題を補い、弱い選択肢の日本語解説を復習に反映。
 - GitHub Actionsで192テスト、lint、ビルド、npm audit（high以上）を実行して成功。
 - 修正ブランチのみ。公開サイト・Firestoreへの本番反映は未実施。実機iPadの操作テストと教材中の出典確認は別途必要。
+
+## 追加開発: 6ラウンド教材とiPad操作対応（2026-11-18）
+
+- 後半8テーマに肯定・否定の質問・反論を96件追加し、全12テーマ×2立場で6ラウンド中の質問・反論が重複しないようにした。
+- 進捗ラベル（ROUND x / 6）をヘッダーに表示。iPadのタッチ／Apple Pencilを想定してパネル操作をPointer Eventsへ統一、キーボードによる幅調整、画面回転時のパネル幅調整、画像選択の2列化、44pxのタップ領域、縦画面の上下分割と独立スクロールを実装。
+- テストでは6ラウンドのゲーム進行（全24テーマ・立場）と教材のユニーク性を確認。CIのnpm test、lint、buildは合格。ただし実機iPad Safariでの動作確認は未実施。
+
+### 新たに把握した依存ライブラリのリスク
+
+- 2026-11-17更新の [GHSA-fc5q-39xc-vjpf](https://github.com/advisories/GHSA-fc5q-39xc-vjpf) が開発ツールに含まれるpicomatchを指摘。現状のlockfileのpicomatch 2.3.2および4.0.7はdev-only。
+- 現在確認できる修正バージョンがないため、互換性を破る `npm audit fix --force` は行わない。ソースに外部から任意のglobパターンを入力させない。公開用アプリはVite等を実行しない静的ファイルとして提供する。
+- CIで `npm audit --omit=dev --audit-level=high` を必須とし、`npm audit --audit-level=high` は失敗を隠さずnon-blockingで表示する。**フル監査は未解決であり、安全性が完全に保証されたわけではない。**
+- 追跡: https://github.com/nakacy0919-Git/debate-app/issues/1
+- 既存の旧Firestore公開アクセス制御や本番デプロイは変更していない。
