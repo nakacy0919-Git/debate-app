@@ -37,9 +37,17 @@ describe('complete real curriculum', () => {
   for (const topic of getAllTopics()) for (const stance of ['affirmative', 'negative']) for (const difficulty of ['easy', 'medium', 'hard']) for (const images of [false, true]) {
     it(`${topic.id} / ${stance} / ${difficulty} / images=${images}`, () => {
       const hook = prepare(topic.id, stance, difficulty, images, true);
-      for (let step = 0; step < 45 && hook.result.current.gameState !== 'result'; step++) choose(hook);
+      const visited = [];
+      for (let step = 0; step < 45 && hook.result.current.gameState !== 'result'; step++) {
+        visited.push(hook.result.current.gameState);
+        choose(hook);
+      }
       const game = hook.result.current;
       expect(game.gameState).toBe('result');
+      expect(visited).toContain('cross_exam');
+      expect(visited).toContain('rebuttal_defense');
+      expect(visited).toContain('closing');
+      expect(game.currentRoundIndex).toBe(3);
       expect(game.playerHP).toBe(100);
       expect(game.score).toBe(Object.values(game.scoreDetails).reduce((sum, n) => sum + n, 0));
       expect(game.leaderboard).toHaveLength(1);
