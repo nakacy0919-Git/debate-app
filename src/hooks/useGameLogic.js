@@ -464,7 +464,7 @@ export const useGameLogic = (playSound) => {
 
             
             if (!mistakes.find(m => m.id === card.id)) {
-                setMistakes(prev => [...prev, { ...card, reasonStr: "相手の主張を論理的に覆すための反論として不十分です。" }]);
+                setMistakes(prev => [...prev, { ...card, reasonStr: card.explanationJP || "相手の主張を論理的に覆すための反論として不十分です。" }]);
             }
             if (playerHPRef.current <= 0) return;
             later(() => {
