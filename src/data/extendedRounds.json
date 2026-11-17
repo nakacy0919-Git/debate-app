@@ -442,5 +442,449 @@
         "人気だけでは適合性を説明できません。"
       ]
     ]
+  },
+  "robotpets": {
+    "aC": [
+      [
+        "Can robot pets really make people feel less lonely?",
+        "ロボットペットは本当に孤独感を減らせるのですか？",
+        "They can provide interaction and comfort, although they cannot replace every human relationship.",
+        "人との関係をすべて代わることはできませんが、触れ合いや安心感を与えることはできます。"
+      ],
+      [
+        "Aren't robot pets expensive to repair?",
+        "ロボットペットは修理代が高くなりませんか？",
+        "Repair costs matter, but families can compare them with the ongoing care costs of live animals.",
+        "修理代は重要ですが、生き物の継続的な飼育費用と比べることができます。"
+      ]
+    ],
+    "nC": [
+      [
+        "Isn't it easier to care for a robot pet than a real dog?",
+        "本物の犬よりロボットの世話の方が簡単ではありませんか？",
+        "It is easier in some ways, but responsibility and caring for a living animal can be meaningful.",
+        "簡単な面はありますが、生き物を世話する責任から学べることも大切です。"
+      ],
+      [
+        "Can robot pets comfort people who cannot keep animals?",
+        "動物を飼えない人にロボットペットが癒やしを与えることはありませんか？",
+        "They can, but a helpful alternative does not mean they are better than real pets in every way.",
+        "与えられますが、よい代替手段だからといって本物のペットよりあらゆる面で優れているわけではありません。"
+      ],
+      [
+        "Aren't robot pets safer for people with allergies?",
+        "アレルギーのある人にはロボットの方が安全ではありませんか？",
+        "Often yes, but the best choice depends on each household's needs rather than one universal rule.",
+        "多くの場合そうですが、最適な選択は一つのルールではなく各家庭の事情によります。"
+      ]
+    ],
+    "aR": [
+      [
+        "A robot can only copy emotions, not feel real affection.",
+        "ロボットは感情をまねるだけで、本当の愛情はないという反論です。",
+        "Even without human-like feelings, predictable interaction can still comfort some users.",
+        "人間のような感情がなくても、予測できる触れ合いは利用者を安心させることがあります。"
+      ],
+      [
+        "Robots can break, become outdated, and create waste.",
+        "ロボットは故障や旧式化によってごみを生むという反論です。",
+        "We should consider repair and recycling, just as we consider the responsibilities of caring for living pets.",
+        "生き物を世話する責任と同じように、修理やリサイクルも考慮すべきです。"
+      ]
+    ],
+    "nR": [
+      [
+        "But robot pets never need food or walks!",
+        "でもロボットは餌も散歩もいりません！",
+        "True, yet spending time feeding and walking a real pet can strengthen a meaningful bond.",
+        "その通りですが、餌や散歩に時間を使うことで本物のペットとの絆が深まることもあります。"
+      ],
+      [
+        "But robot pets can help busy people enjoy companionship!",
+        "でも忙しい人もロボットなら一緒に過ごせます！",
+        "They are useful for busy people, but usefulness for one group does not prove they are best for everyone.",
+        "忙しい人には有用ですが、特定の人に便利でも全員に最適とは限りません。"
+      ],
+      [
+        "But a robot pet will not bite or scratch children!",
+        "でもロボットは子どもをかんだり引っかいたりしません！",
+        "Safety matters, but responsible supervision and training can also help families live safely with animals.",
+        "安全は大切ですが、適切な見守りとしつけによって動物と安全に暮らせる場合もあります。"
+      ]
+    ],
+    "nF": [
+      "In conclusion, real pets offer living companionship and opportunities to develop responsibility that robots cannot fully replace.",
+      "結論として、生きたペットとの絆や責任感を育む経験は、ロボットが完全には代われない価値があります。"
+    ],
+    "weak": [
+      [
+        "Every robot is exactly the same as a living animal.",
+        "どのロボットも生き物と全く同じです。",
+        "大切な違いを無視した断定です。"
+      ],
+      [
+        "Every real pet is dangerous to every child.",
+        "本物のペットはすべての子どもに危険です。",
+        "過度の一般化で、条件を考えていません。"
+      ],
+      [
+        "A broken robot proves all technology is useless.",
+        "一台壊れたので技術はすべて役に立ちません。",
+        "一例だけで結論を広げています。"
+      ],
+      [
+        "People without pets never feel happy.",
+        "ペットがいない人は絶対に幸せになれません。",
+        "極端で裏付けのない主張です。"
+      ],
+      [
+        "Anyone who likes robots must dislike animals.",
+        "ロボットが好きな人は動物を嫌っているはずです。",
+        "相手の考えを不当に決めつけています。"
+      ],
+      [
+        "We can ignore long-term costs completely.",
+        "長期的な費用は完全に無視できます。",
+        "重要な比較基準を避けています。"
+      ],
+      [
+        "I own one toy, so I understand every pet owner.",
+        "おもちゃを一つ持っているから飼い主全員の気持ちがわかります。",
+        "体験を不当に一般化しています。"
+      ]
+    ]
+  },
+  "japanesefood": {
+    "aC": [
+      [
+        "Isn't traditional Japanese food sometimes high in salt?",
+        "伝統的な和食は塩分が多い場合もありませんか？",
+        "Some dishes can be salty, but balanced portions and lighter seasoning can address that concern.",
+        "塩分の多い料理もありますが、量や薄味の工夫で対応できます。"
+      ],
+      [
+        "Can't Western meals also be healthy and balanced?",
+        "洋食でも健康的でバランスのよい食事は作れませんか？",
+        "Yes, but traditional Japanese meals offer another flexible model based on varied ingredients.",
+        "作れますが、伝統的な和食も多様な食材を用いる柔軟な食事モデルです。"
+      ]
+    ],
+    "nC": [
+      [
+        "Doesn't Japanese food often include fish and vegetables?",
+        "和食には魚や野菜がよく使われるのではありませんか？",
+        "It often does, but health depends on the whole meal; Western dishes can also be balanced.",
+        "確かにそうですが、健康は食事全体で決まり、洋食もバランスよく作れます。"
+      ],
+      [
+        "Isn't washoku an important part of Japanese culture?",
+        "和食は日本文化の重要な一部ではありませんか？",
+        "Absolutely, but cultural importance does not establish that one cuisine tastes better to everyone.",
+        "その通りですが、文化的な重要性だけで全員にとって味が優れているとは言えません。"
+      ],
+      [
+        "Aren't seasonal Japanese dishes good for the environment?",
+        "旬の和食は環境にもよいのではありませんか？",
+        "Seasonal ingredients can help, yet many Western-style meals can also use seasonal local produce.",
+        "旬の食材は役立ちますが、洋食でも地元の旬の食材を使えます。"
+      ]
+    ],
+    "aR": [
+      [
+        "Western food can be healthy, too, so Japanese food is not special.",
+        "洋食でも健康に配慮できるから和食は特別ではないという反論です。",
+        "Healthy choices exist in both cuisines, and Japanese food provides its own valuable combinations and traditions.",
+        "両方に健康的な選択肢があり、和食にも独自の食材の組み合わせや伝統があります。"
+      ],
+      [
+        "Preparing several traditional side dishes takes too much time.",
+        "和食の小鉢をいくつも作るのは時間がかかりすぎるという反論です。",
+        "Simple rice, soup, and seasonal dishes can offer a practical version of Japanese-style meals.",
+        "ご飯、汁物、旬の一品など簡単な組み合わせでも和食らしい食事にできます。"
+      ]
+    ],
+    "nR": [
+      [
+        "But traditional Japanese meals offer a great balance of ingredients!",
+        "でも伝統的な和食は食材のバランスが優れています！",
+        "Some do, but a cuisine's name does not guarantee balance; ingredients and portions matter more.",
+        "優れた献立もありますが、料理名だけで栄養バランスは決まらず、食材や量が大切です。"
+      ],
+      [
+        "But seasonal Japanese dishes connect us with nature!",
+        "でも旬の和食は自然とつながっています！",
+        "That is meaningful, but Western-style cooking can also celebrate local and seasonal ingredients.",
+        "それは大切ですが、洋食でも地元の旬の食材を生かせます。"
+      ],
+      [
+        "But Japanese food preserves a unique national tradition!",
+        "でも和食は日本独自の伝統を守ります！",
+        "Preserving tradition matters, yet people can respect washoku while enjoying varied global cuisines.",
+        "伝統の保護は大切ですが、和食を尊重しながら世界の多様な料理も楽しめます。"
+      ]
+    ],
+    "nF": [
+      "In conclusion, no single cuisine is best for everyone; Western-style meals can be nutritious, practical, and enjoyable too.",
+      "結論として、すべての人に最適な料理は一つではなく、洋食にも栄養・手軽さ・楽しさがあります。"
+    ],
+    "weak": [
+      [
+        "Every Japanese meal is healthy, no matter what it contains.",
+        "和食なら中身に関係なく必ず健康的です。",
+        "食材や量を無視した断定です。"
+      ],
+      [
+        "Every Western dish is fast food.",
+        "洋食はすべてファストフードです。",
+        "多様な料理を一括りにしています。"
+      ],
+      [
+        "My favorite dish proves the whole cuisine is superior.",
+        "好きな一皿だけでその料理文化全体が優れていると証明できます。",
+        "個人の好みから全体を決めています。"
+      ],
+      [
+        "One salty meal means all traditional food is unhealthy.",
+        "一度しょっぱい食事をしたので伝統食は全部不健康です。",
+        "一例を過度に一般化しています。"
+      ],
+      [
+        "Anyone who disagrees has bad taste.",
+        "反対する人は味覚がおかしいです。",
+        "相手への攻撃で根拠ではありません。"
+      ],
+      [
+        "Culture and nutrition never affect food choices.",
+        "文化や栄養は食の選択に一切関係ありません。",
+        "重要な比較点を無視しています。"
+      ],
+      [
+        "We should decide what is best without asking anyone.",
+        "誰にも聞かずに何が一番か決めましょう。",
+        "多様な価値観を考慮していません。"
+      ]
+    ]
+  },
+  "confession": {
+    "aC": [
+      [
+        "Can a text message really show sincere feelings?",
+        "文字のメッセージで本当に誠実な気持ちを伝えられるのですか？",
+        "Yes, a thoughtful and personal message can express feelings clearly and respectfully.",
+        "はい。よく考えて書いた個人的なメッセージでも気持ちを明確に丁寧に伝えられます。"
+      ],
+      [
+        "What if someone shares a private message with others?",
+        "個人的なメッセージを他人に見せられたらどうしますか？",
+        "Privacy matters, so people should choose trusted channels and avoid sharing sensitive details.",
+        "プライバシーは重要なので、信頼できる手段を選び、機微な内容を送らない工夫が必要です。"
+      ]
+    ],
+    "nC": [
+      [
+        "Isn't it less frightening to confess by message?",
+        "メッセージで告白する方が怖くないのではありませんか？",
+        "It may feel easier, but speaking face to face allows immediate understanding and emotional nuance.",
+        "気軽に感じるかもしれませんが、直接話すとその場で理解し合え、感情の細かな違いも伝わります。"
+      ],
+      [
+        "Can online messages help people choose their words?",
+        "オンラインなら言葉を慎重に選べるのではありませんか？",
+        "They can, but careful preparation also helps when talking in person.",
+        "できますが、事前に考えておけば直接話すときにも言葉を選べます。"
+      ],
+      [
+        "Isn't texting better when people live far apart?",
+        "遠く離れて暮らす人にはメッセージの方がよくありませんか？",
+        "Distance makes online tools useful, but when both can meet safely, a direct conversation may feel more personal.",
+        "離れている場合にはオンラインが便利ですが、安全に会えるなら直接の会話の方が気持ちを伝えやすいこともあります。"
+      ]
+    ],
+    "aR": [
+      [
+        "Messages are easy to misunderstand without facial expressions.",
+        "顔の表情がないメッセージは誤解されやすいという反論です。",
+        "Clear wording and a follow-up conversation can help prevent misunderstandings.",
+        "はっきりした言葉とその後の会話で誤解を減らせます。"
+      ],
+      [
+        "A delayed reply can make the sender anxious.",
+        "返信が遅いと送信者が不安になるという反論です。",
+        "That is possible, but giving the other person time to think can also be respectful.",
+        "そうした不安はありますが、相手が考える時間を持てることも尊重につながります。"
+      ]
+    ],
+    "nR": [
+      [
+        "But online messages are easier for shy people!",
+        "でも恥ずかしがり屋にはオンラインの方が簡単です！",
+        "It can be easier, but a kind face-to-face conversation can build confidence and mutual understanding.",
+        "簡単な場合もありますが、優しい直接の会話は自信と相互理解を育みます。"
+      ],
+      [
+        "But you can edit a message until it sounds perfect!",
+        "でも文章は納得するまで直せます！",
+        "Editing helps clarity, yet sincerity does not require perfect words; listening to the other person matters too.",
+        "推敲は明確さを助けますが、誠実さに完璧な言葉は不要で、相手の声を聞くことも大切です。"
+      ],
+      [
+        "But an online confession gives the recipient time to respond!",
+        "でもオンラインの告白なら返事を考える時間を与えられます！",
+        "Time to think is important, and it can also be offered after a respectful in-person confession.",
+        "考える時間は大切であり、丁寧に直接告白した後でも相手に時間を与えられます。"
+      ]
+    ],
+    "nF": [
+      "In conclusion, when it is safe and comfortable for both people, an in-person confession offers a more personal conversation and clearer communication.",
+      "結論として、双方が安全で安心できるなら、直接の告白はより個人的で明確なコミュニケーションにつながります。"
+    ],
+    "weak": [
+      [
+        "Anyone who uses messaging cannot have real feelings.",
+        "メッセージを使う人には本当の感情がありません。",
+        "人の気持ちを一括りに決めつけています。"
+      ],
+      [
+        "A fast reply always means the answer is yes.",
+        "返信が速ければ必ずOKという意味です。",
+        "返信速度から相手の意思を断定しています。"
+      ],
+      [
+        "People must share private messages publicly.",
+        "個人的なメッセージは必ず公開すべきです。",
+        "プライバシーと同意を無視しています。"
+      ],
+      [
+        "Everyone finds talking face to face easy.",
+        "誰もが直接話すのを簡単だと感じます。",
+        "個人差を無視しています。"
+      ],
+      [
+        "If I am nervous, the other person must feel the same.",
+        "自分が緊張するなら相手も必ず同じです。",
+        "相手の感情を根拠なく推測しています。"
+      ],
+      [
+        "The other person's consent never matters.",
+        "相手の同意は一切重要ではありません。",
+        "相手への敬意を欠いた主張です。"
+      ],
+      [
+        "My friend got one reply, so every confession works.",
+        "友達は返事をもらったから、どんな告白も必ず成功します。",
+        "一例から全体へ一般化しています。"
+      ]
+    ]
+  },
+  "cleaning": {
+    "aC": [
+      [
+        "Won't students lose a chance to learn responsibility?",
+        "生徒は責任感を学ぶ機会を失いませんか？",
+        "They can learn responsibility through shared classroom duties without spending fixed periods on cleaning.",
+        "決まった掃除時間を設けなくても、教室での役割分担を通じて責任感を学べます。"
+      ],
+      [
+        "Who will keep classrooms clean if students stop cleaning?",
+        "生徒が掃除しなければ誰が教室をきれいにするのですか？",
+        "Schools can plan professional cleaning and encourage everyone to tidy up after themselves.",
+        "学校は専門的な清掃を計画し、一人ひとりが使った場所を片付ける習慣を促せます。"
+      ]
+    ],
+    "nC": [
+      [
+        "Couldn't cleaning time be used for more studying?",
+        "掃除時間をもっと勉強に使えるのではありませんか？",
+        "Study time matters, but a short cleaning routine can teach care for shared spaces.",
+        "学習時間は大切ですが、短時間の掃除は共有空間を大切にする意識を育てます。"
+      ],
+      [
+        "Isn't professional cleaning more effective?",
+        "専門の清掃業者に任せた方が効率的ではありませんか？",
+        "Professionals can handle difficult tasks, while students can still manage simple daily tidying.",
+        "難しい作業は専門家に任せつつ、日常の簡単な片付けは生徒が担えます。"
+      ],
+      [
+        "Do all students really enjoy school cleaning?",
+        "すべての生徒が学校の掃除を楽しんでいるのでしょうか？",
+        "Not everyone enjoys it, but useful shared responsibilities need not always be enjoyable.",
+        "全員が楽しむわけではありませんが、必要な共同の役割は常に楽しいとは限りません。"
+      ]
+    ],
+    "aR": [
+      [
+        "Cleaning together creates teamwork.",
+        "掃除を一緒にすることで協力性が育つという反論です。",
+        "Teamwork can also grow through projects, class activities, and shared decision-making.",
+        "協力性はプロジェクトや学級活動、共同での意思決定でも育てられます。"
+      ],
+      [
+        "Students will leave more litter if they never clean.",
+        "掃除をしなければ生徒はもっとごみを放置するという反論です。",
+        "Schools can still require students to clean up what they personally use or leave behind.",
+        "学校は各自が使った場所や出したごみを片付けるよう求めることができます。"
+      ]
+    ],
+    "nR": [
+      [
+        "But students should spend school time on learning, not cleaning!",
+        "でも生徒は掃除より学習に時間を使うべきです！",
+        "Learning includes practical habits, and a brief routine can coexist with academic study.",
+        "学習には生活習慣も含まれ、短い掃除時間なら教科学習と両立できます。"
+      ],
+      [
+        "But professional cleaners could do the job better!",
+        "でも専門業者の方が上手に掃除できます！",
+        "Professionals should handle specialized tasks, but routine tidying has an educational purpose.",
+        "専門的な作業は業者に任せるべきですが、日々の片付けには教育的な意味があります。"
+      ],
+      [
+        "But some schools do not require students to clean!",
+        "でも生徒が掃除しない学校もあります！",
+        "Different systems are possible, but that alone does not show our school's routine has no value.",
+        "さまざまな仕組みがありますが、それだけで自分たちの学校の掃除が無価値とは言えません。"
+      ]
+    ],
+    "nF": [
+      "In conclusion, a short, safe, and fair cleaning routine can teach responsibility and teamwork while caring for our shared school.",
+      "結論として、短く安全で公平な掃除活動は学校を大切にしながら責任感や協力性を育みます。"
+    ],
+    "weak": [
+      [
+        "Students are lazy if they dislike cleaning.",
+        "掃除が嫌いな生徒はみんな怠け者です。",
+        "相手を決めつける攻撃で議論になっていません。"
+      ],
+      [
+        "One messy desk means no students can clean.",
+        "机が一つ汚れているので生徒は誰も掃除できません。",
+        "一例で全体を判断しています。"
+      ],
+      [
+        "All cleaning tasks are completely safe for every student.",
+        "どんな掃除作業も全生徒に絶対安全です。",
+        "安全への配慮や個人差を無視しています。"
+      ],
+      [
+        "Studying and cleaning are exactly the same activity.",
+        "勉強と掃除は完全に同じ活動です。",
+        "異なる活動の目的を混同しています。"
+      ],
+      [
+        "We should never listen to students' opinions.",
+        "生徒の意見は絶対に聞くべきではありません。",
+        "当事者の意見を不当に排除しています。"
+      ],
+      [
+        "Professional cleaners never need equipment.",
+        "専門清掃員は道具を一切必要としません。",
+        "現実に合わない前提です。"
+      ],
+      [
+        "I dislike dust, so every school must close.",
+        "ほこりが嫌いだから学校は全部閉めるべきです。",
+        "結論が論点に対して極端です。"
+      ]
+    ]
   }
 }
