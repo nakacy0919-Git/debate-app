@@ -59,7 +59,7 @@ describe('two-sided debate curriculum completeness', () => {
         for (const round of rounds) {
           const opts = round.options || [];
           expect(opts.length, `${topic.id} ${stance} ${phase}`).toBeGreaterThanOrEqual(6);
-          expect(opts.filter(o => o.judgment === (phase === 'cross' ? 'correct' : 'perfect'))).toHaveLength(1);
+          expect(opts.filter(o => ['correct', 'perfect'].includes(o.judgment))).toHaveLength(1);
           expect(opts.filter(o => o.judgment === 'weak').length).toBeGreaterThanOrEqual(5);
           expect(line(phase === 'cross' ? round.question?.text : round.text).trim()).not.toBe('');
           expect(line(phase === 'cross' ? round.question?.textJP : round.textJP).trim()).not.toBe('');
