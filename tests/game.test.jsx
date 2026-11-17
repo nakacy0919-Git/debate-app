@@ -184,7 +184,7 @@ it('image and undo cannot repeatedly award image points', () => {
 
 it('prevents repeated wrong structure taps from draining HP before feedback finishes', () => {
   const hook = prepare();
-  const wrong = hook.result.current.visibleHand.find(c => c.group === 'fake');
+  const wrong = hook.result.current.hand.find(c => c.type !== 'assertion' && c.group !== 'fake');
   expect(wrong).toBeDefined();
   const hp = hook.result.current.playerHP;
   act(() => { hook.result.current.handleCardSelect(wrong); hook.result.current.handleCardSelect(wrong); hook.result.current.handleCardSelect(wrong); });
