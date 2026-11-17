@@ -12,6 +12,24 @@
         "日本にいても異文化を学べるのではありませんか？",
         "Yes, but meeting people in another country adds first-hand experience.",
         "はい。ただ、現地で人と出会うことは直接体験ならではの学びになります。"
+      ],
+      [
+        "How could students prepare for language difficulties abroad?",
+        "海外で言葉が通じない場合に生徒はどう備えますか？",
+        "Students can practice key phrases and work with teachers or local guides.",
+        "基本表現を練習し、先生や現地ガイドと協力できます。"
+      ],
+      [
+        "Could overseas travel cause students to miss important lessons?",
+        "海外旅行で重要な授業を欠席することになりませんか？",
+        "A planned school trip can connect directly to curriculum goals and follow-up projects.",
+        "計画的な修学旅行は授業目標や事後の探究活動につなげられます。"
+      ],
+      [
+        "What if the destination is unsafe because of an emergency?",
+        "渡航先で緊急事態が起きたらどうしますか？",
+        "Schools should check travel advisories and keep a domestic backup plan.",
+        "学校は渡航情報を確認し、国内旅行の代替案も準備すべきです。"
       ]
     ],
     "nC": [
@@ -32,6 +50,24 @@
         "海外なら忘れられない思い出が作れるのではありませんか？",
         "Memories matter, but a school trip should also be accessible to every student.",
         "思い出は大切ですが、修学旅行はすべての生徒が参加しやすいものであるべきです。"
+      ],
+      [
+        "Wouldn't students become more independent when traveling abroad?",
+        "海外旅行で生徒は自立できるのではありませんか？",
+        "Independence can also grow through student-led domestic travel and planning.",
+        "生徒主体で国内旅行を企画・実施しても自立心は育ちます。"
+      ],
+      [
+        "Wouldn't an overseas trip help students understand Japan better?",
+        "海外旅行は日本を理解し直す助けになりませんか？",
+        "Comparing cultures is valuable, but domestic travel can deepen understanding of regional differences too.",
+        "文化の比較は大切ですが、国内旅行でも地域差を通して日本への理解を深められます。"
+      ],
+      [
+        "Can online exchanges really replace visiting another country?",
+        "オンライン交流で実際に外国を訪れる体験の代わりになるのですか？",
+        "They are not identical, but they can provide meaningful dialogue without excluding students who cannot afford travel.",
+        "同じ体験ではありませんが、費用のため参加できない生徒を取り残さず交流できます。"
       ]
     ],
     "aR": [
@@ -46,6 +82,24 @@
         "海外旅行は負担が大きく手配も難しいという反論です。",
         "Careful planning and student preparation can reduce those difficulties.",
         "丁寧な計画と事前準備によって、そのような困難を減らせます。"
+      ],
+      [
+        "But students can develop global awareness through online exchanges!",
+        "オンライン交流でも国際的な視野は育つという反論です。",
+        "Online exchange is useful, but an overseas visit also teaches daily-life observation and intercultural adaptation.",
+        "オンライン交流も有効ですが、海外訪問なら日常生活の観察や異文化への適応も学べます。"
+      ],
+      [
+        "But some families may feel pressured to pay for the trip!",
+        "家庭に旅行代の負担を強いるという反論です。",
+        "Cost concerns should shape the plan, including scholarships and accessible alternatives.",
+        "費用面への懸念は奨学金や参加しやすい代替案など計画に反映すべきです。"
+      ],
+      [
+        "But traveling abroad has a larger environmental footprint!",
+        "海外渡航は環境への負担が大きいという反論です。",
+        "Environmental costs matter, so destinations, transport, and learning outcomes should be compared carefully.",
+        "環境への影響は重要であり、目的地や交通手段、学習効果を慎重に比較すべきです。"
       ]
     ],
     "nR": [
@@ -66,6 +120,24 @@
         "でも外国を訪れれば視野が広がります！",
         "Learning is broader when we compare cultures, and meaningful comparisons can also happen on domestic trips.",
         "文化を比較することで視野は広がり、国内旅行でも有意義な比較ができます。"
+      ],
+      [
+        "But students can discover new interests through travel abroad!",
+        "でも海外旅行は新しい興味を見つけるきっかけになります！",
+        "Yes, but local communities can also reveal unfamiliar careers, histories, and cultures.",
+        "そうですが、地域社会でも知らなかった職業、歴史、文化に出会えます。"
+      ],
+      [
+        "But overseas school trips build friendship across borders!",
+        "でも海外修学旅行では国境を越えた友情が育ちます！",
+        "International friendships are possible through virtual partnerships and visiting exchange students too.",
+        "国際的な友情はオンラインでの提携や交換留学生との交流でも育てられます。"
+      ],
+      [
+        "But traveling abroad is more exciting than staying in Japan!",
+        "でも日本国内より海外の方がわくわくします！",
+        "Excitement depends on the person, while affordability and educational value affect the whole class.",
+        "楽しさは人によって異なりますが、費用と教育的価値はクラス全体に関わります。"
       ]
     ],
     "nF": [
@@ -123,6 +195,24 @@
         "営業時間を短くすると地域の店の売上が減りませんか？",
         "Possibly, but lower operating costs and healthier staffing should also be considered.",
         "その可能性はありますが、運営費の削減や従業員の健康も考えるべきです。"
+      ],
+      [
+        "Could closing at night make emergency supplies harder to obtain?",
+        "深夜閉店で緊急用品が手に入りにくくなりませんか？",
+        "Emergency access can be planned through pharmacies and selected essential-service locations.",
+        "薬局や必要なサービス拠点を通じて緊急時の入手手段を計画できます。"
+      ],
+      [
+        "What happens to people who can only shop after midnight?",
+        "深夜零時以降しか買い物できない人はどうするのですか？",
+        "Communities can consider lockers, delivery options, and limited exceptions where demand is clear.",
+        "受け取りロッカーや配達、需要が明確な地域での例外営業を検討できます。"
+      ],
+      [
+        "Doesn't reducing hours mean losing business opportunities?",
+        "営業時間を減らすと販売の機会を失いませんか？",
+        "Some sales may be lost, but lower staffing and utility costs can offset part of the loss.",
+        "売上が減る場合もありますが、人件費や光熱費の削減で一部を補える可能性があります。"
       ]
     ],
     "nC": [
@@ -143,6 +233,24 @@
         "客は閉店前に必要な物を買えばよいのではありませんか？",
         "Some people work irregular hours or face unexpected needs, so that is not always possible.",
         "不規則な時間に働く人や急な用事がある人には、必ずしも可能ではありません。"
+      ],
+      [
+        "Is it fair to ask employees to work during the night?",
+        "従業員に深夜労働を求めるのは公平ですか？",
+        "Fairness requires voluntary scheduling, appropriate pay, rest, and safe transport.",
+        "公平な勤務には本人の希望、適切な賃金と休憩、安全な帰宅手段が必要です。"
+      ],
+      [
+        "Would closing overnight reduce noise in residential areas?",
+        "深夜閉店は住宅街の騒音を減らしませんか？",
+        "It may, but targeted noise rules and thoughtful store locations can also protect neighbors.",
+        "その可能性はありますが、騒音規制や立地の工夫でも近隣住民を守れます。"
+      ],
+      [
+        "Why keep every store open when there are few customers?",
+        "客が少ないのになぜ全店舗を開ける必要がありますか？",
+        "Not every store must open; our position supports local choice where overnight demand justifies it.",
+        "全店舗である必要はなく、深夜需要のある地域で選択できるようにする立場です。"
       ]
     ],
     "aR": [
@@ -157,6 +265,24 @@
         "新しい照明技術なら省エネで深夜営業できるという反論です。",
         "Better technology helps, but staffing and operating costs still need to be evaluated.",
         "技術の改善は役立ちますが、人員配置や運営費も検討する必要があります。"
+      ],
+      [
+        "But closing stores could make nighttime streets less safe!",
+        "夜間に店が閉まると街が危険になるという反論です。",
+        "Public safety is important, but lighting and patrols should not depend on retail workers staying awake.",
+        "安全は重要ですが、照明や巡回は小売店員の深夜勤務だけに頼るべきではありません。"
+      ],
+      [
+        "But overnight shops are vital near hospitals!",
+        "病院の近くでは深夜営業が必要だという反論です。",
+        "Special exceptions near hospitals can be considered without requiring overnight operation everywhere.",
+        "病院付近などの特別な例外を認めつつ、全地域での深夜営業は不要にできます。"
+      ],
+      [
+        "But night shifts give some workers higher pay!",
+        "深夜勤務で収入が増える人もいるという反論です。",
+        "Higher pay may help, but workers need informed choice and protection from unhealthy schedules.",
+        "収入増は助けになりますが、従業員には十分な説明に基づく選択と健康への配慮が必要です。"
       ]
     ],
     "nR": [
@@ -177,6 +303,24 @@
         "でもそのサービスは昼間に他店で受けられます！",
         "Daytime services cannot meet every urgent need, especially for night-shift workers.",
         "昼間のサービスでは、特に夜勤の人の急な需要をすべて満たせません。"
+      ],
+      [
+        "But stores might save money by closing at night!",
+        "でも深夜閉店なら店の費用が下がります！",
+        "Some stores may save money; others can choose shorter hours while busy locations stay open.",
+        "節約できる店もあるので、各店舗が営業時間を選び、需要の高い店は営業を続けられます。"
+      ],
+      [
+        "But residents need quiet nights to sleep!",
+        "でも住民には静かな夜が必要です！",
+        "We should enforce quiet operations and avoid noisy locations near homes.",
+        "静かな営業ルールを徹底し、住宅の近くの騒音を避けるべきです。"
+      ],
+      [
+        "But no one should have to work while others sleep!",
+        "でも他の人が寝ている間に働かせるべきではありません！",
+        "Some services require night work, so the priority is voluntary, safe, and fairly paid shifts.",
+        "夜間の仕事が必要なサービスもあるため、本人が選べる安全で公平な勤務が重要です。"
       ]
     ],
     "nF": [
@@ -234,6 +378,24 @@
         "動物園は子どもに野生動物を大切にする心を教えるのではありませんか？",
         "They can, but documentaries, wildlife programs, and sanctuaries can also teach respect.",
         "その役割はありますが、映像教材や野生動物の学習、保護施設でも学べます。"
+      ],
+      [
+        "Would closing zoos reduce funding for wildlife research?",
+        "動物園を閉じると野生動物研究の資金が減りませんか？",
+        "Research can continue through universities, sanctuaries, and targeted conservation programs.",
+        "研究は大学、保護施設、目的を定めた保全事業で続けられます。"
+      ],
+      [
+        "Could released zoo animals damage local ecosystems?",
+        "動物園の動物を放すと地域の生態系を壊しませんか？",
+        "Animals should never be released without assessment; suitable permanent care is needed when release is unsafe.",
+        "調査なしに放すべきではなく、野生復帰が難しい場合は適切に終生飼育します。"
+      ],
+      [
+        "What should happen to zoo workers if zoos close?",
+        "動物園が閉じたら飼育員はどうなりますか？",
+        "Their expertise could support rehabilitation, conservation, and animal welfare programs.",
+        "その専門性を救護、保全、動物福祉の活動に生かせます。"
       ]
     ],
     "nC": [
@@ -254,6 +416,24 @@
         "動物をおりの中で見せるのは不公平ではありませんか？",
         "It can be, so modern zoos must prioritize animal welfare rather than entertainment alone.",
         "そうなる場合があります。だから現代の動物園は娯楽だけでなく動物福祉を優先すべきです。"
+      ],
+      [
+        "How would you care for an injured wild animal without a zoo?",
+        "動物園がなければ傷ついた野生動物はどう保護しますか？",
+        "Specialized sanctuaries can help, but responsible zoos already offer trained staff and veterinary support.",
+        "専門の保護施設も役立ちますが、責任ある動物園には訓練された職員と獣医の支援があります。"
+      ],
+      [
+        "Don't visitors sometimes disturb animals by taking photographs?",
+        "来園者の撮影が動物のストレスになりませんか？",
+        "They can, which is why zoos need rules on noise, flashes, and visitor distance.",
+        "なる場合があります。だから騒音やフラッシュ、動物との距離について規則が必要です。"
+      ],
+      [
+        "Should animals be kept for entertainment alone?",
+        "娯楽だけのために動物を飼うべきですか？",
+        "No; our argument is for welfare-focused institutions with clear rescue, education, or conservation purposes.",
+        "いいえ。救護・教育・保全の明確な目的を持ち、福祉を優先する施設を支持します。"
       ]
     ],
     "aR": [
@@ -268,6 +448,24 @@
         "人に保護されている動物は長く生きる場合があるという反論です。",
         "Lifespan is important, yet freedom and species-specific behavior are also part of welfare.",
         "寿命は重要ですが、自由やその動物らしい行動も福祉の一部です。"
+      ],
+      [
+        "But breeding programs may prevent some species from disappearing!",
+        "繁殖計画が種の絶滅を防ぐ場合があるという反論です。",
+        "Some programs are valuable, but they should be assessed separately from keeping animals mainly for display.",
+        "価値ある計画もありますが、主に展示するための飼育とは分けて評価すべきです。"
+      ],
+      [
+        "But families can develop empathy by seeing animals nearby!",
+        "身近に動物を見ると共感を育めるという反論です。",
+        "Empathy grows from learning about animals' needs, which does not always require confinement.",
+        "共感は動物の必要を知ることで育ち、それには必ずしも閉じ込める必要はありません。"
+      ],
+      [
+        "But some animals receive excellent veterinary care in zoos!",
+        "動物園で優れた獣医療を受ける動物もいるという反論です。",
+        "Good treatment is important, yet welfare includes appropriate space, stimulation, and natural behavior.",
+        "よい治療は重要ですが、福祉には十分な空間、刺激、自然な行動も含まれます。"
       ]
     ],
     "nR": [
@@ -288,6 +486,24 @@
         "でも動物園より森林保護の方が大切です！",
         "We can prioritize forests while allowing responsible zoos to support education and conservation.",
         "森林保護を優先しつつ、責任ある動物園が教育と保護活動を支えることもできます。"
+      ],
+      [
+        "But documentaries can teach everything a zoo teaches!",
+        "でも映像教材ですべて学べます！",
+        "Documentaries help, but supervised observation can motivate questions and direct learning.",
+        "映像も役立ちますが、見守られた直接観察は問いや学びを生むことがあります。"
+      ],
+      [
+        "But a sanctuary would care for rescued animals better!",
+        "でも保護施設の方が救護動物を適切に扱えます！",
+        "Some may, but welfare should be judged by evidence and standards, not the institution's name.",
+        "そうした施設もありますが、名前ではなく証拠と基準で動物福祉を判断すべきです。"
+      ],
+      [
+        "But keeping animals visible to crowds always causes harm!",
+        "でも大勢の人に見せることは必ず害になります！",
+        "Crowds can cause stress, so visitor limits and quiet refuge areas should be mandatory.",
+        "群衆はストレスになり得るので、入場制限や静かな避難場所を必須にすべきです。"
       ]
     ],
     "nF": [
@@ -345,6 +561,24 @@
         "生徒のタブレットが故障したり充電切れになったらどうしますか？",
         "Schools can provide charging points, offline copies, and backup access.",
         "学校は充電場所、オフラインの教材、予備の閲覧手段を用意できます。"
+      ],
+      [
+        "Who owns an e-book if the service closes?",
+        "電子書籍サービスが終了したら本は誰のものですか？",
+        "Readers should check licenses and prefer services that support durable downloads and access.",
+        "利用規約を確認し、長くダウンロード・閲覧できるサービスを選ぶべきです。"
+      ],
+      [
+        "Can every student afford a tablet or e-reader?",
+        "すべての生徒が読書端末を買えますか？",
+        "Schools can lend devices and keep paper alternatives for students who need them.",
+        "学校は端末を貸し出し、必要な生徒には紙の教材も用意できます。"
+      ],
+      [
+        "Does digital reading make it harder to avoid distractions?",
+        "電子書籍では気が散りやすくなりませんか？",
+        "Dedicated e-readers and focus settings can reduce notifications during reading.",
+        "専用端末や集中モードで読書中の通知を減らせます。"
       ]
     ],
     "nC": [
@@ -365,6 +599,24 @@
         "電子書籍は紙の使用量を減らせませんか？",
         "They can, but devices also need manufacturing, electricity, and responsible recycling.",
         "減らせますが、端末の製造や電力、適切なリサイクルも考える必要があります。"
+      ],
+      [
+        "Aren't searchable digital notes useful for study?",
+        "検索できる電子メモは学習に便利ではありませんか？",
+        "They are, but writing and organizing notes on paper can also support thoughtful review.",
+        "便利ですが、紙に書いて整理することもじっくり復習する助けになります。"
+      ],
+      [
+        "Isn't it easier for people with weak eyesight to enlarge text?",
+        "見えにくい人には文字を拡大できる方がよいのではありませんか？",
+        "Adjustable fonts are important, but accessible large-print paper editions also exist.",
+        "文字サイズ調整は重要ですが、読みやすい大活字の紙の本もあります。"
+      ],
+      [
+        "Won't digital books save shelf space in small homes?",
+        "電子書籍は狭い家の収納場所を節約できませんか？",
+        "They can, but shelf space is only one factor when comparing comfort, access, and ownership.",
+        "節約できますが、収納だけでなく快適さ、閲覧の確実さ、所有の問題も比較すべきです。"
       ]
     ],
     "aR": [
@@ -379,6 +631,24 @@
         "電子端末は電子ごみを生むという反論です。",
         "That is a concern, so we should use devices longer and recycle them rather than reject digital reading entirely.",
         "その懸念はあるので、デジタル読書を全否定するのでなく端末を長く使い回収すべきです。"
+      ],
+      [
+        "But printed books work even when the power is out!",
+        "停電でも紙の本は読めるという反論です。",
+        "That is an advantage, so a useful reading system can combine digital access with emergency paper backups.",
+        "それは利点なので、電子での閲覧と非常時の紙の備えを組み合わせられます。"
+      ],
+      [
+        "But some people remember information better from paper!",
+        "紙の方が覚えやすい人がいるという反論です。",
+        "Study methods differ, so choice and good note-taking matter more than banning digital formats.",
+        "学び方は人によって違うため、電子を排除するより選択と効果的なメモが大切です。"
+      ],
+      [
+        "But an online service might remove a book from your account!",
+        "電子書籍がアカウントから消えることがあるという反論です。",
+        "Access terms need scrutiny, so readers should choose reliable providers and legally downloadable copies.",
+        "利用条件の確認が必要なので、信頼できる提供者や合法的に保存できる本を選ぶべきです。"
       ]
     ],
     "nR": [
@@ -399,6 +669,24 @@
         "でも電子書籍はどこでもダウンロードできます！",
         "Access often depends on a device, power, and permissions; paper books remain available without them.",
         "閲覧には端末、電力、利用権限が必要な場合があり、紙の本ならそれらなしで読めます。"
+      ],
+      [
+        "But digital libraries help people in remote areas!",
+        "でも電子図書館は遠隔地の人を助けます！",
+        "They do, but connectivity and device access still matter; physical library services are also essential.",
+        "役立ちますが、通信環境と端末も必要で、実物の図書館サービスも不可欠です。"
+      ],
+      [
+        "But reading apps can include dictionaries and audio!",
+        "でも読書アプリには辞書や音声が付けられます！",
+        "Those features help many readers, yet paper may still be better for others' concentration and preferences.",
+        "多くの人に役立ちますが、集中力や好みによっては紙が合う人もいます。"
+      ],
+      [
+        "But one tablet is more convenient than a heavy school bag!",
+        "でもタブレット一台なら重い通学かばんより便利です！",
+        "Weight matters, but devices can break or need power, so schools should compare total usability.",
+        "重さは重要ですが、端末は故障や充電の問題があるので全体の使いやすさを比べるべきです。"
       ]
     ],
     "nF": [
