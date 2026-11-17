@@ -1,12 +1,12 @@
 import React from 'react';
 import { Undo2, PanelLeftClose, PanelRightClose, CheckCircle2 } from 'lucide-react';
-import { CARD_TYPES } from '../../constants';
+import { CARD_TYPES, FLOWS } from '../../constants';
 import { SmartText } from '../UI/SmartText';
 
 export function HandPanel({ game, playSound }) {
   const {
     visibleHand, // 💡 抽出済みの手札を使う
-    imageHand, gameState, handleCardSelect, handleImageSelect,
+    imageHand, gameState, gameMode, handleCardSelect, handleImageSelect,
     difficulty, langMode, currentTopic, handleUndo, tower, activeLogicGroup,
     sidePanelPos, setSidePanelPos, imageSize, fontSize // 💡 テキストサイズを取得
   } = game;
@@ -23,6 +23,20 @@ export function HandPanel({ game, playSound }) {
     return typeof cardObj.textJP === 'object' ? cardObj.textJP[difficulty] : cardObj.textJP;
   };
 
+  const nextType = (FLOWS[gameMode] || FLOWS.area)[tower.length];
+  const nextLabel = CARD_TYPES[nextType] || CARD_TYPES.assertion;
+  const instruction = isImagePhase
+    ? (langMode === 'ja' ? '英文に合う画像を選ぶ' : 'Choose the matching image')
+    : gameState === 'construct'
+      ? (langMode === 'ja' ? `${nextLabel.labelJP}を選ぶ` : `Choose ${nextLabel.label}`)
+      : gameState === 'cross_exam'
+        ? (langMode === 'ja' ? '質問への回答を選ぶ' : 'Answer the question')
+        : gameState === 'rebuttal_defense'
+          ? (langMode === 'ja' ? '反論への回答を選ぶ' : 'Choose your rebuttal')
+          : gameState === 'closing'
+            ? (langMode === 'ja' ? '最終弁論を選ぶ' : 'Choose your closing statement')
+            : '';
+
   const imageMinWidth = imageSize === 'large' ? '240px' : imageSize === 'normal' ? '140px' : '110px';
   
   // 💡 テキストサイズ変更ボタンの数値をCSSのクラスに変換
@@ -34,7 +48,7 @@ export function HandPanel({ game, playSound }) {
       <div className="flex justify-between items-center p-3 md:p-4 bg-slate-900 border-b border-cyan-900/50 shadow-md shrink-0">
         <div className="flex items-center gap-2">
           <CheckCircle2 className="w-5 h-5 text-cyan-400" />
-          <h3 className="font-black text-white tracking-widest text-sm md:text-base">CHOICES (選択肢)</h3>
+          <h3 className="font-black text-white tracking-widest text-sm md:text-base">{langMode === 'ja' ? '選択肢' : 'YOUR CHOICES'}</h3>
         </div>
         
         <div className="flex items-center gap-3">
@@ -61,21 +75,11 @@ export function HandPanel({ game, playSound }) {
 
       <div className="flex-1 overflow-y-auto p-4 md:p-6 custom-scrollbar bg-gradient-to-b from-slate-900/50 to-transparent">
         
-        <div className="bg-slate-800/80 p-4 rounded-xl border border-cyan-500/30 text-center mb-6 shadow-[0_0_15px_rgba(6,182,212,0.15)] flex flex-col gap-2">
-          {isImagePhase ? (
-            <span className="font-black text-cyan-300 drop-shadow-md">↑ 左の英文の内容に最も合っている画像を選びましょう！</span>
-          ) : (
-            <span className="font-black text-blue-300 drop-shadow-md text-sm md:text-base">
-              {gameState === 'construct' && tower.length === 0 && 'あなたの主張 (Assertion) を選びましょう！'}
-              {gameState === 'construct' && tower.length === 1 && 'その理由 (Reason) を選びましょう！'}
-              {gameState === 'construct' && tower.length === 2 && '具体例 (Example) を選びましょう！'}
-              {gameState === 'construct' && tower.length === 3 && '小結論 (Mini-Conclusion) を選びましょう！'}
-              {gameState === 'cross_exam' && '相手の質問に対する的確な回答 (Answer) を選びましょう！'}
-              {gameState === 'rebuttal_defense' && '相手の反論を打ち返す的確な再反論 (Defense) を選びましょう！'}
-              {gameState === 'closing' && '最後に、あなたの立場の最終弁論 (Closing) を選びましょう！'}
-            </span>
-          )}
-        </div>
+        {instruction && (
+          <p role="status" className="text-sm md:text-base font-semibold text-cyan-200 bg-slate-800/60 rounded-lg px-3 py-2 mb-3">
+            {instruction}
+          </p>
+        )}
 
         <div className="w-full flex flex-col gap-4">
           
