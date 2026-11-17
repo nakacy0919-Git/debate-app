@@ -41,12 +41,12 @@ it('production configuration prevents outbound cloud score requests and framing'
 
 describe('two-sided debate curriculum completeness', () => {
   for (const topic of getAllTopics()) for (const stance of ['affirmative', 'negative']) {
-    it(`${topic.id} / ${stance} supports three full, non-repeated rounds`, () => {
+    it(`${topic.id} / ${stance} supports six full, non-repeated rounds`, () => {
       const questions = topic.crossExam[stance];
       const rebuttals = topic.rebuttal[stance];
       const closings = topic.closing[stance];
-      expect(questions.length).toBeGreaterThanOrEqual(3);
-      expect(rebuttals.length).toBeGreaterThanOrEqual(3);
+      expect(questions.length).toBeGreaterThanOrEqual(6);
+      expect(rebuttals.length).toBeGreaterThanOrEqual(6);
       expect(closings.length).toBeGreaterThanOrEqual(6);
 
       const line = value => typeof value === 'string' ? value : value?.easy || '';
