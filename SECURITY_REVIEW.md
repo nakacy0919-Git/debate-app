@@ -63,6 +63,13 @@ Firebaseのクライアント設定値は公開される前提の識別情報で
 
 - 2026-11-17更新の [GHSA-fc5q-39xc-vjpf](https://github.com/advisories/GHSA-fc5q-39xc-vjpf) が開発ツールに含まれるpicomatchを指摘。現状のlockfileのpicomatch 2.3.2および4.0.7はdev-only。
 - 現在確認できる修正バージョンがないため、互換性を破る `npm audit fix --force` は行わない。ソースに外部から任意のglobパターンを入力させない。公開用アプリはVite等を実行しない静的ファイルとして提供する。
-- CIで `npm audit --omit=dev --audit-level=high` を必須とし、`npm audit --audit-level=high` は失敗を隠さずnon-blockingで表示する。**フル監査は未解決であり、安全性が完全に保証されたわけではない。**
+- CIで `npm audit --omit=dev --audit-level=high` を必須とし、開発用を含む監査は `scripts/security-audit.mjs` で評価。例外は `GHSA-fc5q-39xc-vjpf` に限定し、`package-lock.json` 上でdev-onlyであることを検証。新しい脆弱性が見つかった場合はCIを失敗させる。例外期限は **2026-12-18 00:00 UTC**。**フル監査の既知の警告12件は未解決であり、完全な安全性が保証されたわけではない。**
 - 追跡: https://github.com/nakacy0919-Git/debate-app/issues/1
 - 既存の旧Firestore公開アクセス制御や本番デプロイは変更していない。
+
+## 追加監査ゲートと検証（2026-11-18）
+
+- GitHub Advisory Database で修正版が「None」であることを確認。開発用の既知の脆弱性のみ一時例外とする明示的な検証ゲートを実装。
+- 以前の全監査での continue-on-error を撤去。10件の単体テストで、新規アドバイザリ、本番環境への流入、監査JSONの不備、期限切れなどを検出することを確認。
+- GitHub Actionsでテスト230件合格、lint/build合格、本番依存監査0件。全依存監査は開発用picomatchに起因する12件のHigh警告を**未修正として明示**し、それ以外の問題がない場合のみ合格する。
+- 未解決の根本原因と更新条件はGitHub Issue #1に記録し、IssueをOpenのまま維持。
