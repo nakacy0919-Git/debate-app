@@ -96,6 +96,20 @@ export const useGameLogic = (playSound) => {
   const savedSession = useRef(false);
   const awardedCards = useRef(new Set());
   const [storageNotice, setStorageNotice] = useState('');
+  const [resultRecordId, setResultRecordId] = useState(null);
+  const [isPaused, setIsPaused] = useState(false);
+  const pausedAtRef = useRef(null);
+  const pauseGame = () => {
+    if (pausedAtRef.current !== null) return;
+    pausedAtRef.current = Date.now();
+    setIsPaused(true);
+  };
+  const resumeGame = () => {
+    if (pausedAtRef.current === null) return;
+    startTimeRef.current += Date.now() - pausedAtRef.current;
+    pausedAtRef.current = null;
+    setIsPaused(false);
+  };
   const recordKey = scoreKey({ topic: selectedTopicId, difficulty, stance: userStance,
       mode: gameMode, rounds: battleRounds, timer: timerEnabled, images: imageMatchEnabled, language: langMode });
 
@@ -125,10 +139,12 @@ export const useGameLogic = (playSound) => {
   useEffect(() => {
       if (gameState !== 'result' || savedSession.current) return;
       savedSession.current = true;
-      const result = saveLocalScore(recordKey, { id: crypto.randomUUID(),
+      const recordId = crypto.randomUUID();
+      const result = saveLocalScore(recordKey, { id: recordId,
           name: playerName.trim().slice(0, 15) || 'Anonymous',
           location: playerLocation.trim().slice(0, 20), score,
           date: new Date().toLocaleDateString('ja-JP') });
+      setResultRecordId(recordId);
       setLeaderboard(result.records);
       setStorageNotice(result.saved ? '' : 'このブラウザでは記録を保存できません。今回の結果は画面で確認できます。');
   }, [gameState, recordKey, playerName, playerLocation, score]);
@@ -196,7 +212,7 @@ export const useGameLogic = (playSound) => {
   const onTimerDamage = useEffectEvent(() => takeDamage(DAMAGE_TICK, 'Time is running out!'));
 
   useEffect(() => {
-      if (!timerEnabled || !['construct', 'cross_exam', 'rebuttal_defense', 'closing', 'construct_image', 'cross_exam_image', 'rebuttal_defense_image'].includes(gameState)) {
+      if (!timerEnabled || isPaused || !['construct', 'cross_exam', 'rebuttal_defense', 'closing', 'construct_image', 'cross_exam_image', 'rebuttal_defense_image'].includes(gameState)) {
           if (timerIntervalRef.current) clearInterval(timerIntervalRef.current);
           return;
       }
@@ -219,7 +235,7 @@ export const useGameLogic = (playSound) => {
       }, 100);
 
       return () => clearInterval(timerIntervalRef.current);
-  }, [gameState, timerEnabled]);
+  }, [gameState, timerEnabled, isPaused]);
 
   const localizeCard = (card, diff) => {
       if (!card) return card;
@@ -247,6 +263,7 @@ export const useGameLogic = (playSound) => {
   const initGame = () => {
     if (!canStart) return;
     cancelPending(); savedSession.current = false; awardedCards.current.clear();
+    pausedAtRef.current = null; setIsPaused(false); setResultRecordId(null);
     setLeaderboard([]); setStorageNotice('');
     setPendingCard(null); setImageHand([]); setShowSuccessOverlay(false);
     setShake(false); setShakingCardId(null); setParticles([]); setFloatingTexts([]);
@@ -288,6 +305,7 @@ export const useGameLogic = (playSound) => {
 
   const goHome = () => {
     cancelPending();
+    pausedAtRef.current = null; setIsPaused(false);
     window.speechSynthesis?.cancel();
     setFeedback(null); setPendingCard(null); setImageHand([]);
     setShowSuccessOverlay(false); setShake(false); setShakingCardId(null);
@@ -300,6 +318,7 @@ export const useGameLogic = (playSound) => {
   // Return to the topic picker without forcing a fresh language and mode setup.
   const goToSetup = () => {
     cancelPending();
+    pausedAtRef.current = null; setIsPaused(false);
     window.speechSynthesis?.cancel();
     setFeedback(null);
     setPendingCard(null);
@@ -573,7 +592,8 @@ export const useGameLogic = (playSound) => {
     isTopicSelected, isStanceSelected, isDifficultySelected, mistakes,
     bgmTrack, setBgmTrack, bgmEnabled, setBgmEnabled, ttsVoiceType, setTtsVoiceType, sfxEnabled, setSfxEnabled,
     combo, maxCombo, floatingTexts, scoreDetails,
-    storageNotice, playerName, setPlayerName, playerLocation, setPlayerLocation, leaderboard, fetchLeaderboard,
+    storageNotice, resultRecordId, isPaused, pauseGame, resumeGame,
+    playerName, setPlayerName, playerLocation, setPlayerLocation, leaderboard, fetchLeaderboard,
     initGame, goHome, goToSetup, handleUndo, handleCardSelect, handleImageSelect
   };
 };
