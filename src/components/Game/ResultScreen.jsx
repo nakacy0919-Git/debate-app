@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle2, AlertTriangle, Lightbulb, Type, Flame, Trophy, Clock, Target, Star, Crown } from 'lucide-react';
+import { AlertTriangle, Lightbulb, Type, Flame, Trophy, Clock, Target, Star, Crown } from 'lucide-react';
 import { CARD_TYPES } from '../../constants';
 import { SmartText } from '../UI/SmartText';
 
@@ -53,44 +53,35 @@ export function ResultScreen({
             {gameState === 'gameover' ? 'TRY AGAIN' : 'PRACTICE CLEAR'}
         </h2>
 
-        <div className="w-full max-w-xl bg-slate-900/80 rounded-3xl p-6 md:p-8 border border-white/20 mb-10 shadow-2xl backdrop-blur-md animate-in slide-in-from-bottom-10 delay-200">
-            <div className="flex items-center justify-center gap-3 mb-6 border-b border-white/10 pb-4">
-                <Trophy className="w-8 h-8 text-yellow-400" />
-                <h3 className="text-2xl font-black text-white tracking-widest">SCORE BREAKDOWN</h3>
+        <div className="w-full max-w-xl bg-slate-900/80 rounded-3xl p-5 md:p-7 border border-white/20 mb-6 shadow-2xl backdrop-blur-md">
+          <div className="flex justify-between items-end gap-4">
+            <span className="flex items-center gap-2 text-slate-200 font-bold text-lg"><Trophy className="w-6 h-6 text-yellow-400"/> TOTAL SCORE</span>
+            <div className="flex flex-col items-end">
+              {isNewRecord && <span className="text-yellow-400 font-black text-xs flex gap-1 items-center"><Crown size={14}/> NEW RECORD!</span>}
+              <span className="text-4xl md:text-5xl font-black text-cyan-300 tabular-nums">{score.toLocaleString()}</span>
             </div>
-            
-            <div className="space-y-4 mb-6">
-                <div className="flex justify-between items-center text-slate-300 font-bold text-lg px-2">
-                    <span className="flex items-center gap-2"><Target className="w-5 h-5 text-blue-400"/> Base Score</span>
-                    <span className="text-white">{scoreDetails.base.toLocaleString()}</span>
-                </div>
-                <div className="flex justify-between items-center text-slate-300 font-bold text-lg px-2">
-                    <span className="flex items-center gap-2"><Clock className="w-5 h-5 text-pink-400"/> Time Bonus</span>
-                    <span className="text-white">+{scoreDetails.timeBonus.toLocaleString()}</span>
-                </div>
-                <div className="flex justify-between items-center text-slate-300 font-bold text-lg px-2">
-                    <span className="flex items-center gap-2"><Flame className="w-5 h-5 text-orange-400"/> Combo Bonus <span className="text-xs ml-1 text-slate-500">(Max {maxCombo})</span></span>
-                    <span className="text-white">+{scoreDetails.comboBonus.toLocaleString()}</span>
-                </div>
-                {scoreDetails.perfect > 0 && (
-                    <div className="flex justify-between items-center text-yellow-300 font-black text-xl px-2 py-2 bg-yellow-900/40 rounded-lg border border-yellow-500/50 animate-pulse shadow-inner">
-                        <span className="flex items-center gap-2"><Star className="w-6 h-6 fill-current"/> PERFECT CLEAR!</span>
-                        <span>+{scoreDetails.perfect.toLocaleString()}</span>
-                    </div>
-                )}
+          </div>
+          <details className="border-t border-white/20 mt-4 pt-3 text-left">
+            <summary className="text-sm text-cyan-200 font-semibold cursor-pointer focus-visible:outline-cyan-400">得点の内訳を見る / Score details</summary>
+            <div className="space-y-3 mt-4 text-sm md:text-base">
+              <div className="flex justify-between gap-4 text-slate-300">
+                <span className="flex items-center gap-2"><Target size={18} className="text-blue-400"/> Base</span>
+                <span className="font-bold text-white">{scoreDetails.base.toLocaleString()}</span>
+              </div>
+              {scoreDetails.timeBonus > 0 && <div className="flex justify-between gap-4 text-slate-300">
+                <span className="flex items-center gap-2"><Clock size={18} className="text-pink-400"/> Time</span>
+                <span className="font-bold text-white">+{scoreDetails.timeBonus.toLocaleString()}</span>
+              </div>}
+              {scoreDetails.comboBonus > 0 && <div className="flex justify-between gap-4 text-slate-300">
+                <span className="flex items-center gap-2"><Flame size={18} className="text-orange-400"/> Combo (Max {maxCombo})</span>
+                <span className="font-bold text-white">+{scoreDetails.comboBonus.toLocaleString()}</span>
+              </div>}
+              {scoreDetails.perfect > 0 && <div className="flex justify-between gap-4 text-yellow-300 font-bold">
+                <span className="flex items-center gap-2"><Star size={18}/> Perfect Clear</span>
+                <span>+{scoreDetails.perfect.toLocaleString()}</span>
+              </div>}
             </div>
-
-            <div className="border-t-4 border-slate-700 pt-6">
-                <div className="flex justify-between items-end">
-                    <span className="text-slate-400 font-bold text-xl uppercase tracking-widest">Total Score</span>
-                    <div className="flex flex-col items-end">
-                        {isNewRecord && <span className="text-yellow-400 font-black text-sm animate-pulse mb-1 flex items-center gap-1"><Crown size={14}/> NEW RECORD!</span>}
-                        <span className="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 drop-shadow-lg">
-                            {score.toLocaleString()}
-                        </span>
-                    </div>
-                </div>
-            </div>
+          </details>
         </div>
 
         {gameState === 'result' && leaderboard.length > 0 && (
