@@ -16,7 +16,8 @@ import { ReviewMode } from './components/Game/ReviewMode';
 import { THEMES, FONT_SIZES } from './constants';
 
 export default function App() {
-  const { playSound } = useSound();
+  const soundEnabledRef = useRef(true);
+  const { playSound } = useSound(soundEnabledRef);
   const game = useGameLogic(playSound);
 
   const {
@@ -25,8 +26,10 @@ export default function App() {
     playerHP, langMode, userStance, battleRounds, currentRoundIndex,
     showJapanese, timerEnabled, timeProgress, setFontSize, setShowRules, setShowJapanese,
     bgmEnabled, bgmTrack, ttsVoiceType, combo, floatingTexts,
-    isResizing, imageSize, setImageSize
+    isResizing: isResizingRef, imageSize, setImageSize, sidePanelPos, setSidePanelWidth
   } = game;
+
+  useEffect(() => { soundEnabledRef.current = game.sfxEnabled; }, [game.sfxEnabled]);
 
   const theme = THEMES.techno;
   const bgmRef = useRef(null);
@@ -39,41 +42,35 @@ export default function App() {
   const currentWidthRef = useRef(game.sidePanelWidth);
 
   useEffect(() => {
-    const isPlayingGame = gameState !== 'start' && gameState !== 'gameover' && gameState !== 'result' && !isDrillMode;
-    
-    if (bgmEnabled && isPlayingGame) {
-        if (!bgmRef.current) {
-            bgmRef.current = new Audio(`/audio/${bgmTrack}.mp3`);
-            bgmRef.current.loop = true;
-        }
-        bgmRef.current.play().catch(e => console.log("BGM Play Error:", e));
-    } else {
-        if (bgmRef.current) {
-            bgmRef.current.pause();
-            bgmRef.current.currentTime = 0; 
-        }
-    }
+    const active = !['start', 'gameover', 'result', 'review'].includes(gameState) && !isDrillMode;
+    if (!bgmEnabled || !active) return;
+    const audio = new Audio(`/audio/${bgmTrack}.mp3`);
+    bgmRef.current = audio;
+    audio.loop = true;
+    audio.play().catch(() => {});
+    return () => { audio.pause(); audio.currentTime = 0; bgmRef.current = null; };
   }, [gameState, bgmEnabled, bgmTrack, isDrillMode]);
 
   // 💡 究極の超軽量リサイズ処理：ドラッグ中はReactを通さず直接幅を変え、フリーズを100%防ぐ
-  const startResizing = (e) => {
-    isResizing.current = true;
+  const startResizing = () => {
+    isResizingRef.current = true;
     setIsDragging(true);
     document.body.style.userSelect = 'none'; // 文字選択を防ぐ
   };
 
+  useEffect(() => {
   const stopResizing = () => {
-    if (isResizing.current) {
-        isResizing.current = false;
+    if (isResizingRef.current) {
+        isResizingRef.current = false;
         setIsDragging(false);
         document.body.style.userSelect = '';
         // 最後に手を離した時だけ、Reactのデータを更新する（負荷ゼロ）
-        game.setSidePanelWidth(currentWidthRef.current);
+        setSidePanelWidth(currentWidthRef.current);
     }
   };
 
   const resize = (e) => {
-    if (!isResizing.current || !containerRef.current) return;
+    if (!isResizingRef.current || !containerRef.current) return;
     
     let clientX = e.clientX;
     if (e.touches && e.touches.length > 0) {
@@ -84,7 +81,7 @@ export default function App() {
     const containerRect = containerRef.current.getBoundingClientRect();
     let newWidthRatio;
 
-    if (game.sidePanelPos === 'left') {
+    if (sidePanelPos === 'left') {
         newWidthRatio = ((clientX - containerRect.left) / containerRect.width) * 100;
     } else {
         newWidthRatio = ((containerRect.right - clientX) / containerRect.width) * 100;
@@ -100,19 +97,22 @@ export default function App() {
   };
 
   // マウスが画面のどこに行っても追跡する
-  useEffect(() => {
     window.addEventListener('mousemove', resize);
     window.addEventListener('mouseup', stopResizing);
     window.addEventListener('touchmove', resize, { passive: false });
     window.addEventListener('touchend', stopResizing);
+    window.addEventListener('touchcancel', stopResizing);
 
     return () => {
       window.removeEventListener('mousemove', resize);
       window.removeEventListener('mouseup', stopResizing);
       window.removeEventListener('touchmove', resize);
       window.removeEventListener('touchend', stopResizing);
+      window.removeEventListener('touchcancel', stopResizing);
+      document.body.style.userSelect = '';
+      isResizingRef.current = false;
     };
-  }, [game.sidePanelPos]);
+  }, [sidePanelPos, setSidePanelWidth, isResizingRef]);
 
   if (topics.length === 0) return <div className="h-screen flex items-center justify-center bg-[#09090b] text-white">Loading...</div>;
   if (gameState === 'review') return <ReviewMode topic={currentTopic} onClose={() => { playSound('click'); goHome(); }} showJapanese={showJapanese} langMode={langMode} difficulty={game.difficulty || 'easy'} />;
@@ -166,7 +166,7 @@ export default function App() {
         )}
 
         {gameState !== 'start' && gameState !== 'gameover' && gameState !== 'result' && (
-          <div ref={containerRef} className={`flex-1 flex overflow-hidden relative game-core-layout ${game.sidePanelPos === 'left' ? 'flex-row-reverse' : 'flex-row'}`}>
+          <div ref={containerRef} className={`flex-1 flex overflow-hidden relative game-core-layout ${sidePanelPos === 'left' ? 'flex-row-reverse' : 'flex-row'}`}>
             
             <div className="flex-1 overflow-hidden">
                <BattleBoard game={game} />
@@ -202,7 +202,7 @@ export default function App() {
           difficulty={game.difficulty} showJapanese={showJapanese} goHome={() => { playSound('click'); goHome(); }}
           mistakes={game.mistakes} fontSize={fontSize} setFontSize={setFontSize} setShowJapanese={setShowJapanese} playSound={playSound}
           scoreDetails={game.scoreDetails} maxCombo={game.maxCombo} 
-          leaderboard={game.leaderboard} 
+          leaderboard={game.leaderboard} storageNotice={game.storageNotice}
         />
 
         <div className="absolute inset-0 pointer-events-none z-[100] overflow-hidden">

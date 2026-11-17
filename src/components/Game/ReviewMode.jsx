@@ -1,3 +1,4 @@
+import { localized } from '../../utils/gameSafety.js';
 import React from 'react';
 import { ShieldCheck, ArrowUpCircle, Lightbulb, Home } from 'lucide-react';
 import { SmartText } from '../UI/SmartText';
@@ -17,8 +18,9 @@ export const ReviewMode = ({ topic, onClose, showJapanese, langMode, difficulty 
     .filter(card => card.group !== 'fake') 
     .reduce((acc, card) => {
       if (!card.group) return acc;
-      if (!acc[card.group]) acc[card.group] = [];
-      acc[card.group].push(card);
+      const key = `${card.stance}:${card.group}`;
+      if (!acc[key]) acc[key] = [];
+      acc[key].push(card);
       return acc;
     }, {});
 
@@ -61,13 +63,13 @@ export const ReviewMode = ({ topic, onClose, showJapanese, langMode, difficulty 
                                <span className="text-[10px] font-black uppercase tracking-widest">{card.type}</span>
                             </div>
                             {langMode === 'ja' ? (
-                                <p className="font-bold text-lg text-white leading-relaxed">{card.textJP}</p>
+                                <p className="font-bold text-lg text-white leading-relaxed">{localized(card.textJP, difficulty)}</p>
                             ) : (
                                 <>
                                   <p className="font-bold text-white leading-relaxed text-base">
                                       <SmartText text={displayText} vocabList={topic.vocabulary} />
                                   </p>
-                                  {showJapanese && <p className="mt-2 pt-2 border-t border-white/10 text-slate-400 text-sm">{card.textJP}</p>}
+                                  {showJapanese && <p className="mt-2 pt-2 border-t border-white/10 text-slate-400 text-sm">{localized(card.textJP, difficulty)}</p>}
                                 </>
                             )}
                         </div>

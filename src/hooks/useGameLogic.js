@@ -1,8 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useEffectEvent } from 'react';
 import { getAllTopics } from '../utils/dataLoader';
 import { MAX_HP, DAMAGE_BIG, DAMAGE_SMALL, DAMAGE_TICK, TIME_LIMIT_SEC, DIFFICULTIES, FLOWS } from '../constants';
-import { db } from '../firebase';
-import { collection, addDoc, getDocs, query, orderBy, limit } from 'firebase/firestore';
+import { calculateAward, readScores, saveLocalScore, scoreKey } from '../utils/gameSafety.js';
 
 const getAllFakeImages = (topic) => {
   const urls = new Set();
@@ -28,17 +27,17 @@ const getAllFakeImages = (topic) => {
 };
 
 const getRandomFakeUrl = () => {
-    const randomNum = Math.floor(Math.random() * 100) + 1;
+    const randomNum = Math.floor(Math.random() * 28) + 1;
     return `/images/fake_${randomNum}.webp`;
 };
 
 export const useGameLogic = (playSound) => {
-  const [topics, setTopics] = useState([]);
+  const [topics] = useState(getAllTopics);
   const [selectedTopicId, setSelectedTopicId] = useState(null);
   const [userStance, setUserStance] = useState(null); 
   const [difficulty, setDifficulty] = useState(null);
-  const [timerEnabled, setTimerEnabled] = useState(true); 
-  const [imageMatchEnabled, setImageMatchEnabled] = useState(true);
+  const [timerEnabled, setTimerEnabled] = useState(false);
+  const [imageMatchEnabled, setImageMatchEnabled] = useState(false);
   const [battleRounds, setBattleRounds] = useState(3);
   const [gameMode, setGameMode] = useState('area'); 
   const [langMode, setLangMode] = useState('en'); 
@@ -72,7 +71,7 @@ export const useGameLogic = (playSound) => {
   const [mistakes, setMistakes] = useState([]);
 
   const [bgmTrack, setBgmTrack] = useState('bgm1');
-  const [bgmEnabled, setBgmEnabled] = useState(true);
+  const [bgmEnabled, setBgmEnabled] = useState(false);
   const [ttsVoiceType, setTtsVoiceType] = useState('female');
   const [sfxEnabled, setSfxEnabled] = useState(true);
 
@@ -86,53 +85,61 @@ export const useGameLogic = (playSound) => {
   const [leaderboard, setLeaderboard] = useState([]);
   
   const timerIntervalRef = useRef(null);
-  const startTimeRef = useRef(Date.now()); 
+  const startTimeRef = useRef(0);
   const isResizing = useRef(false);
   const scrollRef = useRef(null);
   const playerHPRef = useRef(MAX_HP);
 
-  useEffect(() => { setTopics(getAllTopics()); }, []);
 
-  useEffect(() => {
-      localStorage.setItem('debate_playerName', playerName);
-      localStorage.setItem('debate_playerLocation', playerLocation);
-  }, [playerName, playerLocation]);
+  const pendingTimers = useRef(new Set());
+  const actionLocked = useRef(false);
+  const savedSession = useRef(false);
+  const awardedCards = useRef(new Set());
+  const [storageNotice, setStorageNotice] = useState('');
+  const recordKey = scoreKey({ topic: selectedTopicId, difficulty, stance: userStance,
+      mode: gameMode, rounds: battleRounds, timer: timerEnabled, images: imageMatchEnabled, language: langMode });
 
-  const fetchLeaderboard = async (topicId, diff) => {
-      if (!topicId || !diff) return;
-      try {
-          const collectionPath = `leaderboards/${topicId}_${diff}/scores`;
-          const q = query(collection(db, collectionPath), orderBy("score", "desc"), limit(10));
-          const querySnapshot = await getDocs(q);
-          const data = [];
-          querySnapshot.forEach((doc) => {
-              data.push({ id: doc.id, ...doc.data() });
-          });
-          setLeaderboard(data);
-      } catch (e) {
-          console.error("Firebase fetch error: ", e);
-      }
+  const later = (callback, delay) => {
+      const id = setTimeout(() => {
+          pendingTimers.current.delete(id);
+          callback();
+      }, delay);
+      pendingTimers.current.add(id);
+      return id;
+  };
+  const cancelPending = () => {
+      pendingTimers.current.forEach(clearTimeout);
+      pendingTimers.current.clear();
+      clearInterval(timerIntervalRef.current);
+      actionLocked.current = false;
+  };
+  useEffect(() => () => {
+      pendingTimers.current.forEach(clearTimeout);
+      clearInterval(timerIntervalRef.current);
+  }, []);
+
+  const fetchLeaderboard = () => {
+      setLeaderboard(readScores(recordKey));
   };
 
   useEffect(() => {
-      const saveScoreToFirebase = async () => {
-          if (gameState === 'result' && selectedTopicId && difficulty && gameMode !== 'review') {
-              try {
-                  const collectionPath = `leaderboards/${selectedTopicId}_${difficulty}/scores`;
-                  await addDoc(collection(db, collectionPath), {
-                      name: playerName || 'Anonymous',
-                      location: playerLocation || 'Earth',
-                      score: score,
-                      date: new Date().toLocaleDateString('ja-JP')
-                  });
-                  await fetchLeaderboard(selectedTopicId, difficulty);
-              } catch (e) {
-                  console.error("Firebase save error: ", e);
-              }
-          }
-      };
-      saveScoreToFirebase();
-  }, [gameState]);
+      if (gameState !== 'result' || savedSession.current) return;
+      savedSession.current = true;
+      const result = saveLocalScore(recordKey, { id: crypto.randomUUID(),
+          name: playerName.trim().slice(0, 15) || 'Anonymous',
+          location: playerLocation.trim().slice(0, 20), score,
+          date: new Date().toLocaleDateString('ja-JP') });
+      setLeaderboard(result.records);
+      setStorageNotice(result.saved ? '' : 'このブラウザでは記録を保存できません。今回の結果は画面で確認できます。');
+  }, [gameState, recordKey, playerName, playerLocation, score]);
+
+  useEffect(() => {
+      const selectable = ['construct', 'cross_exam', 'rebuttal_defense', 'closing'].includes(gameState);
+      const constructingDone = gameState === 'construct' && tower.length >= (FLOWS[gameMode] || FLOWS.area).length;
+      if ((selectable && hand.length > 0 && !constructingDone) || (gameState.endsWith('_image') && pendingCard)) {
+          actionLocked.current = false;
+      }
+  }, [gameState, hand, tower, gameMode, pendingCard]);
 
   const triggerExplosion = (count, colorClass, cardId = null) => {
       const newParticles = Array.from({ length: count }).map((_, i) => ({
@@ -145,24 +152,23 @@ export const useGameLogic = (playSound) => {
           color: colorClass
       }));
       setParticles(newParticles);
-      setTimeout(() => setParticles([]), 800);
+      later(() => setParticles([]), 800);
   };
 
   const takeDamage = (amount, reasonStr, cardId = null) => {
       playSound('damage');
-      setShake(true); setTimeout(() => setShake(false), 300);
+      setShake(true); later(() => setShake(false), 300);
       setCombo(0); 
-      if (cardId) { setShakingCardId(cardId); setTimeout(() => setShakingCardId(null), 500); }
+      if (cardId) { setShakingCardId(cardId); later(() => setShakingCardId(null), 500); }
       triggerExplosion(20, 'bg-red-500', cardId);
       setFeedback({ msg: reasonStr, type: 'damage' });
-      setTimeout(() => setFeedback(null), 800);
+      later(() => setFeedback(null), 800);
       
-      setPlayerHP(prev => {
-          const newHP = Math.max(0, prev - amount);
-          playerHPRef.current = newHP;
-          if (newHP <= 0) setGameState('gameover');
-          return newHP;
-      });
+      const newHP = Math.max(0, playerHPRef.current - amount);
+      playerHPRef.current = newHP;
+      setPlayerHP(newHP);
+      if (newHP <= 0) { cancelPending(); setGameState('gameover'); }
+
   };
 
   const damageOpponent = (amount) => {
@@ -171,38 +177,32 @@ export const useGameLogic = (playSound) => {
   };
 
   const addScore = (basePoints) => {
-      const timeElapsed = (Date.now() - startTimeRef.current) / 1000;
-      const timeBonusObj = Math.max(0, Math.floor((TIME_LIMIT_SEC - timeElapsed) * 10));
-      
-      const diffMultiplier = difficulty === 'hard' ? 2 : difficulty === 'medium' ? 1.5 : 1;
       const newCombo = combo + 1;
       setCombo(newCombo);
       setMaxCombo(prev => Math.max(prev, newCombo));
-
-      const currentComboBonus = newCombo > 1 ? newCombo * 10 * diffMultiplier : 0;
-      const totalAdd = Math.floor((basePoints + timeBonusObj + currentComboBonus) * diffMultiplier);
-
+      const award = calculateAward({ basePoints, elapsed: (Date.now() - startTimeRef.current) / 1000,
+          limit: TIME_LIMIT_SEC, difficulty, combo: newCombo, timerEnabled });
+      const totalAdd = award.base + award.timeBonus + award.comboBonus;
       setScore(prev => prev + totalAdd);
-      setScoreDetails(prev => ({
-          ...prev,
-          base: prev.base + Math.floor(basePoints * diffMultiplier),
-          timeBonus: prev.timeBonus + Math.floor(timeBonusObj * diffMultiplier),
-          comboBonus: prev.comboBonus + Math.floor(currentComboBonus)
-      }));
+      setScoreDetails(prev => ({ ...prev, base: prev.base + award.base,
+          timeBonus: prev.timeBonus + award.timeBonus, comboBonus: prev.comboBonus + award.comboBonus }));
 
       const comboStr = newCombo >= 2 ? `${newCombo} COMBO!` : null;
       const newText = { id: Date.now(), text: `+${totalAdd}`, x: 50 + (Math.random()*20-10), y: 40 + (Math.random()*20-10), comboStr };
       setFloatingTexts(prev => [...prev, newText]);
-      setTimeout(() => { setFloatingTexts(prev => prev.filter(t => t.id !== newText.id)); }, 1200);
+      later(() => { setFloatingTexts(prev => prev.filter(t => t.id !== newText.id)); }, 1200);
   };
 
+  const onTimerDamage = useEffectEvent(() => takeDamage(DAMAGE_TICK, 'Time is running out!'));
+
   useEffect(() => {
-      if (!timerEnabled || gameState === 'start' || gameState === 'gameover' || gameState === 'result' || gameState === 'review') {
+      if (!timerEnabled || !['construct', 'cross_exam', 'rebuttal_defense', 'closing', 'construct_image', 'cross_exam_image', 'rebuttal_defense_image'].includes(gameState)) {
           if (timerIntervalRef.current) clearInterval(timerIntervalRef.current);
           return;
       }
 
       timerIntervalRef.current = setInterval(() => {
+          if (actionLocked.current) return;
           if (playerHPRef.current <= 0) {
               clearInterval(timerIntervalRef.current);
               return;
@@ -212,7 +212,7 @@ export const useGameLogic = (playSound) => {
           setTimeProgress(progress);
           
           if (progress >= 100) {
-              takeDamage(DAMAGE_TICK, "Time is running out!");
+              onTimerDamage();
               startTimeRef.current = Date.now();
               setTimeProgress(0);
           }
@@ -245,6 +245,11 @@ export const useGameLogic = (playSound) => {
   };
 
   const initGame = () => {
+    if (!canStart) return;
+    cancelPending(); savedSession.current = false; awardedCards.current.clear();
+    setLeaderboard([]); setStorageNotice('');
+    setPendingCard(null); setImageHand([]); setShowSuccessOverlay(false);
+    setShake(false); setShakingCardId(null); setParticles([]); setFloatingTexts([]);
     if (gameMode === 'review') { setGameState('review'); return; }
     setTower([]); setPlayerHP(MAX_HP); playerHPRef.current = MAX_HP; 
     setOpponentHP(MAX_HP); setScore(0);
@@ -282,13 +287,18 @@ export const useGameLogic = (playSound) => {
   };
 
   const goHome = () => {
+    cancelPending();
+    window.speechSynthesis?.cancel();
+    setFeedback(null); setPendingCard(null); setImageHand([]);
+    setShowSuccessOverlay(false); setShake(false); setShakingCardId(null);
+    setParticles([]); setFloatingTexts([]); setShowRules(false);
     setGameState('start'); setSetupStep(1); setSelectedTopicId(null);
     setUserStance(null); setDifficulty(null); setPlayerHP(MAX_HP); playerHPRef.current = MAX_HP;
     setTower([]); setIsDrillMode(false);
   };
 
   const handleUndo = () => {
-    if (tower.length === 0) return;
+    if (gameState !== 'construct' || actionLocked.current || tower.length === 0) return;
     const newTower = [...tower];
     const removedCard = newTower.pop();
     setTower(newTower); setHand(prev => [...prev, removedCard]);
@@ -296,6 +306,9 @@ export const useGameLogic = (playSound) => {
   };
 
   const triggerCrossExam = (roundIdx = currentRoundIndex) => {
+    // This clock read runs only in user actions or scheduled phase transitions.
+    // eslint-disable-next-line react-hooks/purity
+    actionLocked.current = false; startTimeRef.current = Date.now(); setTimeProgress(0);
     if (gameMode === 'logic_link' || roundIdx >= battlePlan.length) { triggerClosingPhase(); return; }
     const currentData = battlePlan[roundIdx];
     if (currentData && currentData.cx) {
@@ -307,16 +320,18 @@ export const useGameLogic = (playSound) => {
   };
 
   const triggerRebuttalPhase = (roundIdx = currentRoundIndex) => {
+    actionLocked.current = true;
     const currentData = battlePlan[roundIdx];
     setGameState('rebuttal_intro'); setRivalCard(null); setHand([]);
-    setTimeout(() => {
+    later(() => {
       if (playerHPRef.current <= 0) return; 
       setGameState('rebuttal_attack');
       if (currentData && currentData.reb) {
         setRivalCard(localizeCard({ ...currentData.reb, type: 'attack' }, difficulty));
-        if(timerEnabled) takeDamage(DAMAGE_TICK, "Opponent Attack!");
-        setTimeout(() => { 
+
+        later(() => {
             if (playerHPRef.current <= 0) return; 
+            actionLocked.current = false; startTimeRef.current = Date.now(); setTimeProgress(0);
             setGameState('rebuttal_defense'); 
             const processedOptions = currentData.reb.options.map(o => localizeCard(o, difficulty));
             setHand(setupBattlePhase(processedOptions)); 
@@ -333,13 +348,14 @@ export const useGameLogic = (playSound) => {
 
   const triggerClosingPhase = () => {
     const currentTopic = topics.find(t => t.id === selectedTopicId) || topics[0];
-    setGameState('closing'); setRivalCard(null);
+    actionLocked.current = false; startTimeRef.current = Date.now(); setTimeProgress(0);
+    setGameState('closing'); setRivalCard(null); setHand([]);
     const closingOptions = currentTopic.closing?.[userStance];
-    if(closingOptions) {
+    if(closingOptions?.length) {
         const processedOptions = closingOptions.map(o => localizeCard(o, difficulty));
         setHand(setupBattlePhase(processedOptions));
     }
-    else setTimeout(() => {
+    else later(() => {
         if (playerHPRef.current <= 0) return;
         setGameState('result');
     }, 1500);
@@ -369,28 +385,28 @@ export const useGameLogic = (playSound) => {
       const newTower = [...tower, { ...card, judgment: 'perfect' }];
       setTower(newTower);
       setHand(gameState.startsWith('construct') ? hand.filter(c => c.id !== card.id) : []);
-      setShowSuccessOverlay(true); setTimeout(() => setShowSuccessOverlay(false), 800); 
+      setShowSuccessOverlay(true); later(() => setShowSuccessOverlay(false), 800);
       if (baseState === 'closing') { playSound('clear'); } else { playSound('correct'); }
 
       if (baseState === 'construct') {
           const expectedFlow = FLOWS[gameMode] || FLOWS.area;
           if (newTower.length >= expectedFlow.length) {
-              setFeedback({ msg: "PERFECT COMPLETE!", type: 'success', judgment: 'perfect' }); setTimeout(() => setFeedback(null), 800);
+              setFeedback({ msg: "PERFECT COMPLETE!", type: 'success', judgment: 'perfect' }); later(() => setFeedback(null), 800);
               triggerExplosion(30, 'bg-blue-400'); 
-              setTimeout(() => {
+              later(() => {
                   if (playerHPRef.current <= 0) return; 
                   triggerCrossExam(currentRoundIndex);
               }, 800);
-          } else { setGameState('construct'); }
+          } else { startTimeRef.current = Date.now(); setTimeProgress(0); setGameState('construct'); }
       } else if (baseState === 'cross_exam' || baseState === 'rebuttal_defense') {
           
           // 💡 激突と粉砕のド派手な演出を追加！
-          setShake(true); setTimeout(() => setShake(false), 400); // 画面を揺らす
+          setShake(true); later(() => setShake(false), 400); // 画面を揺らす
           triggerExplosion(40, 'bg-blue-400'); // 大爆発
           playSound('damage'); // 激突音としてダメージ音を鳴らす
 
-          setFeedback({ msg: "NICE COUNTER!", type: 'success', judgment: 'perfect' }); setTimeout(() => setFeedback(null), 800);
-          setTimeout(() => {
+          setFeedback({ msg: "NICE COUNTER!", type: 'success', judgment: 'perfect' }); later(() => setFeedback(null), 800);
+          later(() => {
               if (playerHPRef.current <= 0) return; 
               baseState === 'cross_exam' ? triggerRebuttalPhase(currentRoundIndex) : nextRound(currentRoundIndex);
           }, 800);
@@ -405,8 +421,8 @@ export const useGameLogic = (playSound) => {
           } else {
               setFeedback({ msg: "DEBATE FINISHED!", type: 'success', judgment: 'perfect' });
           }
-          setTimeout(() => setFeedback(null), 1500);
-          setTimeout(() => {
+          later(() => setFeedback(null), 1500);
+          later(() => {
               if (playerHPRef.current <= 0) return; 
               setGameState('result');
           }, 1500);
@@ -414,10 +430,11 @@ export const useGameLogic = (playSound) => {
   };
 
   const handleCardSelect = (card) => {
-    startTimeRef.current = Date.now(); setTimeProgress(0);
-    const baseState = gameState.replace('_image', '');
+    if (actionLocked.current || !['construct', 'cross_exam', 'rebuttal_defense', 'closing'].includes(gameState) || !hand.includes(card)) return;
+    const baseState = gameState;
 
     if (baseState === 'construct') {
+      if (tower.length >= (FLOWS[gameMode] || FLOWS.area).length) return;
       const expectedFlow = FLOWS[gameMode] || FLOWS.area;
       const expectedType = expectedFlow[tower.length];
       const cardType = card.type === 'mini_conclusion' ? 'mini_conclusion' : card.type;
@@ -435,23 +452,27 @@ export const useGameLogic = (playSound) => {
             return; 
         } 
       }
-      addScore(100); damageOpponent(25); 
+      actionLocked.current = true;
+      if (!awardedCards.current.has(card.id)) {
+          addScore(100); damageOpponent(25); awardedCards.current.add(card.id);
+      }
       if (imageMatchEnabled && card.image_url) launchImageMatch(card, baseState); else finalizeCardSuccess(card, baseState);
     } else { 
+        actionLocked.current = true;
         if (card.judgment === 'weak') { 
             takeDamage(DAMAGE_SMALL, "Weak Argument!", card.id); setHand([]);
-            setTower([...tower, { ...card, judgment: 'weak' }]);
+
             
             if (!mistakes.find(m => m.id === card.id)) {
                 setMistakes(prev => [...prev, { ...card, reasonStr: "相手の主張を論理的に覆すための反論として不十分です。" }]);
             }
-            setTimeout(() => {
+            if (playerHPRef.current <= 0) return;
+            later(() => {
                 if (playerHPRef.current <= 0) return; 
-                if (baseState === 'cross_exam') triggerRebuttalPhase(currentRoundIndex);
-                else if (baseState === 'rebuttal_defense') nextRound(currentRoundIndex);
-                else if (baseState === 'closing') setGameState('result');
+                setHand(hand.filter(option => option !== card));
+                startTimeRef.current = Date.now(); setTimeProgress(0);
             }, 1500);
-        } else { 
+        } else if (['correct', 'perfect'].includes(card.judgment)) {
             addScore(150); damageOpponent(20); 
             if (imageMatchEnabled && card.image_url && baseState !== 'closing') {
                 launchImageMatch(card, baseState); 
@@ -463,9 +484,13 @@ export const useGameLogic = (playSound) => {
   };
 
   const handleImageSelect = (url) => {
-      startTimeRef.current = Date.now(); setTimeProgress(0);
+      if (actionLocked.current || !gameState.endsWith('_image') || !pendingCard || !imageHand.includes(url)) return;
       if (url === pendingCard.image_url) {
-          addScore(50); 
+          actionLocked.current = true;
+          const imageKey = `image:${pendingCard.id}`;
+          if (!gameState.startsWith('construct') || !awardedCards.current.has(imageKey)) {
+              addScore(50); awardedCards.current.add(imageKey);
+          }
           finalizeCardSuccess(pendingCard, gameState.replace('_image', ''));
       } else { takeDamage(DAMAGE_SMALL, "Wrong Image!", url); }
   };
@@ -475,7 +500,7 @@ export const useGameLogic = (playSound) => {
     if (gameState !== 'construct') return hand; 
     
     const expectedFlow = FLOWS[gameMode] || FLOWS.area;
-    if (tower.length >= expectedFlow.length) return hand;
+    if (tower.length >= expectedFlow.length) return [];
     
     const expectedType = expectedFlow[tower.length];
     return hand.filter(card => {
@@ -488,7 +513,7 @@ export const useGameLogic = (playSound) => {
   const isTopicSelected = selectedTopicId !== null;
   const isStanceSelected = userStance !== null;
   const isDifficultySelected = difficulty !== null;
-  const canStart = isTopicSelected && isStanceSelected && isDifficultySelected;
+  const canStart = topics.some(t => t.id === selectedTopicId) && ['affirmative', 'negative'].includes(userStance) && Object.hasOwn(DIFFICULTIES, difficulty) && ['area', 'logic_link', 'review'].includes(gameMode) && Number.isInteger(battleRounds) && battleRounds >= 1 && battleRounds <= 6;
   const visibleHand = getVisibleHand();
 
   return {
@@ -504,7 +529,7 @@ export const useGameLogic = (playSound) => {
     isTopicSelected, isStanceSelected, isDifficultySelected, mistakes,
     bgmTrack, setBgmTrack, bgmEnabled, setBgmEnabled, ttsVoiceType, setTtsVoiceType, sfxEnabled, setSfxEnabled,
     combo, maxCombo, floatingTexts, scoreDetails,
-    playerName, setPlayerName, playerLocation, setPlayerLocation, leaderboard, fetchLeaderboard, 
+    storageNotice, playerName, setPlayerName, playerLocation, setPlayerLocation, leaderboard, fetchLeaderboard,
     initGame, goHome, handleUndo, handleCardSelect, handleImageSelect
   };
 };

@@ -1,16 +1,35 @@
-# React + Vite
+# Debate App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+英語・日本語で主張、理由、具体例、再主張を組み立て、質問と反論に応答するカード式の基礎練習アプリです。React / Vite製。
 
-Currently, two official plugins are available:
+## 開発・検証
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Node.js 24推奨。
 
-## React Compiler
+```sh
+npm ci
+npm run dev
+npm test
+npm run lint
+npm run build
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+標準ではタイマーと画像照合はOFF。成績はこのブラウザ内のみ保存し、外部へ送信しません。本名・所在地の入力は不要です。実際のディベート能力を測る試験ではありません。
 
-## Expanding the ESLint configuration
+## 教材
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+12テーマ。Homework / Tests / Uniforms / Bentoは両立場の質問・反論・結論を収録。残る8テーマは旧形式の肯定側教材に対応し、否定側の不足は開始前に表示します。問題数が設定ラウンドより少ない場合は繰り返します。
+
+具体例は練習用であり、発表で事実・統計として引用する前に出典を確認してください。
+
+## セキュリティと公開
+
+[修正内容・検証・本番未反映事項](SECURITY_REVIEW.md)を参照してください。Firestoreへの依存は撤去しました。旧公開アクセスを閉じるための拒否ルールとHostingのセキュリティヘッダーを同梱しています。ルールは対象プロジェクト全体を拒否するため、他のアプリとの共有を確認してから反映してください。
+
+```sh
+npm run build
+# 対象プロジェクトと共有状況の確認後に実行
+firebase deploy --only hosting,firestore:rules
+```
+
+本ブランチの作成だけでは、公開サイト・本番ルールは更新されません。

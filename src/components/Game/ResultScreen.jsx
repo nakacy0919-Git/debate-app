@@ -8,7 +8,7 @@ export function ResultScreen({
   langMode, difficulty, showJapanese, goHome, mistakes,
   fontSize, setFontSize, setShowJapanese, playSound,
   scoreDetails, maxCombo,
-  leaderboard
+  leaderboard, storageNotice
 }) {
   if (gameState !== 'gameover' && gameState !== 'result') return null;
 
@@ -96,7 +96,7 @@ export function ResultScreen({
         {gameState === 'result' && leaderboard.length > 0 && (
             <div className="w-full max-w-3xl bg-slate-900/80 rounded-3xl p-6 md:p-8 border-2 border-yellow-500/50 mb-10 shadow-[0_0_30px_rgba(234,179,8,0.2)] backdrop-blur-md animate-in slide-in-from-bottom-10 delay-300">
                 <h3 className="text-2xl font-black text-yellow-400 mb-6 flex items-center justify-center gap-3 border-b border-white/10 pb-4 tracking-widest">
-                    <Crown className="w-8 h-8" /> LEADERBOARD <span className="text-sm text-slate-400 tracking-normal">({difficulty.toUpperCase()})</span>
+                    <Crown className="w-8 h-8" /> LOCAL RECORDS <span className="text-sm text-slate-400 tracking-normal">({difficulty.toUpperCase()})</span>
                 </h3>
                 <div className="space-y-3">
                     {leaderboard.map((record, index) => {
@@ -124,6 +124,8 @@ export function ResultScreen({
             </div>
         )}
         
+        <p className="max-w-3xl text-slate-300 text-center mb-6">この得点はカード選択の練習記録です。実際のディベート能力や主張の真偽を判定するものではありません。具体例は練習用で、統計・研究結果として引用する前に出典を確認してください。</p>
+        {storageNotice && <p role="status" className="text-amber-300 mb-4">{storageNotice}</p>}
         {correctCards.length > 0 && (
             <div className="w-full max-w-5xl bg-slate-900/80 rounded-2xl p-4 md:p-8 border border-white/20 mb-8 shadow-2xl backdrop-blur-md">
                 <h3 className="text-xl md:text-2xl font-black text-green-400 mb-6 flex items-center justify-center gap-2 border-b border-white/20 pb-4 drop-shadow-md">

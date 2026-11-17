@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { X, CheckCircle2, AlertTriangle, BrainCircuit, Play, Volume2 } from 'lucide-react';
 
 export function VocabDrill({ topics, onClose, playSound, ttsVoiceType }) {
@@ -9,8 +9,21 @@ export function VocabDrill({ topics, onClose, playSound, ttsVoiceType }) {
   const [score, setScore] = useState(0);
   const [feedback, setFeedback] = useState(null);
 
+  const timersRef = useRef(new Set());
+  const answerLockedRef = useRef(false);
+  const later = (callback, delay) => {
+    const id = setTimeout(() => { timersRef.current.delete(id); callback(); }, delay);
+    timersRef.current.add(id);
+  };
+  useEffect(() => () => {
+    timersRef.current.forEach(clearTimeout);
+    window.speechSynthesis?.cancel();
+  }, []);
+
   // 🗣️ 音声読み上げロジック（男女の声の判別）
   const speakWord = (wordText) => {
+      if (!window.speechSynthesis || typeof SpeechSynthesisUtterance === 'undefined') return;
+      window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(wordText);
       utterance.lang = 'en-US';
       const voices = window.speechSynthesis.getVoices().filter(v => v.lang.startsWith('en'));
@@ -27,7 +40,8 @@ export function VocabDrill({ topics, onClose, playSound, ttsVoiceType }) {
 
   const startQuiz = (topic) => {
     playSound('click');
-    const vocab = topic.vocabulary || [];
+    answerLockedRef.current = false;
+    const vocab = [...new Map((topic.vocabulary || []).map(v => [v.word.toLowerCase(), v])).values()];
     if (vocab.length < 4) {
         alert("このトピックには十分な単語データがありません。"); return;
     }
@@ -46,10 +60,12 @@ export function VocabDrill({ topics, onClose, playSound, ttsVoiceType }) {
     setQuizState('playing');
     
     // 最初の単語を読み上げ
-    setTimeout(() => speakWord(generatedQuestions[0].answer.word), 500);
+    later(() => speakWord(generatedQuestions[0].answer.word), 500);
   };
 
   const handleAnswer = (selectedWord) => {
+    if (answerLockedRef.current || quizState !== 'playing') return;
+    answerLockedRef.current = true;
     const isCorrect = selectedWord.word === questions[currentIndex].answer.word;
     if (isCorrect) {
       playSound('correct'); setScore(prev => prev + 1); setFeedback('correct');
@@ -57,7 +73,8 @@ export function VocabDrill({ topics, onClose, playSound, ttsVoiceType }) {
       playSound('wrong'); setFeedback('wrong');
     }
 
-    setTimeout(() => {
+    later(() => {
+      answerLockedRef.current = false;
       setFeedback(null);
       if (currentIndex + 1 < questions.length) {
         setCurrentIndex(prev => prev + 1);

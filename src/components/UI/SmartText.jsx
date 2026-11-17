@@ -5,7 +5,7 @@ export const SmartText = ({ text, vocabList = [] }) => {
   const [activeWord, setActiveWord] = useState(null);
 
   // 単語単位に分割
-  const words = text.split(/(\s+|[.,!?;:"'()])+/);
+  const words = (typeof text === 'string' ? text : '').split(/(\s+|[.,!?;:"'()])/);
 
   return (
     <span className="relative inline-block">

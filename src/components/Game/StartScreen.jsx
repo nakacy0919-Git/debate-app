@@ -3,7 +3,7 @@ import { Play, BrainCircuit, Type, HelpCircle, BookOpen, ChevronLeft, Image as I
 import { DIFFICULTIES } from '../../constants';
 
 const NEWS_ITEMS = [
-  { id: 1, date: '2026.02.27', tag: 'UPDATE', color: 'bg-yellow-500', text: 'スコアランキング機能を実装！君のディベート力を世界に示そう！' },
+  { id: 1, date: '2026.02.27', tag: 'UPDATE', color: 'bg-yellow-500', text: '記録はこのブラウザ内だけに保存。主張と根拠のつながりを練習しよう。' },
   { id: 2, date: '2026.02.26', tag: 'UPDATE', color: 'bg-blue-500', text: 'Vocab Quizが大幅進化！テーマを選んで4択クイズができるようになりました。' },
   { id: 3, date: '2026.02.25', tag: 'NEW', color: 'bg-green-500', text: '画面のレイアウトをスッキリと見やすく再設計しました。' },
 ];
@@ -27,11 +27,11 @@ export function StartScreen({ game, playSound }) {
 
   const [showBotMessage, setShowBotMessage] = useState(false);
   const [botText, setBotText] = useState("");
-  const fullText = "やあ！僕はディベート・ボット！\n正しい論理を組み立てて、相手からの反論を論破するバトルゲームだよ！\n初めての人は右上の「Help」でルールを確認してね！";
+  const fullText = "やあ！僕はディベート・ボット！\n主張と根拠をつなぎ、相手の質問に答える練習ゲームだよ！\n初めての人は右上の「Help」でルールを確認してね！";
 
   const [showNews, setShowNews] = useState(false);
   const [unreadNewsCount, setUnreadNewsCount] = useState(NEWS_ITEMS.length);
-  const [isAnonymous, setIsAnonymous] = useState(false);
+  const [isAnonymous, setIsAnonymous] = useState(true);
 
   const handleBotClick = () => {
       if (showBotMessage) return; 
@@ -64,7 +64,7 @@ export function StartScreen({ game, playSound }) {
     } else {
         if (previewAudioRef.current) previewAudioRef.current.pause();
         previewAudioRef.current = new Audio(`/audio/${bgmTrack}.mp3`);
-        previewAudioRef.current.play();
+        previewAudioRef.current.play().catch(() => setIsPlayingPreview(false));
         setIsPlayingPreview(true);
     }
   };
@@ -76,6 +76,8 @@ export function StartScreen({ game, playSound }) {
         setIsPlayingPreview(false);
     }
   };
+
+  useEffect(() => () => { previewAudioRef.current?.pause(); }, []);
 
   const closeSettings = () => {
       playSound('click');
@@ -146,7 +148,7 @@ export function StartScreen({ game, playSound }) {
 
         <div className="absolute top-4 right-4 md:top-8 md:right-8 flex gap-3 z-50">
             {setupStep === 4 && isTopicSelected && isDifficultySelected && (
-                <button onClick={handleOpenLeaderboard} className="p-3 bg-yellow-600/90 rounded-full border-2 border-yellow-300 text-white hover:bg-yellow-500 hover:scale-110 transition-all shadow-[0_0_15px_rgba(234,179,8,0.6)] animate-pulse" title="Leaderboard">
+                <button onClick={handleOpenLeaderboard} className="p-3 bg-yellow-600/90 rounded-full border-2 border-yellow-300 text-white hover:bg-yellow-500 hover:scale-110 transition-all shadow-[0_0_15px_rgba(234,179,8,0.6)] animate-pulse" title="このブラウザの記録">
                     <Trophy className="w-6 h-6 md:w-8 md:h-8" />
                 </button>
             )}
@@ -180,7 +182,7 @@ export function StartScreen({ game, playSound }) {
             <div className="absolute inset-0 z-[100] bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm animate-in zoom-in">
                 <div className="bg-slate-900 border-2 border-yellow-500 rounded-3xl p-6 md:p-8 w-full max-w-md text-white relative shadow-[0_0_50px_rgba(234,179,8,0.4)] max-h-[80vh] flex flex-col">
                     <button onClick={() => { playSound('click'); setShowLeaderboard(false); }} className="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800 p-2 rounded-full"><X className="w-5 h-5"/></button>
-                    <h3 className="text-2xl font-black mb-2 text-center text-yellow-400 flex items-center justify-center gap-2"><Trophy/> LEADERBOARD</h3>
+                    <h3 className="text-2xl font-black mb-2 text-center text-yellow-400 flex items-center justify-center gap-2"><Trophy/> LOCAL RECORDS</h3>
                     <div className="text-center text-sm text-slate-400 mb-6 border-b border-white/10 pb-4">
                         {topics.find(t=>t.id===selectedTopicId)?.title} / <span className="uppercase text-cyan-400">{difficulty}</span>
                     </div>
@@ -227,20 +229,20 @@ export function StartScreen({ game, playSound }) {
                         
                         <div className="bg-slate-800/80 p-4 rounded-2xl border border-white/5 space-y-3">
                             <div className="flex justify-between items-center">
-                                <div className="flex items-center gap-3 font-bold text-lg"><Music className="text-blue-400 w-5 h-5"/> BGM (音楽)</div>
-                                <button onClick={() => { playSound('click'); setBgmEnabled(!bgmEnabled); }} className={`w-14 h-8 rounded-full transition-colors flex items-center px-1 shadow-inner ${bgmEnabled ? 'bg-cyan-500' : 'bg-slate-600'}`}>
+                                <div className="flex items-center gap-3 font-bold text-lg"><Music className="text-blue-400 w-5 h-5"/> BGM (音源未登録)</div>
+                                <button disabled title="音源未登録" onClick={() => { playSound('click'); setBgmEnabled(!bgmEnabled); }} className={`w-14 h-8 rounded-full transition-colors flex items-center px-1 shadow-inner ${bgmEnabled ? 'bg-cyan-500' : 'bg-slate-600'}`}>
                                     <div className={`w-6 h-6 bg-white rounded-full transition-transform shadow-md ${bgmEnabled ? 'translate-x-6' : 'translate-x-0'}`}/>
                                 </button>
                             </div>
                             <div className={`flex items-center gap-2 ${!bgmEnabled ? 'opacity-30 pointer-events-none' : ''}`}>
-                                <select value={bgmTrack} onChange={handleBgmChange} className="flex-1 bg-slate-700 text-white font-bold p-2 rounded-lg outline-none border border-slate-500">
+                                <select disabled value={bgmTrack} onChange={handleBgmChange} className="flex-1 bg-slate-700 text-white font-bold p-2 rounded-lg outline-none border border-slate-500">
                                     <option value="bgm1">Track 1 (Cyberpunk)</option>
                                     <option value="bgm2">Track 2 (Epic Battle)</option>
                                     <option value="bgm3">Track 3 (Chill Lo-Fi)</option>
                                     <option value="bgm4">Track 4 (Tense Debate)</option>
                                     <option value="bgm5">Track 5 (Victory March)</option>
                                 </select>
-                                <button onClick={togglePreview} className="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg font-bold text-sm transition-colors whitespace-nowrap">
+                                <button disabled title="音源未登録" onClick={togglePreview} className="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg font-bold text-sm transition-colors whitespace-nowrap">
                                     {isPlayingPreview ? 'STOP' : 'TEST'}
                                 </button>
                             </div>
@@ -304,8 +306,9 @@ export function StartScreen({ game, playSound }) {
 
                         {setupStep === 2 && (
                             <div className="animate-warp w-full max-w-2xl mx-auto flex flex-col items-center">
-                                <h2 className="text-2xl md:text-3xl font-black text-white mb-6 text-center tracking-widest uppercase drop-shadow-md border-b border-white/10 pb-4 w-full">2. Player Profile</h2>
+                                <h2 className="text-2xl md:text-3xl font-black text-white mb-6 text-center tracking-widest uppercase drop-shadow-md border-b border-white/10 pb-4 w-full">2. Practice Profile</h2>
                                 
+                                <p className="text-sm text-slate-300 mb-4">名前・所在地・得点は外部に送信しません。記録はこのブラウザ内のみ。本名・所在地の入力は不要です。</p>
                                 <div className="w-full max-w-md mb-6">
                                     <label className="flex items-center justify-center gap-3 cursor-pointer group bg-slate-800/50 p-4 rounded-xl border border-white/10 hover:bg-slate-700/50 transition-all">
                                         <div className={`w-6 h-6 rounded border-2 flex items-center justify-center transition-colors ${isAnonymous ? 'bg-cyan-500 border-cyan-400' : 'bg-transparent border-slate-400 group-hover:border-cyan-400'}`}>
@@ -324,7 +327,7 @@ export function StartScreen({ game, playSound }) {
                                             type="text" 
                                             value={playerName} 
                                             onChange={(e) => setPlayerName(e.target.value)}
-                                            placeholder="Enter your name..."
+                                            placeholder="Nickname only (本名不要)"
                                             className="w-full bg-slate-900/80 border-2 border-slate-500 rounded-xl py-4 pl-12 pr-4 text-white text-xl font-bold placeholder-slate-400/70 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-500/30 outline-none transition-all shadow-inner"
                                             maxLength={15}
                                             disabled={isAnonymous}
@@ -336,7 +339,7 @@ export function StartScreen({ game, playSound }) {
                                             type="text" 
                                             value={playerLocation} 
                                             onChange={(e) => setPlayerLocation(e.target.value)}
-                                            placeholder="City or Country (e.g. Okazaki)"
+                                            placeholder="Optional team label (所在地不要)"
                                             className="w-full bg-slate-900/80 border-2 border-slate-500 rounded-xl py-4 pl-12 pr-4 text-white text-lg font-bold placeholder-slate-400/70 focus:border-yellow-400 focus:ring-4 focus:ring-yellow-500/30 outline-none transition-all shadow-inner"
                                             maxLength={20}
                                             disabled={isAnonymous}
@@ -423,6 +426,7 @@ export function StartScreen({ game, playSound }) {
                                     </div>
                                 </div>
 
+                                {canStart && gameMode === 'area' && <p role="status" className="text-sm text-amber-200 mt-3">{game.currentTopic.crossExam[userStance].length && game.currentTopic.rebuttal[userStance].length ? `質問・反論を各${battleRounds}回練習します。問題数が少ない場合は同じ問題を繰り返します。` : 'このテーマ・立場は一部の質問・反論教材が未整備です。利用できる段階のみ練習します。'}</p>}
                                 {canStart && (
                                 <button onClick={() => { playSound('click'); initGame(); }} className="w-full mt-4 py-3 md:py-4 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full font-black text-xl md:text-2xl hover:shadow-[0_0_40px_rgba(34,211,238,0.8)] transition-all hover:scale-[1.02] border border-white/30 text-white flex justify-center items-center gap-3 shrink-0 animate-warp duration-300">
                                     {gameMode === 'review' ? <BookOpen className="w-6 h-6"/> : <Play className="fill-current w-6 h-6"/>} 

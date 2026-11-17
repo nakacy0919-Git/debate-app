@@ -3,18 +3,18 @@ import { Home, Type, Menu, X, Image as ImageIcon, Maximize2 } from 'lucide-react
 import { MAX_HP } from '../../constants';
 
 export function GameHeader({
-  goHome, playerHP, langMode, currentTopic, userStance, battleRounds,
-  gameState, currentRoundIndex, showJapanese, timerEnabled, timeProgress,
-  setFontSize, setShowRules, setShowJapanese, playSound, combo, score,
-  imageSize, setImageSize // 💡 画像サイズ変更用
+  goHome, playerHP, langMode, currentTopic, userStance,
+  gameState,  showJapanese, timerEnabled, timeProgress,
+  setFontSize,  setShowJapanese, playSound, combo, score,
+   setImageSize // 💡 画像サイズ変更用
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scorePop, setScorePop] = useState(false);
 
   useEffect(() => {
-    setScorePop(true);
+    const start = setTimeout(() => setScorePop(true), 0);
     const timer = setTimeout(() => setScorePop(false), 300);
-    return () => clearTimeout(timer);
+    return () => { clearTimeout(start); clearTimeout(timer); };
   }, [score]);
 
   return (
