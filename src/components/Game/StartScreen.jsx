@@ -426,7 +426,7 @@ export function StartScreen({ game, playSound }) {
                                     </div>
                                 </div>
 
-                                {canStart && gameMode === 'area' && <p role="status" className="text-sm text-amber-200 mt-3">{game.currentTopic.crossExam[userStance].length && game.currentTopic.rebuttal[userStance].length ? `質問・反論を各${battleRounds}回練習します。問題数が少ない場合は同じ問題を繰り返します。` : 'このテーマ・立場は一部の質問・反論教材が未整備です。利用できる段階のみ練習します。'}</p>}
+                                {canStart && gameMode === 'area' && <p role="status" className="text-sm text-amber-200 mt-3">{game.currentTopic.crossExam[userStance].length >= battleRounds && game.currentTopic.rebuttal[userStance].length >= battleRounds ? `全${battleRounds}ラウンドで異なる質問・反論を練習できます。` : `全${battleRounds}ラウンドを練習します。教材数を超えるラウンドでは問題を繰り返します。`}</p>}
                                 {canStart && (
                                 <button onClick={() => { playSound('click'); initGame(); }} className="w-full mt-4 py-3 md:py-4 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full font-black text-xl md:text-2xl hover:shadow-[0_0_40px_rgba(34,211,238,0.8)] transition-all hover:scale-[1.02] border border-white/30 text-white flex justify-center items-center gap-3 shrink-0 animate-warp duration-300">
                                     {gameMode === 'review' ? <BookOpen className="w-6 h-6"/> : <Play className="fill-current w-6 h-6"/>} 
