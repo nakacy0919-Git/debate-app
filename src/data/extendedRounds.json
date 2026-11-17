@@ -744,6 +744,24 @@
         "ロボットペットは修理代が高くなりませんか？",
         "Repair costs matter, but families can compare them with the ongoing care costs of live animals.",
         "修理代は重要ですが、生き物の継続的な飼育費用と比べることができます。"
+      ],
+      [
+        "Can a robot pet teach a child to care for a living creature?",
+        "ロボットペットは生き物への思いやりを子どもに教えられますか？",
+        "Not completely, but it can be a first step toward learning routines and responsibility.",
+        "完全ではありませんが、習慣や責任を学ぶ最初の一歩になります。"
+      ],
+      [
+        "What if a robot pet's software stops receiving updates?",
+        "ロボットペットのソフトウェア更新が止まったらどうしますか？",
+        "Buyers should consider long-term support and repairability before choosing a product.",
+        "購入前に長期サポートと修理のしやすさを確認すべきです。"
+      ],
+      [
+        "Could people become too dependent on a robot for friendship?",
+        "人が友情の代わりにロボットへ頼りすぎませんか？",
+        "Robot pets should complement human relationships rather than replace them.",
+        "ロボットペットは人との関係を置き換えるのではなく補うべきです。"
       ]
     ],
     "nC": [
@@ -764,6 +782,24 @@
         "アレルギーのある人にはロボットの方が安全ではありませんか？",
         "Often yes, but the best choice depends on each household's needs rather than one universal rule.",
         "多くの場合そうですが、最適な選択は一つのルールではなく各家庭の事情によります。"
+      ],
+      [
+        "Don't real pets require more daily attention than robots?",
+        "本物のペットはロボットより毎日の世話が多く必要ではありませんか？",
+        "Yes, but caring routines can help owners learn patience and responsibility.",
+        "そうですが、毎日の世話から忍耐力と責任感を学ぶことができます。"
+      ],
+      [
+        "Might a robot pet be better for someone who cannot walk a dog?",
+        "犬の散歩ができない人にはロボットがよいのではありませんか？",
+        "It may be a good fit for that person, but the debate is whether robots are better for everyone.",
+        "その人には向いているかもしれませんが、全員にとって優れているかが論点です。"
+      ],
+      [
+        "Are robot pets less likely to trigger animal allergies?",
+        "ロボットペットの方が動物アレルギーを起こしにくいのではありませんか？",
+        "Usually, but that advantage does not replace the living bond some people value in animals.",
+        "通常はそうですが、その利点だけでは生き物との絆の価値は置き換えられません。"
       ]
     ],
     "aR": [
@@ -778,6 +814,24 @@
         "ロボットは故障や旧式化によってごみを生むという反論です。",
         "We should consider repair and recycling, just as we consider the responsibilities of caring for living pets.",
         "生き物を世話する責任と同じように、修理やリサイクルも考慮すべきです。"
+      ],
+      [
+        "But robot pets cannot grow or change like real animals!",
+        "ロボットは本物の動物のように成長しないという反論です。",
+        "Real animals offer unique growth experiences, while predictable robot behavior can suit some households.",
+        "本物の動物は成長を学べますが、予測しやすいロボットが適する家庭もあります。"
+      ],
+      [
+        "But a robot pet could collect private information!",
+        "ロボットペットが個人情報を集めるという反論です。",
+        "Privacy is a real concern, so users should choose offline-capable models and review data settings.",
+        "プライバシーは重要なので、オフラインでも使える製品やデータ設定を確認すべきです。"
+      ],
+      [
+        "But buying more robots creates electronic waste!",
+        "ロボットを買うと電子ごみが増えるという反論です。",
+        "Repairable designs and recycling can reduce waste, though the impact still deserves comparison.",
+        "修理しやすい設計と再資源化で減らせますが、環境負荷は比較する必要があります。"
       ]
     ],
     "nR": [
@@ -798,6 +852,24 @@
         "でもロボットは子どもをかんだり引っかいたりしません！",
         "Safety matters, but responsible supervision and training can also help families live safely with animals.",
         "安全は大切ですが、適切な見守りとしつけによって動物と安全に暮らせる場合もあります。"
+      ],
+      [
+        "But robot pets are a practical choice for small apartments!",
+        "でも狭い住宅にはロボットペットが便利です！",
+        "They can be, yet practical housing needs do not decide what kind of companionship every person prefers.",
+        "確かに便利ですが、住まいの事情だけで全員の望むふれあいは決まりません。"
+      ],
+      [
+        "But robot pets avoid the heartbreak of losing a living pet!",
+        "でもロボットなら生きたペットとの別れの悲しみを避けられます！",
+        "Loss is painful, but caring for living animals also teaches empathy and the value of life.",
+        "別れはつらいですが、生き物との暮らしは共感や命の大切さも教えてくれます。"
+      ],
+      [
+        "But robots can interact with elderly people every day!",
+        "でもロボットなら高齢者と毎日触れ合えます！",
+        "They may help, but supervised animal visits or suitable real pets can provide meaningful contact too.",
+        "役立つ場合はありますが、見守りのある動物との交流や適切な実際のペットも有意義です。"
       ]
     ],
     "nF": [
@@ -855,6 +927,24 @@
         "洋食でも健康的でバランスのよい食事は作れませんか？",
         "Yes, but traditional Japanese meals offer another flexible model based on varied ingredients.",
         "作れますが、伝統的な和食も多様な食材を用いる柔軟な食事モデルです。"
+      ],
+      [
+        "How can you call one cuisine better when tastes differ?",
+        "好みが違うのに一方の料理が優れていると言えますか？",
+        "We can compare nutritional variety and cultural value while recognizing personal preferences.",
+        "個人の好みを認めながら栄養の多様性や文化的価値を比較できます。"
+      ],
+      [
+        "What about people who cannot eat fish or soy?",
+        "魚や大豆が食べられない人はどうしますか？",
+        "Traditional meal styles can be adapted with different ingredients to meet dietary needs.",
+        "伝統的な献立も食材を変えれば食事制限に合わせられます。"
+      ],
+      [
+        "Isn't some Japanese food difficult to cook every day?",
+        "毎日作るには難しい和食もありませんか？",
+        "Some dishes take time, but simple rice, soup, and vegetable combinations are possible.",
+        "手間のかかる料理もありますが、ご飯、汁物、野菜の簡単な組み合わせもできます。"
       ]
     ],
     "nC": [
@@ -875,6 +965,24 @@
         "旬の和食は環境にもよいのではありませんか？",
         "Seasonal ingredients can help, yet many Western-style meals can also use seasonal local produce.",
         "旬の食材は役立ちますが、洋食でも地元の旬の食材を使えます。"
+      ],
+      [
+        "Isn't a traditional set meal a good example of balanced eating?",
+        "伝統的な定食は栄養バランスのよい例ではありませんか？",
+        "It can be, but a balanced Western-style meal can follow the same nutrition principles.",
+        "そうなりますが、洋食でも同じ栄養の原則に従った献立にできます。"
+      ],
+      [
+        "Doesn't Japanese food preserve regional traditions?",
+        "和食は地域の伝統を守るのではありませんか？",
+        "It does, and Western-style meals can coexist with those traditions rather than replace them.",
+        "守っていますし、洋食はそうした伝統を消さずに共存できます。"
+      ],
+      [
+        "Can Western-style meals offer seasonal vegetables too?",
+        "洋食でも旬の野菜を取り入れられますか？",
+        "Certainly; seasonal vegetables can be used in soups, salads, and baked dishes.",
+        "もちろんです。旬の野菜はスープ、サラダ、オーブン料理にも使えます。"
       ]
     ],
     "aR": [
@@ -889,6 +997,24 @@
         "和食の小鉢をいくつも作るのは時間がかかりすぎるという反論です。",
         "Simple rice, soup, and seasonal dishes can offer a practical version of Japanese-style meals.",
         "ご飯、汁物、旬の一品など簡単な組み合わせでも和食らしい食事にできます。"
+      ],
+      [
+        "But modern Western-style food can include healthy grains and vegetables!",
+        "現代の洋食にも健康的な穀物や野菜が使えるという反論です。",
+        "That is true, yet traditional Japanese meals also provide a practical framework for varied ingredients.",
+        "その通りですが、伝統的な和食も多様な食材を組み合わせる実践的な方法です。"
+      ],
+      [
+        "But some Japanese dishes contain a lot of salt!",
+        "和食には塩分の多い料理もあるという反論です。",
+        "Salt depends on preparation, so lighter seasoning and smaller portions can improve balance.",
+        "塩分は調理法によるので、薄味や適量でバランスを改善できます。"
+      ],
+      [
+        "But international food brings people together across cultures!",
+        "世界の料理は文化を越えて人々を結びつけるという反論です。",
+        "That is valuable, and appreciating other cuisines does not prevent us from valuing washoku.",
+        "それは重要で、他国の料理を尊重することと和食を大切にすることは両立します。"
       ]
     ],
     "nR": [
@@ -909,6 +1035,24 @@
         "でも和食は日本独自の伝統を守ります！",
         "Preserving tradition matters, yet people can respect washoku while enjoying varied global cuisines.",
         "伝統の保護は大切ですが、和食を尊重しながら世界の多様な料理も楽しめます。"
+      ],
+      [
+        "But Japanese breakfast has a healthy variety of foods!",
+        "でも和朝食には多様で健康的な食べ物があります！",
+        "Many breakfasts do, but variety also depends on the actual ingredients and preparation.",
+        "そのような朝食は多いですが、多様性は実際の食材や調理法にも左右されます。"
+      ],
+      [
+        "But Japanese food is recognized as cultural heritage!",
+        "でも和食は文化遺産として評価されています！",
+        "Cultural recognition is meaningful, but it is different from proving nutritional or personal superiority.",
+        "文化的な評価には意味がありますが、栄養面や個人の好みでの優劣とは別です。"
+      ],
+      [
+        "But Japanese home cooking helps families connect!",
+        "でも家庭の和食は家族のつながりを強めます！",
+        "Family meals matter, and shared Western-style cooking can create the same opportunity to connect.",
+        "家族の食事は大切で、洋食を一緒に作ることでも同じような交流が生まれます。"
       ]
     ],
     "nF": [
@@ -966,6 +1110,24 @@
         "個人的なメッセージを他人に見せられたらどうしますか？",
         "Privacy matters, so people should choose trusted channels and avoid sharing sensitive details.",
         "プライバシーは重要なので、信頼できる手段を選び、機微な内容を送らない工夫が必要です。"
+      ],
+      [
+        "What if a message is sent to the wrong person?",
+        "メッセージを間違った相手に送ってしまったらどうしますか？",
+        "People should check the recipient carefully and avoid rushing important messages.",
+        "大切なメッセージは急がず、送信相手をよく確認すべきです。"
+      ],
+      [
+        "Could online communication create pressure to answer quickly?",
+        "オンラインのやり取りはすぐに返答する圧力を生みませんか？",
+        "Senders can make clear that the other person may reply when ready.",
+        "相手が準備できた時に返せばよいと伝えることができます。"
+      ],
+      [
+        "Does texting make it harder to understand someone's tone?",
+        "文字では相手の口調を理解しにくくなりませんか？",
+        "Thoughtful words and an invitation to talk later can reduce confusion.",
+        "丁寧な言葉と後から話す提案で誤解を減らせます。"
       ]
     ],
     "nC": [
@@ -986,6 +1148,24 @@
         "遠く離れて暮らす人にはメッセージの方がよくありませんか？",
         "Distance makes online tools useful, but when both can meet safely, a direct conversation may feel more personal.",
         "離れている場合にはオンラインが便利ですが、安全に会えるなら直接の会話の方が気持ちを伝えやすいこともあります。"
+      ],
+      [
+        "Can't a carefully written message feel more sincere than nervous speech?",
+        "慎重に書いたメッセージの方が緊張した会話より誠実に感じませんか？",
+        "It can, but sincerity also comes from listening and responding naturally in person.",
+        "そう感じる場合もありますが、直接相手の話を聞いて自然に応じることにも誠実さがあります。"
+      ],
+      [
+        "Wouldn't someone feel safer sharing feelings from home?",
+        "自宅から気持ちを伝える方が安心できませんか？",
+        "For some people yes; both people's comfort and safety should determine how they communicate.",
+        "その方が安心する人もいます。双方の安心と安全に応じて方法を選ぶべきです。"
+      ],
+      [
+        "Does an in-person confession always need an immediate reply?",
+        "直接告白すると必ずすぐに答える必要がありますか？",
+        "No, a respectful person can offer the other person time and space to think.",
+        "いいえ。相手を尊重すれば、考える時間と距離を与えられます。"
       ]
     ],
     "aR": [
@@ -1000,6 +1180,24 @@
         "返信が遅いと送信者が不安になるという反論です。",
         "That is possible, but giving the other person time to think can also be respectful.",
         "そうした不安はありますが、相手が考える時間を持てることも尊重につながります。"
+      ],
+      [
+        "But screenshots can make a private confession public!",
+        "スクリーンショットで秘密の告白が公開されるという反論です。",
+        "That risk exists, so people should send only respectful messages and consider privacy carefully.",
+        "そのリスクはあるので、丁寧な内容にし、プライバシーを慎重に考えるべきです。"
+      ],
+      [
+        "But written words cannot show a person's facial expression!",
+        "文字だけでは顔の表情が伝わらないという反論です。",
+        "Facial cues are helpful, but well-chosen words can clearly communicate care and respect.",
+        "表情は役立ちますが、よく選んだ言葉でも思いやりと敬意をはっきり示せます。"
+      ],
+      [
+        "But an online confession can feel less personal!",
+        "オンラインの告白は個人的な気持ちが弱く感じられるという反論です。",
+        "A message can include meaningful shared memories and be followed by a conversation.",
+        "メッセージには共有した思い出を込められ、その後に会話もできます。"
       ]
     ],
     "nR": [
@@ -1020,6 +1218,24 @@
         "でもオンラインの告白なら返事を考える時間を与えられます！",
         "Time to think is important, and it can also be offered after a respectful in-person confession.",
         "考える時間は大切であり、丁寧に直接告白した後でも相手に時間を与えられます。"
+      ],
+      [
+        "But people can confess online across long distances!",
+        "でも離れた場所からオンラインで告白できます！",
+        "Distance matters, but convenience alone does not mean it is better than a direct talk when meeting is possible.",
+        "距離は重要ですが、会える場合には便利さだけで直接の会話よりよいとは言えません。"
+      ],
+      [
+        "But a digital message gives the receiver more privacy!",
+        "でも電子メッセージなら相手のプライバシーを守れます！",
+        "Privacy depends on the setting and the sender; a quiet private conversation can also respect it.",
+        "プライバシーは場面と送り手によるので、静かな二人きりの会話でも守れます。"
+      ],
+      [
+        "But shy people may find face-to-face confessions too stressful!",
+        "でも恥ずかしがり屋に直接の告白は負担が大きいです！",
+        "Their comfort matters, so an in-person talk should be optional, respectful, and never forced.",
+        "本人の安心が大切なので、直接話すことは選択制で、丁寧に行い強制すべきではありません。"
       ]
     ],
     "nF": [
@@ -1077,6 +1293,24 @@
         "生徒が掃除しなければ誰が教室をきれいにするのですか？",
         "Schools can plan professional cleaning and encourage everyone to tidy up after themselves.",
         "学校は専門的な清掃を計画し、一人ひとりが使った場所を片付ける習慣を促せます。"
+      ],
+      [
+        "How would students learn to respect shared spaces without cleaning time?",
+        "掃除時間がなくなったら共有空間を大切にする心はどう育てますか？",
+        "Students can follow daily tidy-up rules and take responsibility for their own mess.",
+        "日々の片付けルールを守り、自分が汚した場所に責任を持つことができます。"
+      ],
+      [
+        "Would paying professionals cost schools too much?",
+        "清掃を業者に任せると学校の費用が高くなりませんか？",
+        "Schools should compare costs and prioritize professional work only where it is needed.",
+        "学校は費用を比較し、必要な場所に限って専門的な清掃を依頼すべきです。"
+      ],
+      [
+        "What happens when someone spills something during class?",
+        "授業中に何かをこぼしたらどうしますか？",
+        "Students should still clean up immediate accidents; removing a scheduled cleaning period does not remove personal responsibility.",
+        "その場の汚れは生徒が片付けるべきで、定時掃除の廃止は個人の責任までなくしません。"
       ]
     ],
     "nC": [
@@ -1097,6 +1331,24 @@
         "すべての生徒が学校の掃除を楽しんでいるのでしょうか？",
         "Not everyone enjoys it, but useful shared responsibilities need not always be enjoyable.",
         "全員が楽しむわけではありませんが、必要な共同の役割は常に楽しいとは限りません。"
+      ],
+      [
+        "Why should students clean when professionals can do it better?",
+        "プロがもっと上手にできるのになぜ生徒が掃除するのですか？",
+        "Professionals handle specialized tasks, while simple everyday tidying teaches shared responsibility.",
+        "専門作業は業者に任せ、日常の簡単な片付けで共同の責任を学べます。"
+      ],
+      [
+        "Couldn't schools use cleaning time for extracurricular activities?",
+        "掃除時間を部活動などに使えるのではありませんか？",
+        "A brief and fair routine need not take much time from meaningful activities.",
+        "短く公平な掃除なら、有意義な活動から多くの時間を奪いません。"
+      ],
+      [
+        "Can students with physical disabilities always join the same cleaning tasks?",
+        "身体に障害のある生徒も同じ掃除作業をできますか？",
+        "Tasks should be accessible and flexible so each student contributes in a suitable way.",
+        "作業は参加しやすく柔軟にし、それぞれに合う方法で協力できるようにすべきです。"
       ]
     ],
     "aR": [
@@ -1111,6 +1363,24 @@
         "掃除をしなければ生徒はもっとごみを放置するという反論です。",
         "Schools can still require students to clean up what they personally use or leave behind.",
         "学校は各自が使った場所や出したごみを片付けるよう求めることができます。"
+      ],
+      [
+        "But school cleaning builds community pride!",
+        "学校の掃除は共同体への誇りを育むという反論です。",
+        "Pride can grow through service projects, class decisions, and caring for common spaces in other ways.",
+        "誇りは奉仕活動や学級での話し合い、別の共有空間の管理でも育てられます。"
+      ],
+      [
+        "But students need practical skills for adult life!",
+        "生徒には大人になって必要な掃除技能が要るという反論です。",
+        "Practical skills can be taught in focused lessons without requiring a daily school-wide cleaning period.",
+        "生活技能は毎日の全校掃除を必須にしなくても、重点的な授業で教えられます。"
+      ],
+      [
+        "But relying on cleaners would make students careless!",
+        "清掃員に頼ると生徒がだらしなくなるという反論です。",
+        "Schools can keep clear rules for personal tidiness and evaluate whether students follow them.",
+        "学校は個人の片付けの明確なルールを残し、それを守るか確認できます。"
       ]
     ],
     "nR": [
@@ -1131,6 +1401,24 @@
         "でも生徒が掃除しない学校もあります！",
         "Different systems are possible, but that alone does not show our school's routine has no value.",
         "さまざまな仕組みがありますが、それだけで自分たちの学校の掃除が無価値とは言えません。"
+      ],
+      [
+        "But teachers could use that time for more instruction!",
+        "でも先生はその時間を授業に使えます！",
+        "More instruction matters, but practical civic habits are also part of education.",
+        "授業時間は重要ですが、社会で必要な生活習慣も教育の一部です。"
+      ],
+      [
+        "But student cleaning may cause safety problems!",
+        "でも生徒による掃除は安全上の問題があります！",
+        "We should limit tasks to safe activities with training and avoid hazardous chemicals or heights.",
+        "安全な作業に限定して指導し、危険な薬品や高所作業を避けるべきです。"
+      ],
+      [
+        "But students might feel cleaning is unfair punishment!",
+        "でも掃除は不公平な罰だと感じる生徒がいます！",
+        "Cleaning should never be punishment; fair rotation and student input make it a shared duty.",
+        "掃除を罰にせず、公平な交代制と生徒の意見を取り入れた共同の仕事にすべきです。"
       ]
     ],
     "nF": [
