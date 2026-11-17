@@ -17,6 +17,7 @@ export function StartScreen({ game, playSound }) {
   const [showSettings, setShowSettings] = useState(false);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [topicSearch, setTopicSearch] = useState('');
+  const closeSettings = () => { playSound('click'); setShowSettings(false); };
   const handleLangSelect = (lang) => {
       playSound('click');
       setLangMode(lang);
@@ -41,12 +42,12 @@ export function StartScreen({ game, playSound }) {
     <div className="absolute inset-0 z-50 flex flex-col items-center justify-center p-4 md:p-6 bg-transparent overflow-hidden">
         
         <div className="absolute top-4 right-4 md:top-8 md:right-8 flex gap-3 z-50">
-            {setupStep === 3 && isTopicSelected && isDifficultySelected && (
+            {setupStep === 3 && gameMode !== 'review' && isTopicSelected && isDifficultySelected && isStanceSelected && (
                 <button onClick={handleOpenLeaderboard} className="p-3 bg-yellow-600/90 rounded-full border-2 border-yellow-300 text-white hover:bg-yellow-500 hover:scale-110 transition-all shadow-[0_0_15px_rgba(234,179,8,0.6)] animate-pulse" title="このブラウザの記録">
                     <Trophy className="w-6 h-6 md:w-8 md:h-8" />
                 </button>
             )}
-            <button onClick={() => { playSound('click'); setShowSettings(true); }} className="p-3 bg-slate-800/80 rounded-full border border-white/20 text-slate-300 hover:text-white hover:bg-slate-700 hover:scale-110 transition-all shadow-lg" title="Settings">
+            <button aria-label="音声設定" onClick={() => { playSound('click'); setShowSettings(true); }} className="p-3 bg-slate-800/80 rounded-full border border-white/20 text-slate-300 hover:text-white hover:bg-slate-700 hover:scale-110 transition-all shadow-lg" title="Settings">
                 <Settings className="w-6 h-6 md:w-8 md:h-8" />
             </button>
         </div>
@@ -54,7 +55,7 @@ export function StartScreen({ game, playSound }) {
         {showLeaderboard && (
             <div className="absolute inset-0 z-[100] bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm animate-in zoom-in">
                 <div className="bg-slate-900 border-2 border-yellow-500 rounded-3xl p-6 md:p-8 w-full max-w-md text-white relative shadow-[0_0_50px_rgba(234,179,8,0.4)] max-h-[80vh] flex flex-col">
-                    <button onClick={() => { playSound('click'); setShowLeaderboard(false); }} className="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800 p-2 rounded-full"><X className="w-5 h-5"/></button>
+                    <button aria-label="記録を閉じる" onClick={() => { playSound('click'); setShowLeaderboard(false); }} className="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800 p-2 rounded-full"><X className="w-5 h-5"/></button>
                     <h3 className="text-2xl font-black mb-2 text-center text-yellow-400 flex items-center justify-center gap-2"><Trophy/> LOCAL RECORDS</h3>
                     <div className="text-center text-sm text-slate-400 mb-6 border-b border-white/10 pb-4">
                         {topics.find(t=>t.id===selectedTopicId)?.title} / <span className="uppercase text-cyan-400">{difficulty}</span>
@@ -70,7 +71,7 @@ export function StartScreen({ game, playSound }) {
                                             <div className="font-black text-lg w-6">{index + 1}</div>
                                             <div className="flex flex-col">
                                                 <div className="font-bold truncate max-w-[120px]">{record.name}</div>
-                                                <div className="text-[10px] text-slate-400 flex items-center gap-0.5"><MapPin size={10}/> {record.location || 'Earth'}</div>
+                                                {record.location && <div className="text-[10px] text-slate-400 mt-0.5">{record.location}</div>}
                                             </div>
                                         </div>
                                         <div className="text-right">
@@ -89,13 +90,13 @@ export function StartScreen({ game, playSound }) {
         {showSettings && (
             <div className="absolute inset-0 z-[100] bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm animate-in zoom-in">
                 <div className="bg-slate-900 border-2 border-cyan-500 rounded-3xl p-6 md:p-8 w-full max-w-md text-white relative shadow-[0_0_50px_rgba(6,182,212,0.5)]">
-                    <button onClick={closeSettings} className="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800 p-2 rounded-full"><X className="w-5 h-5"/></button>
+                    <button aria-label="設定を閉じる" onClick={closeSettings} className="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800 p-2 rounded-full"><X className="w-5 h-5"/></button>
                     <h3 className="text-2xl font-black mb-6 text-center text-cyan-400 flex items-center justify-center gap-2 border-b border-white/10 pb-4"><Settings/> SETTINGS</h3>
                     
                     <div className="space-y-4">
                         <div className="flex justify-between items-center bg-slate-800/80 p-4 rounded-2xl border border-white/5">
                             <div className="flex items-center gap-3 font-bold text-lg"><Volume2 className="text-pink-400 w-5 h-5"/> SFX (効果音)</div>
-                            <button onClick={() => { playSound('click'); setSfxEnabled(!sfxEnabled); }} className={`w-14 h-8 rounded-full transition-colors flex items-center px-1 shadow-inner ${sfxEnabled ? 'bg-cyan-500' : 'bg-slate-600'}`}>
+                            <button role="switch" aria-label="効果音" aria-checked={sfxEnabled} onClick={() => { playSound('click'); setSfxEnabled(!sfxEnabled); }} className={`w-14 h-8 rounded-full transition-colors flex items-center px-1 shadow-inner ${sfxEnabled ? 'bg-cyan-500' : 'bg-slate-600'}`}>
                                 <div className={`w-6 h-6 bg-white rounded-full transition-transform shadow-md ${sfxEnabled ? 'translate-x-6' : 'translate-x-0'}`}/>
                             </button>
                         </div>
@@ -170,12 +171,13 @@ export function StartScreen({ game, playSound }) {
                             <div className="animate-warp w-full flex flex-col h-full min-h-0">
                                 <h2 className="text-lg md:text-xl font-bold text-white mb-4 text-center tracking-widest uppercase shrink-0 drop-shadow-md">3. Final Settings</h2>
                                 
-                                <div className="grid md:grid-cols-2 gap-4 md:gap-6 text-left flex-1 min-h-0">
-                                    <div className={`bg-slate-950/70 backdrop-blur-md p-3 md:p-4 rounded-2xl flex flex-col h-full min-h-0 transition-all duration-300 ${!isTopicSelected ? 'ring-4 ring-cyan-500 ring-opacity-70 animate-pulse border-transparent' : 'border border-white/20 shadow-lg'}`}>
-                                        <h3 className="text-xs font-bold text-blue-400 mb-2 uppercase tracking-widest border-b border-white/20 pb-1 shrink-0 drop-shadow-md">Topic</h3>
+                                <div className={`grid gap-4 md:gap-6 text-left flex-1 min-h-0 ${gameMode === 'review' ? 'grid-cols-1' : 'md:grid-cols-2'}`}>
+                                    <div className={`bg-slate-950/70 backdrop-blur-md p-3 md:p-4 rounded-2xl flex flex-col min-h-[210px] max-h-[48dvh] md:max-h-none md:h-full min-w-0 transition-all duration-300 ${!isTopicSelected ? 'ring-4 ring-cyan-500 ring-opacity-70 animate-pulse border-transparent' : 'border border-white/20 shadow-lg'}`}>
+                                        <h3 className="text-xs font-bold text-blue-400 mb-2 uppercase tracking-widest border-b border-white/20 pb-1 shrink-0 drop-shadow-md">Topic（テーマ）</h3>
+                                         <input aria-label="テーマを検索" type="search" value={topicSearch} onChange={e => setTopicSearch(e.target.value)} placeholder="Search / テーマを検索" className="w-full mb-2 px-3 py-2 rounded-lg bg-slate-800 border border-slate-600 text-white placeholder-slate-400 focus:border-cyan-400 outline-none" />
                                         <div className="space-y-2 overflow-y-auto pr-2 custom-scrollbar flex-1">
-                                            {topics.map(t => (
-                                                <button key={t.id} onClick={() => { playSound('click'); setSelectedTopicId(t.id); }} className={`w-full text-left p-3 rounded-xl border transition-all ${selectedTopicId === t.id ? 'bg-blue-600/90 border-blue-400 text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]' : 'bg-slate-800/80 border-slate-600 text-slate-300 hover:bg-slate-700'}`}>
+                                            {topics.filter(t => [t.title, t.titleJP].some(v => v.toLowerCase().includes(topicSearch.trim().toLowerCase()))).map(t => (
+                                                <button key={t.id} aria-pressed={selectedTopicId === t.id} onClick={() => { playSound('click'); setSelectedTopicId(t.id); }} className={`w-full text-left p-3 rounded-xl border transition-all ${selectedTopicId === t.id ? 'bg-blue-600/90 border-blue-400 text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]' : 'bg-slate-800/80 border-slate-600 text-slate-300 hover:bg-slate-700'}`}>
                                                     <div className="font-bold text-base md:text-lg leading-tight">{langMode === 'ja' ? t.titleJP : t.title}</div>
                                                     {langMode === 'en' && <div className="text-xs md:text-sm opacity-60 mt-1">{t.titleJP}</div>}
                                                 </button>
@@ -183,7 +185,7 @@ export function StartScreen({ game, playSound }) {
                                         </div>
                                     </div>
 
-                                    <div className="flex flex-col gap-3 md:gap-4 shrink-0 overflow-y-auto custom-scrollbar pr-2">
+                                    {gameMode !== 'review' && <div className="flex flex-col gap-3 md:gap-4 min-h-0 overflow-y-auto custom-scrollbar pr-2">
                                         <div className={`bg-slate-950/70 backdrop-blur-md p-3 md:p-4 rounded-2xl transition-all duration-300 ${!isTopicSelected ? 'opacity-30 pointer-events-none border border-white/5' : (!isStanceSelected ? 'ring-4 ring-green-500 ring-opacity-70 animate-pulse border-transparent' : 'border border-white/20 shadow-lg')}`}>
                                             <h3 className="text-xs font-bold text-green-400 mb-2 uppercase tracking-widest border-b border-white/20 pb-1 drop-shadow-md">Your Stance</h3>
                                             <div className="flex gap-2">
@@ -206,13 +208,13 @@ export function StartScreen({ game, playSound }) {
                                             <div className="space-y-3">
                                                 <div className="flex justify-between items-center text-slate-200">
                                                     <span className="font-bold text-sm flex items-center gap-2"><ImageIcon className="w-4 h-4"/> Image Match</span>
-                                                    <button onClick={() => { playSound('click'); setImageMatchEnabled(!imageMatchEnabled); }} className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors ${imageMatchEnabled ? 'bg-cyan-500' : 'bg-slate-600'}`}>
+                                                    <button type="button" role="switch" aria-label="画像照合" aria-checked={imageMatchEnabled} onClick={() => { playSound('click'); setImageMatchEnabled(!imageMatchEnabled); }} className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors ${imageMatchEnabled ? 'bg-cyan-500' : 'bg-slate-600'}`}>
                                                         <div className={`bg-white w-4 h-4 rounded-full transform transition-transform shadow-md ${imageMatchEnabled ? 'translate-x-6' : 'translate-x-0'}`}></div>
                                                     </button>
                                                 </div>
                                                 <div className="flex justify-between items-center text-slate-200">
                                                     <span className="font-bold text-sm flex items-center gap-2"><Clock className="w-4 h-4"/> Time Limit</span>
-                                                    <button onClick={() => { playSound('click'); setTimerEnabled(!timerEnabled); }} className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors ${timerEnabled ? 'bg-pink-500' : 'bg-slate-600'}`}>
+                                                    <button type="button" role="switch" aria-label="時間制限" aria-checked={timerEnabled} onClick={() => { playSound('click'); setTimerEnabled(!timerEnabled); }} className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors ${timerEnabled ? 'bg-pink-500' : 'bg-slate-600'}`}>
                                                         <div className={`bg-white w-4 h-4 rounded-full transform transition-transform shadow-md ${timerEnabled ? 'translate-x-6' : 'translate-x-0'}`}></div>
                                                     </button>
                                                 </div>
@@ -221,14 +223,18 @@ export function StartScreen({ game, playSound }) {
                                                         <span className="flex items-center gap-2"><Swords className="w-4 h-4"/> Battle Rounds</span>
                                                         <span className="text-cyan-400">{battleRounds} Rounds</span>
                                                     </div>
-                                                    <input type="range" min="1" max="6" value={battleRounds} onChange={(e) => setBattleRounds(Number(e.target.value))} className="w-full accent-cyan-500" />
+                                                    <input aria-label="対戦ラウンド数" type="range" min="1" max="6" value={battleRounds} onChange={(e) => setBattleRounds(Number(e.target.value))} className="w-full accent-cyan-500" />
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        <details className="bg-slate-950/70 p-3 rounded-xl border border-white/15 text-slate-300">
+                                          <summary className="font-bold text-sm cursor-pointer">ニックネームを設定（任意・この端末内のみ）</summary>
+                                          <label htmlFor="practice-nickname" className="block text-xs mt-3 mb-1">本名は入力不要です。空欄なら匿名で記録します。</label>
+                                          <input id="practice-nickname" type="text" autoComplete="off" maxLength={15} value={playerName} onChange={event => setPlayerName(event.target.value)} placeholder="Nickname / 匿名" className="w-full bg-slate-800 rounded-lg border border-slate-600 text-white px-3 py-2 focus:outline-cyan-400" />
+                                        </details>
+                                    </div>}
                                 </div>
 
-                                {canStart && gameMode === 'area' && <p role="status" className="text-sm text-amber-200 mt-3">{game.currentTopic.crossExam[userStance].length >= battleRounds && game.currentTopic.rebuttal[userStance].length >= battleRounds ? `全${battleRounds}ラウンドで異なる質問・反論を練習できます。` : `全${battleRounds}ラウンドを練習します。教材数を超えるラウンドでは問題を繰り返します。`}</p>}
                                 {canStart && (
                                 <button onClick={() => { playSound('click'); initGame(); }} className="w-full mt-4 py-3 md:py-4 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full font-black text-xl md:text-2xl hover:shadow-[0_0_40px_rgba(34,211,238,0.8)] transition-all hover:scale-[1.02] border border-white/30 text-white flex justify-center items-center gap-3 shrink-0 animate-warp duration-300">
                                     {gameMode === 'review' ? <BookOpen className="w-6 h-6"/> : <Play className="fill-current w-6 h-6"/>} 
