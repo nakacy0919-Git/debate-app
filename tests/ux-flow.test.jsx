@@ -78,7 +78,9 @@ describe('uncluttered lesson flows', () => {
       pendingCard: { text: 'Here is my example.', textJP: '例です。' },
       fontSize: 'normal', showSuccessOverlay: false,
     }} />);
-    expect(markup).toContain('Here is my example.');
+    const board = document.createElement('div');
+    board.innerHTML = markup;
+    expect(board.textContent).toContain('Here is my example.');
     expect(markup).not.toContain('SELECT MATCHING IMAGE');
     expect(markup).not.toContain('右のパネル');
   });
