@@ -4,7 +4,7 @@ import { MAX_HP } from '../../constants';
 
 export function GameHeader({
   goHome, playerHP, langMode, currentTopic, userStance,
-  gameState, battleRounds, currentRoundIndex, showJapanese, timerEnabled, timeProgress,
+  gameState, battleRounds, currentRoundIndex, showJapanese, imageMatchEnabled, timerEnabled, timeProgress,
   setFontSize,  setShowJapanese, playSound, combo, score,
    setImageSize // 💡 画像サイズ変更用
 }) {
@@ -45,24 +45,19 @@ export function GameHeader({
       </div>
 
       <div className="order-3 md:order-none w-full md:w-auto md:min-w-0 flex-1 flex flex-col items-center justify-center text-center">
-        <h2 className="font-black text-sm md:text-base xl:text-2xl text-white tracking-tight drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] leading-tight">
-          {currentTopic.title}
+        <h2 className="font-black text-sm md:text-base xl:text-xl text-white tracking-tight leading-snug max-w-full">
+          {langMode === 'ja' ? currentTopic.titleJP : currentTopic.title}
         </h2>
-        <h3 className="font-bold text-[10px] md:text-xs xl:text-sm text-cyan-300 opacity-90 drop-shadow-md mt-0.5 mb-1 xl:mb-3">
-          {currentTopic.titleJP}
-        </h3>
-        
-        <div className="flex flex-wrap justify-center gap-1 xl:gap-5 bg-slate-950/50 px-2 py-1 rounded-full border border-white/5 shadow-inner">
-           <div className={`flex items-center gap-2 font-black text-[10px] xl:text-sm tracking-wider px-2 xl:px-4 py-1 rounded-full transition-all duration-500 ${userStance === 'affirmative' ? 'bg-blue-600 text-white shadow-[0_0_20px_rgba(59,130,246,0.8)] border border-blue-400 scale-105' : 'text-slate-500 opacity-50'}`}>
-              <div className={`w-2 h-2 rounded-full ${userStance === 'affirmative' ? 'bg-white animate-pulse' : 'bg-slate-700'}`} />
-              AFFIRMATIVE (肯定派)
-           </div>
-           <div className={`flex items-center gap-2 font-black text-[10px] xl:text-sm tracking-wider px-2 xl:px-4 py-1 rounded-full transition-all duration-500 ${userStance === 'negative' ? 'bg-red-600 text-white shadow-[0_0_20px_rgba(239,68,68,0.8)] border border-red-400 scale-105' : 'text-slate-500 opacity-50'}`}>
-              <div className={`w-2 h-2 rounded-full ${userStance === 'negative' ? 'bg-white animate-pulse' : 'bg-slate-700'}`} />
-              NEGATIVE (否定派)
-           </div>
+        {langMode !== 'ja' && showJapanese && (
+          <p className="font-semibold text-[11px] xl:text-sm text-cyan-200 mt-0.5">
+            {currentTopic.titleJP}
+          </p>
+        )}
+        <div className={`mt-1 px-3 py-1 rounded-full text-xs xl:text-sm font-extrabold border ${userStance === 'affirmative' ? 'bg-blue-700/80 border-blue-400 text-blue-100' : 'bg-rose-700/80 border-rose-400 text-rose-100'}`}>
+          {userStance === 'affirmative'
+            ? (langMode === 'ja' ? '肯定側' : 'AFFIRMATIVE')
+            : (langMode === 'ja' ? '否定側' : 'NEGATIVE')}
         </div>
-
         <div role="status" aria-live="polite" className="mt-1 text-[11px] xl:text-sm text-amber-200 font-extrabold tracking-widest">
           {roundLabel}
         </div>
@@ -91,10 +86,10 @@ export function GameHeader({
                 <Maximize2 className="w-2.5 h-2.5 md:w-3 md:h-3 absolute bottom-0 right-0 opacity-70 group-hover:opacity-100 drop-shadow-md text-cyan-400" />
             </button>
             {/* 💡 わかりやすい「画像サイズ変更」ボタン */}
-            <button onClick={() => { playSound('click'); setImageSize(prev => prev === 'normal' ? 'large' : prev === 'large' ? 'small' : 'normal'); }} className="relative p-2 md:p-3 bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 rounded-full transition-colors border border-white/10 shadow-md group" title="画像サイズ変更 (Image Size)">
+            {imageMatchEnabled && <button aria-label="画像サイズ変更" onClick={() => { playSound('click'); setImageSize(prev => prev === 'normal' ? 'large' : prev === 'large' ? 'small' : 'normal'); }} className="relative p-2 md:p-3 bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 rounded-full transition-colors border border-white/10 shadow-md group" title="画像サイズ変更 (Image Size)">
                 <ImageIcon className="w-4 h-4 md:w-5 md:h-5" />
                 <Maximize2 className="w-2.5 h-2.5 md:w-3 md:h-3 absolute bottom-0 right-0 opacity-70 group-hover:opacity-100 drop-shadow-md text-pink-400" />
-            </button>
+            </button>}
             {langMode !== 'ja' && (
                 <button onClick={() => { playSound('click'); setShowJapanese(!showJapanese); }} className={`w-9 h-9 md:w-11 md:h-11 rounded-full border-2 flex items-center justify-center font-black text-xs md:text-sm shadow-md transition-colors ${showJapanese ? 'bg-blue-600 border-blue-400 text-white' : 'bg-slate-800 border-slate-500 text-slate-400 hover:text-white'}`}>
                     JP
@@ -112,9 +107,9 @@ export function GameHeader({
                     <button onClick={() => { playSound('click'); setFontSize(prev => prev === 'normal' ? 'large' : prev === 'large' ? 'xlarge' : 'normal'); setIsMenuOpen(false); }} className="flex items-center gap-3 text-white font-bold whitespace-nowrap bg-slate-700 p-2 rounded-lg">
                         <Type className="w-5 h-5 text-cyan-400" /> Text Size
                     </button>
-                    <button onClick={() => { playSound('click'); setImageSize(prev => prev === 'normal' ? 'large' : prev === 'large' ? 'small' : 'normal'); setIsMenuOpen(false); }} className="flex items-center gap-3 text-white font-bold whitespace-nowrap bg-slate-700 p-2 rounded-lg">
+                    {imageMatchEnabled && <button onClick={() => { playSound('click'); setImageSize(prev => prev === 'normal' ? 'large' : prev === 'large' ? 'small' : 'normal'); setIsMenuOpen(false); }} className="flex items-center gap-3 text-white font-bold whitespace-nowrap bg-slate-700 p-2 rounded-lg">
                         <ImageIcon className="w-5 h-5 text-pink-400" /> Image Size
-                    </button>
+                    </button>}
                     {langMode !== 'ja' && (
                         <button onClick={() => { playSound('click'); setShowJapanese(!showJapanese); setIsMenuOpen(false); }} className="flex items-center gap-3 text-white font-bold whitespace-nowrap bg-slate-700 p-2 rounded-lg">
                            <div className={`w-6 h-6 rounded-full border flex items-center justify-center text-[10px] ${showJapanese ? 'bg-blue-600 border-blue-400' : 'bg-slate-700 border-slate-500'}`}>JP</div>
