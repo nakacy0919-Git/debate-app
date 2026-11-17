@@ -45,6 +45,24 @@ function makeClosing([summary, summaryJP], pool, prefix) {
   return createOptions(summary, summaryJP, pool, prefix, 'closing', 'perfect');
 }
 
+// Historical question banks can contain only five candidates. Keep the
+// existing correct answer and pad with distinct weak answers for hard mode.
+function ensureSixOptions(rounds, weakPool, topicId, stance, phase) {
+  return rounds.map((round, roundIndex) => {
+    const missing = Math.max(0, 6 - (round.options?.length || 0));
+    if (!missing) return round;
+    const extras = weakPool.slice(0, missing).map(([text, textJP, explanationJP], index) => ({
+      id: `ext_${topicId}_${stance}_${phase}_${roundIndex + 1}_padding_${index + 1}`,
+      type: phase === 'cross' ? 'answer' : 'defense',
+      judgment: 'weak',
+      text,
+      textJP,
+      explanationJP,
+    }));
+    return { ...round, options: [...(round.options || []), ...extras] };
+  });
+}
+
 // First four topics already contain complete multi-round material.
 // For the eight older topics, add two new affirmative rounds to their
 // original round, and three distinct negative rounds plus a closing.
@@ -59,17 +77,17 @@ export function completeTopic(raw) {
   return {
     ...topic,
     crossExam: {
-      affirmative: [
+      affirmative: ensureSixOptions([
         ...topic.crossExam.affirmative,
         ...createRounds(extension.aC, makeCrossExam, 'affirmative', 'cross'),
-      ],
+      ], extension.weak, topic.id, 'affirmative', 'cross'),
       negative: createRounds(extension.nC, makeCrossExam, 'negative', 'cross'),
     },
     rebuttal: {
-      affirmative: [
+      affirmative: ensureSixOptions([
         ...topic.rebuttal.affirmative,
         ...createRounds(extension.aR, makeRebuttal, 'affirmative', 'rebuttal'),
-      ],
+      ], extension.weak, topic.id, 'affirmative', 'rebuttal'),
       negative: createRounds(extension.nR, makeRebuttal, 'negative', 'rebuttal'),
     },
     closing: {
