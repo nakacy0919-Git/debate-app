@@ -37,3 +37,40 @@ it('production configuration prevents outbound cloud score requests and framing'
   expect(headers.find(h => h.key === 'Content-Security-Policy').value).toContain("frame-ancestors 'none'");
   expect(readFileSync(config.firestore.rules, 'utf8')).toContain('allow read, write: if false');
 });
+
+
+describe('two-sided debate curriculum completeness', () => {
+  for (const topic of getAllTopics()) for (const stance of ['affirmative', 'negative']) {
+    it(`${topic.id} / ${stance} supports three full, non-repeated rounds`, () => {
+      const questions = topic.crossExam[stance];
+      const rebuttals = topic.rebuttal[stance];
+      const closings = topic.closing[stance];
+      expect(questions.length).toBeGreaterThanOrEqual(3);
+      expect(rebuttals.length).toBeGreaterThanOrEqual(3);
+      expect(closings.length).toBeGreaterThanOrEqual(6);
+
+      const line = value => typeof value === 'string' ? value : value?.easy || '';
+      const questionTexts = questions.map(item => line(item.question?.text));
+      const rebuttalTexts = rebuttals.map(item => line(item.text));
+      expect(new Set(questionTexts).size).toBe(questions.length);
+      expect(new Set(rebuttalTexts).size).toBe(rebuttals.length);
+
+      for (const [phase, rounds] of [['cross', questions], ['rebuttal', rebuttals]]) {
+        for (const round of rounds) {
+          const opts = round.options || [];
+          expect(opts.length, `${topic.id} ${stance} ${phase}`).toBeGreaterThanOrEqual(6);
+          expect(opts.filter(o => o.judgment === (phase === 'cross' ? 'correct' : 'perfect'))).toHaveLength(1);
+          expect(opts.filter(o => o.judgment === 'weak').length).toBeGreaterThanOrEqual(5);
+          expect(line(phase === 'cross' ? round.question?.text : round.text).trim()).not.toBe('');
+          expect(line(phase === 'cross' ? round.question?.textJP : round.textJP).trim()).not.toBe('');
+          for (const option of opts) {
+            expect(line(option.text).trim()).not.toBe('');
+            expect(line(option.textJP).trim()).not.toBe('');
+          }
+        }
+      }
+      expect(closings.filter(o => o.judgment === 'perfect')).toHaveLength(1);
+      expect(closings.filter(o => o.judgment === 'weak').length).toBeGreaterThanOrEqual(5);
+    });
+  }
+});
