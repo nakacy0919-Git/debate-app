@@ -23,7 +23,7 @@ export function HandPanel({ game, playSound }) {
     return typeof cardObj.textJP === 'object' ? cardObj.textJP[difficulty] : cardObj.textJP;
   };
 
-  const imageMinWidth = imageSize === 'large' ? '320px' : imageSize === 'normal' ? '240px' : '150px';
+  const imageMinWidth = imageSize === 'large' ? '240px' : imageSize === 'normal' ? '140px' : '110px';
   
   // 💡 テキストサイズ変更ボタンの数値をCSSのクラスに変換
   const textClass = fontSize === 'xlarge' ? 'text-xl md:text-2xl' : fontSize === 'large' ? 'text-lg md:text-xl' : 'text-sm md:text-base';
@@ -40,7 +40,7 @@ export function HandPanel({ game, playSound }) {
         <div className="flex items-center gap-3">
           <button 
             onClick={togglePosition} 
-            className="p-1.5 md:p-2 text-slate-400 hover:text-white hover:bg-slate-700 rounded-lg transition-colors flex items-center gap-1"
+            className="game-panel-position-toggle p-2 md:p-2 text-slate-400 hover:text-white hover:bg-slate-700 rounded-lg transition-colors flex items-center gap-1 min-w-11 min-h-11 justify-center"
             title={`パネルを${sidePanelPos === 'right' ? '左' : '右'}に移動`}
           >
             {sidePanelPos === 'right' ? <PanelLeftClose className="w-5 h-5"/> : <PanelRightClose className="w-5 h-5"/>}
@@ -49,8 +49,8 @@ export function HandPanel({ game, playSound }) {
 
           <button 
             onClick={() => { playSound('click'); handleUndo(); }} 
-            disabled={tower.length === 0 || isImagePhase} 
-            className="p-1.5 md:p-2 text-slate-400 hover:text-white hover:bg-slate-700 rounded-lg disabled:opacity-30 disabled:hover:bg-transparent transition-colors flex items-center gap-1"
+            disabled={gameState !== 'construct' || tower.length === 0 || isImagePhase} 
+            className="p-2 md:p-2 text-slate-400 hover:text-white hover:bg-slate-700 rounded-lg disabled:opacity-30 disabled:hover:bg-transparent transition-colors flex items-center gap-1 min-w-11 min-h-11 justify-center"
             title="一手戻る (Undo)"
           >
             <Undo2 className="w-5 h-5" />
@@ -88,9 +88,10 @@ export function HandPanel({ game, playSound }) {
                 <button 
                   key={i} 
                   onClick={() => handleImageSelect(url)} 
+                  aria-label={`画像選択肢 ${i + 1}`}
                   className="w-full aspect-video rounded-xl overflow-hidden border-2 border-white/20 hover:border-cyan-400 hover:shadow-[0_0_20px_rgba(34,211,238,0.6)] hover:scale-105 transition-all bg-black group relative"
                 >
-                  <img src={url} alt="Option" className="w-full h-full object-cover group-hover:opacity-90 transition-opacity" />
+                  <img src={url} alt={`画像選択肢 ${i + 1}`} className="w-full h-full object-cover group-hover:opacity-90 transition-opacity" />
                   <div className="absolute inset-0 bg-cyan-400/0 group-hover:bg-cyan-400/20 transition-colors" />
                 </button>
               ))}
@@ -105,7 +106,7 @@ export function HandPanel({ game, playSound }) {
                 <button 
                   key={card.id} 
                   onClick={() => handleCardSelect(card)} 
-                  className={`w-full text-left p-4 md:p-5 rounded-2xl border-2 transition-all group relative overflow-hidden ${isFaded ? 'opacity-40 hover:opacity-100 grayscale hover:grayscale-0' : 'hover:scale-[1.02] shadow-lg'} ${typeStyle.border} ${typeStyle.bg} ${typeStyle.hoverBg}`}
+                  className={`w-full text-left p-4 md:p-5 rounded-2xl border-2 focus-visible:outline focus-visible:outline-4 focus-visible:outline-cyan-300 transition-all group relative overflow-hidden ${isFaded ? 'opacity-40 hover:opacity-100 grayscale hover:grayscale-0' : 'hover:scale-[1.02] shadow-lg'} ${typeStyle.border} ${typeStyle.bg} ${typeStyle.hoverBg}`}
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/5 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out pointer-events-none" />
                   
