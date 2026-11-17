@@ -101,4 +101,23 @@ describe('uncluttered lesson flows', () => {
     expect(markup).toContain('<details');
     expect(markup).toContain('PRACTICE CLEAR');
   });
+  it('does not mark an older identical score as this attempt’s new record', () => {
+    const topic = getAllTopics()[0];
+    const props = {
+      gameState: 'result', score: 100, activeLogicGroup: null, currentTopic: topic,
+      userStance: 'affirmative', langMode: 'en', difficulty: 'easy', showJapanese: false,
+      onRetry: noop, onChangeTopic: noop, mistakes: [], fontSize: 'normal',
+      setFontSize: noop, setShowJapanese: noop, playSound: noop,
+      scoreDetails: { base: 100, timeBonus: 0, comboBonus: 0, perfect: 0 },
+      maxCombo: 1, leaderboard: [
+        { id: 'older', score: 100, name: 'Anonymous', date: '2026/11/17', location: '' },
+        { id: 'current', score: 100, name: 'Anonymous', date: '2026/11/18', location: '' },
+      ], storageNotice: '',
+    };
+    const html = renderToStaticMarkup(<ResultScreen {...props} resultRecordId="current" />);
+    expect(html).not.toContain('NEW RECORD!');
+    const top = renderToStaticMarkup(<ResultScreen {...props} resultRecordId="older" />);
+    expect(top).toContain('NEW RECORD!');
+  });
+
 });
