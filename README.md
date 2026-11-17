@@ -36,6 +36,6 @@ npm run build
 firebase deploy --only hosting,firestore:rules
 ```
 
-依存関係: 2026-11-18時点で開発用の `picomatch` に修正リリース未確認の ReDoS 警告（GHSA-fc5q-39xc-vjpf）があります。CIは本番依存パッケージの監査を必須とし、開発用を含む全監査は失敗時も警告として可視化しています。この問題は解決済みではありません。追跡: [Issue #1](https://github.com/nakacy0919-Git/debate-app/issues/1)。
+依存関係: 2026-11-18時点で開発用の `picomatch` に公式修正が未公開の ReDoS 警告（GHSA-fc5q-39xc-vjpf）が残っています。本番用の依存パッケージは `npm audit --omit=dev --audit-level=high` で検査し、開発用を含む全監査は `node scripts/security-audit.mjs` で評価します。**このスクリプトは脆弱性を修正しません。** 該当の１アドバイザリ（開発用のみ）を2026-12-18 00:00 UTCまで明示的に例外扱いし、それ以外の新しい脆弱性や本番用への影響はCIを失敗させます。期間が過ぎると例外も自動で失効します。追跡: [Issue #1](https://github.com/nakacy0919-Git/debate-app/issues/1)。
 
 本ブランチの作成だけでは、公開サイト・本番ルールは更新されません。
