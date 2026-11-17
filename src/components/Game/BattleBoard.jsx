@@ -29,15 +29,15 @@ export function BattleBoard({ game }) {
     const isImageWait = gameState.endsWith('_image');
 
     return (
-      <div className="flex-1 h-full flex flex-col items-center justify-center p-4 md:p-8 relative overflow-hidden bg-slate-950/50">
+      <div className="flex-1 h-full flex flex-col items-center justify-start lg:justify-center p-3 md:p-6 relative overflow-y-auto custom-scrollbar min-h-0 bg-slate-950/50">
         
         {/* 相手からの攻撃・質問カード（自分が正解すると粉々に砕け散る！） */}
         {rivalCard && (
-          <div className={`w-full max-w-4xl p-6 md:p-10 rounded-3xl border-4 shadow-[0_0_80px_rgba(220,38,38,0.5)] flex flex-col items-center text-center gap-4 bg-red-950/90 border-red-500 relative transition-all duration-300 z-10 ${showSuccessOverlay ? 'animate-shatter' : 'animate-in zoom-in-90 fade-in'}`}>
+          <div className={`w-full max-w-4xl p-4 md:p-6 rounded-3xl border-4 shadow-[0_0_80px_rgba(220,38,38,0.5)] flex flex-col items-center text-center gap-4 bg-red-950/90 border-red-500 relative transition-all duration-300 z-10 ${showSuccessOverlay ? 'animate-shatter' : 'animate-in zoom-in-90 fade-in'}`}>
             <div className="flex items-center gap-3 mb-2">
               <AlertCircle className="w-8 h-8 md:w-10 md:h-10 text-red-400 animate-pulse"/>
               <span className="text-base md:text-lg font-black uppercase px-6 py-2 rounded-full bg-black/60 border border-red-500/50 text-red-400 shadow-inner tracking-widest">
-                {rivalCard.isQuestion ? 'OPPONENT QUESTION (相手の質問)' : 'OPPONENT REBUTTAL (相手の反論)'}
+                {rivalCard.isQuestion ? (langMode === 'ja' ? '相手の質問' : 'OPPONENT QUESTION') : (langMode === 'ja' ? '相手の反論' : 'OPPONENT REBUTTAL')}
               </span>
             </div>
             
@@ -47,7 +47,7 @@ export function BattleBoard({ game }) {
               </div>
             )}
 
-            <div className={`font-black text-rose-100 leading-relaxed drop-shadow-xl ${fontSize === 'xlarge' ? 'text-3xl md:text-5xl' : fontSize === 'large' ? 'text-2xl md:text-4xl' : 'text-xl md:text-3xl'}`}>
+            <div className={`font-black text-rose-100 leading-relaxed drop-shadow-xl ${fontSize === 'xlarge' ? 'text-2xl md:text-3xl' : fontSize === 'large' ? 'text-xl md:text-2xl' : 'text-lg md:text-xl'}`}>
               {langMode === 'ja' ? getLocalizedJP(rivalCard) : (rivalCard.text?.[difficulty] || rivalCard.text)}
             </div>
           </div>
@@ -71,16 +71,10 @@ export function BattleBoard({ game }) {
         {/* 💡 バトルフェーズ中に「画像選択待ち」になったら、自分が選んだ反論テキストを画面下に特大表示する */}
         {isImageWait && pendingCard && (
            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-[90%] max-w-4xl p-6 md:p-8 rounded-2xl border-4 border-cyan-400 bg-cyan-950/95 shadow-[0_0_50px_rgba(34,211,238,0.8)] flex flex-col items-center gap-4 animate-in slide-in-from-bottom-10 duration-300 z-20">
-              <div className="text-cyan-300 font-black tracking-widest bg-cyan-900 px-6 py-2 rounded-full border border-cyan-400/50 animate-pulse text-lg">
-                 SELECT MATCHING IMAGE
-              </div>
               <div className={`font-bold text-white text-center drop-shadow-md ${textClass}`}>
                  {langMode === 'ja' ? getLocalizedJP(pendingCard) : (
                     <SmartText text={typeof pendingCard.text === 'object' ? pendingCard.text[difficulty] : pendingCard.text} vocabList={currentTopic.vocabulary} />
                  )}
-              </div>
-              <div className="text-cyan-400 font-bold flex items-center gap-2 mt-2 animate-bounce bg-cyan-900/50 px-4 py-2 rounded-lg">
-                 👉 右のパネルから、この反論に合う画像を選んでください
               </div>
            </div>
         )}
@@ -103,16 +97,10 @@ export function BattleBoard({ game }) {
         if (isNext && pendingCard && gameState.endsWith('_image')) {
            return (
               <div key={`pending-${index}`} className="w-full max-w-4xl mx-auto p-6 md:p-8 rounded-2xl border-4 border-cyan-400 bg-cyan-950/80 shadow-[0_0_30px_rgba(34,211,238,0.5)] flex flex-col items-center gap-4 animate-in zoom-in duration-300">
-                 <div className="text-cyan-300 font-black tracking-widest bg-cyan-900 px-6 py-2 rounded-full border border-cyan-400/50 animate-pulse text-lg">
-                    SELECT MATCHING IMAGE
-                 </div>
                  <div className={`font-bold text-white text-center drop-shadow-md ${textClass}`}>
                     {langMode === 'ja' ? getLocalizedJP(pendingCard) : (
                        <SmartText text={typeof pendingCard.text === 'object' ? pendingCard.text[difficulty] : pendingCard.text} vocabList={currentTopic.vocabulary} />
                     )}
-                 </div>
-                 <div className="text-cyan-400 font-bold flex items-center gap-2 mt-4 animate-bounce bg-cyan-900/50 px-4 py-2 rounded-lg">
-                    👉 右のパネルからこの文章に合う画像を選んでください
                  </div>
               </div>
            );
@@ -157,16 +145,11 @@ export function BattleBoard({ game }) {
           else if (expectedType === 'mini_conclusion') skelBg = 'bg-purple-900/30 border-purple-500/40 text-purple-400 shadow-[inset_0_0_20px_rgba(168,85,247,0.2)]';
 
           return (
-            <div key={`skeleton-${index}`} className={`w-full max-w-4xl mx-auto p-4 md:p-6 rounded-2xl border-4 border-dashed flex flex-col items-center justify-center min-h-[120px] transition-all duration-500 ${isNext ? `${skelBg} animate-pulse` : 'border-slate-700/30 bg-slate-900/10 opacity-30'}`}>
+            <div key={`skeleton-${index}`} className={`w-full max-w-4xl mx-auto p-4 md:p-6 rounded-2xl border-4 border-dashed flex flex-col items-center justify-center min-h-[72px] md:min-h-[120px] transition-all duration-500 ${isNext ? `${skelBg} animate-pulse` : 'border-slate-700/30 bg-slate-900/10 opacity-30'}`}>
               <typeStyle.icon className={`w-8 h-8 mb-2 ${isNext ? '' : 'text-slate-600'}`} />
               <div className={`font-black tracking-widest uppercase text-lg md:text-xl ${isNext ? '' : 'text-slate-600'}`}>
                 {isNext ? `NEXT BLOCK: ${typeStyle.label}` : typeStyle.label}
               </div>
-              {isNext && (
-                  <div className="text-sm font-bold opacity-80 mt-2 flex items-center gap-1">
-                    👉 右の選択肢から「{langMode === 'ja' ? typeStyle.labelJP : typeStyle.label}」を選んでここに入れてください
-                  </div>
-              )}
             </div>
           );
         }
