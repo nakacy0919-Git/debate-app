@@ -36,6 +36,10 @@ export function StartScreen({ game, playSound }) {
       await fetchLeaderboard(selectedTopicId, difficulty);
   };
 
+  const filteredTopics = topics.filter(topic =>
+    [topic.title, topic.titleJP].some(label => label.toLowerCase().includes(topicSearch.trim().toLowerCase()))
+  );
+
   if (gameState !== 'start' || isDrillMode) return null;
 
   return (
@@ -176,12 +180,15 @@ export function StartScreen({ game, playSound }) {
                                         <h3 className="text-xs font-bold text-blue-400 mb-2 uppercase tracking-widest border-b border-white/20 pb-1 shrink-0 drop-shadow-md">Topic（テーマ）</h3>
                                          <input aria-label="テーマを検索" type="search" value={topicSearch} onChange={e => setTopicSearch(e.target.value)} placeholder="Search / テーマを検索" className="w-full mb-2 px-3 py-2 rounded-lg bg-slate-800 border border-slate-600 text-white placeholder-slate-400 focus:border-cyan-400 outline-none" />
                                         <div className="space-y-2 overflow-y-auto pr-2 custom-scrollbar flex-1">
-                                            {topics.filter(t => [t.title, t.titleJP].some(v => v.toLowerCase().includes(topicSearch.trim().toLowerCase()))).map(t => (
+                                            {filteredTopics.map(t => (
                                                 <button key={t.id} aria-pressed={selectedTopicId === t.id} onClick={() => { playSound('click'); setSelectedTopicId(t.id); }} className={`w-full text-left p-3 rounded-xl border transition-all ${selectedTopicId === t.id ? 'bg-blue-600/90 border-blue-400 text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]' : 'bg-slate-800/80 border-slate-600 text-slate-300 hover:bg-slate-700'}`}>
                                                     <div className="font-bold text-base md:text-lg leading-tight">{langMode === 'ja' ? t.titleJP : t.title}</div>
                                                     {langMode === 'en' && <div className="text-xs md:text-sm opacity-60 mt-1">{t.titleJP}</div>}
                                                 </button>
                                             ))}
+                                            {filteredTopics.length === 0 && (
+                                              <p role="status" className="text-sm text-amber-200 p-4">該当するテーマがありません。検索語を変えてください。</p>
+                                            )}
                                         </div>
                                     </div>
 
