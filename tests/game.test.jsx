@@ -54,6 +54,38 @@ describe('complete real curriculum', () => {
     });
   }
 });
+describe('full six-round battles never recycle a question', () => {
+  for (const topic of getAllTopics()) for (const stance of ['affirmative', 'negative']) {
+    it(`${topic.id} / ${stance} completes six distinct rounds`, () => {
+      const hook = renderHook(() => useGameLogic(() => {}));
+      act(() => {
+        hook.result.current.setSelectedTopicId(topic.id);
+        hook.result.current.setUserStance(stance);
+        hook.result.current.setDifficulty('hard');
+        hook.result.current.setBattleRounds(6);
+      });
+      act(() => hook.result.current.initGame());
+      const questions = [];
+      const attacks = [];
+      for (let step = 0; step < 60 && hook.result.current.gameState !== 'result'; step++) {
+        const g = hook.result.current;
+        if (g.gameState === 'cross_exam') questions.push(g.rivalCard.text?.hard || g.rivalCard.text);
+        if (g.gameState === 'rebuttal_defense') attacks.push(g.rivalCard.text?.hard || g.rivalCard.text);
+        choose(hook);
+      }
+      const game = hook.result.current;
+      expect(game.gameState).toBe('result');
+      expect(game.currentRoundIndex).toBe(6);
+      expect(questions).toHaveLength(6);
+      expect(attacks).toHaveLength(6);
+      expect(new Set(questions).size).toBe(6);
+      expect(new Set(attacks).size).toBe(6);
+      expect(game.playerHP).toBe(100);
+      expect(game.score).toBe(Object.values(game.scoreDetails).reduce((sum, n) => sum + n, 0));
+    });
+  }
+});
+
 it('rejects duplicate synchronous clicks and undo score farming', () => {
   const hook = prepare();
   const game = hook.result.current;
