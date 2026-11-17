@@ -120,7 +120,7 @@ export default function App() {
   }, [setSidePanelWidth]);
 
   if (topics.length === 0) return <div className="h-screen flex items-center justify-center bg-[#09090b] text-white">Loading...</div>;
-  if (gameState === 'review') return <ReviewMode topic={currentTopic} onClose={() => { playSound('click'); goHome(); }} showJapanese={showJapanese} langMode={langMode} difficulty={game.difficulty || 'easy'} />;
+  if (gameState === 'review') return <ReviewMode topic={currentTopic} onClose={() => { playSound('click'); game.goToSetup(); }} showJapanese={showJapanese} langMode={langMode} difficulty={game.difficulty || 'easy'} />;
 
   return (
     <div className={`h-screen w-full app-viewport ${theme.bg} ${theme.text} font-sans flex flex-col overflow-hidden relative ${FONT_SIZES[fontSize]} ${shake ? 'animate-shake' : ''}`}>
