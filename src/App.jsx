@@ -171,7 +171,7 @@ export default function App() {
 
         {gameState !== 'start' && (
           <GameHeader 
-            goHome={() => { playSound('click'); setShowExitConfirm(true); }}
+            goHome={() => { playSound('click'); game.pauseGame(); setShowExitConfirm(true); }}
             playerHP={playerHP} langMode={langMode} currentTopic={currentTopic}
             userStance={userStance} battleRounds={battleRounds} gameState={gameState}
             currentRoundIndex={currentRoundIndex} showJapanese={showJapanese}
@@ -223,7 +223,7 @@ export default function App() {
               <h2 id="confirm-exit-title" className="text-xl font-black mb-2">対戦を中断しますか？</h2>
               <p id="confirm-exit-description" className="text-slate-300 mb-5">このラウンドの進行状況は保存されません。</p>
               <div className="flex gap-3">
-                <button autoFocus onClick={() => setShowExitConfirm(false)} className="flex-1 py-3 bg-cyan-600 hover:bg-cyan-500 rounded-xl font-bold focus-visible:outline focus-visible:outline-4 focus-visible:outline-white">続ける</button>
+                <button autoFocus onClick={() => { game.resumeGame(); setShowExitConfirm(false); }} className="flex-1 py-3 bg-cyan-600 hover:bg-cyan-500 rounded-xl font-bold focus-visible:outline focus-visible:outline-4 focus-visible:outline-white">続ける</button>
                 <button onClick={() => { setShowExitConfirm(false); goHome(); }} className="flex-1 py-3 bg-rose-700 hover:bg-rose-600 rounded-xl font-bold focus-visible:outline focus-visible:outline-4 focus-visible:outline-white">ホームへ戻る</button>
               </div>
             </div>
@@ -239,7 +239,7 @@ export default function App() {
           difficulty={game.difficulty} showJapanese={showJapanese}
           onRetry={() => { playSound('click'); game.initGame(); }}
           onChangeTopic={() => { playSound('click'); game.goToSetup(); }}
-          mistakes={game.mistakes} fontSize={fontSize} setFontSize={setFontSize} setShowJapanese={setShowJapanese} playSound={playSound}
+          resultRecordId={game.resultRecordId} mistakes={game.mistakes} fontSize={fontSize} setFontSize={setFontSize} setShowJapanese={setShowJapanese} playSound={playSound}
           scoreDetails={game.scoreDetails} maxCombo={game.maxCombo} 
           leaderboard={game.leaderboard} storageNotice={game.storageNotice}
         />
