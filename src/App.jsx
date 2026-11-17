@@ -39,6 +39,7 @@ export default function App() {
   const panelRef = useRef(null); 
   
   const [isDragging, setIsDragging] = useState(false);
+  const [showExitConfirm, setShowExitConfirm] = useState(false);
   const currentWidthRef = useRef(game.sidePanelWidth);
 
   useEffect(() => {
@@ -141,7 +142,7 @@ export default function App() {
 
       <div className="relative z-10 flex flex-col h-full w-full overflow-hidden">
         
-        {showSuccessOverlay && (
+        {showSuccessOverlay && gameState === 'construct' && (
           <div className="fixed inset-0 z-[200] flex items-center justify-center pointer-events-none animate-pop-in-out">
             <div className="w-48 h-48 md:w-72 md:h-72 bg-gradient-to-br from-green-400 via-emerald-500 to-teal-600 rounded-full flex items-center justify-center shadow-[0_0_80px_rgba(16,185,129,0.8)] border-4 border-white/40 backdrop-blur-md relative">
               <div className="absolute inset-0 rounded-full bg-white/20 animate-pulse"></div>
@@ -170,11 +171,11 @@ export default function App() {
 
         {gameState !== 'start' && (
           <GameHeader 
-            goHome={() => { playSound('click'); goHome(); }}
+            goHome={() => { playSound('click'); setShowExitConfirm(true); }}
             playerHP={playerHP} langMode={langMode} currentTopic={currentTopic}
             userStance={userStance} battleRounds={battleRounds} gameState={gameState}
             currentRoundIndex={currentRoundIndex} showJapanese={showJapanese}
-            timerEnabled={timerEnabled} timeProgress={timeProgress} setFontSize={setFontSize}
+            imageMatchEnabled={game.imageMatchEnabled} timerEnabled={timerEnabled} timeProgress={timeProgress} setFontSize={setFontSize}
             setShowRules={setShowRules} setShowJapanese={setShowJapanese} playSound={playSound}
             combo={combo} score={game.score} 
             imageSize={imageSize} setImageSize={setImageSize} 
@@ -216,13 +217,28 @@ export default function App() {
             <div className="fixed inset-0 z-[9999] cursor-col-resize touch-none" />
         )}
 
+        {showExitConfirm && (
+          <div className="fixed inset-0 z-[500] flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
+            <div role="alertdialog" aria-modal="true" aria-labelledby="confirm-exit-title" aria-describedby="confirm-exit-description" className="bg-slate-900 text-white border-2 border-amber-400 rounded-2xl p-6 w-full max-w-md shadow-2xl">
+              <h2 id="confirm-exit-title" className="text-xl font-black mb-2">対戦を中断しますか？</h2>
+              <p id="confirm-exit-description" className="text-slate-300 mb-5">このラウンドの進行状況は保存されません。</p>
+              <div className="flex gap-3">
+                <button autoFocus onClick={() => setShowExitConfirm(false)} className="flex-1 py-3 bg-cyan-600 hover:bg-cyan-500 rounded-xl font-bold focus-visible:outline focus-visible:outline-4 focus-visible:outline-white">続ける</button>
+                <button onClick={() => { setShowExitConfirm(false); goHome(); }} className="flex-1 py-3 bg-rose-700 hover:bg-rose-600 rounded-xl font-bold focus-visible:outline focus-visible:outline-4 focus-visible:outline-white">ホームへ戻る</button>
+              </div>
+            </div>
+          </div>
+        )}
+
         {showRules && <RuleBook onClose={() => { playSound('click'); setShowRules(false); }} />}
         {isDrillMode && <VocabDrill topics={topics} onClose={() => { playSound('click'); game.setIsDrillMode(false); }} playSound={playSound} ttsVoiceType={ttsVoiceType} />}
 
         <ResultScreen 
           gameState={gameState} score={game.score} activeLogicGroup={game.activeLogicGroup}
           currentTopic={currentTopic} userStance={userStance} langMode={langMode}
-          difficulty={game.difficulty} showJapanese={showJapanese} goHome={() => { playSound('click'); goHome(); }}
+          difficulty={game.difficulty} showJapanese={showJapanese}
+          onRetry={() => { playSound('click'); game.initGame(); }}
+          onChangeTopic={() => { playSound('click'); game.goToSetup(); }}
           mistakes={game.mistakes} fontSize={fontSize} setFontSize={setFontSize} setShowJapanese={setShowJapanese} playSound={playSound}
           scoreDetails={game.scoreDetails} maxCombo={game.maxCombo} 
           leaderboard={game.leaderboard} storageNotice={game.storageNotice}
