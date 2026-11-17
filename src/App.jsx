@@ -25,15 +25,13 @@ export default function App() {
     shake, fontSize, feedback, particles, goHome,
     playerHP, langMode, userStance, battleRounds, currentRoundIndex,
     showJapanese, timerEnabled, timeProgress, setFontSize, setShowRules, setShowJapanese,
-    bgmEnabled, bgmTrack, ttsVoiceType, combo, floatingTexts,
+    ttsVoiceType, combo, floatingTexts,
     isResizing: isResizingRef, imageSize, setImageSize, sidePanelPos, setSidePanelWidth
   } = game;
 
   useEffect(() => { soundEnabledRef.current = game.sfxEnabled; }, [game.sfxEnabled]);
 
   const theme = THEMES.techno;
-  const bgmRef = useRef(null);
-  
   // 💡 リサイズ用のRef
   const containerRef = useRef(null);
   const panelRef = useRef(null); 
@@ -41,16 +39,6 @@ export default function App() {
   const [isDragging, setIsDragging] = useState(false);
   const [showExitConfirm, setShowExitConfirm] = useState(false);
   const currentWidthRef = useRef(game.sidePanelWidth);
-
-  useEffect(() => {
-    const active = !['start', 'gameover', 'result', 'review'].includes(gameState) && !isDrillMode;
-    if (!bgmEnabled || !active) return;
-    const audio = new Audio(`/audio/${bgmTrack}.mp3`);
-    bgmRef.current = audio;
-    audio.loop = true;
-    audio.play().catch(() => {});
-    return () => { audio.pause(); audio.currentTime = 0; bgmRef.current = null; };
-  }, [gameState, bgmEnabled, bgmTrack, isDrillMode]);
 
   // Pointer Events handle Apple Pencil, touch, and mouse consistently.
   // Ignore secondary touches, clamp widths, and commit React state only on release.
