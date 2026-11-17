@@ -8,7 +8,7 @@ export function ResultScreen({
   langMode, difficulty, showJapanese, onRetry, onChangeTopic, mistakes,
   fontSize, setFontSize, setShowJapanese, playSound,
   scoreDetails, maxCombo,
-  leaderboard, storageNotice
+  leaderboard, storageNotice, resultRecordId
 }) {
   if (gameState !== 'gameover' && gameState !== 'result') return null;
 
@@ -28,7 +28,7 @@ export function ResultScreen({
   const textBaseClass = fontSize === 'xlarge' ? 'text-2xl md:text-3xl' : fontSize === 'large' ? 'text-xl md:text-2xl' : 'text-base md:text-lg';
   const jpTextClass = fontSize === 'xlarge' ? 'text-xl md:text-2xl' : fontSize === 'large' ? 'text-lg md:text-xl' : 'text-sm md:text-base';
 
-  const isNewRecord = leaderboard.length > 0 && leaderboard[0].score === score;
+  const isNewRecord = Boolean(resultRecordId && leaderboard[0]?.id === resultRecordId);
 
   const getLocalizedJP = (cardObj) => {
       if (!cardObj.textJP) return "";
@@ -91,7 +91,7 @@ export function ResultScreen({
                 </summary>
                 <div className="space-y-3">
                     {leaderboard.map((record, index) => {
-                        const isCurrentPlay = record.score === score && index === leaderboard.findIndex(r => r.score === score);
+                        const isCurrentPlay = Boolean(resultRecordId && record.id === resultRecordId);
                         
                         return (
                             <div key={record.id} className={`flex items-center justify-between p-4 rounded-xl border ${isCurrentPlay ? 'bg-yellow-600/30 border-yellow-400 text-white shadow-[0_0_15px_rgba(250,204,21,0.5)] animate-pulse' : index === 0 ? 'bg-slate-800/80 border-yellow-500/50 text-yellow-400' : index === 1 ? 'bg-slate-800/60 border-slate-400/50 text-slate-300' : index === 2 ? 'bg-slate-800/40 border-orange-700/50 text-orange-400' : 'bg-slate-800/30 border-white/5 text-slate-400'}`}>
