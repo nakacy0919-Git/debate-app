@@ -74,9 +74,11 @@ export function assessAudit(audit, lock, now = new Date()) {
   if (!countBySeverity || typeof countBySeverity !== 'object') {
     reasons.push('Missing npm audit severity summary');
   } else {
-    const total = Object.values(countBySeverity).reduce(
-      (sum, n) => sum + (typeof n === 'number' && Number.isFinite(n) && n >= 0 ? n : 0), 0);
-    if (total !== names.length) reasons.push('npm audit severity summary does not match finding count');
+    const levels = ['info', 'low', 'moderate', 'high', 'critical'];
+    const total = levels.reduce((sum, level) => sum + (Number.isInteger(countBySeverity[level]) ? countBySeverity[level] : 0), 0);
+    if (total !== names.length || countBySeverity.total !== names.length) {
+      reasons.push('npm audit severity summary does not match finding count');
+    }
   }
 
   return { ok: reasons.length === 0, exception: reasons.length === 0, reasons, findings: names.length };
