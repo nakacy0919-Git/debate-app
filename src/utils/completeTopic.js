@@ -73,7 +73,20 @@ export function completeTopic(raw) {
       negative: createRounds(extension.nR, makeRebuttal, 'negative', 'rebuttal'),
     },
     closing: {
-      affirmative: topic.closing.affirmative,
+      affirmative: [
+        ...topic.closing.affirmative,
+        // Hard mode displays six choices; a few older closings had only five.
+        ...extension.weak
+          .slice(0, Math.max(0, 6 - topic.closing.affirmative.length))
+          .map(([text, textJP, explanationJP], index) => ({
+            id: `ext_${topic.id}_affirmative_closing_weak_${index + 1}`,
+            type: 'closing',
+            judgment: 'weak',
+            text,
+            textJP,
+            explanationJP,
+          })),
+      ],
       negative: makeClosing(extension.nF, extension.weak, `ext_${topic.id}_negative_closing`),
     },
   };
