@@ -180,3 +180,43 @@ it('image and undo cannot repeatedly award image points', () => {
   act(() => hook.result.current.handleImageSelect(initial.image_url));
   expect(hook.result.current.score).toBe(score);
 });
+
+
+it('prevents repeated wrong structure taps from draining HP before feedback finishes', () => {
+  const hook = prepare();
+  const wrong = hook.result.current.visibleHand.find(c => c.group === 'fake');
+  expect(wrong).toBeDefined();
+  const hp = hook.result.current.playerHP;
+  act(() => { hook.result.current.handleCardSelect(wrong); hook.result.current.handleCardSelect(wrong); hook.result.current.handleCardSelect(wrong); });
+  expect(hook.result.current.playerHP).toBeLessThan(hp);
+  const once = hook.result.current.playerHP;
+  act(() => hook.result.current.handleCardSelect(wrong));
+  expect(hook.result.current.playerHP).toBe(once);
+  act(() => vi.advanceTimersByTime(650));
+  act(() => hook.result.current.handleCardSelect(wrong));
+  expect(hook.result.current.playerHP).toBeLessThan(once);
+});
+
+it('prevents repeated wrong image taps and allows correction after feedback', () => {
+  const hook = prepare('homework', 'affirmative', 'easy', true);
+  const first = hook.result.current.visibleHand.find(c => c.group !== 'fake' && c.image_url);
+  expect(first).toBeDefined();
+  act(() => hook.result.current.handleCardSelect(first));
+  const image = hook.result.current;
+  expect(image.gameState).toBe('construct_image');
+  const wrongUrl = image.imageHand.find(url => url !== image.pendingCard.image_url);
+  const originalHP = image.playerHP;
+  act(() => {
+    image.handleImageSelect(wrongUrl);
+    image.handleImageSelect(wrongUrl);
+    image.handleImageSelect(wrongUrl);
+  });
+  expect(hook.result.current.playerHP).toBe(originalHP - 25);
+  const correctUrl = hook.result.current.pendingCard.image_url;
+  act(() => hook.result.current.handleImageSelect(correctUrl));
+  expect(hook.result.current.gameState).toBe('construct_image');
+  act(() => vi.advanceTimersByTime(650));
+  act(() => hook.result.current.handleImageSelect(correctUrl));
+  expect(hook.result.current.gameState).toBe('construct');
+  expect(hook.result.current.tower).toHaveLength(1);
+});
