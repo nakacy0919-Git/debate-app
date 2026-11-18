@@ -161,6 +161,7 @@ export default function App() {
           <GameHeader 
             goHome={() => { playSound('click'); game.pauseGame(); setShowExitConfirm(true); }}
             playerHP={playerHP} langMode={langMode} currentTopic={currentTopic}
+             onPause={() => { playSound('click'); game.pauseGame(); }}
             userStance={userStance} battleRounds={battleRounds} gameState={gameState}
             currentRoundIndex={currentRoundIndex} showJapanese={showJapanese}
             imageMatchEnabled={game.imageMatchEnabled} timerEnabled={timerEnabled} timeProgress={timeProgress} setFontSize={setFontSize}
@@ -203,6 +204,18 @@ export default function App() {
         {/* 💡 ドラッグ中だけ画面全体を透明な下敷きで覆い、文字選択や画像の干渉を完全にブロック */}
         {isDragging && (
             <div className="fixed inset-0 z-[9999] cursor-col-resize touch-none" />
+        )}
+
+        {game.isPaused && !showExitConfirm && (
+          <div className="fixed inset-0 z-[500] flex items-center justify-center bg-slate-950/85 backdrop-blur-sm p-4">
+            <div role="dialog" aria-modal="true" aria-labelledby="pause-title" className="w-full max-w-sm rounded-2xl border-2 border-cyan-400 bg-slate-900 p-6 text-center text-white shadow-2xl">
+              <h2 id="pause-title" className="text-2xl font-black mb-2">一時停止 / PAUSED</h2>
+              <p className="text-slate-300 text-sm mb-5">画面を離れている間は、制限時間とゲームの進行を止めています。</p>
+              <button autoFocus onClick={() => { playSound('click'); game.resumeGame(); }} className="w-full rounded-xl bg-cyan-500 px-6 py-4 font-black text-slate-950 hover:bg-cyan-400 focus-visible:outline-4 focus-visible:outline-white">
+                再開 / RESUME
+              </button>
+            </div>
+          </div>
         )}
 
         {showExitConfirm && (
@@ -324,12 +337,12 @@ export default function App() {
             }
             .game-core-layout > div.flex-1 {
                 width: 100% !important;
-                height: 50% !important;
+                height: 44% !important;
                 flex: none !important;
             }
             .game-hand-panel-container {
                 width: 100% !important;
-                height: 50% !important;
+                height: 56% !important;
                 border-top: 4px solid rgba(6, 182, 212, 0.8) !important;
             }
             .game-resizer {

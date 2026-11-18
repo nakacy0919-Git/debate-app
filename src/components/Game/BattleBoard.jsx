@@ -29,7 +29,7 @@ export function BattleBoard({ game }) {
     const isImageWait = gameState.endsWith('_image');
 
     return (
-      <div className="flex-1 h-full flex flex-col items-center justify-start lg:justify-center p-3 md:p-6 relative overflow-y-auto custom-scrollbar min-h-0 bg-slate-950/50">
+      <div className="flex-1 h-full flex flex-col items-center justify-start lg:justify-center p-3 md:p-6 gap-4 relative overflow-y-auto custom-scrollbar min-h-0 bg-slate-950/50">
         
         {/* 相手からの攻撃・質問カード（自分が正解すると粉々に砕け散る！） */}
         {rivalCard && (
@@ -70,7 +70,7 @@ export function BattleBoard({ game }) {
 
         {/* 💡 バトルフェーズ中に「画像選択待ち」になったら、自分が選んだ反論テキストを画面下に特大表示する */}
         {isImageWait && pendingCard && (
-           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-[90%] max-w-4xl p-6 md:p-8 rounded-2xl border-4 border-cyan-400 bg-cyan-950/95 shadow-[0_0_50px_rgba(34,211,238,0.8)] flex flex-col items-center gap-4 animate-in slide-in-from-bottom-10 duration-300 z-20">
+           <div className="relative w-full max-w-4xl shrink-0 p-4 md:p-6 rounded-2xl border-2 border-cyan-400 bg-cyan-950/95 shadow-[0_0_25px_rgba(34,211,238,0.45)] flex flex-col items-center gap-3 animate-in slide-in-from-bottom-10 duration-300 z-20">
               <div className={`font-bold text-white text-center drop-shadow-md ${textClass}`}>
                  {langMode === 'ja' ? getLocalizedJP(pendingCard) : (
                     <SmartText text={typeof pendingCard.text === 'object' ? pendingCard.text[difficulty] : pendingCard.text} vocabList={currentTopic.vocabulary} />

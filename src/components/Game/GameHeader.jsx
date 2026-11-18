@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Home, Type, Menu, X, Image as ImageIcon, Maximize2 } from 'lucide-react';
+import { Home, Pause, Type, Menu, X, Image as ImageIcon, Maximize2 } from 'lucide-react';
 import { MAX_HP } from '../../constants';
 
 export function GameHeader({
-  goHome, playerHP, langMode, currentTopic, userStance,
+  goHome, onPause, playerHP, langMode, currentTopic, userStance,
   gameState, battleRounds, currentRoundIndex, showJapanese, imageMatchEnabled, timerEnabled, timeProgress,
   setFontSize,  setShowJapanese, playSound, combo, score,
    setImageSize // 💡 画像サイズ変更用
@@ -30,6 +30,11 @@ export function GameHeader({
         <button aria-label="ホームへ戻る" onClick={goHome} className="p-2 md:p-3 bg-slate-800 hover:bg-rose-600 hover:text-white text-slate-300 rounded-xl transition-all shadow-md">
           <Home className="w-5 h-5 md:w-6 md:h-6" />
         </button>
+        {!['gameover','result'].includes(gameState) && (
+          <button aria-label="一時停止" title="一時停止 / Pause" onClick={onPause} className="p-2 md:p-3 bg-slate-800 hover:bg-cyan-700 text-slate-300 hover:text-white rounded-xl transition-all shadow-md focus-visible:outline-cyan-300">
+            <Pause className="w-5 h-5 md:w-6 md:h-6" />
+          </button>
+        )}
         <div className="flex-1 min-w-[78px] max-w-[200px]">
           <div className="flex justify-between text-[10px] md:text-xs font-black text-cyan-400 mb-1 tracking-widest drop-shadow-md">
             <span>YOU (HP)</span>

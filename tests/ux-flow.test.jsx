@@ -54,7 +54,7 @@ describe('uncluttered lesson flows', () => {
 
   it('shows the selected stance once and shows Japanese title only when enabled', () => {
     const props = {
-      goHome: noop, playerHP: 100, langMode: 'en', currentTopic: getAllTopics()[0],
+      goHome: noop, onPause: noop, playerHP: 100, langMode: 'en', currentTopic: getAllTopics()[0],
       userStance: 'negative', gameState: 'cross_exam', battleRounds: 3, currentRoundIndex: 1,
       showJapanese: false, imageMatchEnabled: false, timerEnabled: false, timeProgress: 0,
       setFontSize: noop, setShowJapanese: noop, setImageSize: noop, playSound: noop,
@@ -65,6 +65,7 @@ describe('uncluttered lesson flows', () => {
     expect(markup).not.toContain('AFFIRMATIVE');
     expect(markup).not.toContain(props.currentTopic.titleJP);
     expect(markup).not.toContain('画像サイズ変更');
+    expect(markup).toContain('aria-label="一時停止"');
     const withJapanese = renderToStaticMarkup(<GameHeader {...props} showJapanese />);
     expect(withJapanese).toContain(props.currentTopic.titleJP);
   });

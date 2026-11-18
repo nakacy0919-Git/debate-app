@@ -91,7 +91,20 @@ export const useGameLogic = (playSound) => {
   const playerHPRef = useRef(MAX_HP);
 
 
+  // Remember animation delays so an iPad can safely suspend and resume a round.
   const pendingTimers = useRef(new Set());
+  const armPendingTimer = (job) => {
+    job.deadline = Date.now() + job.remaining;
+    job.id = setTimeout(() => {
+      job.id = null;
+      if (pausedAtRef.current !== null) {
+        job.remaining = 0;
+        return;
+      }
+      pendingTimers.current.delete(job);
+      job.callback();
+    }, job.remaining);
+  };
   const actionLocked = useRef(false);
   const savedSession = useRef(false);
   const awardedCards = useRef(new Set());
@@ -100,35 +113,43 @@ export const useGameLogic = (playSound) => {
   const [isPaused, setIsPaused] = useState(false);
   const pausedAtRef = useRef(null);
   const pauseGame = () => {
-    if (pausedAtRef.current !== null) return;
+    if (pausedAtRef.current !== null || ['start', 'review', 'gameover', 'result'].includes(gameState)) return;
     pausedAtRef.current = Date.now();
+    for (const job of pendingTimers.current) {
+      if (job.id !== null) {
+        clearTimeout(job.id);
+        job.remaining = Math.max(0, job.deadline - Date.now());
+        job.id = null;
+      }
+    }
     setIsPaused(true);
   };
   const resumeGame = () => {
     if (pausedAtRef.current === null) return;
     startTimeRef.current += Date.now() - pausedAtRef.current;
     pausedAtRef.current = null;
+    for (const job of pendingTimers.current) {
+      if (job.id === null) armPendingTimer(job);
+    }
     setIsPaused(false);
   };
   const recordKey = scoreKey({ topic: selectedTopicId, difficulty, stance: userStance,
       mode: gameMode, rounds: battleRounds, timer: timerEnabled, images: imageMatchEnabled, language: langMode });
 
   const later = (callback, delay) => {
-      const id = setTimeout(() => {
-          pendingTimers.current.delete(id);
-          callback();
-      }, delay);
-      pendingTimers.current.add(id);
-      return id;
+      const job = { callback, remaining: delay, deadline: 0, id: null };
+      pendingTimers.current.add(job);
+      if (pausedAtRef.current === null) armPendingTimer(job);
+      return job;
   };
   const cancelPending = () => {
-      pendingTimers.current.forEach(clearTimeout);
+      pendingTimers.current.forEach(job => { if (job.id !== null) clearTimeout(job.id); });
       pendingTimers.current.clear();
       clearInterval(timerIntervalRef.current);
       actionLocked.current = false;
   };
   useEffect(() => () => {
-      pendingTimers.current.forEach(clearTimeout);
+      pendingTimers.current.forEach(job => { if (job.id !== null) clearTimeout(job.id); });
       clearInterval(timerIntervalRef.current);
   }, []);
 
@@ -210,6 +231,14 @@ export const useGameLogic = (playSound) => {
   };
 
   const onTimerDamage = useEffectEvent(() => takeDamage(DAMAGE_TICK, 'Time is running out!'));
+  const pauseWhenHidden = useEffectEvent(() => { pauseGame(); });
+  useEffect(() => {
+    const onVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') pauseWhenHidden();
+    };
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', onVisibilityChange);
+  }, []);
 
   useEffect(() => {
       if (!timerEnabled || isPaused || !['construct', 'cross_exam', 'rebuttal_defense', 'closing', 'construct_image', 'cross_exam_image', 'rebuttal_defense_image'].includes(gameState)) {
@@ -338,7 +367,7 @@ export const useGameLogic = (playSound) => {
   };
 
   const handleUndo = () => {
-    if (gameState !== 'construct' || actionLocked.current || tower.length === 0) return;
+    if (pausedAtRef.current !== null || gameState !== 'construct' || actionLocked.current || tower.length === 0) return;
     const newTower = [...tower];
     const removedCard = newTower.pop();
     setTower(newTower); setHand(prev => [...prev, removedCard]);
@@ -470,7 +499,7 @@ export const useGameLogic = (playSound) => {
   };
 
   const handleCardSelect = (card) => {
-    if (actionLocked.current || !['construct', 'cross_exam', 'rebuttal_defense', 'closing'].includes(gameState) || !hand.includes(card)) return;
+    if (pausedAtRef.current !== null || actionLocked.current || !['construct', 'cross_exam', 'rebuttal_defense', 'closing'].includes(gameState) || !hand.includes(card)) return;
     const baseState = gameState;
     // Lock immediately, including wrong selections. Otherwise rapid taps can
     // deduct HP multiple times before the damage animation finishes.
@@ -534,7 +563,7 @@ export const useGameLogic = (playSound) => {
   };
 
   const handleImageSelect = (url) => {
-      if (actionLocked.current || !gameState.endsWith('_image') || !pendingCard || !imageHand.includes(url)) return;
+      if (pausedAtRef.current !== null || actionLocked.current || !gameState.endsWith('_image') || !pendingCard || !imageHand.includes(url)) return;
       // A wrong image must also lock the input during its feedback animation.
       actionLocked.current = true;
       if (url === pendingCard.image_url) {

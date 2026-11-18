@@ -274,3 +274,73 @@ it('replay starts a clean round without returning through onboarding', () => {
   expect(hook.result.current.currentRoundIndex).toBe(0);
   expect(hook.result.current.resultRecordId).toBe(null);
 });
+
+
+it('freezes a queued rebuttal transition when paused and resumes after its remaining delay', () => {
+  const hook = prepare('homework', 'affirmative', 'easy', false, true);
+  for (let i = 0; i < 4; i++) choose(hook);
+  expect(hook.result.current.gameState).toBe('cross_exam');
+  const card = hook.result.current.visibleHand.find(c => ['correct', 'perfect'].includes(c.judgment));
+  act(() => hook.result.current.handleCardSelect(card));
+  act(() => vi.advanceTimersByTime(250));
+  act(() => hook.result.current.pauseGame());
+  act(() => vi.advanceTimersByTime(60000));
+  expect(hook.result.current.gameState).toBe('cross_exam');
+  expect(hook.result.current.playerHP).toBe(100);
+  act(() => hook.result.current.resumeGame());
+  act(() => vi.advanceTimersByTime(549));
+  expect(hook.result.current.gameState).toBe('cross_exam');
+  act(() => vi.advanceTimersByTime(1));
+  expect(hook.result.current.gameState).toBe('rebuttal_intro');
+  act(() => vi.advanceTimersByTime(1300));
+  expect(hook.result.current.gameState).toBe('rebuttal_defense');
+});
+
+it('blocks cards and Undo during pause but restores input on resume', () => {
+  const hook = prepare();
+  const card = hook.result.current.visibleHand.find(c => c.group !== 'fake');
+  act(() => hook.result.current.pauseGame());
+  act(() => hook.result.current.handleCardSelect(card));
+  expect(hook.result.current.tower).toHaveLength(0);
+  act(() => hook.result.current.resumeGame());
+  act(() => hook.result.current.handleCardSelect(card));
+  expect(hook.result.current.tower).toHaveLength(1);
+  act(() => hook.result.current.pauseGame());
+  act(() => hook.result.current.handleUndo());
+  expect(hook.result.current.tower).toHaveLength(1);
+  act(() => hook.result.current.resumeGame());
+  act(() => hook.result.current.handleUndo());
+  expect(hook.result.current.tower).toHaveLength(0);
+});
+
+it('auto-pauses a backgrounded iPad tab until explicit resume', () => {
+  const previous = Object.getOwnPropertyDescriptor(document, 'visibilityState');
+  try {
+    const hook = prepare('homework', 'affirmative', 'easy', false, true);
+    Object.defineProperty(document, 'visibilityState', { configurable: true, value: 'hidden' });
+    act(() => document.dispatchEvent(new Event('visibilitychange')));
+    expect(hook.result.current.isPaused).toBe(true);
+    act(() => vi.advanceTimersByTime(60000));
+    expect(hook.result.current.playerHP).toBe(100);
+    Object.defineProperty(document, 'visibilityState', { configurable: true, value: 'visible' });
+    act(() => document.dispatchEvent(new Event('visibilitychange')));
+    expect(hook.result.current.isPaused).toBe(true);
+    act(() => hook.result.current.resumeGame());
+    act(() => vi.advanceTimersByTime(10500));
+    expect(hook.result.current.playerHP).toBeLessThan(100);
+  } finally {
+    if (previous) Object.defineProperty(document, 'visibilityState', previous);
+  }
+});
+
+it('discards frozen transitions permanently when a user returns home', () => {
+  const hook = prepare('homework', 'affirmative', 'easy', false, true);
+  for (let i = 0; i < 4; i++) choose(hook);
+  const card = hook.result.current.visibleHand.find(c => ['correct', 'perfect'].includes(c.judgment));
+  act(() => hook.result.current.handleCardSelect(card));
+  act(() => hook.result.current.pauseGame());
+  act(() => hook.result.current.goHome());
+  act(() => vi.advanceTimersByTime(20000));
+  expect(hook.result.current.gameState).toBe('start');
+  expect(hook.result.current.isPaused).toBe(false);
+});
