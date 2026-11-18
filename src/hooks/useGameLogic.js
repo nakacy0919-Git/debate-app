@@ -92,6 +92,7 @@ export const useGameLogic = (playSound) => {
 
 
   // Remember animation delays so an iPad can safely suspend and resume a round.
+  const pausedAtRef = useRef(null);
   const pendingTimers = useRef(new Set());
   const armPendingTimer = (job) => {
     job.deadline = Date.now() + job.remaining;
@@ -111,7 +112,6 @@ export const useGameLogic = (playSound) => {
   const [storageNotice, setStorageNotice] = useState('');
   const [resultRecordId, setResultRecordId] = useState(null);
   const [isPaused, setIsPaused] = useState(false);
-  const pausedAtRef = useRef(null);
   const pauseGame = () => {
     if (pausedAtRef.current !== null || ['start', 'review', 'gameover', 'result'].includes(gameState)) return;
     pausedAtRef.current = Date.now();
