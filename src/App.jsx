@@ -44,14 +44,6 @@ export default function App() {
   // Ignore secondary touches, clamp widths, and commit React state only on release.
   const activePointerId = useRef(null);
   const oldUserSelect = useRef('');
-  const stopResizing = () => {
-    if (!isResizingRef.current) return;
-    isResizingRef.current = false;
-    activePointerId.current = null;
-    setIsDragging(false);
-    document.body.style.userSelect = oldUserSelect.current;
-    setSidePanelWidth(currentWidthRef.current);
-  };
   const startResizing = (event) => {
     if (activePointerId.current !== null || (event.pointerType === 'mouse' && event.button !== 0)) return;
     activePointerId.current = event.pointerId;
@@ -79,7 +71,12 @@ export default function App() {
       if (panelRef.current) panelRef.current.style.width = `${width}%`;
     };
     const finish = (event) => {
-      if (event.pointerId === activePointerId.current) stopResizing();
+      if (event.pointerId !== activePointerId.current) return;
+      isResizingRef.current = false;
+      activePointerId.current = null;
+      setIsDragging(false);
+      document.body.style.userSelect = oldUserSelect.current;
+      setSidePanelWidth(currentWidthRef.current);
     };
     window.addEventListener('pointermove', resize);
     window.addEventListener('pointerup', finish);
