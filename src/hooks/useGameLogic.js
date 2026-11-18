@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, useEffectEvent } from 'react';
+import { useState, useEffect, useRef, useEffectEvent } from 'react';
 import { getAllTopics } from '../utils/dataLoader';
 import { MAX_HP, DAMAGE_BIG, DAMAGE_SMALL, DAMAGE_TICK, TIME_LIMIT_SEC, DIFFICULTIES, FLOWS } from '../constants';
 import { calculateAward, readScores, saveLocalScore, scoreKey } from '../utils/gameSafety.js';
@@ -112,7 +112,7 @@ export const useGameLogic = (playSound) => {
   const [resultRecordId, setResultRecordId] = useState(null);
   const [isPaused, setIsPaused] = useState(false);
   const pausedAtRef = useRef(null);
-  const pauseGame = useCallback(() => {
+  const pauseGame = () => {
     if (pausedAtRef.current !== null || ['start', 'review', 'gameover', 'result'].includes(gameState)) return;
     pausedAtRef.current = Date.now();
     for (const job of pendingTimers.current) {
@@ -123,7 +123,7 @@ export const useGameLogic = (playSound) => {
       }
     }
     setIsPaused(true);
-  }, [gameState]);
+  };
   const resumeGame = () => {
     if (pausedAtRef.current === null) return;
     startTimeRef.current += Date.now() - pausedAtRef.current;
@@ -233,11 +233,22 @@ export const useGameLogic = (playSound) => {
   const onTimerDamage = useEffectEvent(() => takeDamage(DAMAGE_TICK, 'Time is running out!'));
   useEffect(() => {
     const onVisibilityChange = () => {
-      if (document.visibilityState === 'hidden') pauseGame();
+      if (document.visibilityState !== 'hidden' ||
+          ['start', 'review', 'gameover', 'result'].includes(gameState) ||
+          pausedAtRef.current !== null) return;
+      pausedAtRef.current = Date.now();
+      for (const job of pendingTimers.current) {
+        if (job.id !== null) {
+          clearTimeout(job.id);
+          job.remaining = Math.max(0, job.deadline - Date.now());
+          job.id = null;
+        }
+      }
+      setIsPaused(true);
     };
     document.addEventListener('visibilitychange', onVisibilityChange);
     return () => document.removeEventListener('visibilitychange', onVisibilityChange);
-  }, [pauseGame]);
+  }, [gameState]);
 
   useEffect(() => {
       if (!timerEnabled || isPaused || !['construct', 'cross_exam', 'rebuttal_defense', 'closing', 'construct_image', 'cross_exam_image', 'rebuttal_defense_image'].includes(gameState)) {
