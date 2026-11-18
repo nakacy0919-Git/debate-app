@@ -1,7 +1,9 @@
 // @vitest-environment jsdom
+import React from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { act, cleanup, renderHook } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, renderHook } from '@testing-library/react';
 import { useGameLogic } from '../src/hooks/useGameLogic.js';
+import App from '../src/App.jsx';
 import { calculateAward, normalizeTopic, readScores, saveLocalScore, scoreKey } from '../src/utils/gameSafety.js';
 import { getAllTopics } from '../src/utils/dataLoader.js';
 
@@ -313,23 +315,35 @@ it('blocks cards and Undo during pause but restores input on resume', () => {
   expect(hook.result.current.tower).toHaveLength(0);
 });
 
-it('auto-pauses a backgrounded iPad tab until explicit resume', () => {
-  const previous = Object.getOwnPropertyDescriptor(document, 'visibilityState');
+it('auto-pauses the mounted game when an iPad tab is hidden and requires explicit resume', () => {
+  const originalVisibility = Object.getOwnPropertyDescriptor(document, 'visibilityState');
+  vi.stubGlobal('Audio', class {
+    volume = 0;
+    play() { return Promise.resolve(); }
+    pause() {}
+  });
   try {
-    const hook = prepare('homework', 'affirmative', 'easy', false, true);
+    const ui = render(<App />);
+    fireEvent.click(ui.getByRole('button', { name: 'English' }));
+    fireEvent.click(ui.getByRole('button', { name: /AREA Battle/ }));
+    fireEvent.click(ui.getByText(getAllTopics()[0].title).closest('button'));
+    fireEvent.click(ui.getByRole('button', { name: 'AFFIRMATIVE' }));
+    fireEvent.click(ui.getByRole('button', { name: 'Easy' }));
+    fireEvent.click(ui.getByRole('button', { name: /BATTLE START/ }));
+    expect(ui.getByRole('button', { name: '一時停止' })).toBeTruthy();
     Object.defineProperty(document, 'visibilityState', { configurable: true, value: 'hidden' });
     act(() => document.dispatchEvent(new Event('visibilitychange')));
-    expect(hook.result.current.isPaused).toBe(true);
+    expect(ui.getByText('一時停止 / PAUSED')).toBeTruthy();
     act(() => vi.advanceTimersByTime(60000));
-    expect(hook.result.current.playerHP).toBe(100);
+    expect(ui.getByText('100 / 100')).toBeTruthy();
     Object.defineProperty(document, 'visibilityState', { configurable: true, value: 'visible' });
     act(() => document.dispatchEvent(new Event('visibilitychange')));
-    expect(hook.result.current.isPaused).toBe(true);
-    act(() => hook.result.current.resumeGame());
-    act(() => vi.advanceTimersByTime(10500));
-    expect(hook.result.current.playerHP).toBeLessThan(100);
+    expect(ui.getByText('一時停止 / PAUSED')).toBeTruthy();
+    fireEvent.click(ui.getByRole('button', { name: '再開 / RESUME' }));
+    expect(ui.queryByText('一時停止 / PAUSED')).toBeNull();
   } finally {
-    if (previous) Object.defineProperty(document, 'visibilityState', previous);
+    if (originalVisibility) Object.defineProperty(document, 'visibilityState', originalVisibility);
+    vi.unstubAllGlobals();
   }
 });
 
