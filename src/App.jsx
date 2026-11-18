@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useEffectEvent, useRef, useState } from 'react';
 import { CheckCircle2, AlertTriangle, Flame } from 'lucide-react';
 
 import { useSound } from './hooks/useSound';
@@ -30,6 +30,17 @@ export default function App() {
   } = game;
 
   useEffect(() => { soundEnabledRef.current = game.sfxEnabled; }, [game.sfxEnabled]);
+
+  // Keep visibility events outside the game logic Hook so mutable timing refs
+  // remain owned by the Hook and only the public pause action is invoked.
+  const pauseForBackground = useEffectEvent(() => game.pauseGame());
+  useEffect(() => {
+    const handleVisibility = () => {
+      if (document.visibilityState === 'hidden') pauseForBackground();
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+    return () => document.removeEventListener('visibilitychange', handleVisibility);
+  }, []);
 
   const theme = THEMES.techno;
   // 💡 リサイズ用のRef
