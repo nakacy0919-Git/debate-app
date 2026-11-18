@@ -8,8 +8,13 @@ export function BattleBoard({ game }) {
   const scrollRef = useRef(null);
 
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' });
+    const board = scrollRef.current;
+    if (!board) return;
+    if (typeof board.scrollTo === 'function') {
+      board.scrollTo({ top: board.scrollHeight, behavior: 'smooth' });
+    } else {
+      // Older embedded browsers and test DOMs may not support element.scrollTo.
+      board.scrollTop = board.scrollHeight;
     }
   }, [tower, rivalCard, gameState]);
 
